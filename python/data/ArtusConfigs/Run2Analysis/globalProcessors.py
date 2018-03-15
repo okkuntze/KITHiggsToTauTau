@@ -22,8 +22,7 @@ def build_config(nickname):
   #isTTbar = re.search("TT(To|_|Jets)", nickname)
   #isDY = re.search("DY.?JetsToLL", nickname)
   #isWjets = re.search("W.?JetsToLNu", nickname)
-  hasBoson = re.search("DY.?JetsToLLM(10to50|50|150)|EWKZ2Jets|^(GluGlu|GluGluTo|VBF|Wminus|Wplus|Z)(HToTauTau|H2JetsToTauTau)|SUSY(BB|GluGlu|GluGluTo)(BB)?HToTauTau", nickname)
-  
+  hasBoson = re.search("DY.?JetsToLLM(10to50|50|150)|Embedding|EWKZ2Jets|^(GluGlu|GluGluTo|VBF|Wminus|Wplus|Z)(HToTauTau|H2JetsToTauTau)|SUSY(BB|GluGlu|GluGluTo)(BB)?HToTauTau", nickname)
   ## fill config:
   # includes
   includes = [
@@ -35,10 +34,10 @@ def build_config(nickname):
   # explicit configuration
   #config["Processors"] = ["#producer:PrintGenParticleDecayTreeProducer",
   #				"#filter:RunLumiEventFilter"]
-  config["Processors"] = ["filter:JsonFilter"] if (isData or re.search("Embedding201", nickname)) else []
+  config["Processors"] = ["filter:JsonFilter"] if (isData or isEmbedded) else []
   config["Processors"].append(                      "producer:NicknameProducer")
   if not isData:
-    if hasBoson:       config["Processors"].extend(("producer:GenBosonFromGenParticlesProducer",
+    if hasBoson:      config["Processors"].extend(("producer:GenBosonFromGenParticlesProducer",
                                                     "producer:GenBosonDiLeptonDecayModeProducer",
                                                     "producer:ValidGenTausProducer",
                                                     "producer:GenDiLeptonDecayModeProducer"))
@@ -50,9 +49,10 @@ def build_config(nickname):
                                                     "producer:RecoTauGenParticleMatchingProducer",
                                                     "producer:RecoTauGenTauMatchingProducer",
                                                     "producer:MatchedLeptonsProducer",
-                                                    "producer:CrossSectionWeightProducer",
                                                     "producer:GeneratorWeightProducer",
-                                                    "producer:NumberGeneratedEventsWeightProducer"))
-    if not isEmbedded: config["Processors"].append( "producer:PUWeightProducer")
+                                                    ))
+    if not isEmbedded: config["Processors"].extend((    "producer:PUWeightProducer",
+                                                        "producer:NumberGeneratedEventsWeightProducer",
+                                                        "producer:CrossSectionWeightProducer"))
     
   return config

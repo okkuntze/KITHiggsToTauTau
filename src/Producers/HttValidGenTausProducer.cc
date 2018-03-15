@@ -9,6 +9,7 @@ void HttValidGenTausProducer::Init(setting_type const& settings)
 	m_deltaR = 0.3; //todo: read in from settings
 	m_validateMatching = true;
 	m_swapIfNecessary = true;
+
 	return;
 }
 
@@ -16,7 +17,6 @@ void HttValidGenTausProducer::Produce(event_type const& event, product_type& pro
 									  setting_type const& settings) const
 {
 	assert(event.m_genTaus);
-	
 	if (event.m_genTaus->empty()) return; // no genTaus, nothing to do
 
 	CopyVectors(event, product, settings);
@@ -35,7 +35,6 @@ void HttValidGenTausProducer::CopyVectors(event_type const& event, product_type&
 		product.m_ptOrderedGenTaus.push_back(&event.m_genTaus->at(i));
 		product.m_flavourOrderedGenTaus.push_back(&event.m_genTaus->at(i));
 		product.m_chargeOrderedGenTaus.push_back(&event.m_genTaus->at(i));
-
 		if (event.m_genTaus->at(i).isElectronicDecay())
 			product.m_validGenTausToElectrons.push_back(&event.m_genTaus->at(i));
 		if (event.m_genTaus->at(i).isMuonicDecay())
@@ -85,8 +84,8 @@ void HttValidGenTausProducer::SortVectors(event_type const& event, product_type&
 			else
 				std::reverse(product.m_flavourOrderedGenTaus.begin(), product.m_flavourOrderedGenTaus.end());
 		}
-		else
-			std::cout << "Event Category does not match generated Taus"; //Todo: do something with this insight
+		//~ else
+			//~ std::cout << "Event Category does not match generated Taus"; //Todo: do something with this insight
 	}
 	return;
 }

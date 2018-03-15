@@ -68,6 +68,7 @@ void RooWorkspaceWeightProducer::Produce( event_type const& event, product_type 
 	for(auto weightNames:m_weightNames)
 	{
 		KLepton* lepton = product.m_flavourOrderedLeptons[weightNames.first];
+		KGenParticle* genTau = product.m_flavourOrderedGenTaus[weightNames.first];
 		for(size_t index = 0; index < weightNames.second.size(); index++)
 		{
 			auto args = std::vector<double>{};
@@ -75,16 +76,30 @@ void RooWorkspaceWeightProducer::Produce( event_type const& event, product_type 
 			boost::split(arguments,  m_functorArgs.at(weightNames.first).at(index) , boost::is_any_of(","));
 			for(auto arg:arguments)
 			{
-				if(arg=="m_pt" || arg=="e_pt")
-				{
+				if(arg=="m_pt" || arg=="e_pt") {
 					args.push_back(lepton->p4.Pt());
 				}
-				if(arg=="m_eta")
-				{
+				if(arg=="gt_pt") {
+					args.push_back(genTau->p4.Pt());
+				}					
+				if(arg=="m_eta") {
 					args.push_back(lepton->p4.Eta());
 				}
-				if(arg=="e_eta")
+				if(arg=="gt_eta") {
+					args.push_back(genTau->p4.Eta());
+				}				
+				if(arg=="gt1_eta")
 				{
+					KGenParticle* genTau1 = product.m_flavourOrderedGenTaus[0];
+					args.push_back(genTau1->p4.Eta());
+				}
+				if(arg=="gt2_eta")
+				{
+					KGenParticle* genTau2 = product.m_flavourOrderedGenTaus[1];
+					args.push_back(genTau2->p4.Eta());
+				}
+				if(arg=="e_eta")
+				{			
 					KElectron* electron = static_cast<KElectron*>(lepton);
 					args.push_back(electron->superclusterPosition.Eta());
 				}
