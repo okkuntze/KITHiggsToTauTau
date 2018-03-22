@@ -112,8 +112,8 @@ def build_config(nickname):
   #if isDY or isTTbar:                  config["Processors"].append( "producer:ScaleVariationProducer")
   config["Processors"].append(                                      "producer:NicknameProducer")
   if not isData:
-    config["Processors"].extend((                                   "producer:CrossSectionWeightProducer",
-                                                                    "producer:NumberGeneratedEventsWeightProducer"))
+    config["Processors"].extend((                                   "#producer:CrossSectionWeightProducer",
+                                                                    "#producer:NumberGeneratedEventsWeightProducer"))
     if not isEmbedded:                 config["Processors"].append( "producer:PUWeightProducer")
     if isWjets or isDY:                config["Processors"].append( "producer:GenBosonFromGenParticlesProducer")
     if isDY or isEmbedded:             config["Processors"].append( "producer:GenDiLeptonDecayModeProducer")
@@ -166,12 +166,12 @@ def build_config(nickname):
   # pipelines - channels including systematic shifts
   config["Pipelines"] = jsonTools.JsonDict()
   #config["Pipelines"] += importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.ee").build_config(nickname)
-  config["Pipelines"] += importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.em").build_config(nickname)
-  config["Pipelines"] += importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.et").build_config(nickname)
+  #config["Pipelines"] += importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.em").build_config(nickname)
+  #config["Pipelines"] += importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.et").build_config(nickname)
   #config["Pipelines"] += importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.mm").build_config(nickname)
   config["Pipelines"] += importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.mt").build_config(nickname)
-  config["Pipelines"] += importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.tt").build_config(nickname)
-  config["Pipelines"] += importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.tt_asym").build_config(nickname)
+  #config["Pipelines"] += importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.tt").build_config(nickname)
+  #config["Pipelines"] += importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.tt_asym").build_config(nickname)
   
   
   return config

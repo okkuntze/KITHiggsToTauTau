@@ -110,8 +110,8 @@ def build_config(nickname):
   if isDY or isTTbar:                  config["Processors"].append( "producer:ScaleVariationProducer")
   config["Processors"].append(                                      "producer:NicknameProducer")
   if not isData:
-    config["Processors"].extend((                                   "producer:CrossSectionWeightProducer",
-                                                                    "producer:NumberGeneratedEventsWeightProducer"))
+    config["Processors"].extend((                                   "#producer:CrossSectionWeightProducer",
+                                                                    "#producer:NumberGeneratedEventsWeightProducer"))
     if not isEmbedded:                 config["Processors"].append( "producer:PUWeightProducer")
     if isWjets or isDY:                config["Processors"].append( "producer:GenBosonFromGenParticlesProducer")
     if isDY or isEmbedded:             config["Processors"].append( "producer:GenDiLeptonDecayModeProducer")
