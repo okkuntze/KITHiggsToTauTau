@@ -106,7 +106,7 @@ def build_config(nickname):
       "HLT_Ele35_WPTight_Gsf_v"
   ]
   if isEmbedded:
-    config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v16_7_embedded.root"
+    config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v17_1_embedded.root"
     config["RooWorkspaceWeightNames"]=[] 
     config["RooWorkspaceWeightNames"].extend((
           "0:muonEffTrgWeight",
@@ -116,9 +116,8 @@ def build_config(nickname):
           "1:muonEffEmbeddedIDWeight",
           "0:isoweight",
           "0:idweight",
-          "0:triggerweight",
-          "0:triggerbinnedweight",
-          "0:isobinnedweight"))
+          "0:triggerweight"
+          ))
     config["RooWorkspaceObjectNames"]=[]
     config["RooWorkspaceObjectNames"].extend((
           "0:m_sel_trg_ratio",
@@ -128,10 +127,8 @@ def build_config(nickname):
           "1:m_sel_idEmb_ratio",
           "0:m_iso_ratio",
           "0:m_id_ratio",
-          "0:m_trg_ratio",
-          "0:m_trg_binned_ratio",
-          "0:m_iso_binned_ratio"
-          ))
+          "0:m_trg_ratio"
+            ))
     config["RooWorkspaceObjectArguments"] = []
     config["RooWorkspaceObjectArguments"].extend((
           "0:gt1_eta,gt2_eta",
@@ -141,9 +138,7 @@ def build_config(nickname):
           "1:gt_eta,gt_pt",
           "0:m_pt,m_eta",
           "0:m_pt,m_eta",
-          "0:m_pt,m_eta",
-          "0:m_pt,m_eta,m_iso",
-          "0:m_pt,m_eta,m_iso"
+          "0:m_pt,m_eta"
           ))  
   else:
     config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v16_5_embedding.root" if isEmbedded else "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v16_5.root"
@@ -215,7 +210,7 @@ def build_config(nickname):
   config["OSChargeLeptons"] = True
   config["TopPtReweightingStrategy"] = "Run2"
   
-  config["Processors"] =   []#                                  ["producer:MuonCorrectionsProducer"] if isEmbedded else []
+  config["Processors"] =                                      ["producer:MuonCorrectionsProducer"] if isEmbedded else []
   config["Processors"].extend((                               "producer:HttValidLooseElectronsProducer",
                                                               "producer:HttValidLooseMuonsProducer",
                                                               "producer:HltProducer",
@@ -226,7 +221,7 @@ def build_config(nickname):
                                                               "filter:MinMuonsCountFilter",
                                                               "producer:HttValidVetoMuonsProducer",
                                                               "producer:ValidElectronsProducer"))
-  #~ if not isData:                 config["Processors"].append( "producer:TauCorrectionsProducer")
+  if not isData:                 config["Processors"].append( "producer:TauCorrectionsProducer")
   config["Processors"].extend((                               "producer:ValidTausProducer",
                                                               "filter:ValidTausFilter",
                                                               "producer:TauTriggerMatchingProducer",
@@ -261,4 +256,5 @@ def build_config(nickname):
                          "cutflow_histogram"]
   
   # pipelines - systematic shifts
-  return ACU.apply_uncertainty_shift_configs('mt', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.syst_shifts_nom").build_config(nickname))
+  return ACU.apply_uncertainty_shift_configs('mt', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.syst_shifts_nom").build_config(nickname)) + \
+  ACU.apply_uncertainty_shift_configs('mt', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.muonES_shifts").build_config(nickname))

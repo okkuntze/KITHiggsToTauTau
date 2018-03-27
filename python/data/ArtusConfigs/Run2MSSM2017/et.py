@@ -31,10 +31,10 @@ def build_config(nickname):
   ## fill config:
   # includes
   includes = [
-    "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.Includes.settingsLooseElectronID",
+    "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM.Includes.settingsLooseElectronID",
     "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.Includes.settingsLooseMuonID",
-    "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.Includes.settingsElectronID",
-    "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.Includes.settingsVetoElectronID",
+    "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM.Includes.settingsElectronID",
+    "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM.Includes.settingsVetoElectronID",
     "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.Includes.settingsMuonID",
     "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.Includes.settingsTauID",
     "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.Includes.settingsJEC",
@@ -108,25 +108,67 @@ def build_config(nickname):
       "HLT_Ele32_WPTight_Gsf_v",
       "HLT_Ele35_WPTight_Gsf_v"
   ]
-  config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v16_5_embedding.root" if isEmbedded else "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v16_5.root"
-  config["RooWorkspaceWeightNames"] = [
-      "0:triggerWeight",
-      "0:idweight",
-      "0:isoweight",
-      "0:trackWeight"
-  ]
-  config["RooWorkspaceObjectNames"] = [
-      "0:e_trg_binned_ratio",
-      "0:e_iso_binned_ratio",
-      "0:e_id_ratio",
-      "0:e_trk_ratio"
-  ]
-  config["RooWorkspaceObjectArguments"] = [
-      "0:e_pt,e_eta,e_iso",
-      "0:e_pt,e_eta,e_iso",
-      "0:e_pt,e_eta",
-      "0:e_pt,e_eta"
-  ]
+  if isEmbedded:
+    config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v17_1_embedded.root"
+    config["RooWorkspaceWeightNames"]=[] 
+    config["RooWorkspaceWeightNames"].extend((
+          "0:muonEffTrgWeight",
+          "0:muonEffVVLIsoWeight",
+          "1:muonEffVVLIsoWeight",
+          "0:muonEffEmbeddedIDWeight",
+          "1:muonEffEmbeddedIDWeight",
+          "0:isoweight",
+          "0:idweight",
+          "0:triggerweight",
+          "0:triggerbinnedweight",
+          "0:isobinnedweight"
+          ))
+    config["RooWorkspaceObjectNames"]=[]
+    config["RooWorkspaceObjectNames"].extend((
+          "0:m_sel_trg_ratio",
+          "0:m_sel_vvliso_ratio",
+          "1:m_sel_vvliso_ratio",
+          "0:m_sel_idEmb_ratio",
+          "1:m_sel_idEmb_ratio",
+          "0:e_iso_ratio",
+          "0:e_id_ratio",
+          "0:e_trg_ratio",
+          "0:e_trg_binned_ratio",
+          "0:e_iso_binned_ratio"
+          ))
+    config["RooWorkspaceObjectArguments"] = []
+    config["RooWorkspaceObjectArguments"].extend((
+          "0:gt1_eta,gt2_eta",
+          "0:gt_eta,gt_pt",
+          "1:gt_eta,gt_pt",
+          "0:gt_eta,gt_pt",
+          "1:gt_eta,gt_pt",
+          "0:e_pt,e_eta",
+          "0:e_pt,e_eta",
+          "0:e_pt,e_eta",
+          "0:e_pt,e_eta,e_iso",
+          "0:e_pt,e_eta,e_iso"
+          ))  
+  else:
+    config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v16_5.root"
+    config["RooWorkspaceWeightNames"] = [
+        "0:triggerWeight",
+        "0:idweight",
+        "0:isoweight",
+        "0:trackWeight"
+    ]
+    config["RooWorkspaceObjectNames"] = [
+        "0:e_trg_binned_ratio",
+        "0:e_iso_binned_ratio",
+        "0:e_id_ratio",
+        "0:e_trk_ratio"
+    ]
+    config["RooWorkspaceObjectArguments"] = [
+        "0:e_pt,e_eta,e_iso",
+        "0:e_pt,e_eta,e_iso",
+        "0:e_pt,e_eta",
+        "0:e_pt,e_eta"
+    ]
   config["FakeFaktorFiles"] = [
       "inclusive:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/fakeFactorWeights/tight/et/inclusive/fakeFactors_20170628_tight.root",
       "nobtag_tight:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/fakeFactorWeights/tight/et/nobtag_tight/fakeFactors_20170628_tight.root",
@@ -162,7 +204,14 @@ def build_config(nickname):
       "had_gen_match_pT_1",
       "had_gen_match_pT_2"
   ])
-  
+  if isEmbedded:
+    config["Quantities"].extend([
+          "muonEffTrgWeight_1",
+          "muonEffEmbeddedIDWeight_1",
+          "muonEffEmbeddedIDWeight_2",
+          "muonEffVVLIsoWeight_1",
+          "muonEffVVLIsoWeight_2",
+          "triggerweight_1","triggerbinnedweight_1","isobinnedweight_1","isoweight_1","idweight_1"])
   config["OSChargeLeptons"] = True
   config["TopPtReweightingStrategy"] = "Run2"
   
@@ -189,6 +238,8 @@ def build_config(nickname):
   #                                                            "producer:TaggedJetCorrectionsProducer",
                                                               "producer:ValidTaggedJetsProducer",
                                                               "producer:ValidBTaggedJetsProducer"))
+  if not isData:               config["Processors"].append(   "producer:HttValidGenTausProducer")                                                          
+
   #if not (isData or isEmbedded): config["Processors"].append( "producer:MetCorrector")
   config["Processors"].extend((                               "producer:TauTauRestFrameSelector",
                                                               "producer:DiLeptonQuantitiesProducer",
@@ -198,7 +249,7 @@ def build_config(nickname):
   if isTTbar:                    config["Processors"].append( "producer:TopPtReweightingProducer")
   #if isDY:                       config["Processors"].append( "producer:ZPtReweightProducer")
   #config["Processors"].append(                                "filter:MinimalPlotlevelFilter")
-  #if not isData:                 config["Processors"].append( "producer:RooWorkspaceWeightProducer")
+  if not isData:                 config["Processors"].append( "producer:RooWorkspaceWeightProducer")
   #if not isEmbedded:             config["Processors"].append( "producer:JetToTauFakesProducer")
   config["Processors"].append(                                "producer:EventWeightProducer")
   
