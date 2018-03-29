@@ -120,7 +120,7 @@ class single_plot:
 		     x_label = None,
 		     legend = None,
 		     formats =["png","pdf"],
-		     wwwfolder ="plots",
+		     wwwfolder =None,
 		     output_dir="plots",
 		     y_label = "Events",
 		     y_log = False,
