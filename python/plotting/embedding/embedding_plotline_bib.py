@@ -455,13 +455,16 @@ HToTauTauElMuFile = HToTauTauMuTauFile.clone(
 
 EmbeddingMuTauFileNominal = DYFileMuTauFile.clone(
 	name = "EmbeddingMuTauFileNominal",
-	scale_factor = 1.04277308792,
-	num_file = '/portal/ekpbms1/home/jbechtel/plotting/EmbeddingMETtest/EmbeddingMuTau.root',
-	#num_file = "/home/jbechtel/plotting/0226/EmbeddingMCRunIISummer16DR80_MuTauFinalState_imputFlatPU28to62HcalNZSRAWAODSIM_13TeV_USER_pythia8/EmbeddingMCRunIISummer16DR80_MuTauFinalState_imputFlatPU28to62HcalNZSRAWAODSIM_13TeV_USER_pythia8.root",
-	label = "#mu#rightarrow#tau embedded",
+	num_file = '/nfs/dust/cms/user/jbechtel/htautau/artus/2018-03-26_16-54_analysis/merged/Embedding2016B_MuTauFinalState_imputSep16DoubleMumirrorminiAODv2_13TeV_USER/Embedding2016B_MuTauFinalState_imputSep16DoubleMumirrorminiAODv2_13TeV_USER.root',
+	label = "#mu#rightarrow#tau embedded 2016",
 	color = "kBlue"
 )
-
+EmbeddingMuTauFileNominal2017 = EmbeddingMuTauFileNominal.clone(
+	name = "EmbeddingMuTauFileNominal2017",
+	num_file = '/nfs/dust/cms/user/jbechtel/htautau/artus/2018-03-27_19-20_analysis/merged/Embedding2017B_MuTauFinalState_imputDoubleMuminiAODv2_13TeV_USER/Embedding2017B_MuTauFinalState_imputDoubleMuminiAODv2_13TeV_USER.root',
+	label = "#mu#rightarrow#tau embedded 2017",
+	color = "kCyan"
+)
 EmbeddingMuTauFileUp = EmbeddingMuTauFileNominal.clone(
 	name = "EmbeddingMuTauFileUp",
 	num_folder = "mt_jecUncNom_tauEsUp",
