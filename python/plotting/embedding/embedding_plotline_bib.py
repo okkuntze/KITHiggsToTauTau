@@ -308,19 +308,31 @@ TTFileTauTauFile = TTFileMuTauFile.clone(
 	name = "TTFileMuTauFile",
 	num_folder = "tt_jecUncNom_tauEsNom",
 	den_folder = "tt_jecUncNom_tauEsNom")
+TTFileMuTauFile_17 = pltcl.single_plotline(
+	name = "TTFileMuTauFile_17",
+	#scale_factor = 831.76/77229341.*12891.,
+	num_file ="/storage/9/sbrommer/artus_outputs/2018-03-21/TT_RunIISummer17MiniAOD_92X_13TeV_MINIAOD_powheg-pythia8_ext1-v1/TT_RunIISummer17MiniAOD_92X_13TeV_MINIAOD_powheg-pythia8_ext1-v1.root",
+	num_folder = "mt_nominal",
+	den_folder = "mt_nominal",
+	num_tree = "ntuple",
+	label = "t#bar{t} simulation",
+	color = "kMagenta-1",
+	marker = "PE")
 # DYJets files
 DYFileMuTauFile = pltcl.single_plotline(
 	name = "DYFileMuTauFile",
 	#scale_factor = 1./5.234,
-	num_file ="/home/jbechtel/plotting/dySmeared/dySmeared.root",	#'/storage/a/akhmet/htautau/artus/2017-02-09_00-10_analysis/merged/DYJetsToLLM50_RunIISummer16MiniAODv2_PUMoriond17_13TeV_MINIAOD_madgraph-pythia8_ext1/DYJetsToLLM50_RunIISummer16MiniAODv2_PUMoriond17_13TeV_MINIAOD_madgraph-pythia8_ext1.root',
+	#num_file ="/home/jbechtel/plotting/dySmeared/dySmeared.root",	#'/storage/a/akhmet/htautau/artus/2017-02-09_00-10_analysis/merged/DYJetsToLLM50_RunIISummer16MiniAODv2_PUMoriond17_13TeV_MINIAOD_madgraph-pythia8_ext1/DYJetsToLLM50_RunIISummer16MiniAODv2_PUMoriond17_13TeV_MINIAOD_madgraph-pythia8_ext1.root',
+#	num_file = "/storage/9/sbrommer/artus_outputs/comb/DYJets_RunIISummer17MiniAOD_92X_13TeV_MINIAOD_madgraph-pythia8_merged.root",
 	#~ num_folder = "mt_jecUncNom_tauEsNom",
 	#~ den_folder = "mt_jecUncNom_tauEsNom",	
+	num_file = "/storage/9/sbrommer/artus_outputs/2018-03-21/DYMerge.root",
 	num_folder = "mt_nominal",
 	den_folder = "mt_nominal",
 	num_tree = "ntuple",
 	label = "Z#rightarrow#tau#tau simulation",
-	color = "kRed",
-	marker = "PE")
+	color = "kGreen",
+	marker = "HISTO")
 
 DYFileMuTauSmeared = DYFileMuTauFile.clone(
 	name = "DYFileMuTauSmeared",
@@ -465,6 +477,28 @@ EmbeddingMuTauFileNominal2017 = EmbeddingMuTauFileNominal.clone(
 	label = "#mu#rightarrow#tau embedded 2017",
 	color = "kCyan"
 )
+EmbeddingMuTauFileNominal_all = DYFileMuTauFile.clone(
+	name = "EmbeddingMuTauFileNominal_all",
+	num_file = '/storage/9/sbrommer/artus_outputs/Embedding_combine/Embedding_2016_MuTauFinalState_combined.root',
+	label = "#mu#rightarrow#tau embedded 2016",
+	color = "kRed",
+	marker = "HISTO"
+)
+EmbeddingMuTauFileNominal2017_all = EmbeddingMuTauFileNominal_all.clone(
+	name = "EmbeddingMuTauFileNominal2017",
+	num_file = '/storage/9/sbrommer/artus_outputs/comb/Embedding_2017_MuTauFinalState_combined.root',
+	label = "#mu#rightarrow#tau embedded 2017",
+	color = "kBlue",
+	marker = "PE"
+)
+EmbeddingMuTauFileNominal2017v2_all = EmbeddingMuTauFileNominal_all.clone(
+	name = "EmbeddingMuTauFileNominal2017v2",
+	num_file = '/storage/9/sbrommer/artus_outputs/comb/Embedded_MuTau_B_D_E_merge.root',
+	label = "#mu#rightarrow#tau embedded 2017",
+	color = "kBlue",
+	marker = "PE"
+)
+
 EmbeddingMuTauFileUp = EmbeddingMuTauFileNominal.clone(
 	name = "EmbeddingMuTauFileUp",
 	num_folder = "mt_jecUncNom_tauEsUp",
@@ -795,3 +829,448 @@ EmbeddingElMuIntegralTauTauFile = EmbeddingElMuIntegralElTauFile.clone(
 	name = "EmbeddingElMuIntegralTauTauFile",
 	num_folder = "tt_jecUncNom_tauEsNom",
 	den_folder = "tt_jecUncNom_tauEsNom")
+
+DYFileMuMu_17 = pltcl.single_plotline(
+	name = "DYFileMuMu_17",
+	num_file = "/storage/b/pahrens/artus_files/DYJetsToLLM50_PhaseISpring17DR_FlatPU28to62HcalNZS_13TeV_MINIAODSIM_madgraph-pythia8_v1/merged/DYJetsToLLM50_PhaseISpring17DR_FlatPU28to62HcalNZS_13TeV_MINIAODSIM_madgraph-pythia8/DYJetsToLLM50_PhaseISpring17DR_FlatPU28to62HcalNZS_13TeV_MINIAODSIM_madgraph-pythia8.root",
+	num_folder = "mm_nominal",
+	den_folder = "mm_nominal",
+	num_tree = "ntuple",
+	label = "DY Sample",
+	marker = "HISTO")
+
+DYFileEE_17 = pltcl.single_plotline(
+	name = "DYFileEE_17",
+	num_file = "/storage/b/pahrens/artus_files/DYJetsToLLM50_PhaseISpring17DR_FlatPU28to62HcalNZS_13TeV_MINIAODSIM_madgraph-pythia8_v1_v2/merged/DYJetsToLLM50_PhaseISpring17DR_FlatPU28to62HcalNZS_13TeV_MINIAODSIM_madgraph-pythia8/DYJetsToLLM50_PhaseISpring17DR_FlatPU28to62HcalNZS_13TeV_MINIAODSIM_madgraph-pythia8.root",
+	num_folder = "ee_nominal",
+	den_folder = "ee_nominal",
+	num_tree = "ntuple",
+	label = "DY Sample",
+	marker = "HISTO")
+
+
+EmbFileMuMu_17 = pltcl.single_plotline(
+	name = "EmbFileMuMu_17",
+	num_file = "/storage/b/pahrens/artus_files/EmbeddingMCPhaseISpring17DR_MuonEmbedding_imputFlatPU28to62HcalNZSRAWAODSIM_13TeV_USER_pythia8_HybridEmbedding_v6_full/merged/EmbeddingMCPhaseISpring17DR_MuonEmbedding_imputFlatPU28to62HcalNZSRAWAODSIM_13TeV_USER_pythia8/EmbeddingMCPhaseISpring17DR_MuonEmbedding_imputFlatPU28to62HcalNZSRAWAODSIM_13TeV_USER_pythia8.root",
+	num_folder = "mm_nominal",
+	den_folder = "mm_nominal",
+	num_tree = "ntuple",
+	label = "#mu#rightarrow#mu embedded selection 2017",
+	color = "kBlue",
+	marker = "PE")
+
+EmbFileEE_17 = pltcl.single_plotline(
+	name = "EmbFileEE_17",
+	num_file = "/storage/b/pahrens/artus_files/EmbeddingMCPhaseISpring17DR_ElectronEmbedding_imputFlatPU28to62HcalNZSRAWAODSIM_13TeV_USER_pythia8_HybridEmbedding_v18_full/merged/EmbeddingMCPhaseISpring17DR_ElectronEmbedding_imputFlatPU28to62HcalNZSRAWAODSIM_13TeV_USER_pythia8/EmbeddingMCPhaseISpring17DR_ElectronEmbedding_imputFlatPU28to62HcalNZSRAWAODSIM_13TeV_USER_pythia8.root",
+	num_folder = "ee_nominal",
+	den_folder = "ee_nominal",
+	num_tree = "ntuple",
+	label = "#mu#rightarrow e embedded selection 2017",
+	color = "kBlue",
+	marker = "PE")
+
+##################################################
+##### MC Shape Comparison for Mu->Mu Embedding####
+##################################################
+
+DYFileWinter17_mt = pltcl.single_plotline(
+	name = "DYFileWinter17_mt",
+	#num_file = "/storage/9/sbrommer/artus_outputs/2018-05-02/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_file = "/storage/c/jbechtel/MCEmbedding/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_folder = "mt_nominal",
+	den_folder = "mt_nominal",
+	num_tree = "ntuple",
+	label = "Z#rightarrow#tau#tau simulation",
+	color = "kRed",
+	marker = "HISTO")
+
+DYFileWinter17_mt_copy = pltcl.single_plotline(
+	name = "DYFileWinter17_mt_copy",
+	#num_file = "/storage/9/sbrommer/artus_outputs/2018-05-02/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_file = "/storage/9/sbrommer/artus_outputs/ZmmValidation/DYJets_copy.root",
+	num_folder = "mt_nominal",
+	den_folder = "mt_nominal",
+	num_tree = "ntuple")
+
+DYFileWinter17_mt_shift_up = pltcl.single_plotline(
+	name = "DYFileWinter17_mt_shift_up",
+	#num_file = "/storage/9/sbrommer/artus_outputs/2018-05-02/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_file = "/storage/c/jbechtel/MCEmbedding/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_folder = "mt_tauEsUp",
+	den_folder = "mt_tauEsUp",
+	num_tree = "ntuple",
+	label = "#pm 1.2% #tau_{h} energy scale",
+	color = "kCyan+1",
+	marker = "HISTO")
+
+DYFileWinter17_mt_shift_down = pltcl.single_plotline(
+	name = "DYFileWinter17_mt_shift_down",
+	#num_file = "/storage/9/sbrommer/artus_outputs/2018-05-02/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_file = "/storage/c/jbechtel/MCEmbedding/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_folder = "mt_tauEsDown",
+	den_folder = "mt_tauEsDown",
+	num_tree = "ntuple",
+	label = "",
+	color = "kCyan+1",
+	marker = "HISTO")
+
+DYFileWinter17_emb_mt = pltcl.single_plotline(
+	name = "DYFileWinter17_emb_mt",
+	#num_file = "/storage/9/sbrommer/artus_outputs/2018-05-02/EmbeddingMCRunIIWinter17_MuTauFinalState_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8/EmbeddingMCRunIIWinter17_MuTauFinalState_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8.root",
+	num_file = "/storage/c/jbechtel/MCEmbedding/EmbeddingMCRunIIWinter17_MuTauFinalState_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8.root",
+	num_folder = "mt_nominal",
+	den_folder = "mt_nominal",
+	num_tree = "ntuple",
+	label = "#mu #rightarrow #tau embedded",
+	color = "kBlue",
+	marker = "PE")
+
+DYFileWinter17_mm = pltcl.single_plotline(
+	name = "DYFileWinter17_mm",
+#	num_file = "/storage/9/sbrommer/artus_outputs/2018-04-23/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_file= "/storage/c/jbechtel/artus_outputs/event_matching/final/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_folder = "mm_nominal",
+	den_folder = "mm_nominal",
+	num_tree = "ntuple",
+	color = "kRed",
+	label = "Z#rightarrow#mu#mu simulation",
+	marker = "HISTO")
+
+DYFileWinter17_mm_copy = pltcl.single_plotline(
+	name = "DYFileWinter17_mm_copy",
+#	num_file = "/storage/9/sbrommer/artus_outputs/2018-04-23/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_file= "/storage/9/sbrommer/artus_outputs/ZmmValidation/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3_copy.root",
+	num_folder = "mm_nominal",
+	den_folder = "mm_nominal",
+	num_tree = "ntuple")
+
+DYFileWinter17_emb_mm = pltcl.single_plotline(
+	name = "DYFileWinter17_emb_mm",
+	#num_file = "/storage/9/sbrommer/artus_outputs/2018-04-23/EmbeddingMCRunIIWinter17_MuonEmbedding_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8/EmbeddingMCRunIIWinter17_MuonEmbedding_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8.root",
+	#num_file = "/storage/c/jbechtel/Artus_2018-04-26/EmbeddingMC_MuonEmbedding2/EmbeddingMCRunIIWinter17_MuonEmbedding_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8_newweightfile.root",
+	num_file = "/storage/c/jbechtel/artus_outputs/event_matching/final_mvisCorr/EmbeddingMCRunIIWinter17_MuonEmbedding_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8.root",
+	num_folder = "mm_nominal",
+	den_folder = "mm_nominal",
+	num_tree = "ntuple",
+	label = "#mu#rightarrow#mu embedded",
+	color = "kBlue",
+	marker = "PE")
+#### Mass Correction Files#####
+DYFileWinter17_mm_corr = pltcl.single_plotline(
+	name = "DYFileWinter17_mm_corr",
+#	num_file = "/storage/9/sbrommer/artus_outputs/2018-04-23/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_file= "/storage/c/jbechtel/Artus_2018-04-26/EmbeddingMC_MuonEmbedding2/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_folder = "mm_nominal",
+	den_folder = "mm_nominal",
+	num_tree = "ntuple",
+	color = "kRed",
+	label = "Z#rightarrow#mu#mu simulation",
+	marker = "HISTO")
+
+DYFileWinter17_mm_corr_copy = pltcl.single_plotline(
+	name = "DYFileWinter17_mm_corr_copy",
+#	num_file = "/storage/9/sbrommer/artus_outputs/2018-04-23/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_file= "/storage/9/sbrommer/artus_outputs/ZmmValidation/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3_mass_corr_copy.root",
+	num_folder = "mm_nominal",
+	den_folder = "mm_nominal",
+	num_tree = "ntuple")
+
+DYFileWinter17_emb_mm_corr = pltcl.single_plotline(
+	name = "DYFileWinter17_emb_mm_corr",
+	#num_file = "/storage/9/sbrommer/artus_outputs/2018-04-23/EmbeddingMCRunIIWinter17_MuonEmbedding_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8/EmbeddingMCRunIIWinter17_MuonEmbedding_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8.root",
+	#num_file = "/storage/c/jbechtel/Artus_2018-04-26/EmbeddingMC_MuonEmbedding2/EmbeddingMCRunIIWinter17_MuonEmbedding_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8_newweightfile.root",
+	num_file = "/storage/c/jbechtel/Artus_2018-04-26/EmbeddingMC_MuonEmbedding2/EmbeddingMCRunIIWinter17_MuonEmbedding_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8_corr4.root",
+	num_folder = "mm_nominal",
+	den_folder = "mm_nominal",
+	num_tree = "ntuple",
+	label = "#mu#rightarrow#mu embedded",
+	color = "kBlue",
+	marker = "PE")
+
+DYFileWinter17_mm_pf = pltcl.single_plotline(
+	name = "DYFileWinter17_mm_pf",
+	num_file = "/storage/c/jbechtel/artus_outputs/2018-05-08/9/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_folder = "mm_nominal",
+	den_folder = "mm_nominal",
+	num_tree = "ntuple",
+	color = "kRed",
+	label = "Z#rightarrow#mu#mu simulation",
+	marker = "HISTO")
+
+DYFileWinter17_mm_pf_copy = pltcl.single_plotline(
+	name = "DYFileWinter17_mm_pf_copy",
+	num_file = "/storage/9/sbrommer/artus_outputs/ZmmValidation/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3_pf_copy.root",
+	num_folder = "mm_nominal",
+	den_folder = "mm_nominal",
+	num_tree = "ntuple")
+
+DYFileWinter17_emb_mm_pf = pltcl.single_plotline(
+	name = "DYFileWinter17_emb_mm",
+	num_file = "/storage/c/jbechtel/artus_outputs/2018-05-08/9/EmbeddingMCRunIIWinter17_MuonEmbedding_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8.root",
+	num_folder = "mm_nominal",
+	den_folder = "mm_nominal",
+	num_tree = "ntuple",
+	label = "#mu#rightarrow#mu embedded",
+	color = "kBlue",
+	marker = "PE")
+
+DYFileWinter17_tt = pltcl.single_plotline(
+	name = "DYFileWinter17_tt",
+	#num_file= "/storage/9/sbrommer/artus_outputs/2018-05-02/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_file = "/storage/c/jbechtel/MCEmbedding/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",	
+	num_folder = "tt_nominal",
+	den_folder = "tt_nominal",
+	num_tree = "ntuple",
+	color = "kRed",
+	label = "Z#rightarrow#tau#tau simulation",
+	marker = "HISTO")
+
+DYFileWinter17_tt_copy = pltcl.single_plotline(
+	name = "DYFileWinter17_tt_copy",
+	#num_file= "/storage/9/sbrommer/artus_outputs/2018-05-02/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_file = "/storage/9/sbrommer/artus_outputs/ZmmValidation/DYJets_copy.root",	
+	num_folder = "tt_nominal",
+	den_folder = "tt_nominal",
+	num_tree = "ntuple")
+
+DYFileWinter17_tt_shift_up = pltcl.single_plotline(
+	name = "DYFileWinter17_tt_shift_up",
+	#num_file= "/storage/9/sbrommer/artus_outputs/2018-05-02/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_file = "/storage/c/jbechtel/MCEmbedding/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",	
+	num_folder = "tt_tauEsUp",
+	den_folder = "tt_tauEsUp",
+	num_tree = "ntuple",
+	color = "kRed",
+	label = "#pm 1.2% #tau_{h} energy scale",
+	marker = "HISTO")
+
+DYFileWinter17_tt_shift_down = pltcl.single_plotline(
+	name = "DYFileWinter17_tt_shift_down",
+	#num_file= "/storage/9/sbrommer/artus_outputs/2018-05-02/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_file = "/storage/c/jbechtel/MCEmbedding/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",	
+	num_folder = "tt_tauEsDown",
+	den_folder = "tt_tauEsDown",
+	num_tree = "ntuple",
+	color = "kRed",
+	label = "",
+	marker = "HISTO")
+
+DYFileWinter17_emb_tt = pltcl.single_plotline(
+	name = "DYFileWinter17_emb_tt",
+	#num_file = "/storage/9/sbrommer/artus_outputs/2018-05-02/EmbeddingMCRunIIWinter17_TauTauFinalState_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8/EmbeddingMCRunIIWinter17_TauTauFinalState_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8.root",
+	num_file = "/storage/c/jbechtel/MCEmbedding/EmbeddingMCRunIIWinter17_TauTauFinalState_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8.root",
+	num_folder = "tt_nominal",
+	den_folder = "tt_nominal",
+	num_tree = "ntuple",
+	label = "#mu#rightarrow#tau embedded",
+	color = "kBlue",
+	marker = "PE")
+
+DYFileWinter17_em = pltcl.single_plotline(
+	name = "DYFileWinter17_em",
+	#num_file = "/storage/9/sbrommer/artus_outputs/2018-05-02/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_file = "/storage/c/jbechtel/MCEmbedding/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_folder = "em_nominal",
+	den_folder = "em_nominal",
+	num_tree = "ntuple",
+	label = "Z#rightarrow#tau#tau simulation",
+	color = "kRed",
+	marker = "HISTO")
+
+DYFileWinter17_em_copy = pltcl.single_plotline(
+	name = "DYFileWinter17_em_copy",
+	#num_file= "/storage/9/sbrommer/artus_outputs/2018-05-02/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_file = "/storage/9/sbrommer/artus_outputs/ZmmValidation/DYJets_copy.root",	
+	num_folder = "em_nominal",
+	den_folder = "em_nominal",
+	num_tree = "ntuple")
+
+DYFileWinter17_em_shift_up = pltcl.single_plotline(
+	name = "DYFileWinter17_em_shift_up",
+	#num_file = "/storage/9/sbrommer/artus_outputs/2018-05-02/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_file = "/storage/c/jbechtel/MCEmbedding/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_folder = "em_EleEsUp",
+	den_folder = "em_EleEsUp",
+	num_tree = "ntuple",
+	label = "#pm 1% ele energy scale",
+	color = "kRed",
+	marker = "HISTO")
+
+DYFileWinter17_em_shift_down = pltcl.single_plotline(
+	name = "DYFileWinter17_em_shift_down",
+	#num_file = "/storage/9/sbrommer/artus_outputs/2018-05-02/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_file = "/storage/c/jbechtel/MCEmbedding/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_folder = "em_EleEsDown",
+	den_folder = "em_EleEsDown",
+	num_tree = "ntuple",
+	label = "",
+	color = "kRed",
+	marker = "HISTO")
+
+
+DYFileWinter17_emb_em = pltcl.single_plotline(
+	name = "DYFileWinter17_emb_em",
+	#num_file = "/storage/9/sbrommer/artus_outputs/2018-05-02/EmbeddingMCRunIIWinter17_ElMuFinalState_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8/EmbeddingMCRunIIWinter17_ElMuFinalState_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8.root",
+	num_file = "/storage/c/jbechtel/MCEmbedding/EmbeddingMCRunIIWinter17_ElMuFinalState_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8.root",
+	num_folder = "em_nominal",
+	den_folder = "em_nominal",
+	num_tree = "ntuple",
+	label = "#mu #rightarrow #tau embedded",
+	color = "kBlue",
+	marker = "PE")
+
+DYFileWinter17_et = pltcl.single_plotline(
+	name = "DYFileWinter17_et",
+	#num_file = "/storage/9/sbrommer/artus_outputs/2018-05-02/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_file = "/storage/c/jbechtel/MCEmbedding/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_folder = "et_nominal",
+	den_folder = "et_nominal",
+	num_tree = "ntuple",
+	color = "kRed",
+	label = "Z#rightarrow#tau#tau simulation",
+	marker = "HISTO")
+
+DYFileWinter17_et_copy = pltcl.single_plotline(
+	name = "DYFileWinter17_et_copy",
+	#num_file= "/storage/9/sbrommer/artus_outputs/2018-05-02/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_file = "/storage/9/sbrommer/artus_outputs/ZmmValidation/DYJets_copy.root",	
+	num_folder = "et_nominal",
+	den_folder = "et_nominal",
+	num_tree = "ntuple")
+
+DYFileWinter17_et_shift_up = pltcl.single_plotline(
+	name = "DYFileWinter17_et_shift_up",
+	#num_file = "/storage/9/sbrommer/artus_outputs/2018-05-02/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_file = "/storage/c/jbechtel/MCEmbedding/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_folder = "et_tauEsUp",
+	den_folder = "et_tauEsUp",
+	num_tree = "ntuple",
+	color = "kRed",
+	label = "#pm 1.2% #tau_{h} energy scale",
+	marker = "HISTO")
+
+DYFileWinter17_et_shift_down = pltcl.single_plotline(
+	name = "DYFileWinter17_et_shift_down",
+	#num_file = "/storage/9/sbrommer/artus_outputs/2018-05-02/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_file = "/storage/c/jbechtel/MCEmbedding/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_folder = "et_tauEsDown",
+	den_folder = "et_tauEsDown",
+	num_tree = "ntuple",
+	color = "kRed",
+	label = "",
+	marker = "HISTO")
+
+DYFileWinter17_emb_et = pltcl.single_plotline(
+	name = "DYFileWinter17_emb_et",
+	#num_file = "/storage/9/sbrommer/artus_outputs/2018-05-02/EmbeddingMCRunIIWinter17_ElTauFinalState_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8/EmbeddingMCRunIIWinter17_ElTauFinalState_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8.root",
+	num_file = "/storage/c/jbechtel/MCEmbedding/EmbeddingMCRunIIWinter17_ElTauFinalState_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8.root",
+	num_folder = "et_nominal",
+	den_folder = "et_nominal",
+	num_tree = "ntuple",
+	label = "#mu#rightarrow#tau embedded",
+	color = "kBlue",
+	marker = "PE")
+
+
+
+#########################################################
+### Comparison Mu->Tau Embedded with Fall 17 Samples ####
+#########################################################
+
+DYFall17_mt = pltcl.single_plotline(
+	name = "DYFall17",
+	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-05-14/DYFall_v2_17.root",
+	num_folder = "mt_nominal",
+	den_folder = "mt_nominal",
+	num_tree = "ntuple",
+	label = "Fall 17 Z#rightarrow#tau#tau simulation"
+)
+TTFall17_mt = pltcl.single_plotline(
+	name = "TTFall17",
+	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-05-14/TTFall17.root",
+	num_folder = "mt_nominal",
+	den_folder = "mt_nominal",
+	num_tree = "ntuple",
+	label = "Fall 17 TTbar Simulation"
+)
+Embedding17_mt = pltcl.single_plotline(
+	name = "Embedding17_mt",
+	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-05-14/MuTauEmbedding2017.root",
+	num_folder = "mt_nominal",
+	den_folder = "mt_nominal",
+	num_tree = "ntuple",
+	label = "#mu#rightarrow#tau embedded Run 2017"
+)
+DYFall17_et = pltcl.single_plotline(
+	name = "DYFall17",
+	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-05-14/DYFall_v2_17.root",
+	num_folder = "et_nominal",
+	den_folder = "et_nominal",
+	num_tree = "ntuple",
+	label = "Fall 17 Z#rightarrow#tau#tau simulation"
+)
+TTFall17_et = pltcl.single_plotline(
+	name = "TTFall17",
+	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-05-14/TTFall17.root",
+	num_folder = "et_nominal",
+	den_folder = "et_nominal",
+	num_tree = "ntuple",
+	label = "Fall 17 TTbar Simulation"
+)
+Embedding17_et = pltcl.single_plotline(
+	name = "Embedding17_et",
+	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-05-14/ElTauEmbedding2017.root",
+	num_folder = "et_nominal",
+	den_folder = "et_nominal",
+	num_tree = "ntuple",
+	label = "#mu#rightarrow#tau embedded Run 2017"
+)
+DYFall17_tt = pltcl.single_plotline(
+	name = "DYFall17",
+	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-05-14/DYFall_v2_17.root",
+	num_folder = "tt_nominal",
+	den_folder = "tt_nominal",
+	num_tree = "ntuple",
+	label = "Fall 17 Z#rightarrow#tau#tau simulation"
+)
+TTFall17_tt = pltcl.single_plotline(
+	name = "TTFall17",
+	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-05-14/TTFall17.root",
+	num_folder = "tt_nominal",
+	den_folder = "tt_nominal",
+	num_tree = "ntuple",
+	label = "Fall 17 TTbar Simulation"
+)
+Embedding17_tt = pltcl.single_plotline(
+	name = "Embedding17_tt",
+	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-05-14/TauTauEmbedding2017.root",
+	num_folder = "tt_nominal",
+	den_folder = "tt_nominal",
+	num_tree = "ntuple",
+	label = "#mu#rightarrow#tau embedded Run 2017"
+)
+
+DYFall17_em = pltcl.single_plotline(
+	name = "DYFall17",
+	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-05-14/DYFall_v2_17.root",
+	num_folder = "em_nominal",
+	den_folder = "em_nominal",
+	num_tree = "ntuple",
+	label = "Fall 17 Z#rightarrow#tau#tau simulation"
+)
+TTFall17_em = pltcl.single_plotline(
+	name = "TTFall17",
+	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-05-14/TTFall17.root",
+	num_folder = "em_nominal",
+	den_folder = "em_nominal",
+	num_tree = "ntuple",
+	label = "Fall 17 TTbar Simulation"
+)
+Embedding17_em = pltcl.single_plotline(
+	name = "Embedding17_em",
+	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-05-14/ElMuEmbedding2017.root",
+	num_folder = "em_nominal",
+	den_folder = "em_nominal",
+	num_tree = "ntuple",
+	label = "#mu#rightarrow#tau embedded Run 2017"
+)

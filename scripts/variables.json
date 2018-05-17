@@ -1,0 +1,1399 @@
+{
+    "preset": {
+        "std":  [
+            "eta_1","eta_2","iso_1","iso_2","jphi_1",
+            "jphi_2","jpt_1","jpt_2","m_1","m_2","m_vis","met","mjj","mt_1","mt_2","mt_tot",
+            "nbtag","njetspt30","npv","phi_1","phi_2","pt_1","pt_2", "eventWeight"
+        ],
+        "ee": [
+            "eta_1", "eta_2", "jpt_1", "jpt_2",
+            "m_vis", "m_vis", "met", "mjj", "nbtag", "njets", "npv", "pt_1", "pt_2"
+        ],
+        "et": [
+            "eta_1","eta_2","jpt_1","jpt_2","m_vis","m_vis","met","mjj","nbtag","njets","npv","pt_1","pt_2"
+        ],
+        "mm": [
+            "eta_1","eta_2","jpt_1","jpt_2","m_vis","m_vis","met","mjj","nbtag","njets","npv","pt_1","pt_2"
+        ],
+        "mm_2": [
+            "eta_1","eta_2","iso_1","iso_2","jdeta","jeta_1","jeta_2","jphi_1",
+            "jphi_2","jpt_1","jpt_2","m_1","m_2","m_vis","met","metcov00",
+            "metcov01","metcov10","metcov11","metphi","mjj","mt_1","mt_2","mt_tot",
+            "nbtag","njetspt30","npv","phi_1","phi_2","pt_1","pt_2","rho"
+        ],
+        "mm_pfc": [
+            "NPFCandidates","NPFChargedHadrons","NPFElectromagneticHF","NPFElectrons","NPFHadronicHF",
+            "NPFMuons","NPFNeutralHadrons","NPFPhotons","PFMet","npv"
+        ],
+        "mt": [
+            "eta_1","eta_2","jpt_1","jpt_2","m_vis","m_vis","met","mjj","nbtag","njets","npv","pt_1","pt_2"
+        ]
+    },
+    "default_plotting_dict": {
+        "not_listed": {
+            "default": {
+                "x_bins": "20,0,100",
+                "x_label": " "
+            }
+        },
+        "againstElectronLooseMVA6_1": {
+            "default": {
+                "x_bins": "20,0,10 ",
+                "x_label": "againstElectronLooseMVA6_1 "
+            }
+        },
+        "againstElectronLooseMVA6_2": {
+            "default": {
+                "x_bins": "2,-0.5,1.5 ",
+                "x_label": "againstElectronLooseMVA6_2 "
+            }
+        },
+        "againstElectronVLooseMVA6_1": {
+            "default": {
+                "x_bins": "20,0,20 ",
+                "x_label": "againstElectronVLooseMVA6_1 "
+            }
+        },
+        "againstElectronVLooseMVA6_2": {
+            "default": {
+                "x_bins": "20,0,20 ",
+                "x_label": "again stElectronVLooseMVA6_2 "
+            }
+        },
+        "againstMuonLo ose3_1": {
+            "default": {
+                "x_bins": "20,0,20 ",
+                "x_label": "againstMuonLoose3_1 "
+            }
+        },
+        "againstMuonLoose3_2": {
+            "default": {
+                "x_bins": "20,0,20 ",
+                "x_label": "againstMuonLoose3_2 "
+            }
+        },
+        "bcsv_1": {
+            "default": {
+                "x_bins": "20,0,20 ",
+                "x_label": "bcsv_1 "
+            }
+        },
+        "bcsv_2": {
+            "default": {
+                "x_ bins ": "20,0,20 ",
+                "x_label": "bcsv_2 "
+            }
+        },
+        "beta_1": {
+            "default": {
+                "x_bins": "25,-2.5,2.5 ",
+                "x_label": "beta_1 "
+            }
+        },
+        "beta_2": {
+            "default": {
+                "x_bins": "25,-2.5,2.5 ",
+                "x_label": "beta_2 "
+            }
+        },
+        "bphi_1": {
+            "default": {
+                "x_bins": "30,-3.2,3.2 ",
+                "x_label": "bphi_1 "
+            }
+        },
+        "bphi_2": {
+            "default": {
+                "x_bins": "30,-3.2,3.2 ",
+                "x_label": "bphi_2 "
+            }
+        },
+        "bpt_1": {
+            "default": {
+                "x_bins": "20,0,20 ",
+                "x_label": "bpt_1 "
+            }
+        },
+        "bpt_2": {
+            "default": {
+                "x_bins": "20,0,20 ",
+                "x_label  ": "bpt_2 "
+            }
+        },
+        "byCombinedIsolationDeltaBetaCorrRaw3Hits_2": {
+            "default": {
+                "x_bins": "20,0,10 ",
+                "x_label": "byCombinedIsolationDeltaBetaCorrRaw3Hits_2 "
+            }
+        },
+        "byMediumIsolationMVArun2v1DBoldDMwLT_1": {
+            "default": {
+                "x_bins": "20,0,20 ",
+                "x_label": "byMediumIsolationMV Arun2v1DBoldDMwLT_1 "
+            }
+        },
+        "byMediumIsolationMVArun2v1DBoldDMwLT_2": {
+            "default": {
+                "x_bins": "20,0,20 ",
+                "x_label": "byMediumIsolationMVArun2v1DBoldDMwLT_2 "
+            }
+        },
+        "chargedIsoPtSum_2": {
+            "default": {
+                "x_bins": "20,0,1 ",
+                "x_label": "chargedIsoPtSum_2 "
+            }
+        },
+        "d0_1": {
+            "default": {
+                "x_bins": "20,0,20 ",
+                "x_label": "d0_1 "
+            }
+        },
+        "decayDistM_1": {
+            "default": {
+                "x_bins": "20,0,10 ",
+                "x_label": "decayDistM_1 "
+            }
+        },
+        "decayDistM_2": {
+            "default": {
+                "x_bins": "20,0,1 ",
+                "x_label": "decayDistM_2 "
+            }
+        },
+        "decayDistX_1": {
+            "default": {
+                "x_bins": "20,0,10 ",
+                "x_label": "decayDistX_1 "
+            }
+        },
+        "decayDistX_2": {
+            "default": {
+                "x_bins": "20,-2,2 ",
+                "x_label": "decayDistX_2 "
+            }
+        },
+        "decayDistY_1": {
+            "default": {
+                "x_bins": "20,0,10 ",
+                "x_label": "decayDistY_1 "
+            }
+        },
+        "decayDistY_2": {
+            "default": {
+                "x_bins": "20,-2,2 ",
+                "x_label": "decayDistY_2 "
+            }
+        },
+        "decayDistZ_1": {
+            "default": {
+                "x_bins": "20,0,10 ",
+                "x_label": "decayDistZ_1 "
+            }
+        },
+        "decayDistZ_2": {
+            "default": {
+                "x_bins": "20,-2,2 ",
+                "x_label": "decayDistZ_2 "
+            }
+        },
+        "decayMode_2": {
+            "default": {
+                "x_bins": "12,0,12 ",
+                "x_label": "Decay Mode_2"
+            },
+            "mt": {
+                "x_label": "Decay Mode #tau"
+            }
+        },
+        "dije tpt": {
+            "default": {
+                "x_bins": "20,0,20 ",
+                "x_label": "dijetpt "
+            }
+        },
+        "dijetphi": {
+            "default": {
+                "x_bins": "30,-3. 2,3.2 ",
+                "x_label": "dijetphi "
+            }
+        },
+        "eRatio_1": {
+            "default": {
+                "x_bins": "20,0,10 ",
+                "x_label": "eRatio_1 "
+            }
+        },
+        "eRatio_2": {
+            "default": {
+                "x_bins": "20,0,2 ",
+                "x_label": "eRatio_2 "
+            }
+        },
+        "eta_1": {
+            "default": {
+                "x_bins": "24,-2.4,2.4 ",
+                "x_label": "Leading Particle #eta ",
+                "legend_position": 3
+            },
+            "mm": {
+                "x_label": "Leading Muon #eta",
+                "x_bins": "48,-2.4,2.4 "
+            },
+            "mt": {
+                "x_label": "Muon #eta",
+                "x_bins": "24,-2.4,2.4 "
+            },
+            "et": {
+                "x_label": "Electron #eta",
+                "x_bins": "24,-2.4,2.4 "
+            },
+            "tt": {
+                "x_label": "Leading Tau #eta",
+                "x_bins": "24,-2.4,2.4 "
+            },
+            "em": {
+                "x_label": "Electron #eta",
+                "x_bins": "24,-2.4,2.4 "
+            }
+        },
+        "eta_2": {
+            "default": {
+                "x_bins": "24,-2.4,2.4 ",
+                "x_label": "Trailing Particle #eta ",
+                "legend_position": 3
+            },
+            "mm": {
+                "x_label": "Trailing Muon #eta",
+                "x_bins": "48,-2.4,2.4 "
+            },
+            "mt": {
+                "x_label": "Tau #eta",
+                "x_bins": "24,-2.4,2.4 "
+            },
+            "et": {
+                "x_label": "Tau #eta",
+                "x_bins": "24,-2.4,2.4 "
+            },
+            "tt": {
+                "x_label": "Trailing Tau #eta",
+                "x_bins": "24,-2.4,2.4 "
+            },
+            "em": {
+                "x_label": "Muon #eta",
+                "x_bins": "24,-2.4,2.4 "
+            }
+        },
+        "eta_sv": {
+            "default": {
+                "x_bins": "25,-2.5,2.5 ",
+                "x_label": "eta_sv "
+            }
+        },
+        "extraelec_veto": {
+            "default": {
+                "x_bins": "20,0,20 ",
+                "x_label": "extraelec_veto "
+            }
+        },
+        "extramuon_vet": {
+            "default": {
+                "x_bins": "20,0,20 ",
+                "x_label": "extramuon_vet "
+            }
+        },
+        "firstPV_X": {
+            "default": {
+                "x_bins": "20,0,20 ",
+                "x_label": "firstPV_X "
+            }
+        },
+        "firstPV_Y": {
+            "default": {
+                "x_bins": "20,0,20 ",
+                "x_label": "firstPV_Y "
+            }
+        },
+        "firstPV_Z": {
+            "default": {
+                "x_bins": "20,0,20 ",
+                "x_label": "firstPV_Z "
+            }
+        },
+        "flightLengthSig_1": {
+            "default": {
+                "x_bins": "20,0,10 ",
+                "x_label": "flightLengthSig_1 "
+            }
+        },
+        "flightLengthSig_2": {
+            "default": {
+                "x_bins": "24,-6,6 ",
+                "x_label": "flightLengthSig_2 "
+            }
+        },
+        "footprintCorrection_2": {
+            "default": {
+                " x_label ": "footprintCorrection_2 ",
+                "x_bins": "25,0,25 "
+            }
+        },
+        "genMatchedLep1LV.fCoordinates.fEta": {
+            "default": {
+                "x_bins": "25,-2.5,2.5 ",
+                "x_label": "genMatchedLep1LV.fCoordinates.fEt a "
+            }
+        },
+        "genMatchedLep1LV.fCoordinates.fPhi": {
+            "default": {
+                "x_bins": "30,-3.2,3.2 ",
+                "x_label": "genMatchedLep1LV.fCoordinates.fPhi "
+            }
+        },
+        "genMatchedLep1LV.fCoordinates.fPt": {
+            "default": {
+                "x_bins": "50,0,100 ",
+                "x_label": "genMatchedLep1LV.fCoordinates.fPt "
+            }
+        },
+        "genMatchedLep2LV.fCoordinates.fEta": {
+            "default": {
+                "x_bins": "25,-2.5 ,2.5 ",
+                "x_label": "genMatchedLep2LV.fCoordinates.fEta "
+            }
+        },
+        "genMatchedLep2LV.fCoordinates.fPhi": {
+            "default": {
+                "x_bins": "30,-3.2,3.2 ",
+                "x_label": "genMatchedLep2LV.fCoordinates.fPhi "
+            }
+        },
+        "genMatchedLep2LV.fCoordinates.fPt": {
+            "default": {
+                "x_bins": "20,0,20 ",
+                "x_label": "genMatchedLep2LV.fCoordinates.fPt "
+            }
+        },
+        "hasSecondaryVertex_1": {
+            "default": {
+                "x _bins ": "20,0,10 ",
+                "x_label": "hasSecondaryVertex_1 "
+            }
+        },
+        "hasSecondaryVertex_2": {
+            "default": {
+                "x_bins": "10,-0.5,1.5 ",
+                "x_label": "hasSecondaryVertex_2 "
+            }
+        },
+        "identificationW eight_1": {
+            "default": {
+                "x_bins": "24,0,1.2 ",
+                "x_label": "identificationWeight_1 "
+            }
+        },
+        "integral": {
+            "default": {
+                "x_bins": "1,0,1 ",
+                "x_label": "integral "
+            }
+        },
+        "iso_1": {
+            "default": {
+                "x_bins": "40,0,0.5",
+                "x_label": "Leading Particle Isolation "
+            },
+            "mm": {
+                "x_label": "Leading Muon Isolation",
+                "x_bins": "40,0,0.5"
+            },
+            "mt": {
+                "x_label": "Muon Isolation",
+                "x_bins": "40,0,0.5"
+            },
+            "et": {
+                "x_label": "Electron Isolation",
+                "x_bins": "40,0,0.3"
+            },
+            "tt": {
+                "x_label": "Leading Tau Isolation",
+                "x_bins": "20,0,1",
+                "legend_position": 4
+            },
+            "em": {
+                "x_label": "Electron Isolation",
+                "x_bins": "40,0,0.5"
+            }
+        },
+        "iso_2": {
+            "default": {
+                "x_bins": "40,0,0.5",
+                "x_label": "Trailing Particle Isolation "
+            },
+            "mm": {
+                "x_label": "Trailing Muon Isolation",
+                "x_bins": "40,0,0.5"
+            },
+            "mt": {
+                "x_label": "Tau Isolation",
+                "x_bins": "20,0,1",
+                "legend_position": 4
+            },
+            "et": {
+                "x_label": "Tau Isolation",
+                "x_bins": "20,0,1",
+                "legend_position": 4
+            },
+            "tt": {
+                "x_label": "Trailing Tau Isolation",
+                "x_bins": "20,0,1",
+                "legend_position": 4
+            },
+            "em": {
+                "x_label": "Muon Isolation",
+                "x_bins": "40,0,0.5"
+            }
+        },
+        "jeta_2": {
+            "default": {
+                "x_bins": "35,-5,5 ",
+                "x_label": "Trailing Jet #eta / GeV ",
+                "legend_position": 4
+            }
+        },
+        "jcsv_1": {
+            "default": {
+                "x_bins": "20,0,20 ",
+                "x_l abel ": "jcsv_1 "
+            }
+        },
+        "jcsv_2": {
+            "default": {
+                "x_bins": "20,0,20 ",
+                "x_label": "jcsv_2 "
+            }
+        },
+        "jdeta": {
+            "default": {
+                "x_bins": "40,0,10 ",
+                "x_label": "#Delta #eta_{jj} "
+            }
+        },
+        "jeta_1": {
+            "default": {
+                "x_bins": "35,-5,5 ",
+                "x_label": "Leading Jet #eta / GeV ",
+                "legend_position": 4
+            }
+        },
+        "jm_1": {
+            "default": {
+                "x _label ": "jm_1 ",
+                "x_bins": "20,0,20 "
+            }
+        },
+        "jmva_1": {
+            "default": {
+                "x_bins": "20,0,20 ",
+                "x_label": "jmva_1 "
+            }
+        },
+        "jphi_1": {
+            "default": {
+                "x_bins": "17,-3.2,3.2 ",
+                "x_label": "Leading Jet #phi ",
+                "legend_position": 3
+            },
+            "tt": {
+                "x_bins": "-3.2 -2.8 -2.4 -2.0 -1.6 -1.2 -0.8 -0.4 0 0.4 0.8 1.2 1.6 2.0 2.4 2.8 3.2",
+                "x_label": "Leading Jet #phi ",
+                "legend_position": 2
+            }
+        },
+        "jphi_2": {
+            "default": {
+                "x_bins": "17,-3.2,3.2 ",
+                "x_label": "Trailing Jet #phi ",
+                "legend_position": 3
+            },
+            "tt": {
+                "x_bins": "-3.2 -2.8 -2.4 -2.0 -1.6 -1.2 -0.8 -0.4 0 0.4 0.8 1.2 1.6 2.0 2.4 2.8 3.2",
+                "x_label": "Trailing Jet #phi ",
+                "legend_position": 2
+            }
+        },
+        "jpt_1": {
+            "default": {
+                "x_bins": "0 20 25 30 35 40 45 50 55 60 70 80 100",
+                "x_label": "Leading Jet p_{T} / GeV "
+            },
+            "tt": {
+                "x_bins": "0 20 40 60 80 100 120 140 160 180 200 220 250 300 500",
+                "x_label": "Leading Jet p_{T} / GeV "
+            },
+            "mm":{
+                "x_bins": "25,15,100",
+                "x_label": "Leading Jet p_{T} / GeV "
+            }
+        },
+        "jpt_2": {
+            "default": {
+                "x_bins": "0 20 25 30 35 40 45 50 55 60 70 80 100",
+                "x_label": "Trailing Jet p_{T} / GeV "
+            },
+            "em": {
+                "x_bins":"0 20 22 24 26 28 30 35 40 45 50 60 80 100",
+                "x_label":"Trailing Jet p_{T} / GeV "
+            },
+            "tt": {
+                "x_bins": "0 20 25 30 35 40 45 50 55 60 70 80 100",
+                "x_label": "Trailing Jet p_{T} / GeV "
+            },
+            "mm":{
+                "x_bins": "25,15,100",
+                "x_label": "Trailing Jet p_{T} / GeV "
+            }
+        },
+        "leadingTrackChi2_1": {
+            "default": {
+                "x_bins": "20,0,10 ",
+                "x_label": "leadingTrackChi2_1 "
+            }
+        },
+        "leadingTrackChi2_2": {
+            "default": {
+                "x_bins": "20,0,10 ",
+                "x_label": "leadingTrackChi2_2 "
+            }
+        },
+        "m_1": {
+            "default": {
+                "x_bins": "20,0.104,0.11 ",
+                "x_label": "Leading Particle Mass / GeV "
+            },
+            "mm": {
+                "x_label": "Leading Muon Mass / GeV",
+                "x_bins": "20,0.104,0.11 "
+            },
+            "mt": {
+                "x_label": "Muon Mass / GeV",
+                "x_bins": "20,0.104,0.11 "
+            },
+            "et": {
+                "x_label": "Electron Mass / GeV",
+                "x_bins": "0 0.001 0.002 0.003 0.004 0.005 0.006 0.007 0.008 0.009 0.01 0.012 0.014 0.016 0.018 0.02 0.025 0.03 0.04 0.05"
+            },
+            "tt": {
+                "x_label": "Leading Tau Mass / GeV",
+                "x_bins": "20,0,2 "
+            },
+            "em": {
+                "x_label": "Electron Mass / GeV",
+                "x_bins": "0 0.001 0.002 0.003 0.004 0.005 0.006 0.007 0.008 0.009 0.01 0.012 0.014 0.016 0.018 0.02 0.025 0.03 0.04 0.05"
+            }
+        },
+        "m_2": {
+            "default": {
+                "x_bins": "20,0.104,0.11 ",
+                "x_label": "Trailing Particle Mass / GeV "
+            },
+            "mm": {
+                "x_label": "Trailing Muon Mass / GeV",
+                "x_bins": "20,0.104,0.11 "
+            },
+            "mt": {
+                "x_label": "Tau Mass / GeV",
+                "x_bins": "20,0,2 "
+            },
+            "et": {
+                "x_label": "Tau Mass / GeV",
+                "x_bins": "20,0,2 "
+            },
+            "tt": {
+                "x_label": "Trailing Tau Mass / GeV",
+                "x_bins": "20,0,2 "
+            },
+            "em": {
+                "x_label": "Muon Mass / GeV",
+                "x_bins": "20,0.104,0.11 "
+            }
+        },
+        "m_sv": {
+            "default": {
+                "x_bins": "20,0,20 ",
+                "x_label": "m _sv "
+            }
+        },
+        "m_vis": {
+            "default": {
+                "x_bins": "40,50,130",
+                "x_label": "Visible di-#tau mass / GeV "
+            },
+            "mt": {
+                "x_bins": "20 30 35 40 42 44 46 48 50 52 54 56 58 60 62 64 66 68 70 72 74 76 78 80 82 84 86 88 90 95 100 120 140",
+                "x_label": "Visible di-#tau mass / GeV "
+            },
+            "em": {
+                "x_bins": "20 30 35 40 42 44 46 48 50 52 54 56 58 60 62 64 66 68 70 72 74 76 78 80 82 84 86 90 100 120",
+                "x_label": "Visible di-#tau mass / GeV "
+            },
+            "tt": {
+                "x_bins": "20,40,140",
+                "x_label": "Visible di-#tau mass / GeV "
+            },
+            "mm": {
+                "x_bins": "50,70,120 ",
+                "x_label": "Di-Muon mass / GeV "
+            },
+            "et": {
+                "x_bins": "20 30 35 40 42 44 46 48 50 52 54 56 58 60 62 64 66 68 70 72 74 76 78 80 82 84 86 88 90 95 100 120 140",
+                "x_label": "Visible di-#tau mass/ GeV "
+            }
+        },
+        "metcov11": {
+            "default": {
+                "x_bins": "40,200,2000 ",
+                "x_label": "metcov11 "
+            }
+        },
+        "metphi": {
+            "default": {
+                "x_bins": "30,-3.2,3.2 ",
+                "x_label": "Missing transverse Energy #phi ",
+                "legend_position": 2
+            }
+        },
+        "met": {
+            "default": {
+                "x_bins": "0 10 20 30 40 50 60 70 80 90 100 115 160",
+                "x_label": "Missing transverse Energy / GeV "
+            },
+            "mm": {
+                "x_bins": "30,0,130",
+                "x_label": "Missing transverse Energy / GeV "
+            },
+            "tt": {
+                "x_bins": "0 5 10 15 20 25 30 35 40 45 50 55 60 65 70 75 80 85 90 100 110 120 160",
+                "x_label": "Missing transverse Energy / GeV "
+            },
+            "et": {
+                "x_bins": "0 5 10 15 20 25 30 35 40 45 50 55 60 65 70 75 80 85 90 95 100 120 160",
+                "x_label": "Missing transverse Energy / GeV "
+            },
+            "mt": {
+                "x_bins": "0 5 10 15 20 25 30 35 40 45 50 55 60 65 70 75 80 85 90 95 100 120 160",
+                "x_label": "Missing transverse Energy / GeV "
+            },
+            "em": {
+                "x_bins": "0 5 10 15 20 25 30 35 40 45 50 55 60 65 70 75 80 85 90 95 100 120 160",
+                "x_label": "Missing transverse Energy / GeV "
+            }
+        },
+        "metcov00": {
+            "default": {
+                "x_bins": "40,200,2000 ",
+                "x_label": "metcov00 "
+            }
+        },
+        "metcov01": {
+            "default": {
+                "x_bins": "40,-100,100 ",
+                "x_label": "metcov01  ",
+                "legend_position": 2
+            }
+        },
+        "metcov10": {
+            "default": {
+                "x_bins": "40,-100,100 ",
+                "x_label": "metcov10 ",
+                "legend_position": 2
+            }
+        },
+        "mjj": {
+            "default": {
+                "x_bins": "25,0,500 ",
+                "x_label": "Di-jet Mass m_{jj} / GeV "
+            },
+            "tt": {
+                "x_bins": "0 100 200 300 400 500 600 700 800 1000",
+                "x_label": "Di-jet Mass m_{jj} / GeV "
+            }
+        },
+        "mt_1": {
+            "default": {
+                "x_bins": "25,0,100 ",
+                "x_label": "Leading Particle m_{T}  / GeV ",
+                "legend_position": 3
+                
+            },
+            "mm": {
+                "x_label": "Leading Muon m_{T} / GeV",
+                "x_bins": "25,0,100 "
+            },
+            "mt": {
+                "x_label": "Muon m_{T} / GeV",
+                "x_bins": "25,0,100 "
+            },
+            "et": {
+                "x_label": "Electron m_{T} / GeV",
+                "x_bins": "25,0,100 "
+            },
+            "tt": {
+                "x_label": "Leading Tau m_{T} / GeV",
+                "x_bins": "25,0,100 "
+            },
+            "em": {
+                "x_label": "Electron m_{T} / GeV",
+                "x_bins": "25,0,100 "
+            }
+        },
+        "mt_2": {
+            "default": {
+                "x_bins": "25,0,100 ",
+                "x_label": "Trailing Particle m_{T} / GeV ",
+                "legend_position": 3
+            },
+            "mm": {
+                "x_label": "Trailing Muon m_{T} / GeV",
+                "x_bins": "25,0,100 "
+            },
+            "mt": {
+                "x_label": "Tau m_{T} / GeV",
+                "x_bins": "25,0,100 "
+            },
+            "et": {
+                "x_label": "Tau m_{T} / GeV",
+                "x_bins": "25,0,100 "
+            },
+            "tt": {
+                "x_label": "Trailing Tau m_{T} / GeV",
+                "x_bins": "25,0,100 "
+            },
+            "em": {
+                "x_label": "Muon m_{T} / GeV",
+                "x_bins": "25,0,100 "
+            }
+        },
+        "mt_tot": {
+            "default": {
+                "x_bins": "0 20 30 40 50 60 70 80 90 100 110 120 130 150 170 190 220 300",
+                "x_label": "Total m_{T} / GeV "
+            },
+            "tt": {
+                "x_bins": "0 20 40 50 60 70 80 90 100 110 120 130 140 150 160 170 180 200 240 300",
+                "x_label": "Total m_{T} / GeV "
+            },
+            "mm": {
+                "x_bins": "30,0,300",
+                "x_label": "Total m_{T} / GeV "
+            }
+        },
+        "mvacov00": {
+            "default": {
+                "x_bins": "20,0,20 ",
+                "x_label": "mvacov00 "
+            }
+        },
+        "mvacov01": {
+            "default": {
+                "x_bins": "20,0,20 ",
+                "x_label": "mvacov01 "
+            }
+        },
+        "mvacov10": {
+            "default": {
+                "x_bins": "20,0,20 ",
+                "x_label": "mvacov10 "
+            }
+        },
+        "mvacov11": {
+            "default": {
+                "x_bins": "20,0,20 ",
+                "x_label": "mvacov11 "
+            }
+        },
+        "MVAdxy_abs_1": {
+            "default": {
+                "x_bins": "20,0,10 ",
+                "x_label": "MVAdxy_abs_1 "
+            }
+        },
+        "MVAdxy_abs_2": {
+            "default": {
+                "x_bins": "30,0,0.3 ",
+                "x_label": "MVAdxy_abs_2 "
+            }
+        },
+        "MVAdxy_ip3d_abs_1": {
+            "default": {
+                "x_bins": "20,0,10 ",
+                "x_label": "MVAdxy_ip3d_abs_1 "
+            }
+        },
+        "MVAdxy_ip3d_abs_2": {
+            "default": {
+                "x_bins": "30,0,0.3 ",
+                "x_label": "MVAdxy_ip3d_abs_2 "
+            }
+        },
+        "MVAdxy_ip3d_sign_1": {
+            "default": {
+                "x_bins": "15,-1.5,1.5 ",
+                "x_label": "MVAdxy_ip3d_sign_1 "
+            }
+        },
+        "MVAdxy_ip3d_sign_2": {
+            "default": {
+                "x_bins": "15,-1.5,1.5 ",
+                "x_label": "MVAdxy_ip3d_sign_2  "
+            }
+        },
+        "MVAdxy_ip3d_signal_1": {
+            "default": {
+                "x_bins": "20,0,10 ",
+                "x_label": "MVAdxy_ip3d_signal_1 "
+            }
+        },
+        "MVAdxy_ip3d_signal_2": {
+            "default": {
+                "x_bins": "20,0,10 ",
+                "x_label": "MVAdxy_ip3d_signal_2 "
+            }
+        },
+        "MVAdxy_sign_1": {
+            "default": {
+                "x_bins": "15,-1.5,1.5 ",
+                "x_label": "MVAdxy_sign_1 "
+            }
+        },
+        "MVAdxy_sign_2": {
+            "default": {
+                "x_bins": "15,-1.5,1.5 ",
+                "x_label": "MVAdxy_sign_2 "
+            }
+        },
+        "MVAdxy_signal_1": {
+            "default": {
+                "x_bins": "20,0,10 ",
+                "x_label": "MVAdxy_signal_1 "
+            }
+        },
+        "MVAdxy_signal_2": {
+            "default": {
+                "x_bins": "20,0,10 ",
+                "x_label": "MVAdxy_signal_2 "
+            }
+        },
+        "mvamet": {
+            "default": {
+                "x_bins": "20,0,20 ",
+                "x_label": "mvamet "
+            }
+        },
+        "mvametphi": {
+            "default": {
+                "x_bins": "30,-3.2,3.2 ",
+                "x_label": "mvametphi "
+            }
+        },
+        "nbtag": {
+            "default": {
+                "x_bins": "5,0,5 ",
+                "x_label": "Number of b-tags "
+            },
+            "em":{
+                "x_bins": "3,0,3",
+                "x_label": "Number of b-tags "
+            },
+            "tt":{
+                "x_bins": "3,0,3",
+                "x_label": "Number of b-tags "
+            },
+            "et":{
+                "x_bins": "4,0,4",
+                "x_label": "Number of b-tags "
+            },
+            "mt":{
+                "x_bins": "4,0,4",
+                "x_label": "Number of b-tags "
+            }
+        },
+        "neutralIsoPtSum_2": {
+            "default": {
+                "x_bins": "20,0,20 ",
+                "x_label": "neutralIsoPtSum_2 "
+            }
+        },
+        "njetingap": {
+            "default": {
+                " x_label ": "njetingap ",
+                "x_bins": "7,0,7 "
+            }
+        },
+        "njetingap20": {
+            "default": {
+                "x_bins": "7,0,7 ",
+                "x_label": "njetingap20 "
+            }
+        },
+        "njets": {
+            "default": {
+                "x_bins": "5,0,5 ",
+                "x_label": "Number of Jets "
+            }
+        },
+        "njetspt30": {
+            "default": {
+                "x_bins": "7,0,7 ",
+                "x_label": "Number of Jets (p_{T} 30) "
+            },
+            "tt":{
+                "x_bins": "7,0,7",
+                "x_label": "Number of Jets (p_{T} 30) ",
+                "legend_position": 3
+            }
+        },
+        "NPFCandidates": {
+            "default": {
+                "x_bins": "40,1000,5000 ",
+                "x_label": "Number of PF Candidates "
+            }
+        },
+        "NPFChargedHadrons": {
+            "default": {
+                "x_bins": "30,0,3000 ",
+                "x_label": "Number of PF Charged Hadron Candidates "
+            }
+        },
+        "NPFElectromagneticHF": {
+            "default": {
+                "x_bins": "25,20,350 ",
+                "x_label": "Number of PF EMHF Candidates "
+            }
+        },
+        "NPFElectrons": {
+            "default": {
+                "x_bins": "10,0,10 ",
+                "x_label": "Number of PF Electrons Candidates "
+            }
+        },
+        "NPFHadronicHF": {
+            "default": {
+                "x_bins": "25,250,800 ",
+                "x_label": "Number of PF HadronicHF Candidates "
+            }
+        },
+        "NPFMuons": {
+            "default": {
+                "x_bins": "14,2,16 ",
+                "x_label": "Number of PF Muons Candidates  "
+            }
+        },
+        "NPFNeutralHadrons": {
+            "default": {
+                "x_bins": "30,20,140 ",
+                "x_label": "Number of PF Neutral Hadron Candidates "
+            }
+        },
+        "NPFPhotons": {
+            "default": {
+                "x_bins": "22,50,600 ",
+                "x_label": "Number of PF Photon Candidates "
+            }
+        },
+        "nPhoton_1": {
+            "default": {
+                "x_bins": "20,0,10 ",
+                "x_label": "nPhoton_1 "
+            }
+        },
+        "nPhoton_2": {
+            "default": {
+                "x_bins": "20,0,10 ",
+                "x_label": "nPhoton_2 "
+            }
+        },
+        "npu": {
+            "default": {
+                "x_bins": "30,0,60 ",
+                "x_label": "Number Pileup "
+            }
+        },
+        "npv": {
+            "default": {
+                "x_bins": "40,20,100",
+                "x_label": "Number of primary vertices "
+            },
+            "mm": {
+                "x_bins": "30,10,100",
+                "x_label": "Number of primary vertices "
+            },
+            "mt": {
+                "x_bins": "30,10,100",
+                "x_label": "Number of primary vertices "
+            }
+        },
+        "PFMet": {
+            "default": {
+                "x_bins": "30,0,150 ",
+                "x_label": "PF Missing transverse Energy / GeV "
+            }
+        },
+        "PFSumHt": {
+            "default": {
+                "x_bins": "20,0,20 ",
+                "x_label": "PFSumHt "
+            }
+        },
+        "PFSumHtWithoutZMuMu": {
+            "default": {
+                "x_bins": "25,500,2000 ",
+                "x_label": "PFSumHtWithoutZMuMu "
+            }
+        },
+        "PFSumPt": {
+            "default": {
+                "x_bins": "20,0,20 ",
+                "x_label": "PFSumPt "
+            }
+        },
+        "PFSumPtWithoutZMuMu": {
+            "default": {
+                "x_bins": "25,500,2000 ",
+                "x_label": "PFSumPtWithoutZMuMu "
+            }
+        },
+        "phi_2": {
+            "default": {
+                "x_bins": "30,-3.2,3.2 ",
+                "x_label": "Trailing Particle #phi ",
+                "legend_position": 3
+            },
+            "mm": {
+                "x_label": "Trailing Muon #phi ",
+                "x_bins": "30,-3.2,3.2 "
+            },
+            "mt": {
+                "x_label": "Tau #phi ",
+                "x_bins": "30,-3.2,3.2 "
+            },
+            "et": {
+                "x_label": "Tau #phi ",
+                "x_bins": "30,-3.2,3.2 "
+            },
+            "tt": {
+                "x_label": "Trailing Tau #phi ",
+                "x_bins": "30,-3.2,3.2 "
+            },
+            "em": {
+                "x_label": "Muon #phi ",
+                "x_bins": "30,-3.2,3.2 "
+            }
+        },
+        "phi_1": {
+            "default": {
+                "x_bins": "30,-3.2,3.2 ",
+                "x_label": "Leading Particle #phi ",
+                "legend_position": 3
+            },
+            "mm": {
+                "x_label": "Leading Muon #phi ",
+                "x_bins": "30,-3.2,3.2 "
+            },
+            "mt": {
+                "x_label": "Muon #phi ",
+                "x_bins": "30,-3.2,3.2 "
+            },
+            "et": {
+                "x_label": "Electron #phi ",
+                "x_bins": "30,-3.2,3.2 "
+            },
+            "tt": {
+                "x_label": "Leading Tau #phi ",
+                "x_bins": "30,-3.2,3.2 "
+            },
+            "em": {
+                "x_label": "Electron #phi ",
+                "x_bins": "30,-3.2,3.2 "
+            }
+        },
+        "phi_sv": {
+            "default": {
+                "x_bins": "30,-3.2,3.2 ",
+                "x_label": "phi_sv "
+            }
+        },
+        "photonPtSumOutsideSignalCone_2": {
+            "default": {
+                "x_bins": " 20,0,10 ",
+                "x_label": "photonPtSumOutsideSignalCone_2 "
+            }
+        },
+        "pt_1": {
+            "default": {
+                "x_bins": "10 12.5 15 17.5 20 22.5 25 27.5 30 32.5 35 37.5 40 43 46 49 52 56 60 66 72 80 100",
+                "x_label": "Leading Particle p_{T} / GeV "
+            },
+            "mm": {
+                "x_label": "Leading Muon p_{T} / GeV ",
+                "x_bins": "10 12.5 15 17.5 20 22.5 25 27.5 30 32.5 35 37.5 40 43 46 49 52 56 60 66 72 80 100"
+            },
+            "mt": {
+                "x_label": "Muon p_{T} / GeV ",
+                "x_bins": "10 12.5 15 17.5 20 22.5 25 27.5 30 32.5 35 37.5 40 43 46 49 52 56 60 66 72 80 100"
+            },
+            "et": {
+                "x_label": "Electron p_{T} / GeV ",
+                "x_bins": "10 12.5 15 17.5 20 22.5 25 27.5 30 32.5 35 37.5 40 43 46 49 52 56 60 66 72 80 100"
+            },
+            "tt": {
+                "x_label": "Leading Tau p_{T} / GeV ",
+                "x_bins": "30 40 50 60 70 80 90 100 120 140 160 220"
+            },
+            "em": {
+                "x_label": "Electron p_{T} / GeV ",
+                "x_bins": "10 12.5 15 17.5 20 22.5 25 27.5 30 32.5 35 37.5 40 43 46 49 52 56 60 66 72 80 100"
+            }
+        },
+        "pt_2": {
+            "default": {
+                "x_bins": "10 12.5 15 17.5 20 22.5 25 27.5 30 32.5 35 37.5 40 43 46 49 52 56 60 66 72 80 100",
+                "x_label": "Trailing Particle p_{T} / GeV "
+            },
+            "mm": {
+                "x_label": "Trailing Muon p_{T} / GeV ",
+                "x_bins": "10 12.5 15 17.5 20 22.5 25 27.5 30 32.5 35 37.5 40 43 46 49 52 56 60 66 72 80 100"
+            },
+            "mt": {
+                "x_label": "Tau p_{T} / GeV ",
+                "x_bins": "10 12.5 15 17.5 20 22.5 25 27.5 30 32.5 35 37.5 40 43 46 49 52 56 60 66 72 80 100"
+            },
+            "et": {
+                "x_label": "Tau p_{T} / GeV ",
+                "x_bins": "10 12.5 15 17.5 20 22.5 25 27.5 30 32.5 35 37.5 40 43 46 49 52 56 60 66 72 80 100"
+            },
+            "tt": {
+                "x_label": "Trailing Tau p_{T} / GeV ",
+                "x_bins": "30 40 50 60 70 80 90 100 120 140 160 220"
+            },
+            "em": {
+                "x_label": "Muon p_{T} / GeV ",
+                "x_bins": "10 12.5 15 17.5 20 22.5 25 27.5 30 32.5 35 37.5 40 43 46 49 52 56 60 66 72 80 100"
+            }
+        },
+        "pt_sv": {
+            "default": {
+                "x_bins": "20,0,20 ",
+                "x_label": "pt_sv "
+            }
+        },
+        "pt_tt": {
+            "default": {
+                "x_bins": "20,0,20 ",
+                "x_label": "pt_tt "
+            }
+        },
+        "pt_vis": {
+            "default": {
+                "x_bins": "20,0,20 ",
+                "x_label": "pt_vis "
+            }
+        },
+        "ptvis": {
+            "default": {
+                "x_bins": "26,20,150 ",
+                "x_label": "Visible p_{T} / GeV "
+            }
+        },
+        "ptWei ghtedDphiStrip_1": {
+            "default": {
+                "x_bins": "30,0,0.6 ",
+                "x_label": "ptWeightedDphiStrip_1 "
+            }
+        },
+        "ptWeightedDetaStrip_1": {
+            "default": {
+                "x_bins": "30,0 ,0.6 ",
+                "x_label": "ptWeightedDetaStrip_1 "
+            }
+        },
+        "ptWeightedDetaStrip_2": {
+            "default": {
+                "x_bins": "30,0,0.6 ",
+                "x_label": "ptWeightedDetaStrip_2 "
+            }
+        },
+        "ptWeightedDphiStrip_2": {
+            "default": {
+                "x_bins": "30,0,0.6 ",
+                "x_label": "ptWeightedDphiStrip_2 "
+            }
+        },
+        "ptWeightedDrIsolation_1": {
+            "default": {
+                "x_bins": "30,0,0.6 ",
+                "x_label": "ptWeightedDrIsolation_1 "
+            }
+        },
+        "ptWeightedDrIsolation_2": {
+            "default": {
+                "x_bins": "30,0,0 .6 ",
+                "x_label": "ptWeightedDrIsolation_2 "
+            }
+        },
+        "ptWeightedDrSignal_1": {
+            "default": {
+                "x_bins": "30,0,0.6 ",
+                "x_label": "ptWeightedDrSignal_1 "
+            }
+        },
+        "ptWeightedDrSignal_2": {
+            "default": {
+                "x_bins": "30,0,0.6 ",
+                "x_label": "ptWeightedDrSignal_2 "
+            }
+        },
+        "puCorrPtSum_2": {
+            "default": {
+                "x_bins": "20,0,80 ",
+                "x_label": "puCorrPtSum_2 "
+            }
+        },
+        "puweight": {
+            "default": {
+                "x_bins": "24,0,1.2 ",
+                "x_label": "puweight "
+            }
+        },
+        "pzetamiss": {
+            "default": {
+                "x_bins": "25,-2.5,2.5 ",
+                "x_label": "pzetamiss "
+            }
+        },
+        "pZetaMissVis": {
+            "default": {
+                "x_bins": "25,-2.5,2 .5 ",
+                "x_label": "pZetaMissVis "
+            }
+        },
+        "pzetavis": {
+            "default": {
+                "x_bins": "25,-2.5,2.5 ",
+                "x_label": "pzetavis "
+            }
+        },
+        "rho": {
+            "default": {
+                "x_bins": "25,10,60 ",
+                "x_label": "rho ",
+                "legend_position": 3
+            }
+        },
+        "trg_doubletau": {
+            "default": {
+                "x_bins": "25,-2.5,2.5 ",
+                "x_label": "trg_doubletau "
+            }
+        },
+        "triggerWeight_1": {
+            "default": {
+                "x_bins": "24,0,1.2 ",
+                "x_label": "triggerWeight_1 "
+            }
+        },
+        "trigweight_1": {
+            "default": {
+                "x_bins": "24,0,1.2 ",
+                "x_label": "trigweight_1 "
+            }
+        },
+        "trigweight_2": {
+            "default": {
+                "x_bins": "24,0,1.2 ",
+                "x_label": "trigweight_2 "
+            }
+        },
+        "eventWeight": {
+                "default": {
+                    "x_bins": "1,0,1.01 ",
+                    "x_label": "Integral "
+                }
+        }
+    },
+    "analysis_plotting_dict": {
+        "iso_2" : {
+            "mt":{
+                "x_label":"Tau Isolation",
+                "x_bins":"20,0.8,1.0"
+            },
+            "tt":{
+                "x_label":"Trailing Tau Isolation",
+                "x_bins":"20,0.8,1.0"
+            },
+            "et":{
+                "x_label":"Tau Isolation",
+                "x_bins":"20,0.8,1.0"
+            },
+            "em":{
+                "x_label":"Muon Isolation",
+                "x_bins":"25,0,0.2"
+            }
+        },
+        "mt_1":{
+            "mt":{
+                "x_label":"Muon m_{T} / GeV",
+                "x_bins":"25,0,100",
+                "legend_position":1
+            },
+            "et":{
+                "x_bins":"25,0,50",
+                "x_label":"Electron m_{T} / GeV",
+                "legend_position":3
+            }
+        },
+        "iso_1" : {
+            "mt":{
+                "x_label":"Muon Isolation",
+                "x_bins":"25,0,0.15"
+            },
+            "tt":{
+                "x_label":"Leading Tau Isolation",
+                "x_bins":"20,0.8,1.0"
+            },
+            "et":{
+                "x_label":"Electron Isolation",
+                "x_bins":"30,0.0,0.1"
+            },
+            "em":{
+                "x_label":"Electron Isolation",
+                "x_bins":"30,0.0,0.1"
+            }
+        },
+        "jphi_1": {
+            "tt": {
+                "x_bins": "-3.2 -2.8 -2.4 -2.0 -1.6 -1.2 -0.8 -0.4 0 0.4 0.8 1.2 1.6 2.0 2.4 2.8 3.2",
+                "x_label": "Leading Jet #phi ",
+                "legend_position": 3
+            }
+        },
+        "jphi_2": {
+            "tt": {
+                "x_bins": "-3.2 -2.8 -2.4 -2.0 -1.6 -1.2 -0.8 -0.4 0 0.4 0.8 1.2 1.6 2.0 2.4 2.8 3.2",
+                "x_label": "Trailing Jet #phi ",
+                "legend_position": 3
+            }
+        },
+        "m_vis": {
+            "tt": {
+                "x_bins": "40,40,140",
+                "x_label": "Visible di-#tau mass / GeV "
+            },
+            "et": {
+                "x_bins": "20 30 35 40 45 50 54 58 62 66 68 70 72 74 76 78 80 82 84 86 88 90 92 94 96 98 100 110 120 130 140",
+                "x_label": "Visible di-#tau mass/ GeV "
+            }
+        }
+    }
+}
