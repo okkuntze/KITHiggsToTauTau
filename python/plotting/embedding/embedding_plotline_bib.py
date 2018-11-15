@@ -877,20 +877,22 @@ DYFileWinter17_mt = pltcl.single_plotline(
 	name = "DYFileWinter17_mt",
 	#num_file = "/storage/9/sbrommer/artus_outputs/2018-05-02/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
 	num_file = "/storage/c/jbechtel/MCEmbedding/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	#num_file = "/storage/9/sbrommer/artus_outputs/ZmmValidation/FSR/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
 	num_folder = "mt_nominal",
 	den_folder = "mt_nominal",
 	num_tree = "ntuple",
-	label = "Z#rightarrow#tau#tau simulation",
 	color = "kRed",
 	marker = "HISTO")
 
 DYFileWinter17_mt_copy = pltcl.single_plotline(
 	name = "DYFileWinter17_mt_copy",
 	#num_file = "/storage/9/sbrommer/artus_outputs/2018-05-02/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
-	num_file = "/storage/9/sbrommer/artus_outputs/ZmmValidation/DYJets_copy.root",
+	#num_file = "/storage/9/sbrommer/artus_outputs/ZmmValidation/FSR/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3_copy.root",
+	num_file = "/storage/9/sbrommer/artus_outputs/ZmmValidation/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3_copy.root",
 	num_folder = "mt_nominal",
 	den_folder = "mt_nominal",
-	num_tree = "ntuple")
+	num_tree = "ntuple",
+	label = "Z #rightarrow #tau#tau (simulation)")
 
 DYFileWinter17_mt_shift_up = pltcl.single_plotline(
 	name = "DYFileWinter17_mt_shift_up",
@@ -917,43 +919,85 @@ DYFileWinter17_mt_shift_down = pltcl.single_plotline(
 DYFileWinter17_emb_mt = pltcl.single_plotline(
 	name = "DYFileWinter17_emb_mt",
 	#num_file = "/storage/9/sbrommer/artus_outputs/2018-05-02/EmbeddingMCRunIIWinter17_MuTauFinalState_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8/EmbeddingMCRunIIWinter17_MuTauFinalState_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8.root",
+	#num_file = "/storage/9/sbrommer/artus_outputs/ZmmValidation/FSR/mt/EmbeddingMCRunIIWinter17_MuTauFinalState_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8/EmbeddingMCRunIIWinter17_MuTauFinalState_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8.root",
 	num_file = "/storage/c/jbechtel/MCEmbedding/EmbeddingMCRunIIWinter17_MuTauFinalState_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8.root",
 	num_folder = "mt_nominal",
 	den_folder = "mt_nominal",
 	num_tree = "ntuple",
-	label = "#mu #rightarrow #tau embedded",
+	label = "Z #rightarrow #tau#tau (embedded)",
 	color = "kBlue",
 	marker = "PE")
 
 DYFileWinter17_mm = pltcl.single_plotline(
 	name = "DYFileWinter17_mm",
 #	num_file = "/storage/9/sbrommer/artus_outputs/2018-04-23/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
-	num_file= "/storage/c/jbechtel/artus_outputs/event_matching/final/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_file= "/storage/c/jbechtel/artus_outputs/event_matching/final/chargeOrdered/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
 	num_folder = "mm_nominal",
 	den_folder = "mm_nominal",
 	num_tree = "ntuple",
 	color = "kRed",
-	label = "Z#rightarrow#mu#mu simulation",
+	label = "",
 	marker = "HISTO")
 
 DYFileWinter17_mm_copy = pltcl.single_plotline(
 	name = "DYFileWinter17_mm_copy",
 #	num_file = "/storage/9/sbrommer/artus_outputs/2018-04-23/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
-	num_file= "/storage/9/sbrommer/artus_outputs/ZmmValidation/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3_copy.root",
+	num_file= "/portal/ekpbms1/home/jbechtel/copy_temp_reg.root",
 	num_folder = "mm_nominal",
 	den_folder = "mm_nominal",
-	num_tree = "ntuple")
+	num_tree = "ntuple",
+	label = "Z #rightarrow #mu#mu (simulation)")
 
 DYFileWinter17_emb_mm = pltcl.single_plotline(
 	name = "DYFileWinter17_emb_mm",
 	#num_file = "/storage/9/sbrommer/artus_outputs/2018-04-23/EmbeddingMCRunIIWinter17_MuonEmbedding_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8/EmbeddingMCRunIIWinter17_MuonEmbedding_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8.root",
 	#num_file = "/storage/c/jbechtel/Artus_2018-04-26/EmbeddingMC_MuonEmbedding2/EmbeddingMCRunIIWinter17_MuonEmbedding_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8_newweightfile.root",
-	num_file = "/storage/c/jbechtel/artus_outputs/event_matching/final_mvisCorr/EmbeddingMCRunIIWinter17_MuonEmbedding_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8.root",
+	num_file = "/storage/c/jbechtel/artus_outputs/event_matching/final/chargeOrdered/corr11/EmbeddingMCRunIIWinter17_MuonEmbedding_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8.root",
 	num_folder = "mm_nominal",
 	den_folder = "mm_nominal",
 	num_tree = "ntuple",
-	label = "#mu#rightarrow#mu embedded",
-	color = "kBlue",
+	label = "Z #rightarrow #mu#mu (embedded)",
+	color = "kRed",
+	marker = "PE")
+
+
+DYFileWinter17_emb_mt_no_fsr = pltcl.single_plotline(
+	name = "DYFileWinter17_emb_mt_no_fsr",
+	num_file = "/storage/9/sbrommer/artus_outputs/ZmmValidation/FSR/mt/EmbeddingMCRunIIWinter17_FSRv2MuTauFinalState_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8/EmbeddingMCRunIIWinter17_FSRv2MuTauFinalState_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8.root",
+	num_folder = "mt_nominal",
+	den_folder = "mt_nominal",
+	num_tree = "ntuple",
+	label = "#mu#rightarrow#tau embedded without FSR",
+	color = "kRed",
+	marker = "PE")
+
+
+DYFileWinter17_mm_matched = pltcl.single_plotline(
+	name = "DYFileWinter17_mm_matched",
+	num_file = "/storage/9/sbrommer/artus_outputs/ZmmValidation/FSR/eventmatching.root",
+	num_folder = "",
+	den_folder = "",
+	num_tree = "common1",
+	color = "kRed",
+	label = "Z#rightarrow#mu#mu simulation",
+	marker = "HISTO")
+DYFileWinter17_mm_matched_copy = pltcl.single_plotline(
+	name = "DYFileWinter17_mm_matched",
+	num_file = "/storage/9/sbrommer/artus_outputs/ZmmValidation/FSR/eventmatching_copy.root",
+	num_folder = "",
+	den_folder = "",
+	num_tree = "common1",
+	color = "kRed",
+	label = "",
+	marker = "HISTO")
+DYFileWinter17_emb_mm_no_fsr_matched = pltcl.single_plotline(
+	name = "DYFileWinter17_emb_mm_no_fsr_matched",
+	num_file = "/storage/9/sbrommer/artus_outputs/ZmmValidation/FSR/eventmatching.root",
+	num_folder = "",
+	den_folder = "",
+	num_tree = "common2",
+	label = "#mu#rightarrow#mu embedded without FSR",
+	color = "kRed",
 	marker = "PE")
 #### Mass Correction Files#####
 DYFileWinter17_mm_corr = pltcl.single_plotline(
@@ -989,7 +1033,7 @@ DYFileWinter17_emb_mm_corr = pltcl.single_plotline(
 
 DYFileWinter17_mm_pf = pltcl.single_plotline(
 	name = "DYFileWinter17_mm_pf",
-	num_file = "/storage/c/jbechtel/artus_outputs/2018-05-08/9/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
+	num_file = "/storage/9/sbrommer/artus_outputs/ZmmValidation/FSR/MuMuEmbedding_PFC.root", 
 	num_folder = "mm_nominal",
 	den_folder = "mm_nominal",
 	num_tree = "ntuple",
@@ -999,18 +1043,22 @@ DYFileWinter17_mm_pf = pltcl.single_plotline(
 
 DYFileWinter17_mm_pf_copy = pltcl.single_plotline(
 	name = "DYFileWinter17_mm_pf_copy",
-	num_file = "/storage/9/sbrommer/artus_outputs/ZmmValidation/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3_pf_copy.root",
-	num_folder = "mm_nominal",
-	den_folder = "mm_nominal",
-	num_tree = "ntuple")
+	#num_file = "/storage/9/sbrommer/artus_outputs/ZmmValidation/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3_pf_copy.root",
+	num_file = "/storage/9/sbrommer/artus_outputs/ZmmValidation/FSR/eventmatching_pfc_copy.root", 
+	num_folder = "",
+	den_folder = "",
+	num_tree = "common1")
 
 DYFileWinter17_emb_mm_pf = pltcl.single_plotline(
 	name = "DYFileWinter17_emb_mm",
-	num_file = "/storage/c/jbechtel/artus_outputs/2018-05-08/9/EmbeddingMCRunIIWinter17_MuonEmbedding_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8.root",
-	num_folder = "mm_nominal",
-	den_folder = "mm_nominal",
-	num_tree = "ntuple",
-	label = "#mu#rightarrow#mu embedded",
+	#num_file = "/storage/c/jbechtel/artus_outputs/2018-05-08/9/EmbeddingMCRunIIWinter17_MuonEmbedding_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8.root",
+	#/storage/9/sbrommer/artus_outputs/ZmmValidation/PFC_without_cut/EmbeddingMCRunIIWinter17_MuonEmbedding_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8/EmbeddingMCRunIIWinter17_MuonEmbedding_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8.root
+	#num_file = "/storage/9/sbrommer/artus_outputs/ZmmValidation/PFC_with_pt_cut/EmbeddingMCRunIIWinter17_MuonEmbedding_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8/EmbeddingMCRunIIWinter17_MuonEmbedding_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8.root",
+	num_file = "/storage/9/sbrommer/artus_outputs/ZmmValidation/FSR/eventmatching_pfc.root", 
+	num_folder = "",
+	den_folder = "",
+	num_tree = "common2",
+	label = "#mu#rightarrow#mu embedded without FSR",
 	color = "kBlue",
 	marker = "PE")
 
@@ -1127,16 +1175,18 @@ DYFileWinter17_et = pltcl.single_plotline(
 	den_folder = "et_nominal",
 	num_tree = "ntuple",
 	color = "kRed",
-	label = "Z#rightarrow#tau#tau simulation",
 	marker = "HISTO")
 
 DYFileWinter17_et_copy = pltcl.single_plotline(
 	name = "DYFileWinter17_et_copy",
 	#num_file= "/storage/9/sbrommer/artus_outputs/2018-05-02/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3.root",
-	num_file = "/storage/9/sbrommer/artus_outputs/ZmmValidation/DYJets_copy.root",	
+	#num_file = "/storage/9/sbrommer/artus_outputs/ZmmValidation/DYJets_copy.root",	
+	num_file = "/storage/9/sbrommer/artus_outputs/ZmmValidation/DYJetsToLLM50_RunIIWinter17MiniAOD_NZSPU40to70_13TeV_MINIAOD_madgraph-pythia8_v3_copy.root",
 	num_folder = "et_nominal",
 	den_folder = "et_nominal",
-	num_tree = "ntuple")
+	num_tree = "ntuple",
+	label = "Z #rightarrow #tau#tau (simulation)"
+)
 
 DYFileWinter17_et_shift_up = pltcl.single_plotline(
 	name = "DYFileWinter17_et_shift_up",
@@ -1167,7 +1217,7 @@ DYFileWinter17_emb_et = pltcl.single_plotline(
 	num_folder = "et_nominal",
 	den_folder = "et_nominal",
 	num_tree = "ntuple",
-	label = "#mu#rightarrow#tau embedded",
+	label = "Z #rightarrow #tau#tau (embedded)",
 	color = "kBlue",
 	marker = "PE")
 
@@ -1179,7 +1229,7 @@ DYFileWinter17_emb_et = pltcl.single_plotline(
 
 DYFall17_mt = pltcl.single_plotline(
 	name = "DYFall17",
-	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-05-14/DYFall_v2_17.root",
+	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-06-01/DYFall_17.root",
 	num_folder = "mt_nominal",
 	den_folder = "mt_nominal",
 	num_tree = "ntuple",
@@ -1187,7 +1237,7 @@ DYFall17_mt = pltcl.single_plotline(
 )
 TTFall17_mt = pltcl.single_plotline(
 	name = "TTFall17",
-	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-05-14/TTFall17.root",
+	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-06-01/TTFall_17.root",
 	num_folder = "mt_nominal",
 	den_folder = "mt_nominal",
 	num_tree = "ntuple",
@@ -1195,7 +1245,7 @@ TTFall17_mt = pltcl.single_plotline(
 )
 Embedding17_mt = pltcl.single_plotline(
 	name = "Embedding17_mt",
-	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-05-14/MuTauEmbedding2017.root",
+	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-06-01/MuTauEmbedding2017.root",
 	num_folder = "mt_nominal",
 	den_folder = "mt_nominal",
 	num_tree = "ntuple",
@@ -1203,7 +1253,7 @@ Embedding17_mt = pltcl.single_plotline(
 )
 DYFall17_et = pltcl.single_plotline(
 	name = "DYFall17",
-	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-05-14/DYFall_v2_17.root",
+	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-06-01/DYFall_17.root",
 	num_folder = "et_nominal",
 	den_folder = "et_nominal",
 	num_tree = "ntuple",
@@ -1211,7 +1261,7 @@ DYFall17_et = pltcl.single_plotline(
 )
 TTFall17_et = pltcl.single_plotline(
 	name = "TTFall17",
-	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-05-14/TTFall17.root",
+	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-06-01/TTFall_17.root",
 	num_folder = "et_nominal",
 	den_folder = "et_nominal",
 	num_tree = "ntuple",
@@ -1219,7 +1269,7 @@ TTFall17_et = pltcl.single_plotline(
 )
 Embedding17_et = pltcl.single_plotline(
 	name = "Embedding17_et",
-	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-05-14/ElTauEmbedding2017.root",
+	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-06-01/ElTauEmbedding2017.root",
 	num_folder = "et_nominal",
 	den_folder = "et_nominal",
 	num_tree = "ntuple",
@@ -1227,7 +1277,7 @@ Embedding17_et = pltcl.single_plotline(
 )
 DYFall17_tt = pltcl.single_plotline(
 	name = "DYFall17",
-	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-05-14/DYFall_v2_17.root",
+	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-06-01/DYFall_17.root",
 	num_folder = "tt_nominal",
 	den_folder = "tt_nominal",
 	num_tree = "ntuple",
@@ -1235,7 +1285,7 @@ DYFall17_tt = pltcl.single_plotline(
 )
 TTFall17_tt = pltcl.single_plotline(
 	name = "TTFall17",
-	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-05-14/TTFall17.root",
+	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-06-01/TTFall_17.root",
 	num_folder = "tt_nominal",
 	den_folder = "tt_nominal",
 	num_tree = "ntuple",
@@ -1243,7 +1293,7 @@ TTFall17_tt = pltcl.single_plotline(
 )
 Embedding17_tt = pltcl.single_plotline(
 	name = "Embedding17_tt",
-	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-05-14/TauTauEmbedding2017.root",
+	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-06-01/TauTauEmbedding2017.root",
 	num_folder = "tt_nominal",
 	den_folder = "tt_nominal",
 	num_tree = "ntuple",
@@ -1252,7 +1302,7 @@ Embedding17_tt = pltcl.single_plotline(
 
 DYFall17_em = pltcl.single_plotline(
 	name = "DYFall17",
-	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-05-14/DYFall_v2_17.root",
+	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-06-01/DYFall_17.root",
 	num_folder = "em_nominal",
 	den_folder = "em_nominal",
 	num_tree = "ntuple",
@@ -1260,7 +1310,7 @@ DYFall17_em = pltcl.single_plotline(
 )
 TTFall17_em = pltcl.single_plotline(
 	name = "TTFall17",
-	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-05-14/TTFall17.root",
+	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-06-01/TTFall_17.root",
 	num_folder = "em_nominal",
 	den_folder = "em_nominal",
 	num_tree = "ntuple",
@@ -1268,9 +1318,153 @@ TTFall17_em = pltcl.single_plotline(
 )
 Embedding17_em = pltcl.single_plotline(
 	name = "Embedding17_em",
-	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-05-14/ElMuEmbedding2017.root",
+	num_file = "/storage/9/sbrommer/artus_outputs/shape_comparison/2018-06-01/ElMuEmbedding2017.root",
 	num_folder = "em_nominal",
 	den_folder = "em_nominal",
 	num_tree = "ntuple",
 	label = "#mu#rightarrow#tau embedded Run 2017"
+)
+
+####################################
+#  Calorimeter Cleaning Files      #
+####################################
+
+MuMu_Embedding_old_cleaning = pltcl.single_plotline(
+	name = "MuMu_Embedding_old_cleaning",
+	#num_file = "/storage/9/sbrommer/artus_outputs/cleaning/2018-07-17/EmbeddingMCRunIIWinter17_MuonEmbedding_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8/EmbeddingMCRunIIWinter17_MuonEmbedding_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8.root",
+	num_file = "/storage/9/sbrommer/artus_outputs/cleaning/2018-07-17/eventmatching.root",
+	num_folder = "",
+	den_folder = "",
+	num_tree = "common3",
+	label = "#mu#rightarrow#mu old cleaning"
+)
+MuMu_Embedding_new_cleaning = pltcl.single_plotline(
+	name = "MuMu_Embedding_new_cleaning",
+	#num_file = "/storage/9/sbrommer/artus_outputs/cleaning/2018-07-17/EmbeddingMCRunIIWinter17_CleaningMuonEmbedding_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8/EmbeddingMCRunIIWinter17_CleaningMuonEmbedding_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8.root",
+	num_file = "/storage/9/sbrommer/artus_outputs/cleaning/2018-07-17/eventmatching.root",
+	num_folder = "",
+	den_folder = "",
+	num_tree = "common2",
+	label = "#mu#rightarrow#mu new cleaning"
+)
+MuMu_Embedding_dy_comparison = pltcl.single_plotline(
+	name = "MuMu_Embedding_dy_comparison",
+	num_file = "/storage/9/sbrommer/artus_outputs/cleaning/2018-07-17/eventmatching.root",
+	num_folder = "",
+	den_folder = "",
+	num_tree = "common1",
+	label = "Z#rightarrow#mu#mu simulation"
+)
+
+MuMu_Embedding_old_cleaning_pfc = pltcl.single_plotline(
+	name = "MuMu_Embedding_old_cleaning_pfc",
+	#num_file = "/storage/9/sbrommer/artus_outputs/cleaning/2018-07-17/pfc/EmbeddingMCRunIIWinter17_MuonEmbedding_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8/EmbeddingMCRunIIWinter17_MuonEmbedding_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8.root",
+	num_file = "/storage/9/sbrommer/artus_outputs/cleaning/2018-07-17/pfc/eventmatching.root",
+	num_folder = "",
+	den_folder = "",
+	num_tree = "common3",
+	label = "#mu#rightarrow#mu old cleaning"
+)
+MuMu_Embedding_new_cleaning_pfc = pltcl.single_plotline(
+	name = "MuMu_Embedding_new_cleaning_pfc",
+	#num_file = "/storage/9/sbrommer/artus_outputs/cleaning/2018-07-17/pfc/EmbeddingMCRunIIWinter17_CleaningMuonEmbedding_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8/EmbeddingMCRunIIWinter17_CleaningMuonEmbedding_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8.root",
+	num_file = "/storage/9/sbrommer/artus_outputs/cleaning/2018-07-17/pfc/eventmatching.root",
+	num_folder = "",
+	den_folder = "",
+	num_tree = "common2",
+	label = "#mu#rightarrow#mu new cleaning"
+)
+MuMu_Embedding_dy_comparison_pfc = pltcl.single_plotline(
+	name = "MuMu_Embedding_dy_comparison_pfc",
+	#num_file = "/storage/9/sbrommer/artus_outputs/cleaning/2018-07-17/EmbeddingMCRunIIWinter17_MuonEmbedding_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8/EmbeddingMCRunIIWinter17_MuonEmbedding_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8.root",
+	num_file = "/storage/9/sbrommer/artus_outputs/cleaning/2018-07-17/pfc/eventmatching.root",
+	num_folder = "",
+	den_folder = "",
+	num_tree = "common1",
+	label = "#mu#rightarrow#mu DY Comparison"
+)
+###########################
+# DoubleTauTrigger Plots  #
+###########################
+
+Embedded_trigger_old_tt = pltcl.single_plotline(
+	name = "Embedded_trigger_old_tt",
+	num_file = "/storage/9/sbrommer/artus_outputs/Triggerstudy/tt/Embedding2017B_TauTauFinalState_imputDoubleMuminiAODv2_13TeV_USER/Embedding2017B_TauTauFinalState_imputDoubleMuminiAODv2_13TeV_USER.root",
+	num_folder = "tt_nominal",
+	den_folder = "tt_nominal",
+	num_tree = "ntuple",
+	label = "#mu#rightarrow#tau Embedded old Version"
+)
+
+Embedded_trigger_new_tt = pltcl.single_plotline(
+	name = "Embedded_trigger_new_tt",
+	num_file = "/storage/9/sbrommer/artus_outputs/Triggerstudy/tt/Embedding2017B_TriggerTauTauFinalState_imputDoubleMuminiAODv2_13TeV_USER/Embedding2017B_TriggerTauTauFinalState_imputDoubleMuminiAODv2_13TeV_USER.root",
+	num_folder = "tt_nominal",
+	den_folder = "tt_nominal",
+	num_tree = "ntuple",
+	label = "#mu#rightarrow#tau Embedded new Version"
+)
+
+Embedded_trigger_new_v2_tt = pltcl.single_plotline(
+	name = "Embedded_trigger_new_v2_tt",
+	num_file = "/storage/9/sbrommer/artus_outputs/Triggerstudy/tt/Embedding2017B_TriggerFinalTauTauFinalState_imputDoubleMuminiAODv2_13TeV_USER/Embedding2017B_TriggerFinalTauTauFinalState_imputDoubleMuminiAODv2_13TeV_USER.root",
+	num_folder = "tt_nominal",
+	den_folder = "tt_nominal",
+	num_tree = "ntuple",
+	label = "#mu#rightarrow#tau Embedded newer Version"
+)
+
+Embedded_trigger_old_mt = pltcl.single_plotline(
+	name = "Embedded_trigger_old_mt",
+	num_file = "/storage/9/sbrommer/artus_outputs/Triggerstudy/mt/Embedding2017B_MuTauFinalState_imputDoubleMuminiAODv2_13TeV_USER/Embedding2017B_MuTauFinalState_imputDoubleMuminiAODv2_13TeV_USER.root",
+	num_folder = "mt_nominal",
+	den_folder = "mt_nominal",
+	num_tree = "ntuple",
+	label = "#mu#rightarrow#tau Embedded old Version"
+)
+
+Embedded_trigger_new_mt = pltcl.single_plotline(
+	name = "Embedded_trigger_new_mt",
+	num_file = "/storage/9/sbrommer/artus_outputs/Triggerstudy/mt/Embedding2017B_TriggerMuTauFinalState_imputDoubleMuminiAODv2_13TeV_USER/Embedding2017B_TriggerMuTauFinalState_imputDoubleMuminiAODv2_13TeV_USER.root",
+	num_folder = "mt_nominal",
+	den_folder = "mt_nominal",
+	num_tree = "ntuple",
+	label = "#mu#rightarrow#tau Embedded new Version"
+)
+
+#### Electron ID Checks
+embedded_ee = pltcl.single_plotline(
+	name = "embedded_ee",
+	num_file = "/storage/9/sbrommer/artus_outputs/TPZee/2018-10-25/output/Electron_Embedding.root",
+	num_folder = "ee_singleelectron_nominal",
+	den_folder = "ee_singleelectron_nominal",
+	num_tree = "ntuple",
+	label = "Z#rightarrow ee Embedded"
+)
+
+dy_ee = pltcl.single_plotline(
+	name = "dy_ee",
+	num_file = "/storage/9/sbrommer/artus_outputs/TPZee/2018-10-25/output/Electron_DY.root",
+	num_folder = "ee_singleelectron_nominal",
+	den_folder = "ee_singleelectron_nominal",
+	num_tree = "ntuple",
+	label = "Z#rightarrow ee Simulation"
+)
+
+data_ee = pltcl.single_plotline(
+	name = "data_ee",
+	num_file = "/storage/9/sbrommer/artus_outputs/TPZee/2018-10-25/output/SingleElectron.root",
+	num_folder = "ee_singleelectron_nominal",
+	den_folder = "ee_singleelectron_nominal",
+	num_tree = "ntuple",
+	label = "Data"
+)
+
+data_ee_old = pltcl.single_plotline(
+	name = "data_ee",
+	num_file = "/storage/9/sbrommer/artus_outputs/TPZee/2018-05-11/SingleElectron2017.root",
+	num_folder = "ee_nominal",
+	den_folder = "ee_nominal",
+	num_tree = "ZeeTP",
+	label = "Data"
 )
