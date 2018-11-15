@@ -116,6 +116,7 @@ class single_plot:
                  x_bins=None,
                  y_bins=None,
                  x_ticks=None,
+                 y_ticks=None,
                  x_tick_labels=None,
                  x_expression="nPU",
                  y_expression=None,
@@ -130,6 +131,7 @@ class single_plot:
                  y_label="Events",
                  y_log=False,
                  z_log=False,
+                 x_log=False,
                  weight="1",
                  normalized_to_nevents=False,
                  normalized_to_unity=False,
@@ -162,6 +164,7 @@ class single_plot:
         self.x_bins = x_bins
         self.y_bins = y_bins
         self.x_ticks = x_ticks
+        self.y_ticks = y_ticks
         self.x_tick_labels = x_tick_labels
         self.x_label = x_expression if x_label is None else x_label
         self.x_expression = x_expression
@@ -174,6 +177,7 @@ class single_plot:
         self.wwwfolder = wwwfolder
         self.output_dir = output_dir
         self.y_label = y_label
+        self.x_log = x_log
         self.y_log = y_log
         self.z_log = z_log
         self.weight = weight
@@ -210,6 +214,7 @@ class single_plot:
               x_bins=None,
               y_bins=None,
               x_ticks=None,
+              y_ticks=None,
               x_tick_labels=None,
               x_expression=None,
               y_expression=None,
@@ -222,6 +227,7 @@ class single_plot:
               wwwfolder=None,
               output_dir=None,
               y_label=None,
+              x_log=None,
               y_log=None,
               z_log=None,
               weight=None,
@@ -257,6 +263,7 @@ class single_plot:
             x_bins=self.x_bins if x_bins is None else x_bins,
             y_bins=self.y_bins if y_bins is None else y_bins,
             x_ticks=self.x_ticks if x_ticks is None else x_ticks,
+            y_ticks=self.y_ticks if y_ticks is None else y_ticks,
             x_tick_labels=self.x_tick_labels
             if x_tick_labels is None else x_tick_labels,
             x_expression=self.x_expression
@@ -272,6 +279,7 @@ class single_plot:
             wwwfolder=self.wwwfolder if wwwfolder is None else wwwfolder,
             output_dir=self.output_dir if output_dir is None else output_dir,
             y_label=self.y_label if y_label is None else y_label,
+            x_log=self.x_log if x_log is None else x_log,
             y_log=self.y_log if y_log is None else y_log,
             z_log=self.z_log if z_log is None else z_log,
             weight=self.weight if weight is None else weight,
@@ -312,13 +320,12 @@ class single_plot:
             if vertical_lines is None else vertical_lines,
             horizontal_subplot_lines=self.horizontal_subplot_lines
             if horizontal_subplot_lines is None else horizontal_subplot_lines,
-            add_nicks = self.add_nicks 
-            if add_nicks is None else add_nicks,
-            add_result_nicks = self.add_result_nicks
+            add_nicks=self.add_nicks if add_nicks is None else add_nicks,
+            add_result_nicks=self.add_result_nicks
             if add_result_nicks is None else add_result_nicks,
-            add_scale_factors = self.add_scale_factors
+            add_scale_factors=self.add_scale_factors
             if add_scale_factors is None else add_scale_factors,
-            nicks_blacklist= self.nicks_blacklist
+            nicks_blacklist=self.nicks_blacklist
             if nicks_blacklist is None else nicks_blacklist,
             plotlines=self.plotlines if plotlines is None else plotlines)
 
@@ -372,20 +379,16 @@ class single_plot:
                     print "No proper plot type defined. Choose 'efficiency' or 'absolute'."
                     sys.exit()
 
-            self.out_json.setdefault("add_nicks",
-                                        []).append(sub_add_nick)
-            self.out_json.setdefault("add_result_nicks",
-                                    []).append("add_" + self.plotlines[self.add_result_nicks].num_nick)
+            self.out_json.setdefault("add_nicks", []).append(sub_add_nick)
+            self.out_json.setdefault("add_result_nicks", []).append(
+                "add_" + self.plotlines[self.add_result_nicks].num_nick)
             # self.out_json.setdefault("nicks", []).append(
             #                                 "add_" + self.plotlines[self.add_result_nicks].num_nick)
-            self.out_json.setdefault("colors", []).insert(0,
-                "kBlack")
-            self.out_json.setdefault("labels", []).insert(0,
-                "ZTT + TTbar")
-            self.out_json.setdefault("markers", []).insert(0,
-                "HISTO")
-            self.out_json.setdefault("legend_markers", []).insert(0,
-                self.plotlines[self.add_result_nicks].legend_marker)
+            self.out_json.setdefault("colors", []).insert(0, "kBlack")
+            self.out_json.setdefault("labels", []).insert(0, "ZTT + TTbar")
+            self.out_json.setdefault("markers", []).insert(0, "HISTO")
+            self.out_json.setdefault("legend_markers", []).insert(
+                0, self.plotlines[self.add_result_nicks].legend_marker)
         sub_den_nick = ""
         if self.plot_type == "efficiency":
             sub_den_nick = self.plotlines[self.subplot_denominator].eff_nick
@@ -397,10 +400,10 @@ class single_plot:
         try:
             sub_add_nick != ""
             self.out_json.setdefault("divide_denominator_nicks",
-                                    []).append("add_" + sub_den_nick)
+                                     []).append("add_" + sub_den_nick)
         except UnboundLocalError:
             self.out_json.setdefault("divide_denominator_nicks",
-                                    []).append(sub_den_nick)
+                                     []).append(sub_den_nick)
         # for index in self.subplot_denominator:
         # 	sub_den_nick = ""
         # 	if self.plot_type == "efficiency":
@@ -441,7 +444,6 @@ class single_plot:
             self.out_json.setdefault("legend_markers", []).append(
                 self.plotlines[index].legend_marker)
 
-
     def fill_single_json(self):
         self.out_json.setdefault("plot_modules", []).append("PlotRootHtt")
 
@@ -453,6 +455,7 @@ class single_plot:
         self.out_json["title"] = self.title
         self.out_json["x_bins"] = self.x_bins
         if not self.x_ticks is None: self.out_json["x_ticks"] = self.x_ticks
+        if not self.y_ticks is None: self.out_json["y_ticks"] = self.y_ticks
         if not self.x_tick_labels is None:
             self.out_json["x_tick_labels"] = self.x_tick_labels
         self.out_json.setdefault("x_expressions", []).append(self.x_expression)
@@ -469,6 +472,7 @@ class single_plot:
         if self.wwwfolder != "": self.out_json["www"] = self.wwwfolder
         self.out_json["output_dir"] = self.output_dir
         self.out_json["y_label"] = self.y_label
+        self.out_json["x_log"] = self.x_log
         self.out_json["y_log"] = self.y_log
         self.out_json["z_log"] = self.z_log
         self.out_json.setdefault("weights", []).append(self.weight)
@@ -585,7 +589,8 @@ class single_plot:
                 self.subplot_numerators) != 0:
             self.out_json["y_subplot_label"] = self.y_subplot_label
             if self.add_nicks != None:
-                self.safe_append_modules(modulename="AddHistograms", moduletype="analysis")
+                self.safe_append_modules(
+                    modulename="AddHistograms", moduletype="analysis")
             self.safe_append_modules(
                 modulename="Divide", moduletype="analysis")
             self.create_subplot()
@@ -609,15 +614,24 @@ class single_plot:
                 "eb_" + self.plotlines[self.errorband_lines[0]].num_nick)
 
         # Plots with Error Band for first plot in red
-        if any(string in self.x_expression for string in ["iso_", "nbtag", "njet"]):
-            
+        if any(string in self.x_expression for string in [
+                "iso_1", "iso_2", "nbtag", "njet", "preShowerOverRaw_p", "preShowerOverRaw_t",
+                "iso_p", "iso_t",
+                #"NPFElectromagneticHF",
+                #"NPFElectrons", "NPFHadronicHF", "NPFMuons", "NPFPhotons"
+        ]):
+
             self.out_json["y_log"] = "True"
         # # Plots with Error Band for the First Dataline -> Copy of the first dataline is needed
-        # self.out_json["colors"] = ["kRed kWhite", "kBlue", "kRed", "kRed", "kBlue"]
-        # self.out_json["marker_styles"] = [20, 20,0, 0, 20, 0]
-        # self.out_json["markers"] = ["HIST","PE","E2", "E2", "PE"]
-        # self.out_json["fill_styles"] = [1001, 1001, 3001, 3001, 1001]
-        # self.out_json["legend_markers"] = ["L","PE","E2","L","PE"]
+        self.out_json["colors"] = [
+            "kRed kWhite", "kBlue", "kRed", "kRed", "kBlue"
+        ]
+        self.out_json["marker_styles"] = [20, 20, 0, 0, 20, 0]
+        self.out_json["markers"] = ["HIST", "PE", "E2", "E2", "PE"]
+        self.out_json["fill_styles"] = [1001, 1001, 3001, 3001, 1001]
+        self.out_json["legend_markers"] = ["L", "PE", "E2", "L", "PE"]
+        self.out_json["extra_text"] = "Preliminary"
+        self.out_json["cms"] = True
 
         # # Plot two datalines + ratio and stat. error of the first:
         if len(self.subplot_numerators) == 2:
@@ -626,26 +640,44 @@ class single_plot:
             self.out_json["markers"] = ["HIST","PE", "E2", "PE"]
             self.out_json["fill_styles"] = [1001, 1001, 3001, 1001]
             self.out_json["legend_markers"] = ["L","PE", "L","PE"]
+            self.out_json["extra_text"] = "Preliminary"
+            self.out_json["cms"] = True
+        ## Plot 3 Datalines
+        if len(self.plotlines) == 4:
+            self.out_json["colors"] = ["kRed","kRed kWhite", "kBlue", "kCyan+2", "kRed", "kBlue", "kCyan+2"]
+            self.out_json["marker_styles"] = [0, 20, 20, 20, 0, 20, 20]
+            self.out_json["markers"] = ["E2", "HIST", "PE", "PE", "E2", "PE", "PE"]
+            self.out_json["fill_styles"] = [3001, 1001, 1001, 1001, 3001, 1001, 1001]
+            self.out_json["legend_markers"] = ["", "E2", "PE", "PE","", "PE", "PE"]
+            self.out_json["extra_text"] = "Preliminary"
+            self.out_json["cms"] = True
+    
+
         # Plotting DY + TTBar Sample Compared to Embedding -> Required order: DY,TTBar,Embedded Sample
         if self.add_nicks != None:
-                self.out_json["add_nicks"] = [""]
+                self.out_json["add_nicks"] = ["",""]
                 self.out_json["nicks_blacklist"] = ["DYFall", "TTFall"]
-                self.out_json["add_result_nicks"] = "add_result"
+                self.out_json["add_result_nicks"] = ["add_result", "error_result"]
                 self.out_json["divide_denominator_nicks"] = "add_result"
                 self.out_json["divide_numerator_nicks"] = [self.plotlines[nicks].num_nick for nicks in self.subplot_numerators]
                 self.out_json["divide_numerator_nicks"].append("add_result")
+                #self.safe_append_modules(modulename="StatisticalErrors", moduletype="analysis")
+                #self.out_json["stat_error_nicks"] = "add_result"
                 for nicks in self.add_nicks:
-                    self.out_json["add_nicks"][0] += (self.plotlines[nicks].num_nick + " ") 
+                    self.out_json["add_nicks"][0] += (self.plotlines[nicks].num_nick + " ")
+                    self.out_json["add_nicks"][1] += (self.plotlines[nicks].num_nick + " ")
                 self.out_json["divide_result_nicks"] = ["div_" + self.plotlines[nicks].num_nick for nicks in self.subplot_numerators]
                 self.out_json["divide_result_nicks"].append("div_add_result")
                 self.out_json["subplot_nicks"] = self.out_json["divide_result_nicks"]
-                self.out_json["labels"] = ["Fall17 Z/t#bar{t}#rightarrow#tau#tau simulation","Run2017 #mu#rightarrow#tau embedded",  "", ""]
-                self.out_json["colors"] = ["kOrange+7 kWhite","kCyan+2", "kCyan+2", "kOrange+7"]
-                self.out_json["marker_styles"] = [20,20,20,0]
-                self.out_json["markers"] = ["HIST","PE","PE", "E2"]
-                self.out_json["fill_styles"] = [1001,1001,1001, 3001]
-                self.out_json["legend_markers"] = ["L","PE", "PE","L"]
-        # Plots with UP/Down Tau Variations
+                self.out_json["labels"] = ["Fall17 Z/t#bar{t}#rightarrow#tau#tau simulation","Simulation uncertainty", "#mu#rightarrow#tau embedded old","#mu#rightarrow#tau embedded new", "", "", ""]
+                self.out_json["colors"] = ["kOrange+7 kWhite","kWhite kOrange+7", "kBlue","kRed", "kBlue","kRed", "kOrange+7"]
+                self.out_json["marker_styles"] = [20,0,20,20,20,20,0]
+                self.out_json["markers"] = ["HIST","E2", "PE","PE" ,"PE", "PE","E2"]
+                self.out_json["fill_styles"] = [1001,3001, 1001,1001,1001, 1001,3001]
+                self.out_json["legend_markers"] = ["L","F","PE", "PE", "PE","PE","L"]
+                self.out_json["extra_text"] = "Preliminary"
+                self.out_json["cms"] = True
+        #Plots with UP/Down Tau Variations
         try:
             if "shift" in self.plotlines:
                 self.out_json["colors"] = ["kRed kWhite", "kMagenta kWhite" ,"kMagenta kWhite", "kBlue", "kRed", "kMagenta kWhite","kMagenta kWhite", "kBlue"]
@@ -655,3 +687,99 @@ class single_plot:
                 self.out_json["legend_markers"] = ["L","L","", "PE","L","L", "L", "PE"]
         except IndexError:
             pass
+        if "paper" in self.output_dir:
+            self.out_json["colors"] = [
+            "kRed+1 kWhite", "kRed+1", "kBlue", "kRed", "kBlue"]
+            self.out_json["marker_styles"] = [20, 0, 20, 0, 20]
+            self.out_json["markers"] = ["HIST", "E2", "PE", "E2", "PE"]
+            self.out_json["fill_styles"] = [1001, 3002, 1001, 3002, 1001]
+            self.out_json["legend_markers"] = ["", "FLP", "PEL", "E2", "PEL"]
+            self.out_json["cms"] = True
+            self.out_json["extra_text"] = "Simulation Preliminary"
+            if self.name == "mm":
+                if any(string == self.x_expression for string in ["nbtag", "njetspt30"]):
+                    self.out_json["y_rel_lims"] = [0.1,20]
+                if  any(string == self.x_expression for string in ["iso_1", "iso_2"]):
+                    self.out_json["exclude_after"]=0.15
+            elif self.name == "mt":
+                if any(string == self.x_expression for string in ["nbtag", "njetspt30"]):
+                    self.out_json["y_rel_lims"] = [0.5,60]
+                if  any(string == self.x_expression for string in ["iso_1"]):
+                    self.out_json["exclude_after"]=0.15
+            elif self.name == "et":
+                if any(string == self.x_expression for string in ["nbtag", "njetspt30"]):
+                    self.out_json["y_rel_lims"] = [0.5,60]
+                if  any(string == self.x_expression for string in ["iso_1"]):
+                    self.out_json["exclude_after"]=0.1
+# for the scale factor plots
+        if "scale" in self.output_dir:
+            self.out_json["marker_styles"] = [20,21,21,21,21]
+            self.out_json["colors"] = ["kBlack kWhite", "kRed kWhite","kBlue kWhite", "kRed kWhite", "kBlue kWhite"]
+            self.out_json["markers"] = ["HIST PLE","HIST PLE", "HIST LPE", "HIST LPE", "HIST PLE"]
+            self.out_json["fill_styles"] = [1001, 1001, 1001, 1001, 1001]
+            self.out_json["legend_markers"] = ["LPE","LPE", "LPE","LPE", "LPE"]
+            self.out_json["y_grid"] = True
+            self.out_json["year"] = "2017"
+            self.out_json["lumis"] = [41.5]
+            self.out_json["extra_text"] = "Preliminary"
+            self.out_json["cms"] = True
+            self.out_json["energies"] = [13]
+            self.out_json["title"] = ""
+            self.out_json["texts_below_legend"] = self.title.split("-",2)
+
+        if "cleaning" in self.output_dir:
+            self.out_json["colors"] = [
+            "kRed+1 kWhite", "kRed+1", "kBlue", "kRed", "kBlue"]
+            self.out_json["marker_styles"] = [20, 20, 20, 20, 20]
+            self.out_json["markers"] = ["HIST", "PE", "PE", "P", "P"]
+            self.out_json["fill_styles"] = [3002, 1001, 1001, 1001, 1001]
+            self.out_json["legend_markers"] = ["F", "PE", "PE", "PE", "PE"]
+            self.out_json["cms"] = True
+            self.out_json["extra_text"] = "Simulation Preliminary"
+            if self.name == "mm":
+                if any(string == self.x_expression for string in ["nbtag", "njetspt30"]):
+                    self.out_json["y_rel_lims"] = [0.1,20]
+                if  any(string == self.x_expression for string in ["iso_1", "iso_2"]):
+                    self.out_json["exclude_after"]=0.15
+            elif self.name == "mt":
+                if any(string == self.x_expression for string in ["nbtag", "njetspt30"]):
+                    self.out_json["y_rel_lims"] = [0.5,60]
+                if  any(string == self.x_expression for string in ["iso_1"]):
+                    self.out_json["exclude_after"]=0.15
+            elif self.name == "et":
+                if any(string == self.x_expression for string in ["nbtag", "njetspt30"]):
+                    self.out_json["y_rel_lims"] = [0.5,60]
+                if  any(string == self.x_expression for string in ["iso_1"]):
+                    self.out_json["exclude_after"]=0.1
+        # if len(self.plotlines) == 3:
+        #     self.out_json["colors"] = ["kBlack kWhite", "kBlue","kRed kWhite", "kBlue", "kRed"]
+        #     self.out_json["marker_styles"] = [20, 20, 0, 20, 20]
+        #     self.out_json["markers"] = ["HIST", "PE", "HIST", "PE", "PE"]
+        #     self.out_json["fill_styles"] = [1001, 1001, 3001, 1001, 1001]
+        #     self.out_json["legend_markers"] = ["L", "PE", "L","PE", "PE"]
+        #     self.out_json["extra_text"] = "Preliminary"
+        #     self.out_json["cms"] = True
+        # if "cleaning" in self.output_dir:
+        #     self.out_json["colors"] = [
+        #     "kRed", "kBlue", "kBlue"]
+        #     self.out_json["marker_styles"] = [20, 20, 20]
+        #     self.out_json["markers"] = ["HIST", "PE", "PE"]
+        #     self.out_json["fill_styles"] = [3002, 1001, 1001]
+        #     self.out_json["legend_markers"] = ["F", "PE", "PE"]
+        #     self.out_json["cms"] = True
+        #     self.out_json["extra_text"] = "Simulation Preliminary"
+        #     if self.name == "mm":
+        #         if any(string == self.x_expression for string in ["nbtag", "njetspt30"]):
+        #             self.out_json["y_rel_lims"] = [0.1,20]
+        #         if  any(string == self.x_expression for string in ["iso_1", "iso_2"]):
+        #             self.out_json["exclude_after"]=0.15
+        #     elif self.name == "mt":
+        #         if any(string == self.x_expression for string in ["nbtag", "njetspt30"]):
+        #             self.out_json["y_rel_lims"] = [0.5,60]
+        #         if  any(string == self.x_expression for string in ["iso_1"]):
+        #             self.out_json["exclude_after"]=0.15
+        #     elif self.name == "et":
+        #         if any(string == self.x_expression for string in ["nbtag", "njetspt30"]):
+        #             self.out_json["y_rel_lims"] = [0.5,60]
+        #         if  any(string == self.x_expression for string in ["iso_1"]):
+        #             self.out_json["exclude_after"]=0.1

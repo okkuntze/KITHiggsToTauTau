@@ -16,8 +16,8 @@ class LabelsDict(labels.LabelsDict):
 			self.labels_dict["totalbkg"] = "Exp. unc."
 			self.labels_dict["data"] = "Data"
 			self.labels_dict["zll"] = "Z #rightarrow ll"
-			self.labels_dict["zl"] = "Z #rightarrow ll (l #rightarrow #tau)"
-			self.labels_dict["zj"] = "Z #rightarrow ll (jet/pu #rightarrow #tau)"
+			self.labels_dict["zl"] = "Z #rightarrow ll (l #rightarrow #tau_{h})"
+			self.labels_dict["zj"] = "Z #rightarrow ll (jet #rightarrow #tau_{h})"
 			self.labels_dict["zmm"] = "Z #rightarrow #mu#mu"
 			self.labels_dict["ztomm"] = self.labels_dict["zmm"]
 			self.labels_dict["ztotttomm"] = "Z #rightarrow #tau#tau #rightarrow #mu#mu#nu#nu"
@@ -35,7 +35,8 @@ class LabelsDict(labels.LabelsDict):
 			self.labels_dict["tttautau"] = "t#bar{t} #rightarrow #tau#tau"
 			self.labels_dict["ttjt"] = "t#bar{t} + jets (tau)"
 			self.labels_dict["ttjl"] = "t#bar{t} + jets (lep)"
-			self.labels_dict["ttt"] = "t#bar{t} + jets (tau)"
+			self.labels_dict["ttt"] = "t#bar{t} (t #rightarrow #tau_{h})"
+			self.labels_dict["ttj"] = "t#bar{t} (jet #rightarrow #tau_{h})"
 			self.labels_dict["ttjj"] = "t#bar{t} + jets (jet)"
 			self.labels_dict["wj"] = "W + jets"
 			self.labels_dict["wjt"] = "W + jets (tau)"
@@ -45,6 +46,7 @@ class LabelsDict(labels.LabelsDict):
 			self.labels_dict["vvl"] = "Di-boson (lep)"
 			self.labels_dict["vvj"] = "Di-boson (jet)"
 			self.labels_dict["ewk"] = "Electroweak"
+			self.labels_dict["emb"] = "#mu #rightarrow #tau embedded"
 			self.labels_dict["qcd"] = "QCD"
 			self.labels_dict["htt"] = "H #rightarrow #tau#tau"
 			self.labels_dict["ggh"] = "ggH"
@@ -1161,7 +1163,7 @@ class LabelsDict(labels.LabelsDict):
 					self.labels_dict["bbh{mass:d}_{scale:d}".format(mass=higgs_mass, scale=scale)] = self.labels_dict["bbh"]+" (\\times {scale:d})".format(scale=scale)
 
 		self.labels_dict["data_obs"] = "Observed"
-		self.labels_dict["ttj"] = self.labels_dict["tt"]
+		self.labels_dict["ttj"] = "t#bar{t} (jet #rightarrow #tau_{h})"
 		self.labels_dict["ttbar"] = self.labels_dict["tt"]
 		self.labels_dict["wjets"]  = self.labels_dict["wj"]
 		self.labels_dict["w"]  = self.labels_dict["wj"]
@@ -1182,3 +1184,6 @@ class LabelsDict(labels.LabelsDict):
 				#self.labels_dict["qqh{mass:d}_{scale:d}".format(mass=higgs_mass, scale=scale)] = self.labels_dict["qqh"].replace("H", "H({mass:d})".format(mass=higgs_mass))+" (\\times {scale:d})".format(scale=scale)
 				#self.labels_dict["vh{mass:d}_{scale:d}".format(mass=higgs_mass, scale=scale)] = self.labels_dict["vh"].replace("H", "H({mass:d})".format(mass=higgs_mass))+" (\\times {scale:d})".format(scale=scale)
 
+		self.labels_dict["zj"] = ""
+		self.labels_dict["ewk"] = ""
+		self.labels_dict["vv"] = "Minor Backgrounds"

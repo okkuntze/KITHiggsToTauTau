@@ -152,6 +152,7 @@ class ColorsDict(colors.ColorsDict):
 			self.colors_dict["zj"]  = "#000000 #64DE6A"
 			self.colors_dict["ztommfakes"] = self.colors_dict["zj"]
 			self.colors_dict["ztt"] = "#000000 #FFCC66"
+			self.colors_dict["emb"] = self.colors_dict["ztt"]
 			self.colors_dict["ztotttomm"] = self.colors_dict["ztt"]
 			self.colors_dict["zttpospol"] = "#000000 #FFEEBB"
 			self.colors_dict["zttnegpol"] = "#000000 #FFCC66"
@@ -160,9 +161,9 @@ class ColorsDict(colors.ColorsDict):
 			self.colors_dict["ttbartoleptons"] = "#000000 #C899CC"
 			self.colors_dict["ttbartotttomm"] = "#000000 #373771"
 			self.colors_dict["ttbartommfakes"] = "#000000 #4D4DF1"
-			self.colors_dict["ttt"] = self.colors_dict["tt"]
+			self.colors_dict["ttt"] = "#000000 #d876d8"
 			self.colors_dict["ttjj"] = self.colors_dict["tt"]
-			self.colors_dict["ttj"] = self.colors_dict["tt"]
+			self.colors_dict["ttj"] = "#000000 #2b172b"
 			self.colors_dict["ttjt"] = self.colors_dict["kit_blau_1"]
 			self.colors_dict["ttjl"] = self.colors_dict["kit_blau_2"]
 			self.colors_dict["ttbar"] = self.colors_dict["tt"]
@@ -207,6 +208,9 @@ class ColorsDict(colors.ColorsDict):
 			self.colors_dict["totalbkg"] = "#000000 transgrey"
 			self.colors_dict["ff"] = self.colors_dict["kit_grau_2"]
 			
+			self.colors_dict["zj"]  = "#000000 #ccf7cc"
+			self.colors_dict["ewk"] = "#000000 #ccf7cc"		
+			self.colors_dict["vv"] = "#000000 #ccf7cc"
 
 		for higgs_mass in xrange(90, 161, 5):
 			self.colors_dict["htt{mass:d}".format(mass=higgs_mass)] = self.colors_dict["htt"]
@@ -259,4 +263,7 @@ class ColorsDict(colors.ColorsDict):
 				self.colors_dict["gghps_alt{mass:d}_{scale:d}".format(mass=higgs_mass, scale=scale)] = self.colors_dict["gghps{mass:d}".format(mass=higgs_mass)]
 
 				self.colors_dict["bbh{mass:d}_{scale:d}".format(mass=higgs_mass, scale=scale)] = self.colors_dict["bbh{mass:d}".format(mass=higgs_mass)]
+
+
+
 
