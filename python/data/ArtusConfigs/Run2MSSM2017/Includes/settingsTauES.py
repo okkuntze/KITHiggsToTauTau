@@ -27,7 +27,7 @@ def build_config(nickname, **kwargs):
     config += analysis_config_module.build_config(nickname)
 
   # explicit configuration
-  config["TauEnergyCorrection"] = "mssmhtt2016"
+  config["TauEnergyCorrection"] = "smhtt2016"
 
   if re.search("Run201|Embedding", nickname):
     config["TauEnergyCorrectionOneProng"] = 1.0
