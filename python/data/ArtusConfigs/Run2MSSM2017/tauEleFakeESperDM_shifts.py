@@ -33,7 +33,7 @@ def build_config(nickname):
     config += analysis_config_module.build_config(nickname)
   
   # explicit configuration
-  if re.search("DY.?JetsToLL|EWKZ2Jets", nickname) or isEmbedded:
+  if re.search("DY.?JetsToLL|EWKZ", nickname) or isEmbedded:
     config["tauEleFakeEsOneProngUp"] = {
       "JetEnergyCorrectionUncertaintyShift" : [0.0]
     }

@@ -33,7 +33,7 @@ def build_config(nickname):
     config += analysis_config_module.build_config(nickname)
   
   # explicit configuration
-  if re.search("DY.?JetsToLL|EWKZ2Jets", nickname):
+  if re.search("DY.?JetsToLL|EWKZ", nickname):
     config["tauMuFakeEsOneProngUp"] = {
       "TauMuonFakeEnergyCorrectionOneProngShift" : 1.02,
       "SvfitCacheFileFolder" : "tauMuFakeEsOneProngUp"
