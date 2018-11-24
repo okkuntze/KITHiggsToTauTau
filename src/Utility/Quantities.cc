@@ -16,6 +16,12 @@ double Quantities::CalculateMt(RMFLV const& vector1, RMFLV const& vector2)
 	return sqrt(2 * vector1.Pt() * vector2.Pt() * (1. - cos(vector1.Phi() - vector2.Phi())));
 }
 
+// transverse mass in the approximation of massless objects
+double Quantities::DeltaR(RMFLV const& vector1, RMFLV const& vector2)
+{
+	return ROOT::Math::VectorUtil::DeltaR(vector1, vector2);
+}
+
 RMDataV Quantities::Zeta(RMFLV const& lepton1, RMFLV const& lepton2)
 {
 	RMDataV v1 = lepton1.Vect().Unit();

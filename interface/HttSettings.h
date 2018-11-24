@@ -337,6 +337,13 @@ public:
 	IMPL_SETTING_STRINGLIST_DEFAULT(EmbeddedWeightWorkspaceObjectNames, {});
 	IMPL_SETTING_STRINGLIST_DEFAULT(EmbeddedWeightWorkspaceObjectArguments, {});
 
+	// settings for QCDFactorProcuer
+	IMPL_SETTING_DEFAULT(bool, SaveQCDFactorAsOptionalOnly, false);
+	IMPL_SETTING_DEFAULT(std::string, QCDFactorWorkspace, "");
+	IMPL_SETTING_STRINGLIST_DEFAULT(QCDFactorWorkspaceWeightNames, {});
+	IMPL_SETTING_STRINGLIST_DEFAULT(QCDFactorWorkspaceObjectNames, {});
+	IMPL_SETTING_STRINGLIST_DEFAULT(QCDFactorWorkspaceObjectArguments, {});
+
 	// settings for EETriggerWeightProducer
 	IMPL_SETTING_DEFAULT(bool, SaveEETriggerWeightAsOptionalOnly, false);
 	IMPL_SETTING_DEFAULT(std::string, EETriggerWeightWorkspace, "");
