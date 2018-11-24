@@ -88,7 +88,7 @@ public:
 		}
 
 		// determine process type, trigger several decisions later
-		if (boost::regex_search(settings.GetNickname(), boost::regex("DY.?JetsToLL|W.?JetsToLNu|HToTauTau|EWKZ", boost::regex::extended)))
+		if (boost::regex_search(settings.GetNickname(), boost::regex("DY.?JetsToLL|W.?JetsToLNu|HToTauTau|EWK", boost::regex::extended)))
 		{
 			m_processType = MEtSys::ProcessType::BOSON;
 		}
