@@ -23,6 +23,7 @@ def build_config(nickname):
   isDY = re.search("DY.?JetsToLL", nickname)
   isWjets = re.search("W.?JetsToLNu", nickname)
   isSignal = re.search("HToTauTau",nickname)
+  isEWK = re.search("EWK",nickname)
 
   
   ## fill config:
@@ -34,7 +35,7 @@ def build_config(nickname):
     config += analysis_config_module.build_config(nickname)
   
   # explicit configuration
-  if isDY or isWjets or isSignal:
+  if isDY or isWjets or isSignal or isEWK:
     config["metRecoilResponseUp"] = {
       "MetSysType" : 1,
       "MetSysShift" : 1,

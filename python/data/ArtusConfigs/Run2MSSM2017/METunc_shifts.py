@@ -34,16 +34,16 @@ def build_config(nickname):
   
   # explicit configuration
   if not re.search("Run201|Embedding", nickname):
-    config["metJetEnUp"] = {
-      "MetUncertaintyShift" : True,
-      "MetUncertaintyType" : "JetEnUp",
-      "SvfitCacheFileFolder" : "metJetEnUp"
-    }
-    config["metJetEnDown"] = {
-      "MetUncertaintyShift" : True,
-      "MetUncertaintyType" : "JetEnDown",
-      "SvfitCacheFileFolder" : "metJetEnDown"
-    }
+#    config["metJetEnUp"] = {
+#      "MetUncertaintyShift" : True,
+#      "MetUncertaintyType" : "JetEnUp",
+#      "SvfitCacheFileFolder" : "metJetEnUp"
+#    }
+#    config["metJetEnDown"] = {
+#      "MetUncertaintyShift" : True,
+#      "MetUncertaintyType" : "JetEnDown",
+#      "SvfitCacheFileFolder" : "metJetEnDown"
+#    }
     config["metUnclusteredEnUp"] = {
       "MetUncertaintyShift" : True,
       "MetUncertaintyType" : "UnclusteredEnUp",
