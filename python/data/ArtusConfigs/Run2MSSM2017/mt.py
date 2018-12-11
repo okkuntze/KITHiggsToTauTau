@@ -160,7 +160,9 @@ def build_config(nickname, **kwargs):
           
           "0:crossTriggerMCEfficiencyWeight",
           "0:crossTriggerDataEfficiencyWeight",
-          
+          "0:crossTriggerEmbeddedWeight",
+          "1:crossTriggerEmbeddedWeight",
+
           "0:isoWeight",
           "0:idWeight",
           "0:trigger_24_Weight",
@@ -174,6 +176,8 @@ def build_config(nickname, **kwargs):
           
           "0:m_trg_MuTau_Mu20Leg_desy_mc",
           "0:m_trg_MuTau_Mu20Leg_desy_data",
+          "0:m_trg_MuTau_Mu20Leg_kit_ratio_embed",
+          "1:mt_emb_LooseChargedIsoPFTau27_kit_ratio",
 
           "0:m_iso_binned_embed_kit_ratio",
           "0:m_id_embed_kit_ratio",
@@ -189,7 +193,8 @@ def build_config(nickname, **kwargs):
           
           "0:m_pt,m_eta",
           "0:m_pt,m_eta",
-
+          "0:m_pt",
+          "1:t_pt",
           "0:m_pt,m_eta,m_iso",
           "0:m_pt,m_eta",
           "0:m_pt,m_eta",
@@ -290,12 +295,13 @@ def build_config(nickname, **kwargs):
       "had_gen_match_pT_1",
       "had_gen_match_pT_2",
       "flagMETFilter",
-      "pt_ttjj"
+      "pt_ttjj",
+      "trigger_24_Weight_1", "trigger_27_Weight_1", "trigger_24_27_Weight_1"
   ])
   if isEmbedded:
     config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.Includes.embeddedDecayModeWeightQuantities").build_list())
     config["Quantities"].extend([
-          "muonEffTrgWeight", "muonEffIDWeight_1","muonEffIDWeight_2", "trigger_24_Weight_1", "trigger_27_Weight_1", "trigger_24_27_Weight_1"
+          "muonEffTrgWeight", "muonEffIDWeight_1","muonEffIDWeight_2", "crossTriggerEmbeddedWeight_1", "crossTriggerEmbeddedWeight_2"
           ])
   if re.search("HToTauTauM125", nickname):
     config["Quantities"].extend([
