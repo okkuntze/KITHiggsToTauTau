@@ -177,10 +177,15 @@ class HiggsToTauTauAnalysisWrapper():
 		self._parser.add_argument("-x", "--executable", help="Artus executable. [Default: %(default)s]", default=os.path.basename(sys.argv[0]))
 		self._parser.add_argument("-a", "--analysis", required=True, help="Analysis nick [SM, MSSM] or import path ('HiggsAnalysis.KITHiggsToTauTau. ...' or 'HiggsAnalysis/KITHiggsToTauTau/python/ ... .py') of the config module.")
 
-		self._parser.add_argument("--sub-analysis", default='', type=str, action='store', choices=['btag-eff', 'etau-fake-es'],
+		self._parser.add_argument("--sub-analysis", default='', type=str, action='store', choices=['btag-eff', 'etau-fake-es', 'tau-es'],
 			help="Keys to run a sub-analysis on top of base analyseis. Only one sub-analysis can be run at a time! Example: btag-egg Option to simplify the configs in order to estimate the efficiencies faster. [Default: %(default)s]")
+		self._parser.add_argument("--etau-fake-es-group", default=None, type=int, help="Dew to many open files all ES can't be processed at ones, therefore they were subdivided on 4 groups. [Default: %(default)s]")
+		self._parser.add_argument("--tau-es-group", default=None, type=int, help="Dew to many open files all ES can't be processed at ones, therefore they were subdivided on groups. [Default: %(default)s]")
 		self._parser.add_argument("-c", "--analysis-channels", default=['all'], nargs='+', type=str, choices=['all', 'mt', 'tt', 'et', 'ee', 'em', 'mm'], help="List of channels processed from the analysis. [Default: %(default)s]")
 		self._parser.add_argument("--no-svfit", default=False, action="store_true", help="Disable SVfit. Default: %(default)s]")
+		self._parser.add_argument("--pipelines", default=None, type=str, nargs='*', action='store',
+			choices=['nominal', 'tauESperDM_shifts', 'et_eleFakeTauES_subanalysis', 'regionalJECunc_shifts', 'tauEleFakeESperDM_shifts', 'METunc_shifts', 'METrecoil_shifts', 'eleES_shifts', 'btagging_shifts',],
+			help="Pipelines to activate. Default: %(default)s]")
 
 		fileOptionsGroup = self._parser.add_argument_group("File options")
 		fileOptionsGroup.add_argument("-i", "--input-files", nargs="+", required=True,
@@ -304,6 +309,9 @@ class HiggsToTauTauAnalysisWrapper():
 			sub_analysis=self._args.sub_analysis,
 			analysis_channels=self._args.analysis_channels,
 			no_svfit=self._args.no_svfit,
+			pipelines=self._args.pipelines,
+			etau_fake_es_group=self._args.etau_fake_es_group,
+			tau_es_group=self._args.tau_es_group,
 		)
 
 	def gfal_copy(self, from_path="", where_path="", force=False):
@@ -648,6 +656,12 @@ class HiggsToTauTauAnalysisWrapper():
 		epilogArguments += (" --analysis-channels %s " % " ".join(self._args.analysis_channels))
 		if self._args.no_svfit:
 			epilogArguments += (" --no-svfit ")
+		if self._args.pipelines is not None:
+			epilogArguments += (" --pipelines %s " % self._args.pipelines,)
+		if self._args.etau_fake_es_group is not None:
+			epilogArguments += (" --etau-fake-es-group %s " % self._args.etau_fake_es_group,)
+		if self._args.tau_es_group is not None:
+			epilogArguments += (" --etau-fake-es %s " % self._args.tau_es_group,)
 
 		if self._args.batch_jobs_debug:
 			print "single job arguments epilogArguments:", epilogArguments

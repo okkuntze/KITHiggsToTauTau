@@ -18,6 +18,8 @@ import HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Includes.ArtusConfigUtil
 def build_config(nickname, **kwargs):
   btag_eff = True if "sub_analysis" in kwargs and kwargs["sub_analysis"] == "btag-eff" else False
   etau_fake_es = True if "sub_analysis" in kwargs and kwargs["sub_analysis"] == "etau-fake-es" else False
+  pipelines = kwargs["pipelines"] if "pipelines" in kwargs else None
+
 
   config = jsonTools.JsonDict()
   datasetsHelper = datasetsHelperTwopz.datasetsHelperTwopz(os.path.expandvars("$CMSSW_BASE/src/Kappa/Skimming/data/datasets.json"))
@@ -441,6 +443,13 @@ def build_config(nickname, **kwargs):
 
   # pipelines - systematic shifts
   if etau_fake_es:
+    if pipelines is not None:
+      return_conf = jsonTools.JsonDict()
+      for pipeline in pipelines:
+        print 'add pipe:', pipeline
+        return_conf += ACU.apply_uncertainty_shift_configs('et', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017." + pipeline).build_config(nickname, **kwargs))
+      return return_conf
+
     # nominal, TES
     return ACU.apply_uncertainty_shift_configs('et', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.nominal").build_config(nickname)) \
          + ACU.apply_uncertainty_shift_configs('et', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.tauESperDM_shifts").build_config(nickname))
