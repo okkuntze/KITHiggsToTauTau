@@ -33,21 +33,21 @@ def build_config(nickname):
     config += analysis_config_module.build_config(nickname)
   
   # explicit configuration
-  if re.search("DY.?JetsToLL|EWKZ2Jets", nickname):
+  if re.search("DY.?JetsToLL|EWKZ", nickname):
     config["tauMuFakeEsOneProngUp"] = {
-      "TauMuonFakeEnergyCorrectionOneProngShift" : 1.015,
+      "TauMuonFakeEnergyCorrectionOneProngShift" : 1.02,
       "SvfitCacheFileFolder" : "tauMuFakeEsOneProngUp"
     }
     config["tauMuFakeEsOneProngDown"] = {
-      "TauMuonFakeEnergyCorrectionOneProngShift" : 0.985,
+      "TauMuonFakeEnergyCorrectionOneProngShift" : 0.98,
       "SvfitCacheFileFolder" : "tauMuFakeEsOneProngDown"
     }
     config["tauMuFakeEsOneProngPiZerosUp"] = {
-      "TauMuonFakeEnergyCorrectionOneProngPiZerosShift" : 1.015,
+      "TauMuonFakeEnergyCorrectionOneProngPiZerosShift" : 1.02,
       "SvfitCacheFileFolder" : "tauMuFakeEsOneProngPiZerosUp"
     }
     config["tauMuFakeEsOneProngPiZerosDown"] = {
-      "TauMuonFakeEnergyCorrectionOneProngPiZerosShift" : 0.985,
+      "TauMuonFakeEnergyCorrectionOneProngPiZerosShift" : 0.98,
       "SvfitCacheFileFolder" : "tauMuFakeEsOneProngPiZerosDown"
     }
   

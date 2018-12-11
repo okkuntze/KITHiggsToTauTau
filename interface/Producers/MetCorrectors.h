@@ -88,7 +88,7 @@ public:
 		}
 
 		// determine process type, trigger several decisions later
-		if (boost::regex_search(settings.GetNickname(), boost::regex("DY.?JetsToLL|W.?JetsToLNu|HToTauTau", boost::regex::extended)))
+		if (boost::regex_search(settings.GetNickname(), boost::regex("DY.?JetsToLL|W.?JetsToLNu|HToTauTau|EWK", boost::regex::extended)))
 		{
 			m_processType = MEtSys::ProcessType::BOSON;
 		}
@@ -100,7 +100,7 @@ public:
 		{
 			m_processType = MEtSys::ProcessType::EWK;
 		}
-		m_isWJets = boost::regex_search(settings.GetNickname(), boost::regex("W.?JetsToLNu", boost::regex::icase | boost::regex::extended));
+		m_isWJets = boost::regex_search(settings.GetNickname(), boost::regex("W.?JetsToLNu|EWKW", boost::regex::icase | boost::regex::extended));
 		
 		m_doMetSys = ((settings.GetMetSysType() != 0) || (settings.GetMetSysShift() != 0));
 

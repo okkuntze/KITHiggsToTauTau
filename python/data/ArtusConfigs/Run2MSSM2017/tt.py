@@ -150,12 +150,13 @@ def build_config(nickname, **kwargs):
   ]
   config["EventWeight"] = "eventWeight"
   if isEmbedded:
-    config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_2017_v1.root"
-    config["EmbeddedWeightWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_2017_v1.root"
+    config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_2017_v2.root"
+    config["EmbeddedWeightWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_2017_v2.root"
     config["EmbeddedWeightWorkspaceWeightNames"]=[
             "0:muonEffTrgWeight",
             "0:muonEffIDWeight",
-            "1:muonEffIDWeight"
+            "1:muonEffIDWeight",
+            #~ "0:doubleTauTrgWeight",
             #~ "0:crossTriggerEmbeddedEfficiencyWeight_medium_MVA",
             #~ "1:crossTriggerEmbeddedEfficiencyWeight_medium_MVA",
             #~ "0:crossTriggerEmbeddedEfficiencyWeight_tight_MVA",
@@ -165,6 +166,7 @@ def build_config(nickname, **kwargs):
             "0:m_sel_trg_ratio",
             "0:m_sel_idEmb_ratio",
             "1:m_sel_idEmb_ratio",
+            #~ "0:m_sel_idEmb_ratio",
             #~ "0:t_trg_medium_tt_embed",
             #~ "1:t_trg_medium_tt_embed",
             #~ "0:t_trg_tight_tt_embed",
@@ -174,6 +176,7 @@ def build_config(nickname, **kwargs):
             "0:gt1_pt,gt1_eta,gt2_pt,gt2_eta",
             "0:gt_pt,gt_eta",
             "1:gt_pt,gt_eta",
+            #~ "0:dR"
             #~ "0:t_pt,t_eta",
             #~ "1:t_pt,t_eta",
             #~ "0:t_pt,t_eta",
@@ -201,13 +204,22 @@ def build_config(nickname, **kwargs):
   ]
 
   config["TauTauRestFrameReco"] = "collinear_approximation"
-  config["TauTriggerFilterNames"] = [
-          "HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg_v:hltDoublePFTau35TrackPt1TightChargedIsolationAndTightOOSCPhotonsDz02Reg",
-          "HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_v:hltDoublePFTau40TrackPt1MediumChargedIsolationAndTightOOSCPhotonsDz02Reg",
-          "HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg_v:hltDoublePFTau40TrackPt1TightChargedIsolationDz02Reg",
-          "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v:hltPFTau180TrackPt50LooseAbsOrRelMediumHighPtRelaxedIsoIso",
-          "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v:hltSelectedPFTau180MediumChargedIsolationL1HLTMatched"
-    ]
+  if isEmbedded:
+    config["TauTriggerFilterNames"] = [
+            "HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg_v:hltDoubleL2IsoTau26eta2p2",
+            "HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_v:hltDoubleL2IsoTau26eta2p2",
+            "HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg_v:hltDoubleL2IsoTau26eta2p2",
+            "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v:hltPFTau180TrackPt50LooseAbsOrRelMediumHighPtRelaxedIsoIso",
+            "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v:hltSelectedPFTau180MediumChargedIsolationL1HLTMatched"
+      ]
+  else:
+    config["TauTriggerFilterNames"] = [
+            "HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg_v:hltDoublePFTau35TrackPt1TightChargedIsolationAndTightOOSCPhotonsDz02Reg",
+            "HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_v:hltDoublePFTau40TrackPt1MediumChargedIsolationAndTightOOSCPhotonsDz02Reg",
+            "HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg_v:hltDoublePFTau40TrackPt1TightChargedIsolationDz02Reg",
+            "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v:hltPFTau180TrackPt50LooseAbsOrRelMediumHighPtRelaxedIsoIso",
+            "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v:hltSelectedPFTau180MediumChargedIsolationL1HLTMatched"
+  ]    
   config["TauTriggerCheckL1Match"] = [
           "HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg_v",
           "HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_v",
@@ -234,7 +246,7 @@ def build_config(nickname, **kwargs):
   if isEmbedded:
     config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.Includes.embeddedDecayModeWeightQuantities").build_list())
     config["Quantities"].extend([
-          "muonEffTrgWeight", "muonEffIDWeight_1","muonEffIDWeight_2"
+          "muonEffTrgWeight", "muonEffIDWeight_1","muonEffIDWeight_2", "doubleTauTrgWeight"
           ])
   if re.search("HToTauTauM125", nickname):
     config["Quantities"].extend([
@@ -245,7 +257,7 @@ def build_config(nickname, **kwargs):
     config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2Analysis.Includes.ggHNNLOQuantities").build_list())
 
   config["OSChargeLeptons"] = True
-  config["TopPtReweightingStrategy"] = "Run2"
+  config["TopPtReweightingStrategy"] = "Run1"
 
   config["Processors"] = []
   #if not (isEmbedded):           config["Processors"].append( "producer:ElectronCorrectionsProducer")

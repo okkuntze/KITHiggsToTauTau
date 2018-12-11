@@ -28,7 +28,7 @@ def build_config(nickname, **kwargs):
     config += analysis_config_module.build_config(nickname)
 
   # explicit configuration
-  config["TauEnergyCorrection"] = "mssmhtt2016"
+  config["TauEnergyCorrection"] = "smhtt2016"
 
   if re.search("Run201|Embedding", nickname):
     config["TauEnergyCorrectionOneProng"] = 1.0
@@ -41,9 +41,11 @@ def build_config(nickname, **kwargs):
     config["TauEnergyCorrectionOneProng"] = 1.007 # down: 0.999, central: 1.007, up: 1.015
     config["TauEnergyCorrectionOneProngPiZeros"] = 0.998 # down: 0.990, central: 0.998, up: 1.006
     config["TauEnergyCorrectionThreeProng"] = 1.001 # down: 0.992, central: 1.001, up: 1.010
+
     if not etau_fake_es:
-      config["TauElectronFakeEnergyCorrectionOneProng"] = 1.024 #TODO these are 2016 values!
-      config["TauElectronFakeEnergyCorrectionOneProngPiZeros"] = 1.076 #TODO these are 2016 values!
+      config["TauElectronFakeEnergyCorrectionOneProng"] = 1.003 # values for 2017 measured by RWTH/KIT; uncertainties down: 0.996, central: 1.003, up: 1.01
+      config["TauElectronFakeEnergyCorrectionOneProngPiZeros"] = 1.036 # values for 2017 measured by RWTH/KIT; uncertainties down: 1.029, central 1.036, up: 1.043
+
     else:
       config["TauElectronFakeEnergyCorrectionOneProng"] = 1.0
       config["TauElectronFakeEnergyCorrectionOneProngPiZeros"] = 1.0

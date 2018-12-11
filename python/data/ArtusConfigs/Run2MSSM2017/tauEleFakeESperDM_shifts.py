@@ -20,7 +20,7 @@ def build_config(nickname):
   isEmbedded = datasetsHelper.isEmbedded(nickname)
   #isData = datasetsHelper.isData(nickname) and (not isEmbedded)
   #isTTbar = re.search("TT(To|_|Jets)", nickname)
-  isDY = re.search("DY.?JetsToLLM(50|150)", nickname)
+  #isDY = re.search("DY.?JetsToLLM(50|150)", nickname)
   #isWjets = re.search("W.?JetsToLNu", nickname)
   
   
@@ -33,27 +33,27 @@ def build_config(nickname):
     config += analysis_config_module.build_config(nickname)
   
   # explicit configuration
-  if isDY or isEmbedded:
+  if re.search("DY.?JetsToLL|EWKZ", nickname) or isEmbedded:
     config["tauEleFakeEsOneProngUp"] = {
       "JetEnergyCorrectionUncertaintyShift" : [0.0]
     }
-    config["tauEleFakeEsOneProngUp"]["TauElectronFakeEnergyCorrectionOneProng"] = 1.029
+    config["tauEleFakeEsOneProngUp"]["TauElectronFakeEnergyCorrectionOneProng"] = 1.01
     
     config["tauEleFakeEsOneProngDown"] = {
       "JetEnergyCorrectionUncertaintyShift" : [0.0]
     }
-    config["tauEleFakeEsOneProngDown"]["TauElectronFakeEnergyCorrectionOneProng"] = 1.019
+    config["tauEleFakeEsOneProngDown"]["TauElectronFakeEnergyCorrectionOneProng"] = 0.996
     
     
     config["tauEleFakeEsOneProngPiZerosUp"] = {
       "JetEnergyCorrectionUncertaintyShift" : [0.0]
     }
-    config["tauEleFakeEsOneProngPiZerosUp"]["TauElectronFakeEnergyCorrectionOneProngPiZeros"] = 1.086
+    config["tauEleFakeEsOneProngPiZerosUp"]["TauElectronFakeEnergyCorrectionOneProngPiZeros"] = 1.043
     
     config["tauEleFakeEsOneProngPiZerosDown"] = {
       "JetEnergyCorrectionUncertaintyShift" : [0.0]
     }
-    config["tauEleFakeEsOneProngPiZerosDown"]["TauElectronFakeEnergyCorrectionOneProngPiZeros"] = 1.066
+    config["tauEleFakeEsOneProngPiZerosDown"]["TauElectronFakeEnergyCorrectionOneProngPiZeros"] = 1.029
   
   
   return config
