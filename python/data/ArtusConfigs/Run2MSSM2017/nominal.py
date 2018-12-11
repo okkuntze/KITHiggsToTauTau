@@ -31,28 +31,28 @@ def build_config(nickname, **kwargs):
   for include_file in includes:
     analysis_config_module = importlib.import_module(include_file)
     config += analysis_config_module.build_config(nickname)
-  
+
   # explicit configuration
   config["nominal"] = {
-    "ElectronEnergyCorrectionShiftEB" : 1.0, 
-    "ElectronEnergyCorrectionShiftEE" : 1.0, 
-    "JetEnergyCorrectionUncertaintyShift" : 0.0, 
-    "MetUncertaintyShift" : False, 
-    "MetUncertaintyType" : "", 
+    "ElectronEnergyCorrectionShiftEB" : 1.0,
+    "ElectronEnergyCorrectionShiftEE" : 1.0,
+    "JetEnergyCorrectionUncertaintyShift" : 0.0,
+    "MetUncertaintyShift" : False,
+    "MetUncertaintyType" : "",
     "SvfitCacheFileFolder" : "nominal",
-    "TauElectronFakeEnergyCorrection" : 1.0, 
-    "TauElectronFakeEnergyCorrectionOneProngPiZerosShift" : 1.0, 
-    "TauElectronFakeEnergyCorrectionOneProngShift" : 1.0, 
-    "TauEnergyCorrectionOneProngPiZerosShift" : 1.0, 
-    "TauEnergyCorrectionOneProngShift" : 1.0, 
-    "TauEnergyCorrectionShift" : 1.0, 
-    "TauEnergyCorrectionThreeProngShift" : 1.0, 
+    "TauElectronFakeEnergyCorrection" : 1.0,
+    "TauElectronFakeEnergyCorrectionOneProngPiZerosShift" : 1.0,
+    "TauElectronFakeEnergyCorrectionOneProngShift" : 1.0,
+    "TauEnergyCorrectionOneProngPiZerosShift" : 1.0,
+    "TauEnergyCorrectionOneProngShift" : 1.0,
+    "TauEnergyCorrectionShift" : 1.0,
+    "TauEnergyCorrectionThreeProngShift" : 1.0,
     "TauJetFakeEnergyCorrection" : 0.0,
-    "TauMuonFakeEnergyCorrection" : 1.0, 
-    "TauMuonFakeEnergyCorrectionOneProngPiZerosShift" : 1.0, 
+    "TauMuonFakeEnergyCorrection" : 1.0,
+    "TauMuonFakeEnergyCorrectionOneProngPiZerosShift" : 1.0,
     "TauMuonFakeEnergyCorrectionOneProngShift" : 1.0,
     "BTagShift" : 0.0,
     "BMistagShift" : 0.0
   }
-  
+
   return config

@@ -31,7 +31,7 @@ def build_config(nickname, **kwargs):
   for include_file in includes:
     analysis_config_module = importlib.import_module(include_file)
     config += analysis_config_module.build_config(nickname)
-  
+
   # explicit configuration
   if not re.search("Run201|Embedding", nickname):
     # grouped JEC uncs documented in https://indico.cern.ch/event/740094/contributions/3055870/attachments/1680587/2699877/RegionalJES.pdf
