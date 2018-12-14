@@ -406,4 +406,12 @@ public:
         
         //filled by GroupedJetUncertaintyShiftProducer
         KLV m_MET_shift;
+        
+        //filled by PrefireWeightProducer
+        double m_prefire_weight = 1.0;
+        double m_prefire_weight_up = 1.0;
+        double m_prefire_weight_down = 1.0;
+        double m_prefire_weight_2017 = 1.0;
+        double m_prefire_weight_2017_up = 1.0;
+        double m_prefire_weight_2017_down = 1.0;
 };

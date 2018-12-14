@@ -455,4 +455,8 @@ public:
 	
         // settings for GroupedJetEnergyUncertaintyShiftProducer
         IMPL_SETTING_DEFAULT(bool, UseGroupedJetEnergyCorrectionUncertainty, false)
+        
+        // settings for PrefireWeightProducer
+        IMPL_SETTING(std::string, PrefireEfficiencyMapsSource)
+        IMPL_SETTING(std::string, PrefireEfficiencyMapsSource2017)
 };

@@ -59,6 +59,7 @@
 #include "HiggsAnalysis/KITHiggsToTauTau/interface/Producers/MetFilterFlagProducer.h"
 #include "HiggsAnalysis/KITHiggsToTauTau/interface/Producers/SMggHNNLOProducer.h"
 #include "HiggsAnalysis/KITHiggsToTauTau/interface/Producers/GroupedJetUncertaintyShiftProducer.h"
+#include "HiggsAnalysis/KITHiggsToTauTau/interface/Producers/PrefireWeightProducer.h"
 
 // filters
 #include "HiggsAnalysis/KITHiggsToTauTau/interface/Filters/LooseObjectsCountFilters.h"
@@ -282,6 +283,8 @@ ProducerBaseUntemplated * HttFactory::createProducer(std::string const& id)
                 return new SMggHNNLOProducer();
         else if(id == GroupedJetUncertaintyShiftProducer().GetProducerId())
                 return new GroupedJetUncertaintyShiftProducer();
+        else if(id == PrefireWeightProducer().GetProducerId())
+                return new PrefireWeightProducer();
 	else
 		return KappaFactory::createProducer( id );
 }
