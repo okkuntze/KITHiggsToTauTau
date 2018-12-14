@@ -6,7 +6,9 @@ import Artus.Utility.logger as logger
 log = logging.getLogger(__name__)
 
 
-def build_list(minimal_setup=False):
+def build_list(**kwargs):
+    minimal_setup = True if "minimal_setup" in kwargs and kwargs["minimal_setup"] else False
+
     # triggers flags that are needed to run the analysis
     quantities = [
         "trg_singlemuon_24",
