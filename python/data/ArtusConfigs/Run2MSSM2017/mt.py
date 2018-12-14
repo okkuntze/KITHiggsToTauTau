@@ -17,6 +17,8 @@ import HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Includes.ArtusConfigUtil
 
 def build_config(nickname, **kwargs):
   btag_eff = True if "sub_analysis" in kwargs and kwargs["sub_analysis"] == "btag-eff" else False
+  tau_es = True if "sub_analysis" in kwargs and kwargs["sub_analysis"] == "tau-es" else False
+  pipelines = kwargs["pipelines"] if "pipelines" in kwargs else None
 
   config = jsonTools.JsonDict()
   datasetsHelper = datasetsHelperTwopz.datasetsHelperTwopz(os.path.expandvars("$CMSSW_BASE/src/Kappa/Skimming/data/datasets.json"))
@@ -29,7 +31,7 @@ def build_config(nickname, **kwargs):
   isWjets = re.search("W.?JetsToLNu", nickname)
   isSignal = re.search("HToTauTau",nickname)
   isGluonFusion = re.search("GluGluHToTauTauM125", nickname)
-  
+
   ## fill config:
   # includes
   includes = [
@@ -157,10 +159,10 @@ def build_config(nickname, **kwargs):
           "0:muonEffTrgWeight",
           "0:muonEffIDWeight",
           "1:muonEffIDWeight",
-          
+
           "0:crossTriggerMCEfficiencyWeight",
           "0:crossTriggerDataEfficiencyWeight",
-          
+
           "0:isoWeight",
           "0:idWeight",
           "0:trigger_24_Weight",
@@ -171,7 +173,7 @@ def build_config(nickname, **kwargs):
           "0:m_sel_trg_ratio",
           "0:m_sel_idEmb_ratio",
           "1:m_sel_idEmb_ratio",
-          
+
           "0:m_trg_MuTau_Mu20Leg_desy_mc",
           "0:m_trg_MuTau_Mu20Leg_desy_data",
 
@@ -186,7 +188,7 @@ def build_config(nickname, **kwargs):
           "0:gt1_pt,gt1_eta,gt2_pt,gt2_eta",
           "0:gt_pt,gt_eta",
           "1:gt_pt,gt_eta",
-          
+
           "0:m_pt,m_eta",
           "0:m_pt,m_eta",
 
@@ -221,7 +223,7 @@ def build_config(nickname, **kwargs):
         "0:m_trg_data",
         "0:m_trg24_27_kit_mc",
         "0:m_trg24_27_kit_data",
-  
+
         "0:m_iso_kit_ratio",
         "0:m_id_kit_ratio",
 #        "0:m_trk_ratio",
@@ -355,7 +357,7 @@ def build_config(nickname, **kwargs):
   config["Processors"].append(                                "producer:EventWeightProducer")
   if isGluonFusion:              config["Processors"].append( "producer:SMggHNNLOProducer")
   config["Processors"].append(                                "producer:SvfitProducer")
-  
+
   config["AddGenMatchedParticles"] = True
   config["AddGenMatchedTaus"] = True
   config["AddGenMatchedTauJets"] = True
@@ -372,6 +374,15 @@ def build_config(nickname, **kwargs):
       if unwanted in config["Consumers"]: config["Consumers"].remove(unwanted)
 
      config["Consumers"].append("BTagEffConsumer")
+
+  # pipelines - systematic shifts
+  if tau_es and pipelines is not None:
+    # needed pipelines : nominal tauES_subanalysis tauMuFakeESperDM_shifts METunc_shifts METrecoil_shifts JECunc_shifts
+    return_conf = jsonTools.JsonDict()
+    for pipeline in pipelines:
+      print 'add pipe:', pipeline
+      return_conf += ACU.apply_uncertainty_shift_configs('mt', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017." + pipeline).build_config(nickname, **kwargs))
+    return return_conf
 
   # pipelines - systematic shifts
   return ACU.apply_uncertainty_shift_configs('mt', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.nominal").build_config(nickname)) + \
