@@ -150,37 +150,28 @@ def build_config(nickname, **kwargs):
   ]
   config["EventWeight"] = "eventWeight"
   if isEmbedded:
-    config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_2017_v2.root"
-    config["EmbeddedWeightWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_2017_v2.root"
+    config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v17_5.root"
+    config["EmbeddedWeightWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v17_5.root"
     config["EmbeddedWeightWorkspaceWeightNames"]=[
             "0:muonEffTrgWeight",
             "0:muonEffIDWeight",
             "1:muonEffIDWeight",
-            #~ "0:doubleTauTrgWeight",
-            #~ "0:crossTriggerEmbeddedEfficiencyWeight_medium_MVA",
-            #~ "1:crossTriggerEmbeddedEfficiencyWeight_medium_MVA",
-            #~ "0:crossTriggerEmbeddedEfficiencyWeight_tight_MVA",
-            #~ "1:crossTriggerEmbeddedEfficiencyWeight_tight_MVA"
+            "0:triggerWeight",
+            "1:triggerWeight",
             ]
     config["EmbeddedWeightWorkspaceObjectNames"]=[
             "0:m_sel_trg_ratio",
             "0:m_sel_idEmb_ratio",
             "1:m_sel_idEmb_ratio",
-            #~ "0:m_sel_idEmb_ratio",
-            #~ "0:t_trg_medium_tt_embed",
-            #~ "1:t_trg_medium_tt_embed",
-            #~ "0:t_trg_tight_tt_embed",
-            #~ "1:t_trg_tight_tt_embed"
+            "0:tt_emb_PFTau35OR40_tight_kit_ratio",
+            "1:tt_emb_PFTau35OR40_tight_kit_ratio",
             ]
     config["EmbeddedWeightWorkspaceObjectArguments"] = [
             "0:gt1_pt,gt1_eta,gt2_pt,gt2_eta",
             "0:gt_pt,gt_eta",
             "1:gt_pt,gt_eta",
-            #~ "0:dR"
-            #~ "0:t_pt,t_eta",
-            #~ "1:t_pt,t_eta",
-            #~ "0:t_pt,t_eta",
-            #~ "1:t_pt,t_eta"
+            "0:t_pt",
+            "1:t_pt",
             ]
   else:
     config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v16_5.root"

@@ -173,6 +173,9 @@ def build_config(nickname, **kwargs):
           "0:singleTriggerDataEfficiencyWeightKIT",
           "0:singleTriggerEmbeddedEfficiencyWeightKIT",
 
+          "0:crossTriggerEmbeddedWeight",
+          "1:crossTriggerEmbeddedWeight",
+
           "0:isoWeight",
           "0:idWeight",
           "0:trigger_27_35_Weight",
@@ -195,6 +198,9 @@ def build_config(nickname, **kwargs):
           "0:e_trg27_trg35_kit_mc",
           "0:e_trg27_trg35_kit_data",
           "0:e_trg27_trg35_kit_embed",
+
+          "0:e_trg_EleTau_Ele24Leg_kit_ratio_embed",
+          "1:et_emb_LooseChargedIsoPFTau30_kit_ratio",
 
           "0:e_iso_binned_embed_kit_ratio",
           "0:e_id90_embed_kit_ratio",
@@ -219,6 +225,9 @@ def build_config(nickname, **kwargs):
           "0:e_pt,e_eta",
           "0:e_pt,e_eta",
           "0:e_pt,e_eta",
+
+          "0:e_pt",
+          "1:t_pt",
 
           "0:e_pt,e_eta,e_iso",
           "0:e_pt,e_eta",
@@ -351,21 +360,22 @@ def build_config(nickname, **kwargs):
       "singleTriggerMCEfficiencyWeightKIT_35_1",
       "singleTriggerDataEfficiencyWeightKIT_35_1",
       "singleTriggerMCEfficiencyWeightKIT_27or35_1",
-      "singleTriggerDataEfficiencyWeightKIT_27or35_1"
+      "singleTriggerDataEfficiencyWeightKIT_27or35_1",
+      "trigger_27_35_Weight_1","trigger_27_32_32fb_Weight_1","trigger_27_32_Weight_1",
+      "trigger_27_35_Weight_1",
+      "trigger_27_32_Weight_1",
+      "trigger_32_35_Weight_1",
+      "trigger_27_32_35_Weight_1",
+      "trigger_27_Weight_1",
+      "trigger_32_Weight_1",
+      "trigger_32fb_Weight_1",
+      "trigger_35_Weight_1"
   ])
   if isEmbedded:
     config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.Includes.embeddedDecayModeWeightQuantities").build_list())
     config["Quantities"].extend([
-          "muonEffTrgWeight", "muonEffIDWeight_1","muonEffIDWeight_2","trigger_27_35_Weight_1","trigger_27_32_32fb_Weight_1","trigger_27_32_Weight_1",
-          "trigger_27_35_Weight_1",
-          "trigger_27_32_Weight_1",
-          "trigger_32_35_Weight_1",
-          "trigger_27_32_35_Weight_1",
-          "trigger_27_Weight_1",
-          "trigger_32_Weight_1",
-          "trigger_32fb_Weight_1",
-          "trigger_35_Weight_1"
-          ])
+          "muonEffTrgWeight", "muonEffIDWeight_1","muonEffIDWeight_2", "crossTriggerEmbeddedWeight_1", "crossTriggerEmbeddedWeight_2"
+    ])
   if re.search("HToTauTauM125", nickname):
     config["Quantities"].extend([
       "htxs_stage0cat",
