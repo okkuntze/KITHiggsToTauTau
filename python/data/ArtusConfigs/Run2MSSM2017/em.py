@@ -217,22 +217,49 @@ def build_config(nickname, **kwargs):
   config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_2017_v1.root"
   config["QCDFactorWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_2017_v1.root"
   config["QCDFactorWorkspaceWeightNames"]=[
-      "0:qcd_ss_os_factor_Weight",
-      "0:qcd_ss_os_factor_down_Weight",
-      "0:qcd_ss_os_factor_up_Weight",
-      "0:qcd_ss_os_factor_extrap_Weight",
+      "0:em_qcd_osss_binned_Weight",
+      "0:em_qcd_extrap_up_Weight",
+      "0:em_qcd_extrap_down_Weight",
+      "0:em_qcd_osss_0jet_rateup_Weight",
+      "0:em_qcd_osss_0jet_ratedown_Weight",
+      "0:em_qcd_osss_0jet_shapeup_Weight",
+      "0:em_qcd_osss_0jet_shapedown_Weight",
+      "0:em_qcd_osss_1jet_rateup_Weight",
+      "0:em_qcd_osss_1jet_ratedown_Weight",
+      "0:em_qcd_osss_1jet_shapeup_Weight",
+      "0:em_qcd_osss_1jet_shapedown_Weight",
+      
+      "0:em_qcd_extrap_uncert_Weight",
   ]
   config["QCDFactorWorkspaceObjectNames"] = [
-      "0:em_qcd_extrap_up",
       "0:em_qcd_osss_binned",
-      "0:em_qcd_osss_rateup_binned",
+      "0:em_qcd_extrap_up",
+      "0:em_qcd_extrap_down",
+      "0:em_qcd_osss_0jet_rateup",
+      "0:em_qcd_osss_0jet_ratedown",
+      "0:em_qcd_osss_0jet_shapeup",
+      "0:em_qcd_osss_0jet_shapedown",
+      "0:em_qcd_osss_1jet_rateup",
+      "0:em_qcd_osss_1jet_ratedown",
+      "0:em_qcd_osss_1jet_shapeup",
+      "0:em_qcd_osss_1jet_shapedown",
+      
       "0:em_qcd_extrap_uncert",
   ]
   config["QCDFactorWorkspaceObjectArguments"] = [
       "0:e_pt,m_pt,dR,njets,iso",
       "0:e_pt,m_pt,dR,njets,iso",
       "0:e_pt,m_pt,dR,njets,iso",
-      "0:e_pt,m_pt"
+      "0:e_pt,m_pt,dR,njets,iso",
+      "0:e_pt,m_pt,dR,njets,iso",
+      "0:e_pt,m_pt,dR,njets,iso",
+      "0:e_pt,m_pt,dR,njets,iso",
+      "0:e_pt,m_pt,dR,njets,iso",
+      "0:e_pt,m_pt,dR,njets,iso",
+      "0:e_pt,m_pt,dR,njets,iso",
+      "0:e_pt,m_pt,dR,njets,iso",
+      
+      "0:e_pt,m_pt",
   ]
 
   config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_2017_v1.root"
@@ -386,7 +413,19 @@ def build_config(nickname, **kwargs):
     config["Quantities"].extend([
     "trigger_12_Weight_1","trigger_23_Weight_1","trigger_8_Weight_2","trigger_23_Weight_2"         
        ])
-  config["Quantities"].extend(["dr_tt", "pt_ttjj","qcd_ss_os_factor_Weight","qcd_ss_os_factor_up_Weight","qcd_ss_os_factor_down_Weight","qcd_ss_os_factor_extrap_Weight"])
+  config["Quantities"].extend(["dr_tt", "pt_ttjj",
+      "em_qcd_osss_binned_Weight",
+      "em_qcd_extrap_up_Weight",
+      "em_qcd_extrap_down_Weight",
+      "em_qcd_osss_0jet_rateup_Weight",
+      "em_qcd_osss_0jet_ratedown_Weight",
+      "em_qcd_osss_0jet_shapeup_Weight",
+      "em_qcd_osss_0jet_shapedown_Weight",
+      "em_qcd_osss_1jet_rateup_Weight",
+      "em_qcd_osss_1jet_ratedown_Weight",
+      "em_qcd_osss_1jet_shapeup_Weight",
+      "em_qcd_osss_1jet_shapedown_Weight",
+      "em_qcd_extrap_uncert_Weight"])
 
   config["OSChargeLeptons"] = True
   config["TopPtReweightingStrategy"] = "Run2"

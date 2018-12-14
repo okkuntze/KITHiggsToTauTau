@@ -173,6 +173,9 @@ def build_config(nickname, **kwargs):
           "0:singleTriggerDataEfficiencyWeightKIT",
           "0:singleTriggerEmbeddedEfficiencyWeightKIT",
 
+          "0:crossTriggerEmbeddedWeight",
+          "1:crossTriggerEmbeddedWeight",
+
           "0:isoWeight",
           "0:idWeight",
           "0:trigger_27_35_Weight",
@@ -195,6 +198,9 @@ def build_config(nickname, **kwargs):
           "0:e_trg27_trg35_kit_mc",
           "0:e_trg27_trg35_kit_data",
           "0:e_trg27_trg35_kit_embed",
+
+          "0:e_trg_EleTau_Ele24Leg_kit_ratio_embed",
+          "1:et_emb_LooseChargedIsoPFTau30_kit_ratio",
 
           "0:e_iso_binned_embed_kit_ratio",
           "0:e_id90_embed_kit_ratio",
@@ -219,6 +225,9 @@ def build_config(nickname, **kwargs):
           "0:e_pt,e_eta",
           "0:e_pt,e_eta",
           "0:e_pt,e_eta",
+
+          "0:e_pt",
+          "1:t_pt",
 
           "0:e_pt,e_eta,e_iso",
           "0:e_pt,e_eta",
@@ -351,21 +360,22 @@ def build_config(nickname, **kwargs):
       "singleTriggerMCEfficiencyWeightKIT_35_1",
       "singleTriggerDataEfficiencyWeightKIT_35_1",
       "singleTriggerMCEfficiencyWeightKIT_27or35_1",
-      "singleTriggerDataEfficiencyWeightKIT_27or35_1"
+      "singleTriggerDataEfficiencyWeightKIT_27or35_1",
+      "trigger_27_35_Weight_1","trigger_27_32_32fb_Weight_1","trigger_27_32_Weight_1",
+      "trigger_27_35_Weight_1",
+      "trigger_27_32_Weight_1",
+      "trigger_32_35_Weight_1",
+      "trigger_27_32_35_Weight_1",
+      "trigger_27_Weight_1",
+      "trigger_32_Weight_1",
+      "trigger_32fb_Weight_1",
+      "trigger_35_Weight_1"
   ])
   if isEmbedded:
     config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.Includes.embeddedDecayModeWeightQuantities").build_list())
     config["Quantities"].extend([
-          "muonEffTrgWeight", "muonEffIDWeight_1","muonEffIDWeight_2","trigger_27_35_Weight_1","trigger_27_32_32fb_Weight_1","trigger_27_32_Weight_1",
-          "trigger_27_35_Weight_1",
-          "trigger_27_32_Weight_1",
-          "trigger_32_35_Weight_1",
-          "trigger_27_32_35_Weight_1",
-          "trigger_27_Weight_1",
-          "trigger_32_Weight_1",
-          "trigger_32fb_Weight_1",
-          "trigger_35_Weight_1"
-          ])
+          "muonEffTrgWeight", "muonEffIDWeight_1","muonEffIDWeight_2", "crossTriggerEmbeddedWeight_1", "crossTriggerEmbeddedWeight_2"
+    ])
   if re.search("HToTauTauM125", nickname):
     config["Quantities"].extend([
       "htxs_stage0cat",
@@ -443,19 +453,13 @@ def build_config(nickname, **kwargs):
 
   # pipelines - systematic shifts
   if etau_fake_es and pipelines is not None:
-    # nominal tauESperDM_shifts et_eleFakeTauES_subanalysis METunc_shifts METrecoil_shifts JECunc_shifts
+    # needed : nominal, tauESperDM_shifts, et_eleFakeTauES_subanalysis, maybe METunc_shifts METrecoil_shifts JECunc_shifts
     return_conf = jsonTools.JsonDict()
     for pipeline in pipelines:
       print 'add pipe:', pipeline
       return_conf += ACU.apply_uncertainty_shift_configs('et', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017." + pipeline).build_config(nickname, **kwargs))
+
     return return_conf
-
-    # nominal, TES
-    return ACU.apply_uncertainty_shift_configs('et', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.nominal").build_config(nickname)) \
-         + ACU.apply_uncertainty_shift_configs('et', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.tauESperDM_shifts").build_config(nickname))
-
-    # FES
-    # return ACU.apply_uncertainty_shift_configs('et', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.et_eleFakeTauES_subanalysis").build_config(nickname, **kwargs))
 
   return ACU.apply_uncertainty_shift_configs('et', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.nominal").build_config(nickname)) + \
          ACU.apply_uncertainty_shift_configs('et', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.tauESperDM_shifts").build_config(nickname)) + \

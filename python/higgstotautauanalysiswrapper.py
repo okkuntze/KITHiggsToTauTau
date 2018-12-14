@@ -275,7 +275,7 @@ class HiggsToTauTauAnalysisWrapper():
 		                                 "Hashes have to be DELETED FIRST in case an update is needed and the path of the inputs is unchanged "
 		                                 "[Default: %(default)s]")
 		runningOptionsGroup.add_argument("--hashed-rootfiles-info-path", type=str,
-		                                 default="srm://dcache-se-cms.desy.de:8443/srm/managerv2?SFN=/pnfs/desy.de/cms/tier2/store/user/ohlushch/higgs-kit/hashed_samples/hashed_samples",
+		                                 default="srm://dcache-se-cms.desy.de:8443/srm/managerv2?SFN=/pnfs/desy.de/cms/tier2/store/user/ohlushch/higgs-kit/hashed_samples/SMFall17v2_18_10_2017/hashed_samples",
 		                                 help="Path to root files info hashes [Default: %(default)s]")
 		runningOptionsGroup.add_argument("--hashed-rootfiles-info-force", action='store_true', default=False,
 		                                 help="Force to update the file that is set by hashed-rootfiles-info-path [Default: %(default)s]")
@@ -327,13 +327,13 @@ class HiggsToTauTauAnalysisWrapper():
 				print "\tsubprocess copy call error:", error
 				exit(1)
 
-	def setInputFilenames(self, filelist, alreadyInGridControl=False): ###could be inherited from artusWrapper!
+	def setInputFilenames(self, filelist, alreadyInGridControl=False):  # could be inherited from artusWrapper!
 		log.debug("setInputFilenames:: start")
 		if self._args.hashed_rootfiles_info:
 			hashed_data_path = self._args.hashed_rootfiles_info_path
 
-			# a way to check that gfal-tools should be use - maybe there is smtg more intelligent
-			if ":/" in self._args.hashed_rootfiles_info_path:
+			# a way to check that gfal-tools should be used - maybe there is smtg more intelligent
+			if "://" in self._args.hashed_rootfiles_info_path:
 				hashed_data_path = "temp_hashed_samples_{0}".format(hashlib.md5(str(self._config)).hexdigest())
 				self.gfal_copy(from_path=self._args.hashed_rootfiles_info_path, where_path=hashed_data_path)
 
@@ -373,7 +373,7 @@ class HiggsToTauTauAnalysisWrapper():
 				tmpDBS = self.readDbsFile(entry)
 				tmpDBS = self.removeProcessedFiles(tmpDBS, entry)
 				filelist = []
-				for key,item in tmpDBS.iteritems():
+				for key, item in tmpDBS.iteritems():
 					filelist += item
 				self.setInputFilenames(filelist, alreadyInGridControl)
 			elif os.path.isdir(entry):
