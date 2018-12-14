@@ -31,8 +31,9 @@ def build_config(nickname, **kwargs):
         [2.75, 3, 3.25, 3.5, 3.75, 4, 5, 6, 7, 8],
         [9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
         [0],
+        [-4, -0.5, 0.5, 18],
     ]
-    if isinstance(etau_fake_es_group, int) and etau_fake_es_group in range(0, len(etau_es_shifts_groups)):
+    if isinstance(etau_fake_es_group, int) and abs(etau_fake_es_group) < len(etau_es_shifts_groups):
         etau_es_shifts = etau_es_shifts_groups[etau_fake_es_group]
         print "FES:", etau_es_shifts
     else:

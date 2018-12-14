@@ -657,11 +657,12 @@ class HiggsToTauTauAnalysisWrapper():
 		if self._args.no_svfit:
 			epilogArguments += (" --no-svfit ")
 		if self._args.pipelines is not None:
-			epilogArguments += (" --pipelines %s " % self._args.pipelines,)
-		if self._args.etau_fake_es_group is not None:
-			epilogArguments += (" --etau-fake-es-group %s " % self._args.etau_fake_es_group,)
+			epilogArguments += (" --pipelines %s " % " ".join(self._args.pipelines))
+
 		if self._args.tau_es_group is not None:
-			epilogArguments += (" --etau-fake-es %s " % self._args.tau_es_group,)
+			epilogArguments += (" --tau-es-group %s " % self._args.tau_es_group)
+		if self._args.etau_fake_es_group is not None:
+			epilogArguments += (" --etau-fake-es-group %s " % self._args.etau_fake_es_group)
 
 		if self._args.batch_jobs_debug:
 			print "single job arguments epilogArguments:", epilogArguments
