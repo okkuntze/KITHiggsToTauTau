@@ -136,8 +136,8 @@ def build_config(nickname):
   config["BTagEfficiencyFile"] = "$CMSSW_BASE/src/Artus/KappaAnalysis/data/tagging_efficiencies_moriond2017.root" if re.search("Summer16", nickname) else "$CMSSW_BASE/src/Artus/KappaAnalysis/data/tagging_efficiencies.root"
   
   config["MetRecoilCorrectorFile"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/recoilMet/TypeI-PFMet_Run2016BtoH.root"
-  config["MetShiftCorrectorFile"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/recoilMet/MEtSys.root"
-  config["MvaMetShiftCorrectorFile"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/recoilMet/MEtSys.root"
+  config["MetShiftCorrectorFile"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/recoilMet/PFMEtSys_2016.root"
+  config["MvaMetShiftCorrectorFile"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/recoilMet/PFMEtSys_2016.root"
   config["MvaMetRecoilCorrectorFile"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/recoilMet/MvaMET_2016BCD.root"
   config["MetCorrectionMethod"] = "meanResolution"
   #config["ZptReweightProducerWeights"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/zpt/zpt_weights_2016_BtoH.root"
@@ -169,6 +169,9 @@ def build_config(nickname):
       config["Generator"] = "powheg"
     elif "amcatnlo" in nickname:
       config["Generator"] = "amcatnlo"
+
+  config["PrefireEfficiencyMapsSource"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/prefireMaps/Map_Jet_L1FinOReff_bxm1_looseJet_SingleMuon_Run2016B-H.root"
+  config["PrefireEfficiencyMapsSource2017"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/prefireMaps/L1prefiring_jet_2017BtoF.root"
 
   
   # pipelines - channels including systematic shifts
