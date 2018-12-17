@@ -72,6 +72,9 @@ def build_list(**kwargs):
             "ggH_b_weight",
             "ggH_i_weight",
             "ggH_t_weight",
+            "ggh_b_weight",  # note the small h
+            "ggh_i_weight",  # note the small h
+            "ggh_t_weight",  # note the small h
             "idWeight_1",
             "idWeight_2",
             "idisoweight_1",

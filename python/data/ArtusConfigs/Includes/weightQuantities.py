@@ -23,6 +23,7 @@ def build_list():
     "identificationWeight_1",
     "identificationWeight_2",
     "puWeight",
+    'puweight',   # note the small w
     "tauEnergyScaleWeight",
     "generatorWeight",
     "crossSectionPerEventWeight",

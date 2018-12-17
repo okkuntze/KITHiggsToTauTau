@@ -27,6 +27,7 @@ def build_list(**kwargs):
 
     if not minimal_setup:
         quantities.extend([
+            "trg_muonelectron_mu12ele23",
             "trg_singleelectron_32_fallback",
             "trg_singletau_leading",
             "trg_singletau_trailing",
