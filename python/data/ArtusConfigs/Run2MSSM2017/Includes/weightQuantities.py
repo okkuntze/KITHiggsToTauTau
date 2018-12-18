@@ -19,6 +19,16 @@ def build_list(**kwargs):
         "crossTriggerMCEfficiencyWeight_tight_MVA_1",
         "singleTriggerMCEfficiencyWeightKIT_1",
         "singleTriggerDataEfficiencyWeightKIT_1",
+
+        "crossTriggerMCEfficiencyWeight_2",
+        "crossTriggerDataEfficiencyWeight_2",
+        "crossTriggerMCEfficiencyWeight_vloose_MVA_2",
+        "crossTriggerDataEfficiencyWeight_vloose_MVA_2",
+        "crossTriggerMCEfficiencyWeight_medium_MVA_2",
+        "crossTriggerMCEfficiencyWeight_tight_MVA_2",
+        "singleTriggerMCEfficiencyWeightKIT_2",
+        "singleTriggerDataEfficiencyWeightKIT_2",
+
         "trackWeight_1",
         "idWeight_1",
         "isoWeight_1",
