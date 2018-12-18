@@ -327,7 +327,7 @@ def build_config(nickname, **kwargs):
                                                               "producer:HttValidVetoMuonsProducer",
                                                               "producer:ValidElectronsProducer"))
   if not isData:                 config["Processors"].append( "producer:HttValidGenTausProducer")
-  if not (isData or isEmbedded): config["Processors"].append( "producer:TauCorrectionsProducer")
+  if not (isData): config["Processors"].append( "producer:TauCorrectionsProducer")
   config["Processors"].extend((                               "producer:ValidTausProducer",
                                                               "filter:ValidTausFilter",
                                                               "producer:TauTriggerMatchingProducer",
