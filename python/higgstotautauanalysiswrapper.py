@@ -186,6 +186,7 @@ class HiggsToTauTauAnalysisWrapper():
 		self._parser.add_argument("--pipelines", default=None, type=str, nargs='*', action='store',
 			choices=['nominal', 'tauESperDM_shifts', 'et_eleFakeTauES_subanalysis', 'regionalJECunc_shifts', 'tauEleFakeESperDM_shifts', 'METunc_shifts', 'METrecoil_shifts', 'eleES_shifts', 'btagging_shifts',],
 			help="Pipelines to activate. Default: %(default)s]")
+		self._parser.add_argument("--minimal-setup", default=False, action="store_true", help="Disable SVfit. Default: %(default)s]")
 
 		fileOptionsGroup = self._parser.add_argument_group("File options")
 		fileOptionsGroup.add_argument("-i", "--input-files", nargs="+", required=True,
@@ -312,6 +313,7 @@ class HiggsToTauTauAnalysisWrapper():
 			pipelines=self._args.pipelines,
 			etau_fake_es_group=self._args.etau_fake_es_group,
 			tau_es_group=self._args.tau_es_group,
+			minimal_setup=self._args.minimal_setup,
 		)
 
 	def gfal_copy(self, from_path="", where_path="", force=False):
@@ -663,6 +665,9 @@ class HiggsToTauTauAnalysisWrapper():
 			epilogArguments += (" --tau-es-group %s " % self._args.tau_es_group)
 		if self._args.etau_fake_es_group is not None:
 			epilogArguments += (" --etau-fake-es-group %s " % self._args.etau_fake_es_group)
+
+		if self._args.minimal_setup:
+			epilogArguments += (" --minimal-setup ")
 
 		if self._args.batch_jobs_debug:
 			print "single job arguments epilogArguments:", epilogArguments
