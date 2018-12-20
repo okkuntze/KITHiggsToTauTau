@@ -399,7 +399,7 @@ def build_config(nickname, **kwargs):
                                                               "filter:MinElectronsCountFilter",
                                                               "producer:HttValidVetoElectronsProducer",
                                                               "producer:ValidMuonsProducer"))
-  if not (isData or isEmbedded): config["Processors"].append( "producer:TauCorrectionsProducer")
+  if not (isData): config["Processors"].append( "producer:TauCorrectionsProducer")
   if not isData:                 config["Processors"].append( "producer:HttValidGenTausProducer")
   config["Processors"].extend((                               "producer:ValidTausProducer",
                                                               "filter:ValidTausFilter",
