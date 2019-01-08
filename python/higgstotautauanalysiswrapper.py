@@ -97,7 +97,9 @@ class HiggsToTauTauAnalysisWrapper():
 			# save final config
 			self.saveConfig(self._args.save_config)
 			if self._args.print_config:
-				log.info(self._config)
+				import pprint
+				pp = pprint.PrettyPrinter(indent=4)
+				log.info(pp.pformat(self._config))
 
 			# set LD_LIBRARY_PATH
 			if not self._args.ld_library_paths is None:
@@ -267,8 +269,8 @@ class HiggsToTauTauAnalysisWrapper():
 		                                 help="Wall time of batch jobs. [Default: %(default)s]")
 		runningOptionsGroup.add_argument("--memory", type=int, default=3000,
 		                                 help="Memory (in MB) for batch jobs. [Default: %(default)s]")
-		runningOptionsGroup.add_argument("--cmdargs", default="-cG -m 3",
-		                                 help="Command line arguments for go.py. [Default: %(default)s]")
+		runningOptionsGroup.add_argument("--cmdargs", type=str, default="-cG -m 3",
+		                                 help="Command line arguments for go.py. Pass in form of '--cmdargs=\"-cG -m 3\"'. [Default: %(default)s]")
 		runningOptionsGroup.add_argument("--se-path",
 		                                 help="Custom SE path, if it should different from the work directory.")
 		runningOptionsGroup.add_argument("--log-to-se", default=False, action="store_true",
@@ -484,11 +486,6 @@ class HiggsToTauTauAnalysisWrapper():
 		self._configFilename = filepath
 		self._config.save(self._configFilename, indent=4)
 
-		if self._args.batch and self._args.batch_jobs_debug:
-			import pprint
-			pp = pprint.PrettyPrinter(indent=4)
-			pp.pprint(self._config)
-
 		log.info("Saved JSON config \"%s\" for temporary usage." % self._configFilename)
 
 	def determineNickname(self, nickname):
@@ -677,11 +674,17 @@ class HiggsToTauTauAnalysisWrapper():
 			epilogArguments += (" --minimal-setup ")
 
 		if self._args.batch_jobs_debug:
+			epilogArguments += (" --save-config conf.json ")
 			print "single job arguments epilogArguments:", epilogArguments
 
 		sepath = "se path = " + (self._args.se_path if self._args.se_path else sepathRaw)
 		workdir = "workdir = " + os.path.join(localProjectPath, "workdir")
 		backend = open(os.path.expandvars("$CMSSW_BASE/src/Artus/Configuration/data/grid-control_backend_" + self._args.batch + ".conf"), 'r').read()
+
+		seoutputfiles = "se output files = *.root"
+		if not self._args.log_to_se: seoutputfiles += " *.log"
+		if self._args.batch_jobs_debug: seoutputfiles += " *.json"
+
 		self.replacingDict = dict(
 				include = ("include = " + " ".join(self._args.gc_config_includes) if self._args.gc_config_includes else ""),
 				epilogexecutable = "epilog executable = " + os.path.basename(sys.argv[0]),
@@ -698,7 +701,7 @@ class HiggsToTauTauAnalysisWrapper():
 				cmdargs = "cmdargs = " + self._args.cmdargs.replace("m 3", "m 3" if self._args.pilot_job_files is None else "m 0"),
 				dataset = "dataset = \n\t:ListProvider:" + dbsFileBasepath,
 				epilogarguments = epilogArguments,
-				seoutputfiles = "se output files = *.root" if self._args.log_to_se else "se output files = *.log *.root",
+				seoutputfiles = seoutputfiles,
 				backend = backend,
 				partitionlfnmodifier = "partition lfn modifier = " + self._args.partition_lfn_modifier if (self._args.partition_lfn_modifier != None) else ""
 		)
