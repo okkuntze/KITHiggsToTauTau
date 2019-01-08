@@ -347,6 +347,8 @@ class HiggsToTauTauAnalysisWrapper():
 		# if (not (isinstance(self._config["InputFiles"], list)) and not isinstance(self._config["InputFiles"], basestring)):
 		self._config["InputFiles"] = []
 		for entry in filelist:
+			if set(entry).issubset({'\t', ' ', '\n'}):
+				continue
 			if os.path.splitext(entry)[1] == ".root":
 				if entry.find("*") != -1:
 					filelist = glob.glob(os.path.expandvars(entry))
