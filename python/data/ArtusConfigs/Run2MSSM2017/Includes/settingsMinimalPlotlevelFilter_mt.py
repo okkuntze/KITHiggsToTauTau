@@ -28,17 +28,20 @@ def build_config(nickname, **kwargs):
   ]
   config["PlotlevelFilterExpression"] = "(flagMETFilter > 0.5)*(extraelec_veto < 0.5)*(againstMuonTight3_2 > 0.5)*(againstElectronVLooseMVA6_2 > 0.5)*(byVLooseIsolationMVArun2017v2DBoldDMwLT2017_2 > 0.5)"
 
-  if not tau_es:  # as for the TES version of 2016
+  # as for the TES version of 2016
+  if not tau_es:
     config["PlotlevelFilterExpressionQuantities"].append('nDiMuonVetoPairsOS')
     config["PlotlevelFilterExpression"] += '*(nDiMuonVetoPairsOS < 0.5)'
 
     config["PlotlevelFilterExpressionQuantities"].append("extramuon_veto")
     config["PlotlevelFilterExpression"] += '*(extramuon_veto < 0.5)'
-
   else:
     # version consistent with Izaak for 2017
-    # config["PlotlevelFilterExpressionQuantities"].append('nDiMuonVetoPairsOS')
-    # config["PlotlevelFilterExpression"] += '*(nDiMuonVetoPairsOS < 0.5)'
-    pass
+    config["PlotlevelFilterExpressionQuantities"].append('nDiMuonVetoPairsOS')
+    config["PlotlevelFilterExpression"] += '*(nDiMuonVetoPairsOS < 0.5)'
+
+    # version for 2018 reprocessing
+    config["PlotlevelFilterExpressionQuantities"].append("extramuon_veto")
+    config["PlotlevelFilterExpression"] += '*(extramuon_veto < 0.5)'
 
   return config

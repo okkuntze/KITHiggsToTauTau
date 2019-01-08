@@ -258,7 +258,7 @@ class HiggsToTauTauAnalysisWrapper():
 		runningOptionsGroup.add_argument("-b", "--batch", default=False, const="naf", nargs="?",
 		                                 help="Run with grid-control. Optionally select backend. [Default: %(default)s]")
 		runningOptionsGroup.add_argument("--batch-jobs-debug", default=False, action="store_true",
-		                                 help="Option enables more printouts for single jobs for example: printing the artus config to stdout.")  # TODO: this needs to be redirected in separate file to transfer as output
+		                                 help="Option enables more printouts for single jobs for example: printing the artus config to stdout.")
 		runningOptionsGroup.add_argument("--pilot-job-files", "--pilot-jobs", default=None, const=1, type=int, nargs="?",
 		                                 help="Number of files per sample to be submitted as pilot jobs. [Default: all/1]")
 		runningOptionsGroup.add_argument("--files-per-job", type=int, default=15,
