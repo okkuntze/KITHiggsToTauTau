@@ -12,6 +12,7 @@ import Kappa.Skimming.datasetsHelperTwopz as datasetsHelperTwopz
 
 def build_list():
   quantities_list = [
+    "weight",
     "hltWeight",
     "triggerWeight_1",
     "triggerWeight_2",
@@ -22,6 +23,7 @@ def build_list():
     "identificationWeight_1",
     "identificationWeight_2",
     "puWeight",
+    'puweight',   # note the small w
     "tauEnergyScaleWeight",
     "generatorWeight",
     "crossSectionPerEventWeight",
@@ -49,5 +51,5 @@ def build_list():
     "eleTauFakeRateWeight",
     "muTauFakeRateWeight"
   ]
-  
+
   return quantities_list

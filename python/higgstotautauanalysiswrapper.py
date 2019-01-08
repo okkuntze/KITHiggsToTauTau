@@ -180,6 +180,7 @@ class HiggsToTauTauAnalysisWrapper():
 		self._parser.add_argument("--sub-analysis", default='', action='store', choices=['btag-eff'], help="Keys to run a sub-analysis on top of base analyseis. Example: btag-egg Option to simplify the configs in order to estimate the efficiencies faster. [Default: %(default)s]")
 		self._parser.add_argument("-c", "--analysis-channels", default=['all'], nargs='+', type=str, choices=['all', 'mt', 'tt', 'et', 'ee', 'em', 'mm'], help="List of channels processed from the analysis. [Default: %(default)s]")
 		self._parser.add_argument("--no-svfit", default=False, action="store_true", help="Disable SVfit. Default: %(default)s]")
+		self._parser.add_argument("--minimal-setup", default=False, action="store_true", help="Disable SVfit. Default: %(default)s]")
 
 		fileOptionsGroup = self._parser.add_argument_group("File options")
 		fileOptionsGroup.add_argument("-i", "--input-files", nargs="+", required=True,
@@ -293,6 +294,7 @@ class HiggsToTauTauAnalysisWrapper():
 			sub_analysis=self._args.sub_analysis,
 			analysis_channels=self._args.analysis_channels,
 			no_svfit=self._args.no_svfit,
+			minimal_setup=self._args.minimal_setup,
 		)
 
 	def setInputFilenames(self, filelist, alreadyInGridControl = False): ###could be inherited from artusWrapper!
@@ -588,6 +590,9 @@ class HiggsToTauTauAnalysisWrapper():
 		epilogArguments += (" --analysis-channels %s " % " ".join(self._args.analysis_channels))
 		if self._args.no_svfit:
 			epilogArguments += (" --no-svfit ")
+
+		if self._args.minimal_setup:
+			epilogArguments += (" --minimal-setup ")
 
 		if self._args.batch_jobs_debug:
 			print "single job arguments epilogArguments:", epilogArguments
