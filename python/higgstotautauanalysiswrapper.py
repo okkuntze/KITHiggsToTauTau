@@ -52,7 +52,12 @@ class HiggsToTauTauAnalysisWrapper():
 		inputFileList = self._args.input_files
 		for entry in range(len(inputFileList)):
 			inputFileList[entry] = inputFileList[entry].replace('"', '').replace("'", '').replace(',', '')
+
+		if self._args.hashed_rootfiles_info:
+			log.info("Hashes file : " + self._args.hashed_rootfiles_info_path +
+				"\n\t will" + (not self._args.hashed_rootfiles_info_force) * " NOT" + " be updated")
 		self.setInputFilenames(self._args.input_files)
+
 		if not self._args.n_events is None:
 			self._config["ProcessNEvents"] = self._args.n_events
 		if not self._args.skip_events is None:
@@ -329,7 +334,7 @@ class HiggsToTauTauAnalysisWrapper():
 				print "\tsubprocess copy call error:", error
 				exit(1)
 
-	def setInputFilenames(self, filelist, alreadyInGridControl=False):  # could be inherited from artusWrapper!
+	def setInputFilenames(self, filelist, alreadyInGridControl=False, filelist_name=''):  # could be inherited from artusWrapper!
 		log.debug("setInputFilenames:: start")
 		if self._args.hashed_rootfiles_info:
 			hashed_data_path = self._args.hashed_rootfiles_info_path
@@ -347,12 +352,14 @@ class HiggsToTauTauAnalysisWrapper():
 		# if (not (isinstance(self._config["InputFiles"], list)) and not isinstance(self._config["InputFiles"], basestring)):
 		self._config["InputFiles"] = []
 		for entry in filelist:
+
 			if set(entry).issubset({'\t', ' ', '\n'}):
 				continue
+
 			if os.path.splitext(entry)[1] == ".root":
 				if entry.find("*") != -1:
 					filelist = glob.glob(os.path.expandvars(entry))
-					self.setInputFilenames(filelist, alreadyInGridControl)
+					self.setInputFilenames(filelist, alreadyInGridControl, filelist_name=entry)
 				else:
 					self._config["InputFiles"].append(entry)
 
@@ -379,26 +386,24 @@ class HiggsToTauTauAnalysisWrapper():
 				filelist = []
 				for key, item in tmpDBS.iteritems():
 					filelist += item
-				self.setInputFilenames(filelist, alreadyInGridControl)
+				self.setInputFilenames(filelist, alreadyInGridControl, filelist_name=entry)
+
 			elif os.path.isdir(entry):
-				self.setInputFilenames([os.path.join(entry, "*.root")])
+				self.setInputFilenames([os.path.join(entry, "*.root")], filelist_name=entry + "/*.root")
+
 			elif (os.path.splitext(entry))[1] == ".txt":
 				txtFile = open(os.path.expandvars(entry), 'r')
 				txtFileContent = txtFile.readlines()
 				for line in range(len(txtFileContent)):
 					txtFileContent[line] = txtFileContent[line].replace("\n", "")
 				txtFile.close()
-				self.setInputFilenames(txtFileContent)
+				self.setInputFilenames(txtFileContent, filelist_name=entry)
+
 			else:
 				log.warning("Found file in input search path that is not further considered: " + entry + "\n")
 
 		if self._args.hashed_rootfiles_info:
 			d.close()
-
-			if self._args.hashed_rootfiles_info and self._args.hashed_rootfiles_info_force:
-				log.info("Hashes updated: " + hashed_data_path)
-			else:
-				log.info("Hashes NOT updated: " + hashed_data_path)
 
 			if self._args.hashed_rootfiles_info_force and "temp_hashed_samples" in hashed_data_path:
 				self.gfal_copy(from_path=hashed_data_path, where_path=self._args.hashed_rootfiles_info_path, force=True)
