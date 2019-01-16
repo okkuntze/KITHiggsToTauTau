@@ -156,12 +156,13 @@ def build_config(nickname):
   
   config["Processors"] = [                                    "producer:HltProducer",
                                                               "filter:HltFilter",
-                                                              "producer:MetSelector",
-                                                              "producer:ValidElectronsProducer",
+                                                              "producer:MetSelector"]
+  if not isData:                 config["Processors"].append( "producer:ElectronCorrectionsProducer")
+  config["Processors"].extend((                               "producer:ValidElectronsProducer",
                                                               "filter:ValidElectronsFilter",
                                                               "producer:ElectronTriggerMatchingProducer",
                                                               "filter:MinElectronsCountFilter",
-                                                              "producer:ValidMuonsProducer"]
+                                                              "producer:ValidMuonsProducer"))
   if not isData:                 config["Processors"].append( "producer:TauCorrectionsProducer")
   config["Processors"].extend((                               "producer:ValidTausProducer",
                                                               "filter:ValidTausFilter",
@@ -213,6 +214,7 @@ def build_config(nickname):
   
   # pipelines - systematic shifts
   return ACU.apply_uncertainty_shift_configs('et', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2Analysis.nominal").build_config(nickname)) + \
+         ACU.apply_uncertainty_shift_configs('et', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2Analysis.eleES_shifts").build_config(nickname)) + \
          ACU.apply_uncertainty_shift_configs('et', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2Analysis.JECunc_shifts").build_config(nickname)) + \
          ACU.apply_uncertainty_shift_configs('et', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2Analysis.METunc_shifts").build_config(nickname)) + \
          ACU.apply_uncertainty_shift_configs('et', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2Analysis.METrecoil_shifts").build_config(nickname)) + \
