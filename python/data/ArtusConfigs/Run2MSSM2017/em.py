@@ -396,7 +396,25 @@ def build_config(nickname, **kwargs):
   config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.Includes.zptQuantities").build_list())
   config["Quantities"].extend([
       "had_gen_match_pT_1",
-      "had_gen_match_pT_2"
+      "had_gen_match_pT_2",
+      "pZetaMiss",
+      "pZetaVis",
+      "dr_tt",
+      "diLepMetMass",
+      "diLepMetPhi",
+      "diLepMetEta",
+      "diLepMetPt",
+      "dphi_mumet",
+      "dphi_emet",
+      "mTdileptonMET",
+      "mt_tt",
+      "mTemu",
+      "mt_sv",
+      "mt_max",
+      "mtmax",
+      "dPhiLep1Met",
+      "dPhiLep2Met",
+      "dzeta"
   ])
 
   if isEmbedded:
@@ -443,6 +461,7 @@ def build_config(nickname, **kwargs):
   config["Processors"].extend((                               "producer:HttValidLooseElectronsProducer",
                                                               "producer:HttValidLooseMuonsProducer",
                                                               "producer:HltProducer",
+                                                              "filter:HltFilter",
                                                               "producer:MetSelector"))
   config["Processors"].extend((                               "producer:ValidElectronsProducer",
                                                               "filter:ValidElectronsFilter",

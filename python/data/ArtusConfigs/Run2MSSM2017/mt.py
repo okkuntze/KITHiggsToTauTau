@@ -168,7 +168,10 @@ def build_config(nickname, **kwargs):
           "0:idWeight",
           "0:trigger_24_Weight",
           "0:trigger_27_Weight",
-          "0:trigger_24_27_Weight"
+          "0:trigger_24_27_Weight",
+          "1:mt_tauleg_data_Weight",
+          "1:mt_tauleg_embed_Weight",
+          "1:mt_tauleg_Weight",
           ]
     config["EmbeddedWeightWorkspaceObjectNames"]=[
           "0:m_sel_trg_ratio",
@@ -185,7 +188,9 @@ def build_config(nickname, **kwargs):
           "0:m_trg24_embed_kit_ratio",
           "0:m_trg27_embed_kit_ratio",
           "0:m_trg24_27_embed_kit_ratio",
-
+          "1:mt_LooseChargedIsoPFTau27_data",
+          "1:mt_LooseChargedIsoPFTau27_embed",
+          "1:mt_emb_LooseChargedIsoPFTau27_ratio",
           ]
     config["EmbeddedWeightWorkspaceObjectArguments"] = [
           "0:gt1_pt,gt1_eta,gt2_pt,gt2_eta",
@@ -200,7 +205,10 @@ def build_config(nickname, **kwargs):
           "0:m_pt,m_eta",
           "0:m_pt,m_eta",
           "0:m_pt,m_eta",
-          "0:m_pt,m_eta"
+          "0:m_pt,m_eta",
+          "1:t_pt",
+          "1:t_pt",
+          "1:t_pt",
           ]
   else:
     config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_2017_v3.root"
