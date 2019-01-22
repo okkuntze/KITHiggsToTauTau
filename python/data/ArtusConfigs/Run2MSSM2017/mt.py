@@ -154,8 +154,8 @@ def build_config(nickname, **kwargs):
       "1:crossTriggerDataEfficiencyWeight",
   ]
   if isEmbedded:
-    config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v17_5.root"
-    config["EmbeddedWeightWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v17_5.root"
+    config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v17_6.root"
+    config["EmbeddedWeightWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v17_6.root"
     config["EmbeddedWeightWorkspaceWeightNames"]=[
           "0:muonEffTrgWeight",
           "0:muonEffIDWeight",
@@ -185,10 +185,10 @@ def build_config(nickname, **kwargs):
 
           "0:m_iso_binned_embed_kit_ratio",
           "0:m_id_embed_kit_ratio",
+
           "0:m_trg24_embed_kit_ratio",
           "0:m_trg27_embed_kit_ratio",
-          "0:m_trg24_27_embed_kit_ratio",
-
+          "0:m_trg24_27_embed_kit_ratio"
           ]
     config["EmbeddedWeightWorkspaceObjectArguments"] = [
           "0:gt1_pt,gt1_eta,gt2_pt,gt2_eta",
@@ -199,14 +199,16 @@ def build_config(nickname, **kwargs):
           "0:m_pt,m_eta",
           "0:m_pt",
           "1:t_pt",
+
           "0:m_pt,m_eta,m_iso",
           "0:m_pt,m_eta",
+
           "0:m_pt,m_eta",
           "0:m_pt,m_eta",
           "0:m_pt,m_eta"
           ]
   else:
-    config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_2017_v2.root"
+    config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_2017_v3.root"
     config["RooWorkspaceWeightNames"] = [
         "0:crossTriggerMCEfficiencyWeight",
         "0:crossTriggerDataEfficiencyWeight",

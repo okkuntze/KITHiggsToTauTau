@@ -25,6 +25,8 @@ def build_config(nickname):
     "crossSectionPerEventWeight",
     "generatorWeight",
     "npartons",
+    "topPtReweightWeightRun1",
+    "topPtReweightWeightRun2",
     "genbosonmass"
   ]
   

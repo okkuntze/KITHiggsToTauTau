@@ -59,6 +59,7 @@ def build_config(nickname, **kwargs):
     if re.search(key, nickname): config["BosonPdgIds"] = pdgids
   
   config["BosonStatuses"] = [62]
+  config["TopPtReweightingStrategy"] = "Run1"
   
   config["OutputPath"] = "output.root"
   
@@ -72,6 +73,7 @@ def build_config(nickname, **kwargs):
   config["Processors"].extend((                                   "producer:GenParticleProducer",
                                                                   "producer:GenPartonCounterProducer"))
   if isWjets or isDY or isEmbedded:  config["Processors"].append("producer:GenBosonDiLeptonDecayModeProducer")
+  if isTTbar:                    config["Processors"].append( "producer:TopPtReweightingProducer")
 
   # pipelines - channels including systematic shifts
   config["Pipelines"] = jsonTools.JsonDict()
