@@ -387,6 +387,7 @@ def build_config(nickname, **kwargs):
 
   # pipelines - systematic shifts
   if tau_es and pipelines is not None:
+    config["Quantities"].extend(["leadingTauEnergyAssymetry"])
     # needed pipelines : nominal tauES_subanalysis tauMuFakeESperDM_shifts METunc_shifts METrecoil_shifts JECunc_shifts
     return_conf = jsonTools.JsonDict()
     for pipeline in pipelines:
