@@ -607,11 +607,12 @@ class HiggsToTauTauAnalysisWrapper():
 
 		#set project paths
 		remote_se = False
-		projectPath = os.path.join(os.path.expandvars(self._args.work), self._date_now+"_"+self._args.project_name)
+		project_name = '_'.join([self._args.project_name, self._date_now])
+		projectPath = os.path.join(os.path.expandvars(self._args.work), project_name)
 		localProjectPath = projectPath
 		if projectPath.startswith("srm://"):
 			remote_se = True
-			localProjectPath = os.path.join(os.path.expandvars(self._parser.get_default("work")), self._date_now+"_"+self._args.project_name)
+			localProjectPath = os.path.join(os.path.expandvars(self._parser.get_default("work")), project_name)
 
 		#create folders
 		if not os.path.exists(localProjectPath):
@@ -693,8 +694,8 @@ class HiggsToTauTauAnalysisWrapper():
 				jobs = "" if self._args.fast is None else "jobs = " + str(self._args.fast),
 				inputfiles = "input files = \n\t" + os.path.expandvars(os.path.join("$CMSSW_BASE/bin/$SCRAM_ARCH", os.path.basename(sys.argv[0]))),
 				filesperjob = "files per job = " + str(self._args.files_per_job),
-                                eventsperjob = "events per job = " + str(self._args.n_events) if self._args.n_events else "",
-                                datasetsplitter = "dataset splitter = EventBoundarySplitter" if self._args.n_events else "dataset splitter = FileBoundarySplitter",
+                                eventsperjob = "events per job = " + str(self._args.n_events) if (self._args.n_events and not self._args.pilot_job_files) else "",
+                                datasetsplitter = "dataset splitter = EventBoundarySplitter" if (self._args.n_events and not self._args.pilot_job_files) else "dataset splitter = FileBoundarySplitter",
 				areafiles = self._args.area_files if (self._args.area_files != None) else "",
 				walltime = "wall time = " + self._args.wall_time,
 				memory = "memory = " + str(self._args.memory),
