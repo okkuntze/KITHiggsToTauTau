@@ -15,6 +15,7 @@ import importlib
 
 def build_config(nickname, **kwargs):
   tau_es = True if "sub_analysis" in kwargs and kwargs["sub_analysis"] == "tau-es" else False
+  tau_es_method = kwargs["tau_es_method"] if "tau_es_method" in kwargs else 'classical'  # classical, gamma
 
   config = jsonTools.JsonDict()
   #datasetsHelper = datasetsHelperTwopz.datasetsHelperTwopz(os.path.expandvars("$CMSSW_BASE/src/Kappa/Skimming/data/datasets.json"))
@@ -43,5 +44,9 @@ def build_config(nickname, **kwargs):
     # version for 2018 reprocessing
     config["PlotlevelFilterExpressionQuantities"].append("extramuon_veto")
     config["PlotlevelFilterExpression"] += '*(extramuon_veto < 0.5)'
+
+    if tau_es_method == 'gamma':
+      config["PlotlevelFilterExpressionQuantities"].append("decayMode_2")
+      config["PlotlevelFilterExpression"] += '*(decayMode_2 > 0)*(decayMode_2 < 3)'
 
   return config
