@@ -13,11 +13,11 @@
 
 #include "Artus/KappaAnalysis/interface/Utility/GeneratorInfo.h"
 
-	
+
 void HttTauCorrectionsProducer::Init(setting_type const& settings)
 {
 	TauCorrectionsProducer::Init(settings);
-	
+
 	tauEnergyCorrection = ToTauEnergyCorrection(boost::algorithm::to_lower_copy(boost::algorithm::trim_copy(static_cast<HttSettings const&>(settings).GetTauEnergyCorrection())));
 }
 
@@ -25,9 +25,9 @@ void HttTauCorrectionsProducer::AdditionalCorrections(KTau* tau, event_type cons
                                                       product_type& product, setting_type const& settings) const
 {
 	TauCorrectionsProducer::AdditionalCorrections(tau, event, product, settings);
-	
+
 	double normalisationFactor = 1.0;
-	
+
 	KappaEnumTypes::GenMatchingCode genMatchingCode = KappaEnumTypes::GenMatchingCode::NONE;
 	KLepton* originalLepton = product.m_originalLeptons.find(tau) != product.m_originalLeptons.end() ? const_cast<KLepton*>(product.m_originalLeptons.at(tau)) : tau;
 	if (settings.GetUseUWGenMatching())
@@ -54,12 +54,12 @@ void HttTauCorrectionsProducer::AdditionalCorrections(KTau* tau, event_type cons
 		else if (tau->decayMode == reco::PFTau::hadronicDecayMode::kOneProng1PiZero || tau->decayMode == reco::PFTau::hadronicDecayMode::kOneProng2PiZero)
 		{
 			tau->p4 = tau->p4 * (1.012);
-// 			tau->p4 = tau->p4 * (1.015 + 0.001 * std::min(std::max(tau->p4.Pt() - 45.0, 0.0), 10.0));
+			// tau->p4 = tau->p4 * (1.015 + 0.001 * std::min(std::max(tau->p4.Pt() - 45.0, 0.0), 10.0));
 		}
 		else if (tau->decayMode == reco::PFTau::hadronicDecayMode::kThreeProng0PiZero)
 		{
 			tau->p4 = tau->p4 * (1.012);
-// 			tau->p4 = tau->p4 * (1.012 + 0.001 * std::min(std::max(tau->p4.Pt() - 32.0, 0.0), 18.0));
+			// tau->p4 = tau->p4 * (1.012 + 0.001 * std::min(std::max(tau->p4.Pt() - 32.0, 0.0), 18.0));
 		}
 	}
 	else if (tauEnergyCorrection == TauEnergyCorrection::NEWTAUID)
@@ -157,18 +157,20 @@ void HttTauCorrectionsProducer::AdditionalCorrections(KTau* tau, event_type cons
 	{
 		LOG(FATAL) << "Tau energy correction of type " << Utility::ToUnderlyingValue(tauEnergyCorrection) << " not yet implemented!";
 	}
-	
+
 	// -------------------------------------
 	// tau energy scale shifts
 	float tauEnergyCorrectionShift = static_cast<HttSettings const&>(settings).GetTauEnergyCorrectionShift();
 	float tauEnergyCorrectionOneProngShift = static_cast<HttSettings const&>(settings).GetTauEnergyCorrectionOneProngShift();
 	float tauEnergyCorrectionOneProngPiZerosShift = static_cast<HttSettings const&>(settings).GetTauEnergyCorrectionOneProngPiZerosShift();
+	float tauEnergyCorrectionOneProngPiZerosShift_ch = static_cast<HttSettings const&>(settings).GetTauEnergyCorrectionOneProngPiZerosCHShift();
+	float tauEnergyCorrectionOneProngPiZerosShift_neu = static_cast<HttSettings const&>(settings).GetTauEnergyCorrectionOneProngPiZerosNTShift();
 	float tauEnergyCorrectionThreeProngShift = static_cast<HttSettings const&>(settings).GetTauEnergyCorrectionThreeProngShift();
 	// inclusive
 	if (tauEnergyCorrectionShift != 1.0)
 	{
 		tau->p4 = tau->p4 * tauEnergyCorrectionShift;
-		
+
 		// settings for (cached) Svfit calculation
 		(static_cast<HttProduct&>(product)).m_systematicShift = HttEnumTypes::SystematicShift::TAU_ES;
 		(static_cast<HttProduct&>(product)).m_systematicShiftSigma = tauEnergyCorrectionShift;
@@ -183,14 +185,37 @@ void HttTauCorrectionsProducer::AdditionalCorrections(KTau* tau, event_type cons
 		(static_cast<HttProduct&>(product)).m_systematicShiftSigma = tauEnergyCorrectionOneProngShift;
 	}
 	// 1-prong+pi0s only
-	if (tauEnergyCorrectionOneProngPiZerosShift != 1.0 && (tau->decayMode == 1 || tau->decayMode == 2))
+	if ((tau->decayMode == 1 || tau->decayMode == 2))
 	{
-		tau->p4 = tau->p4 * tauEnergyCorrectionOneProngPiZerosShift;
+		if (tauEnergyCorrectionOneProngPiZerosShift != 1.0)
+		{
+			tau->p4 = tau->p4 * tauEnergyCorrectionOneProngPiZerosShift;
+		}
+		else if (tauEnergyCorrectionOneProngPiZerosShift_ch != 1.0 || tauEnergyCorrectionOneProngPiZerosShift_neu != 1.0)
+		{
+			// Scale the individual components
+			for (auto& candidate : tau->chargedHadronCandidates)
+				candidate.p4 = candidate.p4 * tauEnergyCorrectionOneProngPiZerosShift_ch;
+
+			for (auto& candidate : tau->piZeroCandidates)
+				candidate.p4 = candidate.p4 * tauEnergyCorrectionOneProngPiZerosShift_neu;
+
+			for (auto& candidate : tau->gammaCandidates)
+				candidate.p4 = candidate.p4 * tauEnergyCorrectionOneProngPiZerosShift_neu;
+
+			// Recalculate the p4 of the tau candidate
+			float mpi0 = 0.1349766;
+	        TVector3 signalGammaCands_v(tau->piZeroMomentum().Px(), tau->piZeroMomentum().Py(), tau->piZeroMomentum().Pz());
+	        TLorentzVector charged(tau->sumChargedHadronCandidates().Px(), tau->sumChargedHadronCandidates().Py(), tau->sumChargedHadronCandidates().Pz(), tau->sumChargedHadronCandidates().E());
+			TLorentzVector tau_p4 = TLorentzVector(signalGammaCands_v, std::sqrt(std::pow(mpi0, 2) + signalGammaCands_v.Mag2())) + charged;
+			tau->p4 = RMFLV(tau_p4.Pt(), tau_p4.Eta(), tau_p4.Phi(), tau_p4.M());
+		}
 
 		// settings for (cached) Svfit calculation
 		(static_cast<HttProduct&>(product)).m_systematicShift = HttEnumTypes::SystematicShift::TAU_ES_1PRONGPI0S;
 		(static_cast<HttProduct&>(product)).m_systematicShiftSigma = tauEnergyCorrectionOneProngPiZerosShift;
 	}
+
 	// 3-prongs only
 	if (tauEnergyCorrectionThreeProngShift != 1.0 && tau->decayMode == 10)
 	{
@@ -200,6 +225,7 @@ void HttTauCorrectionsProducer::AdditionalCorrections(KTau* tau, event_type cons
 		(static_cast<HttProduct&>(product)).m_systematicShift = HttEnumTypes::SystematicShift::TAU_ES_3PRONG;
 		(static_cast<HttProduct&>(product)).m_systematicShiftSigma = tauEnergyCorrectionThreeProngShift;
 	}
+
 	// -------------------------------------
 	// electron->tau fake energy scale shifts
 	float tauElectronFakeEnergyCorrectionShift = static_cast<HttSettings const&>(settings).GetTauElectronFakeEnergyCorrectionShift();
@@ -251,6 +277,7 @@ void HttTauCorrectionsProducer::AdditionalCorrections(KTau* tau, event_type cons
 			}
 		}
 	}
+
 	// -------------------------------------
 	// muon->tau fake energy scale shifts
 	float tauMuonFakeEnergyCorrectionShift = static_cast<HttSettings const&>(settings).GetTauMuonFakeEnergyCorrectionShift();
@@ -321,9 +348,9 @@ void HttTauCorrectionsProducer::AdditionalCorrections(KTau* tau, event_type cons
 	}
 	(static_cast<HttProduct&>(product)).m_tauEnergyScaleWeight[tau] = normalisationFactor;
 		float randomTauEnergySmearing = static_cast<HttSettings const&>(settings).GetRandomTauEnergySmearing();
-	
+
 	if (randomTauEnergySmearing != 0.0)
-	{	
+	{
 		double r;
 		TRandom *r3 = new TRandom3();
 		r3->SetSeed(event.m_eventInfo->nEvent);
