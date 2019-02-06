@@ -47,6 +47,6 @@ def build_config(nickname, **kwargs):
 
     if tau_es_method == 'gamma':
       config["PlotlevelFilterExpressionQuantities"].append("decayMode_2")
-      config["PlotlevelFilterExpression"] += '*(decayMode_2 > 0)*(decayMode_2 < 3)'
+      config["PlotlevelFilterExpression"] += '*(decayMode_2 > 0)*(decayMode_2 < 2)'
 
   return config

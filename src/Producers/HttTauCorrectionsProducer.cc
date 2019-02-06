@@ -191,7 +191,7 @@ void HttTauCorrectionsProducer::AdditionalCorrections(KTau* tau, event_type cons
 		{
 			tau->p4 = tau->p4 * tauEnergyCorrectionOneProngPiZerosShift;
 		}
-		else if (tauEnergyCorrectionOneProngPiZerosShift_ch != 1.0 || tauEnergyCorrectionOneProngPiZerosShift_neu != 1.0)
+		else if (tau->decayMode == 1 && (tauEnergyCorrectionOneProngPiZerosShift_ch != 1.0 || tauEnergyCorrectionOneProngPiZerosShift_neu != 1.0))
 		{
 			// Scale the individual components
 			for (auto& candidate : tau->chargedHadronCandidates)
