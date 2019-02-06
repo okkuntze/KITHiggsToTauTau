@@ -2,6 +2,8 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/trim.hpp>
 #include <TRandom3.h>
+#include <TLorentzVector.h>
+#include <TVector3.h>
 
 #include "DataFormats/TauReco/interface/PFTau.h"
 
@@ -205,9 +207,14 @@ void HttTauCorrectionsProducer::AdditionalCorrections(KTau* tau, event_type cons
 
 			// Recalculate the p4 of the tau candidate
 			float mpi0 = 0.1349766;
-	        TVector3 signalGammaCands_v(tau->piZeroMomentum().Px(), tau->piZeroMomentum().Py(), tau->piZeroMomentum().Pz());
-	        TLorentzVector charged(tau->sumChargedHadronCandidates().Px(), tau->sumChargedHadronCandidates().Py(), tau->sumChargedHadronCandidates().Pz(), tau->sumChargedHadronCandidates().E());
-			TLorentzVector tau_p4 = TLorentzVector(signalGammaCands_v, std::sqrt(std::pow(mpi0, 2) + signalGammaCands_v.Mag2())) + charged;
+			float mpi = 0.13957018;
+			// pi0 and pi mass constrain
+			TVector3 signalGammaCands_v(tau->piZeroMomentum().Px(), tau->piZeroMomentum().Py(), tau->piZeroMomentum().Pz());
+			TVector3 signalChargedHadrCands_v(tau->sumChargedHadronCandidates().Px(), tau->sumChargedHadronCandidates().Py(), tau->sumChargedHadronCandidates().Pz());
+			TLorentzVector signalGammaCands_p4_new = TLorentzVector(signalGammaCands_v, std::sqrt(std::pow(mpi0, 2) + signalGammaCands_v.Mag2()));
+			TLorentzVector signalChargedHadrCands_p4_new = TLorentzVector(signalChargedHadrCands_v, std::sqrt(std::pow(mpi, 2) + signalChargedHadrCands_v.Mag2()));
+			TLorentzVector tau_p4 = signalGammaCands_p4_new + signalChargedHadrCands_p4_new;
+
 			tau->p4 = RMFLV(tau_p4.Pt(), tau_p4.Eta(), tau_p4.Phi(), tau_p4.M());
 		}
 
