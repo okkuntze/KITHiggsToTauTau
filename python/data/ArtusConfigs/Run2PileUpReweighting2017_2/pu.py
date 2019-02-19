@@ -1,6 +1,33 @@
-{
-	"property" : [
-		"1genBosonDaughterSize",
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import logging
+import Artus.Utility.logger as logger
+log = logging.getLogger(__name__)
+
+import re
+import json
+import copy
+import Artus.Utility.jsonTools as jsonTools
+import Kappa.Skimming.datasetsHelperTwopz as datasetsHelperTwopz
+import importlib
+import os
+
+import HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Includes.ArtusConfigUtility as ACU
+
+def build_config(nickname):
+  config = jsonTools.JsonDict()
+  datasetsHelper = datasetsHelperTwopz.datasetsHelperTwopz(os.path.expandvars("$CMSSW_BASE/src/Kappa/Skimming/data/datasets.json"))
+  
+  config["Quantities"] = [
+    "npu",
+    "numberGeneratedEventsWeight",
+    #"crossSectionPerEventWeight",
+    "generatorWeight",
+    "npartons",
+    "genbosonmass",
+    "1genBoson1DaughterPt",
+    "genPVx","1genBosonDaughterSize",
 
 		"1genBoson1DaughterPt",
 		"1genBoson1DaughterPz",
@@ -118,8 +145,6 @@
 		"1genBoson1Daughter2Granddaughter6GrandGranddaughterStatus",
 
 		"1genBoson2Daughter2GranddaughterGrandGranddaughterSize",
-
-		"genPVx",
 		"genPVy",
 		"genPVz",
 
@@ -177,6 +202,25 @@
 
 		"genZPlus",
 		"genZMinus",
-		"genZs"
-	]
-}
+   		"genZs",
+
+		"leadingGenMatchedTauNProngs",
+		"genMatchedTau1NProngs",
+		"posGenMatchedTauNProngs",
+		"leadingGenMatchedTauNPi0s",
+		"genMatchedTau1NPi0s",
+		"posGenMatchedTauNPi0s"
+#		"TaunProngs",
+#		"Tau2nProngs",
+#		"TaudecayMode",
+#		"Tau2decayMode",
+#		"TaunPi0s",
+#		"Taus2nPi0s"
+  ]
+  
+  
+  
+  config["Consumers"] = ["KappaLambdaNtupleConsumer"]
+  
+  # pipelines - systematic shifts
+  return ACU.apply_uncertainty_shift_configs('pu', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.syst_shifts_nom").build_config(nickname))

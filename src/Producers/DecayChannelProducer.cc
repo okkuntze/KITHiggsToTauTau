@@ -578,7 +578,66 @@ void DecayChannelProducer::Init(setting_type const& settings)
 	{
 		return static_cast<HttProduct const&>(product).m_extraMuonVeto;
 	});
+	LambdaNtupleConsumer<HttTypes>::AddIntQuantity("Tau1nPi0s", [](event_type const& event, product_type const& product)
+    {
+            KGenTau* genTau = product.m_chargeOrderedGenTaus[0];
+            return (genTau->nPi0s);
+    });
+	LambdaNtupleConsumer<HttTypes>::AddIntQuantity("Tau2nPi0s", [](event_type const& event, product_type const& product)
+    {
+            KGenTau* genTau = product.m_chargeOrderedGenTaus[1];
+            return (genTau->nPi0s);
+    });
+	LambdaNtupleConsumer<HttTypes>::AddIntQuantity("Tau1decayMode", [](event_type const& event, product_type const& product)
+    {
+            KGenTau* genTau = product.m_chargeOrderedGenTaus[0];
+            return (genTau->decayMode);
+    });	
+	LambdaNtupleConsumer<HttTypes>::AddIntQuantity("Tau2decayMode", [](event_type const& event, product_type const& product)
+    {
+            KGenTau* genTau = product.m_chargeOrderedGenTaus[1];
+            return (genTau->decayMode);
+    });	
+	LambdaNtupleConsumer<HttTypes>::AddIntQuantity("Tau1nProngs", [](event_type const& event, product_type const& product)
+    {
+            KGenTau* genTau = product.m_chargeOrderedGenTaus[0];
+            return (genTau->nProngs);
+    });	
+	LambdaNtupleConsumer<HttTypes>::AddIntQuantity("Tau2nProngs", [](event_type const& event, product_type const& product)
+    {
+            KGenTau* genTau = product.m_chargeOrderedGenTaus[1];
+            return (genTau->nProngs);
+    });
+	LambdaNtupleConsumer<HttTypes>::AddIntQuantity("GenTau1pt", [](event_type const& event, product_type const& product)
+    {
+            KGenTau* genTau = product.m_chargeOrderedGenTaus[0];
+            return (genTau->p4.Pt());
+    });
+	LambdaNtupleConsumer<HttTypes>::AddIntQuantity("GenTau2pt", [](event_type const& event, product_type const& product)
+    {
+            KGenTau* genTau = product.m_chargeOrderedGenTaus[1];
+            return (genTau->p4.Pt());
+    });
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("Tau1Pt", [](event_type const& event, product_type const& product)
+    {
+                return product.m_chargeOrderedLeptons.at(0)->p4.Pt();
+    });
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("Tau2Pt", [](event_type const& event, product_type const& product)
+    {
+                return product.m_chargeOrderedLeptons.at(1)->p4.Pt();
+    });
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("GenTau1visPt", [](event_type const& event, product_type const& product)
+    {
+                return product.m_chargeOrderedGenTaus.at(0)->visible.p4.Pt();
+    });
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("GenTau2visPt", [](event_type const& event, product_type const& product)
+    {
+                return product.m_chargeOrderedGenTaus.at(1)->visible.p4.Pt();
+    });
 	
+
+		
+
 
 	std::vector<std::string> tauDiscriminators;
 	tauDiscriminators.push_back("byCombinedIsolationDeltaBetaCorrRaw3Hits");

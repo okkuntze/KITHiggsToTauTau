@@ -11,7 +11,7 @@
 void GenTauCPProducerBase::Init(setting_type const& settings)
 {
 	ProducerBase<HttTypes>::Init(settings);
-
+//	std::cout << "GenTauCPProducerBase::Init";
 	// add possible quantities for the lambda ntuples consumers
 
 	// MC-truth PV coordinates
@@ -238,17 +238,19 @@ void GenTauCPProducerBase::Init(setting_type const& settings)
 void GenTauCPProducerBase::Produce(event_type const& event, product_type& product,
                                    setting_type const& settings) const
 {
-
+//std::cout << "GenTauCPProducerBase::Produce";
 	// A generator level boson and its decay products must exist
 	// The boson is searched for by a GenBosonProducer
 	// and the decay tree is built by the GenTauDecayProducer
 	if ( product.m_genBosonLVFound && (product.m_genBosonTree.m_daughters.size() > 1) )
 	{
-
+//		std::cout << "m_genBosonLVFound||";
 		// save MC-truth PV
 		for (unsigned int i=0; i<event.m_genParticles->size(); ++i){
+//			std::cout << "forschleife m_genParticles||";
 			if (event.m_genParticles->at(i).pdgId == 23 || event.m_genParticles->at(i).pdgId == 25 || event.m_genParticles->at(i).pdgId == 36){
 				product.m_genPV = &event.m_genParticles->at(i).vertex;
+//			std::cout << "ifgenParticle||";
 			}
 		}
 	
@@ -282,6 +284,8 @@ void GenTauCPProducerBase::Produce(event_type const& event, product_type& produc
 		product.m_genTau1ProngsSize = selectedTau1OneProngs.size();
 		product.m_genTau2ProngsSize = selectedTau2OneProngs.size();
 
+		std::cout << "I'm here" << std::endl;
+		std::cout << "product.m_genTau1ProngsSize:" << product.m_genTau1ProngsSize << std::endl;
 
 		// Defining CPQuantities object to use variables and functions of this class
 		CPQuantities cpq;
@@ -292,7 +296,10 @@ void GenTauCPProducerBase::Produce(event_type const& event, product_type& produc
 		    (selectedTau1OneProngs.size() != 0) &&
 		    (selectedTau2OneProngs.size() != 0))
 		{
+//			std::cout << "selectedTau||";
 			// Initialization of charged particles
+
+			std::cout << "Selection of the right channel for phi and phi*" << std::endl;
 			KGenParticle* chargedPart1 = selectedTau1OneProngs.at(0)->m_genParticle;
 			KGenParticle* chargedPart2 = selectedTau2OneProngs.at(0)->m_genParticle;
 			for (unsigned int i = 0; i < selectedTau1OneProngs.size(); i++)
@@ -319,15 +326,18 @@ void GenTauCPProducerBase::Produce(event_type const& event, product_type& produc
 				(std::abs(product.m_genLeptonsFromBosonDecay.at(0)->pdgId) == DefaultValues::pdgIdTau) &&
 			(std::abs(product.m_genLeptonsFromBosonDecay.at(1)->pdgId) == DefaultValues::pdgIdTau))
 			{
+			//	std::cout << "GenTau||";
 				//generate the Taus from the Boson decay
 				KGenTau* genTau1 = SafeMap::GetWithDefault(product.m_validGenTausMap, product.m_genLeptonsFromBosonDecay.at(0), static_cast<KGenTau*>(nullptr));
 				KGenTau* genTau2 = SafeMap::GetWithDefault(product.m_validGenTausMap, product.m_genLeptonsFromBosonDecay.at(1), static_cast<KGenTau*>(nullptr));
 				//selected the taus decaying into a rho
 				if (genTau1->genDecayMode() == 1 && genTau2->genDecayMode() == 1)
 				{
+				//	std::cout << "gendecay||";
 					//Select the decays with 2 final state photons for simplicity first
 				 	if( selectedTau1OneProngs.size() == 4 && selectedTau2OneProngs.size() == 4)
 					{
+					//	std::cout << "selectedTausize||";
 						RMFLV PionP;
 						RMFLV PionM;
 						std::vector<RMFLV> rho1_decay_photons;
@@ -375,6 +385,7 @@ void GenTauCPProducerBase::Produce(event_type const& event, product_type& produc
 
 			// Calculation of Phi and PhiCP
 			product.m_genPhiCP = cpq.CalculatePhiCP(product.m_genBosonLV, selectedTau1->m_genParticle->p4, selectedTau2->m_genParticle->p4, chargedPart1->p4, chargedPart2->p4);
+			std::cout << product.m_genPhiCP ;
 			product.m_genPhi = cpq.GetGenPhi();
 			product.m_genOCP = cpq.GetGenOCP();
 	
@@ -382,6 +393,7 @@ void GenTauCPProducerBase::Produce(event_type const& event, product_type& produc
 			product.m_genPhiCPLab = cpq.CalculatePhiCPLab(selectedTau1->m_genParticle->p4, selectedTau2->m_genParticle->p4, chargedPart1->p4, chargedPart2->p4);
 
 			if (product.m_genPV != nullptr){
+				//std::cout << "IPVektor||";
 				// calculate IP vectors of tau daughters
 				product.m_genIP1 = cpq.CalculateIPVector(chargedPart1, product.m_genPV);
 				product.m_genIP2 = cpq.CalculateIPVector(chargedPart2, product.m_genPV);
@@ -402,23 +414,27 @@ void GenTauCPProducerBase::Produce(event_type const& event, product_type& produc
 
 std::string GenTauCPProducer::GetProducerId() const
 {
+	//std::cout << "GenTauCPProducer::GetProducerId";
 	return "GenTauCPProducer";
 }
 
 void GenTauCPProducer::Init(setting_type const& settings)
 {
+	//std::cout << "GenTauCPProducer::Init";
 	GenTauCPProducerBase::Init(settings);
 }
 
 void GenTauCPProducer::Produce(event_type const& event, product_type& product,
                                setting_type const& settings) const
 {
+//	std::cout << " GenTauCPProducer::Produce";
 	GenTauCPProducerBase::Produce(event, product, settings);
 }
 
 
 std::string GenMatchedTauCPProducer::GetProducerId() const
 {
+//	std::cout << " GenMatchedTauCPProducer::GetProducerId";
 	return "GenMatchedTauCPProducer";
 }
 
@@ -467,14 +483,16 @@ void GenMatchedTauCPProducer::Init(setting_type const& settings)
 	});
 	
 
+	
+
 }
 
 void GenMatchedTauCPProducer::Produce(event_type const& event, product_type& product,
                                       setting_type const& settings) const
 {
-
+	//::cout<< "111";
 	if(product.m_genBosonLVFound && product.m_genBosonTree.m_daughters.size() > 1){
-
+	//	std::cout<< "A";
 		GenParticleDecayTree* genTau1;
 		GenParticleDecayTree* genTau2;
 		genTau1 = &(product.m_genBosonTree.m_daughters.at(0));
@@ -492,7 +510,7 @@ void GenMatchedTauCPProducer::Produce(event_type const& event, product_type& pro
 	
 	
 		if (product.m_chargeOrderedGenLeptons.at(0) and product.m_chargeOrderedGenLeptons.at(1)){
-			
+			//std::cout<< "B";
 			KGenParticle* genParticle1 = product.m_flavourOrderedGenLeptons.at(0);
 			KGenParticle* genParticle2 = product.m_flavourOrderedGenLeptons.at(1);
 
@@ -503,7 +521,7 @@ void GenMatchedTauCPProducer::Produce(event_type const& event, product_type& pro
 			// if the genLepton is a hadronic tau, we want to take its hadronic daughter
 			// for the calculation of the IP vector
 			if (std::abs(genParticle1->pdgId) == DefaultValues::pdgIdTau){
-
+				//std::cout<< "C";
 				GenParticleDecayTree* genTauTree;
 				if (genParticle1->pdgId == genTau1->m_genParticle->pdgId) genTauTree = genTau1;
 				else genTauTree = genTau2;
@@ -523,7 +541,7 @@ void GenMatchedTauCPProducer::Produce(event_type const& event, product_type& pro
 			}  // if genParticle1 is a tau
 
 			if (std::abs(genParticle2->pdgId) == DefaultValues::pdgIdTau){
-
+				//std::cout<< "D";
 				GenParticleDecayTree* genTauTree;
 				if (genParticle2->pdgId == genTau1->m_genParticle->pdgId) genTauTree = genTau1;
 				else genTauTree = genTau2;
@@ -547,7 +565,7 @@ void GenMatchedTauCPProducer::Produce(event_type const& event, product_type& pro
 			product.m_genSV2 = &genParticle2->vertex;
 	
 			if (product.m_genPV != nullptr){
-
+				//std::cout<< "E";
 				product.m_genIP1 = cpq.CalculateIPVector(genParticle1, product.m_genPV);
 				product.m_genIP2 = cpq.CalculateIPVector(genParticle2, product.m_genPV);
 				

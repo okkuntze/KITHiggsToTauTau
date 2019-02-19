@@ -61,6 +61,7 @@
 #include "HiggsAnalysis/KITHiggsToTauTau/interface/Producers/TauDecayModeWeightProducer.h"
 #include "HiggsAnalysis/KITHiggsToTauTau/interface/Producers/SMggHNNLOProducer.h"
 #include "HiggsAnalysis/KITHiggsToTauTau/interface/Producers/GroupedJetUncertaintyShiftProducer.h"
+//#include "HiggsAnalysis/KITHiggsToTauTau/interface/Producers/PolarisationProducer.h"
 
 // filters
 #include "HiggsAnalysis/KITHiggsToTauTau/interface/Filters/LooseObjectsCountFilters.h"
@@ -128,8 +129,6 @@ ProducerBaseUntemplated * HttFactory::createProducer(std::string const& id)
 		return new MvaMetEMSelector();
 	else if(id == MvaMetSelector().GetProducerId())
 		return new MvaMetSelector();
-	else if(id == MetCorrector().GetProducerId())
-		return new MetCorrector();
 	else if(id == MvaMetCorrector().GetProducerId())
 		return new MvaMetCorrector();
 	else if(id == TTHTauPairProducer().GetProducerId())
@@ -292,16 +291,18 @@ ProducerBaseUntemplated * HttFactory::createProducer(std::string const& id)
 		return new NLOreweightingWeightsProducer();
 	else if(id == TauTrigger2017EfficiencyProducer().GetProducerId())
 		return new TauTrigger2017EfficiencyProducer();
-        else if(id == ImpactParameterCorrectionsProducer().GetProducerId())
+    else if(id == ImpactParameterCorrectionsProducer().GetProducerId())
 		return new ImpactParameterCorrectionsProducer();
-        else if(id == MetFilterFlagProducer().GetProducerId())
+    else if(id == MetFilterFlagProducer().GetProducerId())
                 return new MetFilterFlagProducer();
-        else if(id == TauDecayModeWeightProducer().GetProducerId())
+    else if(id == TauDecayModeWeightProducer().GetProducerId())
                 return new TauDecayModeWeightProducer();
-        else if(id == SMggHNNLOProducer().GetProducerId())
+    else if(id == SMggHNNLOProducer().GetProducerId())
                 return new SMggHNNLOProducer();
-        else if(id == GroupedJetUncertaintyShiftProducer().GetProducerId())
+    else if(id == GroupedJetUncertaintyShiftProducer().GetProducerId())
                 return new GroupedJetUncertaintyShiftProducer();
+	//else if(id == PolarisationProducer().GetProducerId())
+	//			return new PolarisationProducer();
 	else
 		return KappaFactory::createProducer( id );
 }

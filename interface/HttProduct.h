@@ -242,6 +242,15 @@ public:
 	int m_genTau1DecayMode = DefaultValues::UndefinedInt;
 	int m_genTau2DecayMode = DefaultValues::UndefinedInt;
 
+	// filled by PolarisationProducer
+
+//	int m_genTaus1_nProngs = DefaultValues::UndefinedInt;
+//	int m_genTaus2_nProngs = DefaultValues::UndefinedInt;
+//	int m_genTaus1_decayMode = DefaultValues::UndefinedInt;
+//	int m_genTaus2_decayMode = DefaultValues::UndefinedInt;
+//	int m_genTaus1_nPi0s = DefaultValues::UndefinedInt;
+//	int m_genTaus2_nPi0s = DefaultValues::UndefinedInt;
+
 
 	// filled by GenMatchedTauCPProducer
 	RMPoint* m_genSV1 = 0; // vertex of production of tau daughter 1

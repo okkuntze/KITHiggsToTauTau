@@ -62,10 +62,10 @@ def build_config(nickname, **kwargs):
 
   config["TauID"] = "TauIDRecommendation13TeV"
   config["TauUseOldDMs"] = True
-  config["TauLowerPtCuts"] = ["40.0"]
-  config["TauUpperAbsEtaCuts"] = ["2.1"]
-  config["DiTauPairMinDeltaRCut"] = 0.5
-  config["DeltaRTriggerMatchingTaus"] = 0.5
+  config["TauLowerPtCuts"] = ["1.0"]
+  config["TauUpperAbsEtaCuts"] = ["2.5"]
+  config["DiTauPairMinDeltaRCut"] = -1
+  config["DeltaRTriggerMatchingTaus"] = -1
   config["DiTauPairIsTauIsoMVA"] = True
   config["DiTauPairLepton1LowerPtCuts"] = [
           "HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg_v:40.0",
@@ -143,7 +143,7 @@ def build_config(nickname, **kwargs):
   config["TauTrigger2017IDTypes"] = [
        "MVA",
   ]
-  config["TauTrigger2017EfficiencyWeightNames"] = [
+  config["TauTrigger2017EfficiencyWeightNames"] = [m_chargeOrderedLeptons
       "0:crossTriggerMCEfficiencyWeight",
       "0:crossTriggerDataEfficiencyWeight",
       "1:crossTriggerMCEfficiencyWeight",
@@ -225,15 +225,22 @@ def build_config(nickname, **kwargs):
   config["DirectIso"] = True
 
   config["Quantities"] = importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.Includes.syncQuantities").build_list(minimal_setup=minimal_setup)
-  config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Includes.weightQuantities").build_list())
-  config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.Includes.lheWeights").build_list())
-  config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.Includes.zptQuantities").build_list())
+  #config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Includes.weightQuantities").build_list())
+  #config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.Includes.lheWeights").build_list())
+  #config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.Includes.zptQuantities").build_list())
   #config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.Includes.fakeFactorWeightQuantities_tt").build_list())
-  config["Quantities"].extend([
-      "had_gen_match_pT_1",
-      "had_gen_match_pT_2",
-      "flagMETFilter",
-      "pt_ttjj"
+  config["Quantities"].extend(["Tau1nPi0s",
+                        "Tau1decayMode",
+                        "Tau1nProngs",
+                        "Tau1Pt",
+                        "GenTau1pt",
+                        "GenTau1visPt",
+                        "Tau2nPi0s",
+                        "Tau2decayMode",
+                        "Tau2nProngs",
+                        "Tau2Pt",
+                        "GenTau2pt",
+                        "GenTau2visPt"
   ])
   if isEmbedded:
     config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.Includes.embeddedDecayModeWeightQuantities").build_list())
@@ -285,13 +292,13 @@ def build_config(nickname, **kwargs):
   config["Processors"].extend((                               "producer:TauTauRestFrameSelector",
                                                               "producer:DiLeptonQuantitiesProducer",
                                                               "producer:DiJetQuantitiesProducer",
-                                                              "filter:MinimalPlotlevelFilter"))
+                                                              "#filter:MinimalPlotlevelFilter"))
   if isEmbedded:                 config["Processors"].append( "producer:EmbeddedWeightProducer")
   if isEmbedded:                 config["Processors"].append( "producer:TauDecayModeWeightProducer")
   if not isData:                 config["Processors"].append( "producer:TauTrigger2017EfficiencyProducer")
   config["Processors"].append(                                "producer:EventWeightProducer")
   if isGluonFusion:              config["Processors"].append( "producer:SMggHNNLOProducer")
-  config["Processors"].append(                                "producer:SvfitProducer")
+  #config["Processors"].append(                                "producer:SvfitProducer")
 
   config["AddGenMatchedTaus"] = True
   config["AddGenMatchedTauJets"] = True
@@ -309,11 +316,5 @@ def build_config(nickname, **kwargs):
      config["Consumers"].append("BTagEffConsumer")
 
   # pipelines - systematic shifts
-  return ACU.apply_uncertainty_shift_configs('tt', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.nominal").build_config(nickname)) + \
-         ACU.apply_uncertainty_shift_configs('tt', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.tauESperDM_shifts").build_config(nickname)) + \
-         ACU.apply_uncertainty_shift_configs('tt', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.JECunc_shifts").build_config(nickname)) + \
-         ACU.apply_uncertainty_shift_configs('tt', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.regionalJECunc_shifts").build_config(nickname)) + \
-         ACU.apply_uncertainty_shift_configs('tt', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.METunc_shifts").build_config(nickname)) + \
-         ACU.apply_uncertainty_shift_configs('tt', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.METrecoil_shifts").build_config(nickname)) + \
-         ACU.apply_uncertainty_shift_configs('tt', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.btagging_shifts").build_config(nickname))
-
+  return ACU.apply_uncertainty_shift_configs('tt', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.nominal").build_config(nickname)) 
+        

@@ -22,7 +22,7 @@ def build_config(nickname):
   config["Quantities"] = [
     "npu",
     "numberGeneratedEventsWeight",
-    "crossSectionPerEventWeight",
+    #"crossSectionPerEventWeight",
     "generatorWeight",
     "npartons",
     "topPtReweightWeightRun1",

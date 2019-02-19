@@ -65,7 +65,7 @@ def build_config(nickname, **kwargs):
   
   config["Processors"] = []
   config["Processors"].append(                                    "producer:NicknameProducer")
-  config["Processors"].extend((                                   "producer:CrossSectionWeightProducer",
+  config["Processors"].extend((                                  # "producer:CrossSectionWeightProducer",
                                                                   "producer:GeneratorWeightProducer",
                                                                   "producer:NumberGeneratedEventsWeightProducer"))
   if isWjets or isDY:                config["Processors"].append( "producer:GenBosonFromGenParticlesProducer")
