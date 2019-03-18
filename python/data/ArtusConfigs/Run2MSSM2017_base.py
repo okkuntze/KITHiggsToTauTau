@@ -164,7 +164,7 @@ def build_config(nickname, **kwargs):
   if btag_eff or no_svfit:  # disable SVFit
     for pipeline_config in config["Pipelines"].values():
       pipeline_config["Quantities"] = list(set(pipeline_config["Quantities"]) - set(["m_sv", "pt_sv", "eta_sv", "phi_sv"]))
-      if "producer:SvfitProducer" in pipeline_config["Processors"]:
+      while "producer:SvfitProducer" in pipeline_config["Processors"]:
         pipeline_config["Processors"].remove("producer:SvfitProducer")
 
   return config

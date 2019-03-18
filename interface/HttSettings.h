@@ -202,6 +202,8 @@ public:
 	IMPL_SETTING_DEFAULT(float, TauEnergyCorrectionShift, 1.0);
 	IMPL_SETTING_DEFAULT(float, TauEnergyCorrectionOneProngShift, 1.0);
 	IMPL_SETTING_DEFAULT(float, TauEnergyCorrectionOneProngPiZerosShift, 1.0);
+	IMPL_SETTING_DEFAULT(float, TauEnergyCorrectionOneProngPiZerosCHShift, 1.0);
+	IMPL_SETTING_DEFAULT(float, TauEnergyCorrectionOneProngPiZerosNTShift, 1.0);
 	IMPL_SETTING_DEFAULT(float, TauEnergyCorrectionThreeProngShift, 1.0);
 	IMPL_SETTING_DEFAULT(float, TauElectronFakeEnergyCorrectionOneProng, 1.0);
 	IMPL_SETTING_DEFAULT(float, TauElectronFakeEnergyCorrectionOneProngPiZeros, 1.0);
@@ -425,14 +427,14 @@ public:
 	IMPL_SETTING(std::string, MadGraphParamCard);
 	IMPL_SETTING(std::string, MadGraphParamCardSample);
 	IMPL_SETTING_STRINGLIST_DEFAULT(MadGraphProcessDirectories, {});
-	
+
 	// settting for TopPtReweightingProducer
 	IMPL_SETTING(std::string, TopPtReweightingStrategy)
 
         // settings for NLOreweightingWeightProducer
         IMPL_SETTING(std::string, HiggsBosonMass)
         IMPL_SETTING(std::string, NLOweightsRooWorkspace)
-        
+
         // settings for quantile mapping
         IMPL_SETTING_DEFAULT(std::string, QuantileMappingRootfile, "none")
         IMPL_SETTING_DEFAULT(std::string, Prompt_e_d0_source, "none")
@@ -475,11 +477,11 @@ public:
         IMPL_SETTING_DEFAULT(std::string, Nonprompt_m_drelZ_target, "none")
         IMPL_SETTING_DEFAULT(std::string, Tauh_drel0_target, "none")
         IMPL_SETTING_DEFAULT(std::string, Tauh_drelZ_target, "none")
-        
+
         // settings for SMggHNNLOProducer
         IMPL_SETTING(std::string, Generator)
         IMPL_SETTING(std::string, ggHNNLOweightsRootfile)
-	
+
         // settings for GroupedJetEnergyUncertaintyShiftProducer
         IMPL_SETTING_DEFAULT(bool, UseGroupedJetEnergyCorrectionUncertainty, false)
 };

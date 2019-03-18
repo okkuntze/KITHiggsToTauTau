@@ -11,16 +11,20 @@ def build_list(**kwargs):
 
     # triggers flags that are needed to run the analysis
     quantities = [
-        "trg_crossele_ele24tau30",
-        "trg_crossmuon_mu20tau27",
-        "trg_doubletau_35_tightiso_tightid",
         "trg_doubletau_40_mediso_tightid",
-        "trg_doubletau_40_tightiso",
         "trg_muonelectron_mu23ele12",
         "trg_muonelectron_mu8ele23",
+        "trg_singleelectron_35",
+        # Used for tt FF
+        "trg_doubletau_35_tightiso_tightid",
+        "trg_doubletau_40_tightiso",
+        # missing? DoubleTightChargedIsoPFTau40_TightID
+        # Used for et FF
+        "trg_crossele_ele24tau30",
         "trg_singleelectron_27",
         "trg_singleelectron_32",
-        "trg_singleelectron_35",
+        # Used for mt FF
+        "trg_crossmuon_mu20tau27",
         "trg_singlemuon_24",
         "trg_singlemuon_27",
     ]

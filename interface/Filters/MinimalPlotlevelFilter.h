@@ -25,7 +25,7 @@
  *
  */
 // template<class HttTypes>
-class MinimalPlotlevelFilter: public FilterBase<HttTypes> 
+class MinimalPlotlevelFilter: public FilterBase<HttTypes>
 {
 public:
 	typedef typename HttTypes::event_type event_type;
@@ -36,7 +36,7 @@ public:
 	virtual std::string GetFilterId() const override {
 			return "MinimalPlotlevelFilter";
 	}
-	
+
 	void Init(setting_type const& settings) override
 	{
 		FilterBase<HttTypes>::Init(settings);
@@ -77,7 +77,7 @@ public:
 		}
 // 		if(m_ExpressionNames.size() < settings.GetPlotlevelFilterExpressionQuantities().size())
 	}
-	
+
 	template<typename T>
 	void removeSubstrs(typename std::basic_string<T>& s,char p) const
 	{
@@ -87,7 +87,7 @@ public:
 			s.erase(i, n);
 		}
 	}
-	
+
 	bool evaluateSubExpression(std::string& expression, event_type const& event, product_type const& product, setting_type const& settings) const
 	{
 		bool OrIn = boost::algorithm::contains(expression, "||");
@@ -134,8 +134,11 @@ public:
 			}
 			if(position == 999){
 				LOG(WARNING) << "Variable " << substrings[0] << " not found!";
+				LOG(WARNING) << "Available m_ExpressionNames:";
+				for(uint itstr = 0; itstr < m_ExpressionNames.size(); ++itstr)
+					LOG(WARNING) << "\t" << m_ExpressionNames[itstr] << std::endl;
 				LOG(WARNING) << "Variable used in expression was not found in variable list, you might want to check if variable is already produced when this filter is run.";
-				LOG(WARNING) << "If you are 100% sure that this variable is filled apropriatly and wiht a random number during runtime, you might comment out lines 138 to 141 and run again!";
+				LOG(WARNING) << "If you are 100% sure that this variable is filled apropriatly and with a random number during runtime, you might comment out lines 138 to 141 and run again!";
 				LOG(FATAL) << "expression " << expression << " was evaluated to " << true;
 				return true;
 			}
