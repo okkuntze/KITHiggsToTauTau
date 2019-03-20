@@ -33,7 +33,7 @@ def build_config(nickname, **kwargs):
 
   # explicit configuration
   config["JetEnergyCorrectionParameters"] = []
-  if re.search("Run2017|Embedding2017", nickname):
+  if re.search("Run201|Embedding201", nickname):
     config["JetEnergyCorrectionUncertaintyParameters"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/jec/Fall17/Fall17_17Nov2017F_V6_DATA_Uncertainty_AK4PFchs.txt"
   else:
     config["JetEnergyCorrectionUncertaintyParameters"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/jec/Fall17/Fall17_17Nov2017_V6_MC_Uncertainty_AK4PFchs.txt"
@@ -41,7 +41,7 @@ def build_config(nickname, **kwargs):
   config["JetEnergyCorrectionUncertaintySource"] = ""
   #config["JetEnergyCorrectionUncertaintyShift"] = 0.0
 
-  config["JetEnergyCorrectionSplitUncertaintyParameters"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/jec/Fall17/Fall17_17Nov2017F_V6_DATA_UncertaintySources_AK4PFchs.txt" if re.search("Run2017|Fall17", nickname) else ""
+  config["JetEnergyCorrectionSplitUncertaintyParameters"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/jec/Fall17/Fall17_17Nov2017F_V6_DATA_UncertaintySources_AK4PFchs.txt" if re.search("Run201|Autumn1", nickname) else ""
 
 
   return config
