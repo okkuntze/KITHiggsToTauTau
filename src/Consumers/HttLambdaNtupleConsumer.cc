@@ -298,9 +298,13 @@ void HttLambdaNtupleConsumer::Init(setting_type const& settings)
         {
                 return event.m_genEventInfo->htxs_stage0cat;
         });
-	LambdaNtupleConsumer<KappaTypes>::AddIntQuantity("htxs_stage1cat", [](KappaEvent const& event, KappaProduct const& product)
+	LambdaNtupleConsumer<KappaTypes>::AddIntQuantity("htxs_stage1p1cat", [](KappaEvent const& event, KappaProduct const& product)
         {
-                return event.m_genEventInfo->htxs_stage1cat;
+                return event.m_genEventInfo->htxs_stage1p1cat;
+        });
+	LambdaNtupleConsumer<KappaTypes>::AddIntQuantity("htxs_stage1p1finecat", [](KappaEvent const& event, KappaProduct const& product)
+        {
+                return event.m_genEventInfo->htxs_stage1p1finecat;
         });
         LambdaNtupleConsumer<KappaTypes>::AddBoolQuantity("trg_singlemuon", [settings](KappaEvent const& event, KappaProduct const& product)
         {
