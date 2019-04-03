@@ -54,10 +54,14 @@ def build_config(nickname, **kwargs):
   config["Channel"] = "TT"
   config["MinNTaus"] = 2
   if re.search("(Run201|Embedding201|Summer1|Fall1|Autumn1)", nickname): config["HltPaths"] = [
+          "HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg",
           "HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg",
           "HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg",
           "HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg",
-          "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1",
+          "HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg",
+          "HLT_DoubleTightChargedIsoPFTauHPS35_Trk1_TightID_eta2p1_Reg",
+          "HLT_DoubleMediumChargedIsoPFTauHPS40_Trk1_TightID_eta2p1_Reg",
+          "HLT_DoubleTightChargedIsoPFTauHPS40_Trk1_eta2p1_Reg",
     ]
 
   config["TauID"] = "TauIDRecommendation13TeV"
@@ -71,13 +75,21 @@ def build_config(nickname, **kwargs):
           "HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg_v:40.0",
           "HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg_v:40.0",
           "HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_v:45.0",
-          "HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg_v:45.0",
+          "HLT_DoubleTightChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_v:45.0",
+          "HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg_v:40.0",
+          "HLT_DoubleTightChargedIsoPFTauHPS35_Trk1_TightID_eta2p1_Reg_v:40.0",
+          "HLT_DoubleMediumChargedIsoPFTauHPS40_Trk1_TightID_eta2p1_Reg_v:45.0",
+          "HLT_DoubleTightChargedIsoPFTauHPS40_Trk1_TightID_eta2p1_Reg_v:45.0",
   ]
   config["DiTauPairLepton2LowerPtCuts"] = [
           "HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg_v:40.0",
           "HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg_v:40.0",
           "HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_v:45.0",
-          "HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg_v:45.0",
+          "HLT_DoubleTightChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_v:45.0",
+          "HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg_v:40.0",
+          "HLT_DoubleTightChargedIsoPFTauHPS35_Trk1_TightID_eta2p1_Reg_v:40.0",
+          "HLT_DoubleMediumChargedIsoPFTauHPS40_Trk1_TightID_eta2p1_Reg_v:45.0",
+          "HLT_DoubleTightChargedIsoPFTauHPS40_Trk1_TightID_eta2p1_Reg_v:45.0",
   ]
   config["CheckL1MatchForDiTauPairLepton1"] = True
   config["CheckL1MatchForDiTauPairLepton2"] = True
@@ -121,8 +133,11 @@ def build_config(nickname, **kwargs):
       "trg_singleelectron_35:HLT_Ele35_WPTight_Gsf_v",
       "trg_crossele_ele24tau30:HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_v",
       "trg_doubletau_35_tightiso_tightid:HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg_v",
+      "trg_doubletau_35_tightiso_tightid:HLT_DoubleTightChargedIsoPFTauHPS35_Trk1_TightID_eta2p1_Reg_v",
       "trg_doubletau_40_mediso_tightid:HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_v",
+      "trg_doubletau_40_mediso_tightid:HLT_DoubleMediumChargedIsoPFTauHPS40_Trk1_TightID_eta2p1_Reg_v",
       "trg_doubletau_40_tightiso:HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg_v",
+      "trg_doubletau_40_tightiso:HLT_DoubleTightChargedIsoPFTauHPS40_Trk1_eta2p1_Reg_v",
       "trg_singletau_leading:HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v",
       "trg_singletau_trailing:HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v",
       "trg_muonelectron_mu12ele23:HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v",
@@ -196,21 +211,27 @@ def build_config(nickname, **kwargs):
   ]
 
   config["TauTauRestFrameReco"] = "collinear_approximation"
-  if isEmbedded:
+  if False:
     config["TauTriggerFilterNames"] = [
             "HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg_v:hltDoubleL2IsoTau26eta2p2",
+            "HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg_v:hltDoubleL2IsoTau26eta2p2",
+            "HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_v:hltDoubleL2IsoTau26eta2p2",
             "HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_v:hltDoubleL2IsoTau26eta2p2",
             "HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg_v:hltDoubleL2IsoTau26eta2p2",
+            "HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg_v:hltDoubleL2IsoTau26eta2p2",
             "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v:hltPFTau180TrackPt50LooseAbsOrRelMediumHighPtRelaxedIsoIso",
+            "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v:hltPFTau180TrackPt50LooseAbsOrRelMediumHighPtRelaxedIsoIso",
+            "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v:hltSelectedPFTau180MediumChargedIsolationL1HLTMatched",
             "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v:hltSelectedPFTau180MediumChargedIsolationL1HLTMatched"
       ]
   else:
     config["TauTriggerFilterNames"] = [
             "HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg_v:hltDoublePFTau35TrackPt1TightChargedIsolationAndTightOOSCPhotonsDz02Reg",
+            "HLT_DoubleTightChargedIsoPFTauHPS35_Trk1_TightID_eta2p1_Reg_v:hltHpsDoublePFTau35TrackPt1TightChargedIsolationAndTightOOSCPhotonsDz02Reg",
             "HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_v:hltDoublePFTau40TrackPt1MediumChargedIsolationAndTightOOSCPhotonsDz02Reg",
+            "HLT_DoubleMediumChargedIsoPFTauHPS40_Trk1_TightID_eta2p1_Reg_v:hltHpsDoublePFTau40TrackPt1MediumChargedIsolationAndTightOOSCPhotonsDz02Reg",
             "HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg_v:hltDoublePFTau40TrackPt1TightChargedIsolationDz02Reg",
-            "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v:hltPFTau180TrackPt50LooseAbsOrRelMediumHighPtRelaxedIsoIso",
-            "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v:hltSelectedPFTau180MediumChargedIsolationL1HLTMatched"
+            "HLT_DoubleTightChargedIsoPFTauHPS40_Trk1_eta2p1_Reg_v:hltHpsDoublePFTau40TrackPt1TightChargedIsolationDz02Reg"
   ]    
   config["TauTriggerCheckL1Match"] = [
           "HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg_v",
