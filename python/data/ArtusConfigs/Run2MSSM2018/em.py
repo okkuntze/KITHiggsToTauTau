@@ -409,7 +409,7 @@ def build_config(nickname, **kwargs):
       "mTdileptonMET",
       "mt_tt",
       "mTemu",
-      "mt_sv",
+      # "mt_sv",
       "mt_max",
       "mtmax",
       "dPhiLep1Met",
@@ -457,7 +457,7 @@ def build_config(nickname, **kwargs):
     config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2Analysis.Includes.ggHNNLOQuantities").build_list())
     
   config["Processors"] = []
-  config["Processors"].append( "producer:ElectronCorrectionsProducer")
+  # config["Processors"].append( "producer:ElectronCorrectionsProducer")
   config["Processors"].extend((                               "producer:HttValidLooseElectronsProducer",
                                                               "producer:HttValidLooseMuonsProducer",
                                                               "producer:HltProducer",
@@ -519,9 +519,12 @@ def build_config(nickname, **kwargs):
      config["Consumers"].append("BTagEffConsumer")
 
   # pipelines - systematic shifts
-  return ACU.apply_uncertainty_shift_configs('em', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.syst_shifts_nom").build_config(nickname)) + \
+  return ACU.apply_uncertainty_shift_configs('em', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.syst_shifts_nom").build_config(nickname))
+  '''
+   + \
   ACU.apply_uncertainty_shift_configs('em', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.eleES_shifts").build_config(nickname)) + \
   ACU.apply_uncertainty_shift_configs('em', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.regionalJECunc_shifts").build_config(nickname)) + \
   ACU.apply_uncertainty_shift_configs('em', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.METunc_shifts").build_config(nickname)) + \
   ACU.apply_uncertainty_shift_configs('em', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.METrecoil_shifts").build_config(nickname)) + \
   ACU.apply_uncertainty_shift_configs('em', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.btagging_shifts").build_config(nickname))
+  '''

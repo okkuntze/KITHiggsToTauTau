@@ -142,8 +142,8 @@ def build_config(nickname, **kwargs):
 
   config["SimpleMuTauFakeRateWeightLoose"] = [1.06, 1.02, 1.10, 1.03, 1.94]
   config["SimpleMuTauFakeRateWeightTight"] = [1.17, 1.29, 1.14, 0.93, 1.61]
-  config["SimpleEleTauFakeRateWeightVLoose"] = [1.09, 1.19]
-  config["SimpleEleTauFakeRateWeightTight"] = [1.80, 1.53]
+  config["SimpleEleTauFakeRateWeightVLoose"] = [1.089, 1.189]
+  config["SimpleEleTauFakeRateWeightTight"] = [1.78, 1.55]
 
   if re.search("GluGluHToTauTauM125", nickname):
     config["ggHNNLOweightsRootfile"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/NNLOWeights/NNLOPS_reweight.root"
@@ -158,9 +158,9 @@ def build_config(nickname, **kwargs):
   # if "all" in analysis_channels or "ee" in analysis_channels: config["Pipelines"] += importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.ee").build_config(nickname)
   if "all" in analysis_channels or "em" in analysis_channels: config["Pipelines"] += importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.em").build_config(nickname, **kwargs)
   if "all" in analysis_channels or "et" in analysis_channels: config["Pipelines"] += importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.et").build_config(nickname, **kwargs)
-  if "all" in analysis_channels or "mm" in analysis_channels: config["Pipelines"] += importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.mm").build_config(nickname, **kwargs)
   if "all" in analysis_channels or "mt" in analysis_channels: config["Pipelines"] += importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.mt").build_config(nickname, **kwargs)
   if "all" in analysis_channels or "tt" in analysis_channels: config["Pipelines"] += importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.tt").build_config(nickname, **kwargs)
+  if "mm" in analysis_channels: config["Pipelines"] += importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.mm").build_config(nickname, **kwargs)
 
   if btag_eff or no_svfit:  # disable SVFit
     for pipeline_config in config["Pipelines"].values():

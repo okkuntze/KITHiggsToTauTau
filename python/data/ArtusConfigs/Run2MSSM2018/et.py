@@ -377,7 +377,7 @@ def build_config(nickname, **kwargs):
   config["OSChargeLeptons"] = True
   config["TopPtReweightingStrategy"] = "Run1"
 
-  config["Processors"] =                                     [] if (isData) else ["producer:ElectronCorrectionsProducer"]
+  config["Processors"] =                                     []# if (isData) else ["producer:ElectronCorrectionsProducer"]
   config["Processors"].extend((                               "producer:HttValidLooseElectronsProducer",
                                                               "producer:HttValidLooseMuonsProducer",
                                                               "producer:HltProducer",
