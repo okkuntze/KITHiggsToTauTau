@@ -99,8 +99,7 @@ def build_config(nickname, **kwargs):
                                                                   "producer:ValidMuonsProducer",
                                                                   "producer:NewValidTTPairCandidatesProducer",
                                                                   "filter:ValidDiTauPairCandidatesFilter",
-                                                                  "producer:Run2DecayChannelProducer"                                                                
-                                                                #  "producer:PolarisationProducer"
+                                                                  "producer:Run2DecayChannelProducer"
                                                                   ))
   if isWjets or isDY or isEmbedded:  config["Processors"].append("producer:GenBosonDiLeptonDecayModeProducer")
 

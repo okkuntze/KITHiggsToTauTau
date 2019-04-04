@@ -70,6 +70,260 @@ void HttLambdaNtupleConsumer::Init(setting_type const& settings)
 		return sqrt(pow(SafeMap::Get(LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities(),std::string("mt_tt"))(event,product),2)+pow(SafeMap::Get(LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities(),std::string("lep1MetMt"))(event,product),2)+pow(SafeMap::Get(LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities(),std::string("lep2MetMt"))(event,product),2));
 	});
 
+	LambdaNtupleConsumer<HttTypes>::AddIntQuantity("EventTauPnPi0s", [](event_type const& event, product_type const& product)
+    {
+		std::cout << "size:"<< event.m_genTaus->size() << std::endl;
+			if (event.m_genTaus->size()>1){
+				std::cout << "size:"<< event.m_genTaus->size() << std::endl;
+				if (event.m_genTaus->at(0).charge()==1){
+					return event.m_genTaus->at(0).nPi0s;
+				}
+				else 
+					return event.m_genTaus->at(1).nPi0s;
+			}
+			else
+				return DefaultValues::UndefinedInt;
+    });
+	LambdaNtupleConsumer<HttTypes>::AddIntQuantity("EventTauNnPi0s", [](event_type const& event, product_type const& product)
+    {
+			if (event.m_genTaus->size()>1){
+				if (event.m_genTaus->at(0).charge()==-1){
+					return event.m_genTaus->at(0).nPi0s;
+				}
+				else 
+					return event.m_genTaus->at(1).nPi0s;
+			}
+			else
+				return DefaultValues::UndefinedInt;
+    });
+
+	LambdaNtupleConsumer<HttTypes>::AddIntQuantity("EventTauPnProngs", [](event_type const& event, product_type const& product)
+    {
+            if (event.m_genTaus->size()>1){
+				if (event.m_genTaus->at(0).charge()==1){
+					return event.m_genTaus->at(0).nProngs;
+				}
+				else 
+					return event.m_genTaus->at(1).nProngs;
+			}
+			else
+				return DefaultValues::UndefinedInt;
+    });	
+	LambdaNtupleConsumer<HttTypes>::AddIntQuantity("EventTauNnProngs", [](event_type const& event, product_type const& product)
+    {
+            if (event.m_genTaus->size()>1){
+				if (event.m_genTaus->at(0).charge()==-1){
+					return event.m_genTaus->at(0).nProngs;
+				}
+				else 
+					return event.m_genTaus->at(1).nProngs;
+			}
+			else
+				return DefaultValues::UndefinedInt;
+    });
+	
+	LambdaNtupleConsumer<HttTypes>::AddIntQuantity("EventTauPE", [](event_type const& event, product_type const& product)
+    {
+            if (event.m_genTaus->size()>1){
+				if (event.m_genTaus->at(0).charge()==1){
+					return event.m_genTaus->at(0).p4.E();
+				}
+				else 
+					return event.m_genTaus->at(1).p4.E();
+			}
+			else
+				return DefaultValues::UndefinedFloat;
+    });
+
+	LambdaNtupleConsumer<HttTypes>::AddIntQuantity("EventTauNE", [](event_type const& event, product_type const& product)
+    {
+            if (event.m_genTaus->size()>1){
+				if (event.m_genTaus->at(0).charge()==-1){
+					return event.m_genTaus->at(0).p4.E();
+				}
+				else 
+					return event.m_genTaus->at(1).p4.E();
+			}
+			else
+				return DefaultValues::UndefinedFloat;
+    });
+
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("EventTauPvisE", [](event_type const& event, product_type const& product)
+    {
+            if (event.m_genTaus->size()>1){
+				if (event.m_genTaus->at(0).charge()==1){
+					return event.m_genTaus->at(0).visible.p4.E();
+				}
+				else 
+					return event.m_genTaus->at(1).visible.p4.E();
+			}
+			else
+				return DefaultValues::UndefinedFloat;
+    });
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("EventTauNvisE", [](event_type const& event, product_type const& product)
+    {
+            if (event.m_genTaus->size()>1){
+				if (event.m_genTaus->at(0).charge()==-1){
+					return event.m_genTaus->at(0).visible.p4.E();
+				}
+				else 
+					return event.m_genTaus->at(1).visible.p4.E();
+			}
+			else
+				return DefaultValues::UndefinedFloat;
+    });
+
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("CosThetaP", [](event_type const& event, product_type const& product)
+    {
+		RMFLV Tau;
+		RMFLV Pi; 
+		RMFLV Taunb;
+		RMFLV Pinb; 
+		float CosTheta;
+		float u,v;
+		RMFLV chargPart1,chargPart2;
+            if (event.m_genTaus->size()>1){
+				if (event.m_genTaus->at(0).charge()==1){
+					chargPart1 = event.m_genTaus->at(0).p4;
+					RMFLV ProngImp = chargPart1;
+					RMFLV::BetaVector boostvec = ProngImp.BoostToCM();ROOT::Math::Boost M(boostvec);
+					Pinb = event.m_genTaus->at(0).visible.p4;
+					Taunb= event.m_genTaus->at(0).p4;
+					Pi = M* Pinb;
+					Tau =  Taunb;
+					u = Tau.Px()*Pi.Px()+Tau.Py()*Pi.Py()+Tau.Pz()*Pi.Pz();
+					v = sqrt(Tau.Px()*Tau.Px()+Tau.Py()*Tau.Py()+Tau.Pz()*Tau.Pz())*sqrt(Pi.Px()*Pi.Px()+Pi.Py()*Pi.Py()+Pi.Pz()*Pi.Pz());
+					CosTheta = u / v;
+					return CosTheta;
+				}
+				else {
+					chargPart1 = event.m_genTaus->at(1).p4;
+					RMFLV ProngImp = chargPart1;
+					RMFLV::BetaVector boostvec = ProngImp.BoostToCM();ROOT::Math::Boost M(boostvec);
+					Pinb = event.m_genTaus->at(1).visible.p4;
+					Taunb= event.m_genTaus->at(1).p4;
+					Pi = M* Pinb;
+					Tau =  Taunb;
+					u = Tau.Px()*Pi.Px()+Tau.Py()*Pi.Py()+Tau.Pz()*Pi.Pz();
+					v = sqrt(Tau.Px()*Tau.Px()+Tau.Py()*Tau.Py()+Tau.Pz()*Tau.Pz())*sqrt(Pi.Px()*Pi.Px()+Pi.Py()*Pi.Py()+Pi.Pz()*Pi.Pz());
+					CosTheta = u / v;
+					return CosTheta;
+				}
+			}
+			else
+				return DefaultValues::UndefinedFloat;
+    });
+
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("CosThetaN", [](event_type const& event, product_type const& product)
+    {
+		RMFLV Tau;
+		RMFLV Pi;
+		RMFLV Taunb;
+		RMFLV Pinb;  
+		float CosTheta;
+		float u,v;
+		RMFLV chargPart1,chargPart2;
+            if (event.m_genTaus->size()>1){
+				if (event.m_genTaus->at(0).charge()==-1){
+					chargPart1 = event.m_genTaus->at(0).p4;
+					RMFLV ProngImp = chargPart1;
+					RMFLV::BetaVector boostvec = ProngImp.BoostToCM();ROOT::Math::Boost M(boostvec);
+					Pinb = event.m_genTaus->at(0).visible.p4;
+					Taunb= event.m_genTaus->at(0).p4;
+					Pi = M* Pinb;
+					Tau =  Taunb;
+					u = Tau.Px()*Pi.Px()+Tau.Py()*Pi.Py()+Tau.Pz()*Pi.Pz();
+					v = sqrt(Tau.Px()*Tau.Px()+Tau.Py()*Tau.Py()+Tau.Pz()*Tau.Pz())*sqrt(Pi.Px()*Pi.Px()+Pi.Py()*Pi.Py()+Pi.Pz()*Pi.Pz());
+					CosTheta = u / v;
+					return CosTheta;
+				}
+				else {
+					chargPart1 = event.m_genTaus->at(1).p4;
+					RMFLV ProngImp = chargPart1;
+					RMFLV::BetaVector boostvec = ProngImp.BoostToCM();ROOT::Math::Boost M(boostvec);
+					Pinb = event.m_genTaus->at(1).visible.p4;
+					Taunb= event.m_genTaus->at(1).p4;
+					Pi = M* Pinb;
+					Tau = M* Taunb;
+					u = Tau.Px()*Pi.Px()+Tau.Py()*Pi.Py()+Tau.Pz()*Pi.Pz();
+					v = sqrt(Tau.Px()*Tau.Px()+Tau.Py()*Tau.Py()+Tau.Pz()*Tau.Pz())*sqrt(Pi.Px()*Pi.Px()+Pi.Py()*Pi.Py()+Pi.Pz()*Pi.Pz());
+					CosTheta = u / v;
+					return CosTheta;
+				}
+			}
+			else
+				return DefaultValues::UndefinedFloat;
+    });
+
+	LambdaNtubleConsumer<HttTypes>::AddFloatQuantity("Cos", [](event_type const&event, product_type const & product)
+	{ 
+		RMFLV Tau;
+		RMFLV Pi;
+		RMFLV Taunb;
+		RMFLV Pinb;
+		RMFLV chargPart;
+		float Cos;
+		float u,v;
+		if (event.m_genTaus->size()>1){
+			for(unsigned i = 0; i<=1;++i) {
+				std::cout << i << std::endl;
+				chargPart = event.m_genTaus->at(i).p4;
+				RMFLV ProngImp = chargPart;
+				RMFLV::BetaVector boostvec = ProngImp.BoostToCM();
+				ROOT::MATH::Boost M(boostvec);
+				Pinb = event.m_genTaus->at(i).visible.p4;
+				Taunb = event.m_genTaus->at(i).p4;
+				Pi = M*Pinb;
+				Tau = Taunb;
+				u = Tau.Px()*Pi.Px()+Tau.Py()*Pi.Px()+Tau.Pz()*Pi.Pz();
+				v = sqrt(Tau.Px()*Tau.Px()+Tau.Py()*Tau.Py()+Tau.Pz()*Tau.Pz())*sqrt(Pi.Px()*Pi.Px()+Pi.Py()*Pi.Py()+Pi.Pz()*Pi.Pz());
+				Cos = u / v;
+				return Cos;
+			}}
+		else
+			 return DefaultValues::UndefinedFloat;
+	});
+
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("Omega", [](event_type const& event, product_type const& product)
+    {
+		RMFLV Tau1,Tau2;
+		RMFLV Pi1,Pi2;
+		RMFLV Taunb1,Taunb2;
+		RMFLV Pinb1,Pinb2;  
+		float CosTheta1,CosTheta2,Omega;
+		float u1,u2,v1,v2;
+		RMFLV chargPart1,chargPart2;
+            if (event.m_genTaus->size()>1){
+					chargPart1 = event.m_genTaus->at(0).p4;
+					chargPart2 = event.m_genTaus->at(1).p4;
+					RMFLV ProngImp1 = chargPart1;
+					RMFLV::BetaVector boostvec1 = ProngImp1.BoostToCM();
+					ROOT::Math::Boost M(boostvec1);
+					RMFLV ProngImp2 = chargPart2;
+					RMFLV::BetaVector boostvec2 = ProngImp2.BoostToCM();
+					ROOT::Math::Boost N(boostvec2);
+					Pinb1 = event.m_genTaus->at(0).visible.p4;
+					Taunb1= event.m_genTaus->at(0).p4;
+					Pinb2 = event.m_genTaus->at(1).visible.p4;
+					Taunb2= event.m_genTaus->at(1).p4;
+					Pi1 = M* Pinb1;
+					Tau1 =  Taunb1;
+					u1 = Tau1.Px()*Pi1.Px()+Tau1.Py()*Pi1.Py()+Tau1.Pz()*Pi1.Pz();
+					v1 = sqrt(Tau1.Px()*Tau1.Px()+Tau1.Py()*Tau1.Py()+Tau1.Pz()*Tau1.Pz())*sqrt(Pi1.Px()*Pi1.Px()+Pi1.Py()*Pi1.Py()+Pi1.Pz()*Pi1.Pz());
+					CosTheta1 = u1 / v1;
+					Pi2 = M* Pinb2;
+					Tau2 =  Taunb2;
+					u2 = Tau2.Px()*Pi2.Px()+Tau2.Py()*Pi2.Py()+Tau2.Pz()*Pi2.Pz();
+					v2 = sqrt(Tau2.Px()*Tau2.Px()+Tau2.Py()*Tau2.Py()+Tau2.Pz()*Tau2.Pz())*sqrt(Pi2.Px()*Pi2.Px()+Pi2.Py()*Pi2.Py()+Pi2.Pz()*Pi2.Pz());
+					CosTheta2 = u2 / v2;
+					Omega = (CosTheta1+CosTheta2)/(1+CosTheta1*CosTheta2);
+					return Omega;
+				
+			}
+			else
+				return DefaultValues::UndefinedFloat;
+    });
+
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("m_vis", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["diLepMass"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("mvis", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["diLepMass"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("ptvis", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["diLepPt"]);

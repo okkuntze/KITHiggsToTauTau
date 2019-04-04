@@ -284,9 +284,7 @@ void GenTauCPProducerBase::Produce(event_type const& event, product_type& produc
 		product.m_genTau1ProngsSize = selectedTau1OneProngs.size();
 		product.m_genTau2ProngsSize = selectedTau2OneProngs.size();
 
-		std::cout << "I'm here" << std::endl;
-		std::cout << "product.m_genTau1ProngsSize:" << product.m_genTau1ProngsSize << std::endl;
-
+		
 		// Defining CPQuantities object to use variables and functions of this class
 		CPQuantities cpq;
 

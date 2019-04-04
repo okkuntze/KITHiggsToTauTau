@@ -580,61 +580,86 @@ void DecayChannelProducer::Init(setting_type const& settings)
 	});
 	LambdaNtupleConsumer<HttTypes>::AddIntQuantity("Tau1nPi0s", [](event_type const& event, product_type const& product)
     {
-            KGenTau* genTau = product.m_chargeOrderedGenTaus[0];
-            return (genTau->nPi0s);
+            KGenTau* genTau = SafeMap::GetWithDefault(product.m_genTauMatchedLeptons, product.m_chargeOrderedLeptons.at(0), static_cast<KGenTau*>(nullptr));
+			return (genTau ? genTau->nPi0s : DefaultValues::UndefinedInt);
     });
 	LambdaNtupleConsumer<HttTypes>::AddIntQuantity("Tau2nPi0s", [](event_type const& event, product_type const& product)
     {
-            KGenTau* genTau = product.m_chargeOrderedGenTaus[1];
-            return (genTau->nPi0s);
+            KGenTau* genTau = SafeMap::GetWithDefault(product.m_genTauMatchedLeptons, product.m_chargeOrderedLeptons.at(1), static_cast<KGenTau*>(nullptr));
+			//std::cout << product.m_genTauMatchedLeptons.size() << std::endl ;
+			return (genTau ? genTau->nPi0s : DefaultValues::UndefinedInt);
     });
 	LambdaNtupleConsumer<HttTypes>::AddIntQuantity("Tau1decayMode", [](event_type const& event, product_type const& product)
     {
-            KGenTau* genTau = product.m_chargeOrderedGenTaus[0];
-            return (genTau->decayMode);
+            KGenTau* genTau = SafeMap::GetWithDefault(product.m_genTauMatchedLeptons, product.m_chargeOrderedLeptons.at(0), static_cast<KGenTau*>(nullptr));
+			return (genTau ? genTau->decayMode : DefaultValues::UndefinedInt);
     });	
 	LambdaNtupleConsumer<HttTypes>::AddIntQuantity("Tau2decayMode", [](event_type const& event, product_type const& product)
     {
-            KGenTau* genTau = product.m_chargeOrderedGenTaus[1];
-            return (genTau->decayMode);
+            KGenTau* genTau = SafeMap::GetWithDefault(product.m_genTauMatchedLeptons, product.m_chargeOrderedLeptons.at(1), static_cast<KGenTau*>(nullptr));
+			return (genTau ? genTau->decayMode : DefaultValues::UndefinedInt);
     });	
 	LambdaNtupleConsumer<HttTypes>::AddIntQuantity("Tau1nProngs", [](event_type const& event, product_type const& product)
     {
-            KGenTau* genTau = product.m_chargeOrderedGenTaus[0];
-            return (genTau->nProngs);
+            KGenTau* genTau = SafeMap::GetWithDefault(product.m_genTauMatchedLeptons, product.m_chargeOrderedLeptons.at(0), static_cast<KGenTau*>(nullptr));
+			return (genTau ? genTau->nProngs : DefaultValues::UndefinedInt);
     });	
 	LambdaNtupleConsumer<HttTypes>::AddIntQuantity("Tau2nProngs", [](event_type const& event, product_type const& product)
     {
-            KGenTau* genTau = product.m_chargeOrderedGenTaus[1];
-            return (genTau->nProngs);
+            KGenTau* genTau = SafeMap::GetWithDefault(product.m_genTauMatchedLeptons, product.m_chargeOrderedLeptons.at(1), static_cast<KGenTau*>(nullptr));
+			return (genTau ? genTau->nProngs : DefaultValues::UndefinedInt);
     });
 	LambdaNtupleConsumer<HttTypes>::AddIntQuantity("GenTau1pt", [](event_type const& event, product_type const& product)
     {
-            KGenTau* genTau = product.m_chargeOrderedGenTaus[0];
-            return (genTau->p4.Pt());
+            KGenTau* genTau = SafeMap::GetWithDefault(product.m_genTauMatchedLeptons, product.m_chargeOrderedLeptons.at(0), static_cast<KGenTau*>(nullptr));
+			return (genTau ? genTau->p4.Pt() : DefaultValues::UndefinedInt);
     });
 	LambdaNtupleConsumer<HttTypes>::AddIntQuantity("GenTau2pt", [](event_type const& event, product_type const& product)
     {
-            KGenTau* genTau = product.m_chargeOrderedGenTaus[1];
-            return (genTau->p4.Pt());
-    });
-	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("Tau1Pt", [](event_type const& event, product_type const& product)
-    {
-                return product.m_chargeOrderedLeptons.at(0)->p4.Pt();
-    });
-	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("Tau2Pt", [](event_type const& event, product_type const& product)
-    {
-                return product.m_chargeOrderedLeptons.at(1)->p4.Pt();
+            KGenTau* genTau = SafeMap::GetWithDefault(product.m_genTauMatchedLeptons, product.m_chargeOrderedLeptons.at(1), static_cast<KGenTau*>(nullptr));
+			return (genTau ? genTau->p4.Pt() : DefaultValues::UndefinedInt);
     });
 	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("GenTau1visPt", [](event_type const& event, product_type const& product)
     {
-                return product.m_chargeOrderedGenTaus.at(0)->visible.p4.Pt();
+            KGenTau* genTau = SafeMap::GetWithDefault(product.m_genTauMatchedLeptons, product.m_chargeOrderedLeptons.at(0), static_cast<KGenTau*>(nullptr));
+			return (genTau ? genTau->visible.p4.Pt() : DefaultValues::UndefinedFloat);
     });
 	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("GenTau2visPt", [](event_type const& event, product_type const& product)
     {
-                return product.m_chargeOrderedGenTaus.at(1)->visible.p4.Pt();
+            KGenTau* genTau = SafeMap::GetWithDefault(product.m_genTauMatchedLeptons, product.m_chargeOrderedLeptons.at(1), static_cast<KGenTau*>(nullptr));
+			return (genTau ? genTau->visible.p4.Pt() : DefaultValues::UndefinedFloat);
     });
-	
+	LambdaNtupleConsumer<HttTypes>::AddIntQuantity("GenTau1E", [](event_type const& event, product_type const& product)
+    {
+            KGenTau* genTau = SafeMap::GetWithDefault(product.m_genTauMatchedLeptons, product.m_chargeOrderedLeptons.at(0), static_cast<KGenTau*>(nullptr));
+			return (genTau ? genTau->p4.E() : DefaultValues::UndefinedInt);
+    });
+	LambdaNtupleConsumer<HttTypes>::AddIntQuantity("GenTau2E", [](event_type const& event, product_type const& product)
+    {
+            KGenTau* genTau = SafeMap::GetWithDefault(product.m_genTauMatchedLeptons, product.m_chargeOrderedLeptons.at(1), static_cast<KGenTau*>(nullptr));
+			return (genTau ? genTau->p4.E() : DefaultValues::UndefinedInt);
+    });
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("GenTau1visE", [](event_type const& event, product_type const& product)
+    {
+            KGenTau* genTau = SafeMap::GetWithDefault(product.m_genTauMatchedLeptons, product.m_chargeOrderedLeptons.at(0), static_cast<KGenTau*>(nullptr));
+			return (genTau ? genTau->visible.p4.E() : DefaultValues::UndefinedInt);
+    });
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("GenTau2visE", [](event_type const& event, product_type const& product)
+    {
+            KGenTau* genTau = SafeMap::GetWithDefault(product.m_genTauMatchedLeptons, product.m_chargeOrderedLeptons.at(1), static_cast<KGenTau*>(nullptr));
+			return (genTau ? genTau->visible.p4.E() : DefaultValues::UndefinedInt);
+    });
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("GenTau1Charge", [](event_type const& event, product_type const& product)
+    {
+            KGenTau* genTau = SafeMap::GetWithDefault(product.m_genTauMatchedLeptons, product.m_chargeOrderedLeptons.at(0), static_cast<KGenTau*>(nullptr));
+			return (genTau ? genTau->charge() : DefaultValues::UndefinedFloat);
+    });
+    LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("GenTau2Charge", [](event_type const& event, product_type const& product)
+    {
+            KGenTau* genTau = SafeMap::GetWithDefault(product.m_genTauMatchedLeptons, product.m_chargeOrderedLeptons.at(1), static_cast<KGenTau*>(nullptr));
+			return (genTau ? genTau->charge() : DefaultValues::UndefinedFloat);
+    });
+
 
 		
 
