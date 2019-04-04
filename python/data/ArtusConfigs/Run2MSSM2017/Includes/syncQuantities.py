@@ -17,6 +17,7 @@ def build_list(**kwargs):
 
     # quantities that are needed to run the analysis
     quantities = [
+        # channels definitions + triggers selection
         "dilepton_veto",
         "eta_1",
         "eta_2",

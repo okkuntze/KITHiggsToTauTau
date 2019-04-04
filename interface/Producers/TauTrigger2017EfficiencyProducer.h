@@ -27,12 +27,13 @@ public:
 	{
 		ProducerBase<HttTypes>::Init(settings);
                 std::string input = settings.GetTauTrigger2017Input();
-                std::string inputold = settings.GetTauTrigger2017InputOld();
+                std::string year = std::to_string(settings.GetYear());
+                std::string trigger = settings.GetTauTrigger();
                 for(auto wp: settings.GetTauTrigger2017WorkingPoints())
                 {
                         for(auto t: settings.GetTauTrigger2017IDTypes())
                         {
-                                TauSFs[wp][t] = new TauTriggerSFs2017(input, inputold, wp, t);
+                                TauSFs[wp][t] = new TauTriggerSFs2017(input, trigger, year, wp, t);
                         }
                 }
                 m_weightNames = Utility::ParseMapTypes<int,std::string>(Utility::ParseVectorToMap(settings.GetTauTrigger2017EfficiencyWeightNames()));

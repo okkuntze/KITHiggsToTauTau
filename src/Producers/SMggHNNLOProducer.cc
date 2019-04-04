@@ -70,7 +70,7 @@ void SMggHNNLOProducer::Produce(event_type const& event, product_type& product,
                                       setting_type const& settings) const
 {   
 	// get inputs
-	int stxs1flag = event.m_genEventInfo->htxs_stage1cat;
+	int stxs1flag = event.m_genEventInfo->htxs_stage1p1cat; //TODO: needs probably an update, since there are 2 versions of stage1p1 (also a finer binning)
 	int njets = event.m_genEventInfo->htxs_njets30;
 	double higgsPt = event.m_genEventInfo->htxs_higgsPt;
 

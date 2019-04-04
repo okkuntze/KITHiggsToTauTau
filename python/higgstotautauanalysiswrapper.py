@@ -52,7 +52,13 @@ class HiggsToTauTauAnalysisWrapper():
 		inputFileList = self._args.input_files
 		for entry in range(len(inputFileList)):
 			inputFileList[entry] = inputFileList[entry].replace('"', '').replace("'", '').replace(',', '')
+
+		self._args.hashed_rootfiles_info_path = os.path.expandvars(self._args.hashed_rootfiles_info_path)
+		if self._args.hashed_rootfiles_info:
+			log.info("Hashes file : " + self._args.hashed_rootfiles_info_path +
+				"\n\t will" + (not self._args.hashed_rootfiles_info_force) * " NOT" + " be updated")
 		self.setInputFilenames(self._args.input_files)
+
 		if not self._args.n_events is None:
 			self._config["ProcessNEvents"] = self._args.n_events
 		if not self._args.skip_events is None:
@@ -92,7 +98,9 @@ class HiggsToTauTauAnalysisWrapper():
 			# save final config
 			self.saveConfig(self._args.save_config)
 			if self._args.print_config:
-				log.info(self._config)
+				import pprint
+				pp = pprint.PrettyPrinter(indent=4)
+				log.info(pp.pformat(self._config))
 
 			# set LD_LIBRARY_PATH
 			if not self._args.ld_library_paths is None:
@@ -177,9 +185,23 @@ class HiggsToTauTauAnalysisWrapper():
 		self._parser.add_argument("-x", "--executable", help="Artus executable. [Default: %(default)s]", default=os.path.basename(sys.argv[0]))
 		self._parser.add_argument("-a", "--analysis", required=True, help="Analysis nick [SM, MSSM] or import path ('HiggsAnalysis.KITHiggsToTauTau. ...' or 'HiggsAnalysis/KITHiggsToTauTau/python/ ... .py') of the config module.")
 
-		self._parser.add_argument("--sub-analysis", default='', action='store', choices=['btag-eff'], help="Keys to run a sub-analysis on top of base analyseis. Example: btag-egg Option to simplify the configs in order to estimate the efficiencies faster. [Default: %(default)s]")
+		self._parser.add_argument("--sub-analysis", default='', type=str, action='store', choices=['btag-eff', 'etau-fake-es', 'tau-es'],
+			help="Keys to run a sub-analysis on top of base analyseis. Only one sub-analysis can be run at a time! Example: btag-egg Option to simplify the configs in order to estimate the efficiencies faster. [Default: %(default)s]")
+
+		self._parser.add_argument("--etau-fake-es-group", default=None, type=int, help="Dew to many open files all ES can't be processed at ones, therefore they were subdivided on 4 groups. [Default: %(default)s]")
+
+		self._parser.add_argument("--tau-es-charged", '--tes-c', dest='tau_es_charged', default=None, type=float, nargs='*', help="Charged component TES shifts. [Default: %(default)s]")
+		self._parser.add_argument("--tau-es-neutral", '--tes-n', dest='tau_es_neutral', default=None, type=float, nargs='*', help="Neutral component TES shifts. [Default: %(default)s]")
+		self._parser.add_argument("--tau-es-method", '--tes-m', dest='tau_es_method', default='classical', choices=['classical', 'gamma'], type=str, help="TES method to be applied. [Default: %(default)s]")
+
 		self._parser.add_argument("-c", "--analysis-channels", default=['all'], nargs='+', type=str, choices=['all', 'mt', 'tt', 'et', 'ee', 'em', 'mm'], help="List of channels processed from the analysis. [Default: %(default)s]")
 		self._parser.add_argument("--no-svfit", default=False, action="store_true", help="Disable SVfit. Default: %(default)s]")
+		self._parser.add_argument("--pipelines", default=None, type=str, nargs='*', action='store',
+			choices=[
+				'nominal', 'tauESperDM_shifts', 'regionalJECunc_shifts', 'tauEleFakeESperDM_shifts', 'METunc_shifts', 'METrecoil_shifts', 'eleES_shifts', 'btagging_shifts',
+				'tauES_subanalysis', 'et_eleFakeTauES_subanalysis', 'tauMuFakeESperDM_shifts', 'JECunc_shifts'
+			],
+			help="Pipelines to activate. Default: %(default)s]")
 		self._parser.add_argument("--minimal-setup", default=False, action="store_true", help="Disable SVfit. Default: %(default)s]")
 
 		fileOptionsGroup = self._parser.add_argument_group("File options")
@@ -245,7 +267,7 @@ class HiggsToTauTauAnalysisWrapper():
 		runningOptionsGroup.add_argument("-b", "--batch", default=False, const="naf", nargs="?",
 		                                 help="Run with grid-control. Optionally select backend. [Default: %(default)s]")
 		runningOptionsGroup.add_argument("--batch-jobs-debug", default=False, action="store_true",
-		                                 help="Option enables more printouts for single jobs for example: printing the artus config to stdout.")  # TODO: this needs to be redirected in separate file to transfer as output
+		                                 help="Option enables more printouts for single jobs for example: printing the artus config to stdout.")
 		runningOptionsGroup.add_argument("--pilot-job-files", "--pilot-jobs", default=None, const=1, type=int, nargs="?",
 		                                 help="Number of files per sample to be submitted as pilot jobs. [Default: all/1]")
 		runningOptionsGroup.add_argument("--files-per-job", type=int, default=15,
@@ -256,14 +278,24 @@ class HiggsToTauTauAnalysisWrapper():
 		                                 help="Wall time of batch jobs. [Default: %(default)s]")
 		runningOptionsGroup.add_argument("--memory", type=int, default=3000,
 		                                 help="Memory (in MB) for batch jobs. [Default: %(default)s]")
-		runningOptionsGroup.add_argument("--cmdargs", default="-cG -m 3",
-		                                 help="Command line arguments for go.py. [Default: %(default)s]")
+		runningOptionsGroup.add_argument("--cmdargs", type=str, default="-cG -m 3",
+		                                 help="Command line arguments for go.py. Pass in form of '--cmdargs=\"-cG -m 3\"'. [Default: %(default)s]")
 		runningOptionsGroup.add_argument("--se-path",
 		                                 help="Custom SE path, if it should different from the work directory.")
 		runningOptionsGroup.add_argument("--log-to-se", default=False, action="store_true",
 		                                 help="Write logfile in batch mode directly to SE. Does not work with remote batch system")
-		runningOptionsGroup.add_argument("--partition-lfn-modifier", default = None,
+		runningOptionsGroup.add_argument("--partition-lfn-modifier", default=None,
 		                                 help="Forces a certain access to input files. See base conf for corresponding dictionary")
+
+		runningOptionsGroup.add_argument("--hashed-rootfiles-info", action='store_true', default=False,
+		                                 help="Use the hashed root-files info. "
+		                                 "Hashes have to be DELETED FIRST in case an update is needed and the path of the inputs is unchanged "
+		                                 "[Default: %(default)s]")
+		runningOptionsGroup.add_argument("--hashed-rootfiles-info-path", type=str,
+		                                 default="$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/cache/Samples/Fall17v2",
+		                                 help="Path to root files info hashes. Also supporting srm:// pathes. [Default: %(default)s]")
+		runningOptionsGroup.add_argument("--hashed-rootfiles-info-force", action='store_true', default=False,
+		                                 help="Force to update the file that is set by hashed-rootfiles-info-path [Default: %(default)s]")
 
 
 	def import_analysis_configs(self):
@@ -274,7 +306,9 @@ class HiggsToTauTauAnalysisWrapper():
 			'MSSM' : 'HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM_base',
 			'mssm' : 'HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM_base',
 			'mssm2017' : 'HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017_base',
-			'MSSM2017' : 'HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017_base'
+			'MSSM2017' : 'HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017_base',
+                        'mssm2018' : 'HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018_base',
+                        'MSSM2018' : 'HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018_base'
 		}
 		# check whether analysis arg is known. If not it is assumed to be a import path.
 		if self._args.analysis in analysis_configs_dict:
@@ -294,45 +328,101 @@ class HiggsToTauTauAnalysisWrapper():
 			sub_analysis=self._args.sub_analysis,
 			analysis_channels=self._args.analysis_channels,
 			no_svfit=self._args.no_svfit,
+			pipelines=self._args.pipelines,
+			etau_fake_es_group=self._args.etau_fake_es_group,
+			tau_es_charged=self._args.tau_es_charged,
+			tau_es_neutral=self._args.tau_es_neutral,
+			tau_es_method=self._args.tau_es_method,
 			minimal_setup=self._args.minimal_setup,
 		)
 
-	def setInputFilenames(self, filelist, alreadyInGridControl = False): ###could be inherited from artusWrapper!
-		#if (not (isinstance(self._config["InputFiles"], list)) and not isinstance(self._config["InputFiles"], basestring)):
+	def gfal_copy(self, from_path="", where_path="", force=False):
+		import subprocess
+		bashCommand = "gfal-copy " + force * " -f " + from_path + " " + where_path
+		if self._args.no_run:
+			log.debug("\tWould call with subprocess: " + bashCommand)
+		else:
+			process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+			output, error = process.communicate()
+			log.debug(output)
+			if error is not None:
+				print "\tsubprocess copy call error:", error
+				exit(1)
+
+	def setInputFilenames(self, filelist, alreadyInGridControl=False, filelist_name=''):  # could be inherited from artusWrapper!
+		log.debug("setInputFilenames:: start")
+		if self._args.hashed_rootfiles_info:
+			hashed_data_path = self._args.hashed_rootfiles_info_path
+
+			# a way to check that gfal-tools should be used - maybe there is smtg more intelligent
+			if "://" in self._args.hashed_rootfiles_info_path:
+				hashed_data_path = "temp_hashed_samples_{0}".format(hashlib.md5(str(self._config)).hexdigest())
+				self.gfal_copy(from_path=self._args.hashed_rootfiles_info_path, where_path=hashed_data_path)
+
+			import shelve
+			hashed_data_path = os.path.abspath(hashed_data_path)
+			log.debug("hashed_data_path: " + hashed_data_path)
+			d = shelve.open(hashed_data_path)
+
+		# if (not (isinstance(self._config["InputFiles"], list)) and not isinstance(self._config["InputFiles"], basestring)):
 		self._config["InputFiles"] = []
 		for entry in filelist:
+
+			if set(entry).issubset({'\t', ' ', '\n'}) or entry[0]=='#':
+				continue
+
 			if os.path.splitext(entry)[1] == ".root":
 				if entry.find("*") != -1:
 					filelist = glob.glob(os.path.expandvars(entry))
-					self.setInputFilenames(filelist, alreadyInGridControl)
+					self.setInputFilenames(filelist, alreadyInGridControl, filelist_name=entry)
 				else:
 					self._config["InputFiles"].append(entry)
+
 					if not alreadyInGridControl:
-                                                fileevents = 1
-                                                if self._args.n_events:
-                                                        f = ROOT.TFile.Open(entry)
-                                                        fileevents = f.Get("Events").GetEntries()
-                                                        print "Checking events for",entry,":",fileevents
-                                                        f.Close()
+						fileevents = 1
+						if self._args.n_events:
+							if self._args.hashed_rootfiles_info and entry in d:
+								fileevents = d[entry]
+								log.debug("hashed_data_path for " + entry + " : " + str(fileevents))
+							else:
+								f = ROOT.TFile.Open(entry)
+								fileevents = f.Get("Events").GetEntries()
+								log.debug("Checking events that are not found in the cashes for " + str(entry) + " : " + str(fileevents))
+								f.Close()
+
+								if self._args.hashed_rootfiles_info and self._args.hashed_rootfiles_info_force:
+									d[entry] = fileevents
+
 						self._gridControlInputFiles.setdefault(self.extractNickname(entry), []).append(entry + " = " + str(fileevents))
+
 			elif os.path.splitext(entry)[1] == ".dbs":
 				tmpDBS = self.readDbsFile(entry)
 				tmpDBS = self.removeProcessedFiles(tmpDBS, entry)
 				filelist = []
-				for key,item in tmpDBS.iteritems():
+				for key, item in tmpDBS.iteritems():
 					filelist += item
-				self.setInputFilenames(filelist, alreadyInGridControl)
+				self.setInputFilenames(filelist, alreadyInGridControl, filelist_name=entry)
+
 			elif os.path.isdir(entry):
-				self.setInputFilenames([os.path.join(entry, "*.root")])
+				self.setInputFilenames([os.path.join(entry, "*.root")], filelist_name=entry + "/*.root")
+
 			elif (os.path.splitext(entry))[1] == ".txt":
 				txtFile = open(os.path.expandvars(entry), 'r')
 				txtFileContent = txtFile.readlines()
 				for line in range(len(txtFileContent)):
 					txtFileContent[line] = txtFileContent[line].replace("\n", "")
 				txtFile.close()
-				self.setInputFilenames(txtFileContent)
+				self.setInputFilenames(txtFileContent, filelist_name=entry)
+
 			else:
 				log.warning("Found file in input search path that is not further considered: " + entry + "\n")
+
+		if self._args.hashed_rootfiles_info:
+			d.close()
+
+			if self._args.hashed_rootfiles_info_force and "temp_hashed_samples" in hashed_data_path:
+				self.gfal_copy(from_path=hashed_data_path, where_path=self._args.hashed_rootfiles_info_path, force=True)
+
 
 	def readDbsFile(self, path):
 		dbsInput = {}
@@ -408,11 +498,6 @@ class HiggsToTauTauAnalysisWrapper():
 			filepath = os.path.join(tempfile.gettempdir(), basename)
 		self._configFilename = filepath
 		self._config.save(self._configFilename, indent=4)
-
-		if self._args.batch and self._args.batch_jobs_debug:
-			import pprint
-			pp = pprint.PrettyPrinter(indent=4)
-			pp.pprint(self._config)
 
 		log.info("Saved JSON config \"%s\" for temporary usage." % self._configFilename)
 
@@ -535,11 +620,12 @@ class HiggsToTauTauAnalysisWrapper():
 
 		#set project paths
 		remote_se = False
-		projectPath = os.path.join(os.path.expandvars(self._args.work), self._date_now+"_"+self._args.project_name)
+		project_name = '_'.join([self._args.project_name, self._date_now])
+		projectPath = os.path.join(os.path.expandvars(self._args.work), project_name)
 		localProjectPath = projectPath
 		if projectPath.startswith("srm://"):
 			remote_se = True
-			localProjectPath = os.path.join(os.path.expandvars(self._parser.get_default("work")), self._date_now+"_"+self._args.project_name)
+			localProjectPath = os.path.join(os.path.expandvars(self._parser.get_default("work")), project_name)
 
 		#create folders
 		if not os.path.exists(localProjectPath):
@@ -586,20 +672,38 @@ class HiggsToTauTauAnalysisWrapper():
 			epilogArguments += ("--ld-library-paths %s " % " ".join(self._args.ld_library_paths))
 
 		if self._args.sub_analysis != "":
-			epilogArguments += (" --sub-analysis %s " % " ".join(self._args.sub_analysis))
+			epilogArguments += (" --sub-analysis %s " % self._args.sub_analysis)
 		epilogArguments += (" --analysis-channels %s " % " ".join(self._args.analysis_channels))
 		if self._args.no_svfit:
 			epilogArguments += (" --no-svfit ")
+		if self._args.pipelines is not None:
+			epilogArguments += (" --pipelines %s " % " ".join(self._args.pipelines))
+
+		if self._args.tau_es_charged is not None:
+			epilogArguments += (" --tau-es-charged %s " % (' '.join(str(i) for i in self._args.tau_es_charged)))
+		if self._args.tau_es_neutral is not None:
+			epilogArguments += (" --tau-es-neutral %s " % (' '.join(str(i) for i in self._args.tau_es_neutral)))
+		if self._args.tau_es_method is not None:
+			epilogArguments += (" --tau-es-method %s " % self._args.tau_es_method)
+
+		if self._args.etau_fake_es_group is not None:
+			epilogArguments += (" --etau-fake-es-group %s " % self._args.etau_fake_es_group)
 
 		if self._args.minimal_setup:
 			epilogArguments += (" --minimal-setup ")
 
 		if self._args.batch_jobs_debug:
+			epilogArguments += (" --save-config conf.json ")
 			print "single job arguments epilogArguments:", epilogArguments
 
 		sepath = "se path = " + (self._args.se_path if self._args.se_path else sepathRaw)
 		workdir = "workdir = " + os.path.join(localProjectPath, "workdir")
 		backend = open(os.path.expandvars("$CMSSW_BASE/src/Artus/Configuration/data/grid-control_backend_" + self._args.batch + ".conf"), 'r').read()
+
+		seoutputfiles = "se output files = *.root"
+		if not self._args.log_to_se: seoutputfiles += " *.log"
+		if self._args.batch_jobs_debug: seoutputfiles += " *.json"
+
 		self.replacingDict = dict(
 				include = ("include = " + " ".join(self._args.gc_config_includes) if self._args.gc_config_includes else ""),
 				epilogexecutable = "epilog executable = " + os.path.basename(sys.argv[0]),
@@ -608,15 +712,15 @@ class HiggsToTauTauAnalysisWrapper():
 				jobs = "" if self._args.fast is None else "jobs = " + str(self._args.fast),
 				inputfiles = "input files = \n\t" + os.path.expandvars(os.path.join("$CMSSW_BASE/bin/$SCRAM_ARCH", os.path.basename(sys.argv[0]))),
 				filesperjob = "files per job = " + str(self._args.files_per_job),
-                                eventsperjob = "events per job = " + str(self._args.n_events) if self._args.n_events else "",
-                                datasetsplitter = "dataset splitter = EventBoundarySplitter" if self._args.n_events else "dataset splitter = FileBoundarySplitter",
+                                eventsperjob = "events per job = " + str(self._args.n_events) if (self._args.n_events and not self._args.pilot_job_files) else "",
+                                datasetsplitter = "dataset splitter = EventBoundarySplitter" if (self._args.n_events and not self._args.pilot_job_files) else "dataset splitter = FileBoundarySplitter",
 				areafiles = self._args.area_files if (self._args.area_files != None) else "",
 				walltime = "wall time = " + self._args.wall_time,
 				memory = "memory = " + str(self._args.memory),
 				cmdargs = "cmdargs = " + self._args.cmdargs.replace("m 3", "m 3" if self._args.pilot_job_files is None else "m 0"),
 				dataset = "dataset = \n\t:ListProvider:" + dbsFileBasepath,
 				epilogarguments = epilogArguments,
-				seoutputfiles = "se output files = *.root" if self._args.log_to_se else "se output files = *.log *.root",
+				seoutputfiles = seoutputfiles,
 				backend = backend,
 				partitionlfnmodifier = "partition lfn modifier = " + self._args.partition_lfn_modifier if (self._args.partition_lfn_modifier != None) else ""
 		)

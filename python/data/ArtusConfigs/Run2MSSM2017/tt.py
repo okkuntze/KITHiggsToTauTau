@@ -23,6 +23,7 @@ def build_config(nickname, **kwargs):
   
   config["Quantities"] = []
   
+
   config["Quantities"].extend([
                         "EventTauPnPi0s",
                         "EventTauNnPi0s",
@@ -36,13 +37,9 @@ def build_config(nickname, **kwargs):
                         "CosThetaP",
                         "Omega"
   ])
-  
-  config["Processors"] = [
-  ]
-  
   config["Consumers"] = ["KappaLambdaNtupleConsumer",
                          "cutflow_histogram"]
-
+  config["Processors"]=[]
   
 
   # pipelines - systematic shifts

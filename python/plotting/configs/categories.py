@@ -135,7 +135,7 @@ class CategoriesDict(object):
 						}
 				self.categoriesDict["{analysis}{channel}i0jet_" + str(h_pt) + "_" + str(pt_2) + "{discriminator}"] = copy.deepcopy(self.categoriesDict["{analysis}{channel}0jet_" + str(h_pt) +"_"+ str(pt_2) + "{discriminator}"])
 				self.categoriesDict["{analysis}{channel}i0jet_" + str(h_pt) + "_" + str(pt_2) +"{discriminator}"]["expressions"]["global"] = self.combine([self.invert(cut_string), jet0_string])
-				
+
 		self.categoriesDict["{analysis}{channel}ZeroJet2D{discriminator}"] = {
 				"channel": [
 					"mm_",
@@ -488,7 +488,7 @@ class CategoriesDict(object):
 					"global":{
 						"_m_sv":" ".join([str(float(f)) for f in range(0,30,15)+range(30, 120, 10)+range(120,151,15)])
 						}
-					}					
+					}
 				}
 		self.categoriesDict["{analysis}{channel}FT_B{discriminator}"] = {
 				"channel": [
@@ -507,7 +507,7 @@ class CategoriesDict(object):
 					"global":{
 						"_m_sv":" ".join([str(float(f)) for f in range(0,30,15)+range(30, 120, 10)+range(120,151,15)])
 						}
-					}					
+					}
 				}
 		self.categoriesDict["{analysis}{channel}FT_SB{discriminator}"] = {
 				"channel": [
@@ -1509,6 +1509,7 @@ class CategoriesDict(object):
 		self.calculateBinnings()
 		self.calculateExpressions()
 		self.calculateDataCards()
+
 	def calculateBinnings(self):
 		self.binnings = {}
 		for name, info in self.categoriesDict.iteritems():
@@ -1548,15 +1549,15 @@ class CategoriesDict(object):
 	def getBinningsDict(self):
 		return self.binnings
 
-	def getCategories(self, channels, prefix = True):
+	def getCategories(self, channels, prefix=True):
 		Categories = {}
-		placeholder=0
+		placeholder = 0
 		for chan in channels:
 			Categories[chan] = []
 		for name, info in self.categoriesDict.iteritems():
 			for chan in channels:
-				if chan+"_" in info["channel"]:
-					Categories[chan].append(name.format(analysis="", channel=(chan+"_") if prefix else "", discriminator=""))
+				if chan + "_" in info["channel"]:
+					Categories[chan].append(name.format(analysis="", channel=(chan + "_") if prefix else "", discriminator=""))
 				else:
 					Categories[chan].append("placeholder{ph}".format(ph=placeholder))
 					placeholder += 1
@@ -1564,7 +1565,7 @@ class CategoriesDict(object):
 
 	def invert(self, expression):
 		tmp_expression = "(" + expression + ")"
-		return "(" + tmp_expression + "==0)" 
+		return "(" + tmp_expression + "==0)"
 
 	def combine(self, strings_to_combine):
 		return "(" + "*".join(strings_to_combine) + ")"
