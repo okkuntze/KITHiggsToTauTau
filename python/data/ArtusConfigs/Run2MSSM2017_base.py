@@ -98,7 +98,7 @@ def build_config(nickname, **kwargs):
 
   config["Processors"] = []
   #config["Processors"].append("filter:RunLumiEventFilter")
-  if isData or isEmbedded:             config["Processors"].append( "filter:JsonFilter")
+  #if isData or isEmbedded:             config["Processors"].append( "filter:JsonFilter")
   #if isDY or isTTbar:                  config["Processors"].append( "producer:ScaleVariationProducer")
   config["Processors"].append(                                      "producer:NicknameProducer")
   config["Processors"].append(                                      "producer:MetFilterFlagProducer")
