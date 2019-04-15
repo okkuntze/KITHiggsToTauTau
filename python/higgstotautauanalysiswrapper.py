@@ -37,6 +37,14 @@ class HiggsToTauTauAnalysisWrapper():
 		self._args = self._parser.parse_args()
 		logger.initLogger(self._args)
 
+		if self._args.hashed_rootfiles_info_path is None:
+			if '2017' in self._args.analysis:
+				self._args.hashed_rootfiles_info_path = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/cache/Samples/Fall17v2"
+			elif '2018' in self._args.analysis:
+				self._args.hashed_rootfiles_info_path = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/cache/Samples/Autumn18"
+			else:
+				log.warning("--hashed-rootfiles-info-path wasn't defined and no default value is known")
+
 		self._date_now = datetime.now().strftime("%Y-%m-%d_%H-%M")
 
 		self.tmp_directory_remote_files = None
@@ -292,7 +300,6 @@ class HiggsToTauTauAnalysisWrapper():
 		                                 "Hashes have to be DELETED FIRST in case an update is needed and the path of the inputs is unchanged "
 		                                 "[Default: %(default)s]")
 		runningOptionsGroup.add_argument("--hashed-rootfiles-info-path", type=str,
-		                                 default="$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/cache/Samples/Fall17v2",
 		                                 help="Path to root files info hashes. Also supporting srm:// pathes. [Default: %(default)s]")
 		runningOptionsGroup.add_argument("--hashed-rootfiles-info-force", action='store_true', default=False,
 		                                 help="Force to update the file that is set by hashed-rootfiles-info-path [Default: %(default)s]")
