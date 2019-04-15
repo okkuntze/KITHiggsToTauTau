@@ -58,7 +58,7 @@ def build_config(nickname, **kwargs):
     # HLT
     # HltPaths_comment: The first path must be the single lepton trigger.
     # A corresponding Pt cut is implemented in the Run2DecayChannelProducer.
-    if re.search("(Run201|Embedding201|Summer1|Fall1)", nickname):
+    if re.search("(Run201|Embedding201|Summer1|Fall1|Autumn1)", nickname):
         config["HltPaths"] = [
             # triggers from mt
             "HLT_IsoMu24",
@@ -228,7 +228,7 @@ def build_config(nickname, **kwargs):
     config["EventWeight"] = "eventWeight"
     config["TauTauRestFrameReco"] = "collinear_approximation"
 
-    if re.search("(Run201|Embedding201|Summer1|Fall1)", nickname):
+    if re.search("(Run201|Embedding201|Summer1|Fall1|Autumn1)", nickname):
         config["MuonTriggerFilterNames"] = [
             "HLT_IsoMu24_v:hltL3crIsoL1sSingleMu22L1f0L2f10QL3f24QL3trkIsoFiltered0p07",
             "HLT_IsoMu27_v:hltL3crIsoL1sMu22Or25L1f0L2f10QL3f27QL3trkIsoFiltered0p07",
@@ -261,7 +261,7 @@ def build_config(nickname, **kwargs):
 
     config["OSChargeLeptons"] = True
     config["TopPtReweightingStrategy"] = "Run2"
-    if re.search("(Run2017|Embedding2017|Summer17|Fall17)", nickname):
+    if re.search("(Run2017|Embedding2017|Summer17|Fall17|Autumn1)", nickname):
         pass
     elif re.search("(Fall15MiniAODv2|Run2015)", nickname):
         config["MuonEnergyCorrection"] = "rochcorr2015"

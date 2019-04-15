@@ -145,6 +145,7 @@ def build_config(nickname, **kwargs):
       "trg_muonelectron_mu8ele23:HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v",
   ]
   config["TauTrigger2017Input"] = "$CMSSW_BASE/src/TauAnalysisTools/TauTriggerSFs/data/tauTriggerEfficiencies2017.root"
+  config["TauTrigger"] = "ditau"
   config["TauTrigger2017WorkingPoints"] = [
        "vloose",
        "loose",
