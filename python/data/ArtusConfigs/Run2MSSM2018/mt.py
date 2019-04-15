@@ -135,10 +135,10 @@ def build_config(nickname, **kwargs):
       "trg_muonelectron_mu23ele12:HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v",
       "trg_muonelectron_mu8ele23:HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v",
   ]
-  config["TauTrigger2017InputOld"] = "$CMSSW_BASE/src/TauTriggerSFs2017/TauTriggerSFs2017/data/tauTriggerEfficiencies2017.root"
-  config["TauTrigger2017Input"] = "$CMSSW_BASE/src/TauTriggerSFs2017/TauTriggerSFs2017/data/tauTriggerEfficiencies2017_New.root"
+  config["TauTrigger2017Input"] = "$CMSSW_BASE/src/TauAnalysisTools/TauTriggerSFs/data/tauTriggerEfficiencies2017.root"
+  config["TauTrigger"] = "mutau"
   config["TauTrigger2017WorkingPoints"] = [
-       "vvloose",
+       #"vvloose",  # not supported by TAU POG
        "vloose",
        "loose",
        "medium",
@@ -147,7 +147,7 @@ def build_config(nickname, **kwargs):
        "vvtight",
   ]
   config["TauTrigger2017IDTypes"] = [
-       "MVA",
+       "MVAv2",
   ]
   config["TauTrigger2017EfficiencyWeightNames"] = [
       "1:crossTriggerMCEfficiencyWeight",
