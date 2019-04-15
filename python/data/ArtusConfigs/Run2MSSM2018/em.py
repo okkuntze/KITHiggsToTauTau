@@ -451,11 +451,12 @@ def build_config(nickname, **kwargs):
   if re.search("HToTauTauM125", nickname):
     config["Quantities"].extend([
       "htxs_stage0cat",
-      "htxs_stage1cat"
+      "htxs_stage1p1cat",
+      "htxs_stage1p1finecat",
     ])
   if isGluonFusion:
     config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2Analysis.Includes.ggHNNLOQuantities").build_list())
-    
+
   config["Processors"] = []
   # config["Processors"].append( "producer:ElectronCorrectionsProducer")
   config["Processors"].extend((                               "producer:HttValidLooseElectronsProducer",
