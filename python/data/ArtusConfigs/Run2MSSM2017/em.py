@@ -17,6 +17,8 @@ import HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Includes.ArtusConfigUtil
 
 def build_config(nickname, **kwargs):
   btag_eff = True if "sub_analysis" in kwargs and kwargs["sub_analysis"] == "btag-eff" else False
+  etau_fake_es = True if "sub_analysis" in kwargs and kwargs["sub_analysis"] == "etau-fake-es" else False
+  pipelines = kwargs["pipelines"] if "pipelines" in kwargs else None
   minimal_setup = True if "minimal_setup" in kwargs and kwargs["minimal_setup"] else False
 
   config = jsonTools.JsonDict()
@@ -55,14 +57,14 @@ def build_config(nickname, **kwargs):
   config["MinNMuons"] = 1
   config["MaxNLooseElectrons"] = 1
   config["MaxNLooseMuons"] = 1
-  
+
   # manually set emu electron ID to v1
   config["ElectronID_documentation"] = "https://twiki.cern.ch/twiki/bin/viewauth/CMS/HiggsToTauTauWorking2015#Electrons"
   config["ElectronReco"] = "mvanontrig"
   config["ElectronID"] = "user"
   config["ElectronIDType"] = "cutbased2015andlater" # still MVA, using boolean functionality of IsCutBased()
   config["ElectronIDName"] = "egmGsfElectronIDs:mvaEleID-Fall17-noIso-V1-wp90" # better S/sqrt(B)
-  
+
   # HltPaths_comment: The first path must be one with the higher pt cut on the electron. The second and last path must be one with the higher pt cut on the muon. Corresponding Pt cuts are implemented in the Run2DecayChannelProducer..
   if re.search("(Run201|Embedding201|Summer1|Fall1)", nickname): config["HltPaths"] = [
           "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ",
@@ -140,7 +142,7 @@ def build_config(nickname, **kwargs):
           "0:muonEffTrgWeight",
           "0:muonEffIDWeight",
           "1:muonEffIDWeight",
-          
+
           "1:isoWeight",
           "1:looseIsoWeight",
           "1:idWeight",
@@ -151,7 +153,7 @@ def build_config(nickname, **kwargs):
           "1:trigger_23_embed_Weight",
           "1:trigger_8_data_Weight",
           "1:trigger_8_embed_Weight",
-          
+
           "0:isoWeight",
           "0:idWeight",
           "0:idisoWeight",
@@ -162,29 +164,29 @@ def build_config(nickname, **kwargs):
           "0:trigger_12_data_Weight",
           "0:trigger_12_embed_Weight",
 
-          ]          
+          ]
     config["EmbeddedWeightWorkspaceObjectNames"]=[
           "0:m_sel_trg_ratio",
           "0:m_sel_idEmb_ratio",
           "1:m_sel_idEmb_ratio",
-          
+
           "1:m_iso_binned_embed_ratio",
           "1:m_looseiso_binned_embed_ratio",
           "1:m_id_embed_ratio",
           "1:m_idiso_binned_embed_ratio",
           "1:m_trk_ratio",
           "1:m_trg_binned_23_data",
-          "1:m_trg_binned_23_embed",         
+          "1:m_trg_binned_23_embed",
           "1:m_trg_binned_8_data",
           "1:m_trg_binned_8_embed",
-          
+
           "0:e_iso_binned_embed_ratio",
           "0:e_id_embed_ratio",
           "0:e_idiso_binned_embed_ratio",
           "0:e_trk_ratio",
 
           "0:e_trg_binned_23_data",
-          "0:e_trg_binned_23_embed",    
+          "0:e_trg_binned_23_embed",
           "0:e_trg_binned_12_data",
           "0:e_trg_binned_12_embed",
           ]
@@ -192,7 +194,7 @@ def build_config(nickname, **kwargs):
           "0:gt1_pt,gt1_eta,gt2_pt,gt2_eta",
           "0:gt_pt,gt_eta",
           "1:gt_pt,gt_eta",
-          
+
           "1:m_pt,m_eta,m_iso",
           "1:m_pt,m_eta,m_iso",
           "1:m_pt,m_eta",
@@ -203,7 +205,7 @@ def build_config(nickname, **kwargs):
           "1:m_pt,m_eta,m_iso",
           "1:m_pt,m_eta,m_iso",
           "1:m_pt,m_eta,m_iso",
-          
+
           "0:e_pt,e_eta,e_iso",
           "0:e_pt,e_eta",
           "0:e_pt,e_eta,e_iso",
@@ -213,8 +215,8 @@ def build_config(nickname, **kwargs):
           "0:e_pt,e_eta,e_iso",
           "0:e_pt,e_eta,e_iso",
           ]
-  
-  
+
+
   config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_2017_v1.root"
   config["QCDFactorWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_2017_v1.root"
   config["QCDFactorWorkspaceWeightNames"]=[
@@ -229,7 +231,7 @@ def build_config(nickname, **kwargs):
       "0:em_qcd_osss_1jet_ratedown_Weight",
       "0:em_qcd_osss_1jet_shapeup_Weight",
       "0:em_qcd_osss_1jet_shapedown_Weight",
-      
+
       "0:em_qcd_extrap_uncert_Weight",
   ]
   config["QCDFactorWorkspaceObjectNames"] = [
@@ -244,7 +246,7 @@ def build_config(nickname, **kwargs):
       "0:em_qcd_osss_1jet_ratedown",
       "0:em_qcd_osss_1jet_shapeup",
       "0:em_qcd_osss_1jet_shapedown",
-      
+
       "0:em_qcd_extrap_uncert",
   ]
   config["QCDFactorWorkspaceObjectArguments"] = [
@@ -259,7 +261,7 @@ def build_config(nickname, **kwargs):
       "0:e_pt,m_pt,dR,njets,iso",
       "0:e_pt,m_pt,dR,njets,iso",
       "0:e_pt,m_pt,dR,njets,iso",
-      
+
       "0:e_pt,m_pt",
   ]
 
@@ -273,7 +275,7 @@ def build_config(nickname, **kwargs):
       "0:trigger_12_Weight",
       "0:trigger_23_Weight",
       "1:trigger_8_Weight",
-      "1:trigger_23_Weight",        
+      "1:trigger_23_Weight",
       "1:trackWeight",
       "1:trigger_23_data_Weight",
       "1:trigger_23_mc_Weight",
@@ -296,19 +298,19 @@ def build_config(nickname, **kwargs):
       "1:m_trg_binned_23_ratio",
       "1:m_trk_ratio",
 
-      
+
       "1:m_trg_binned_23_data",
-      "1:m_trg_binned_23_mc",         
+      "1:m_trg_binned_23_mc",
       "1:m_trg_binned_8_data",
       "1:m_trg_binned_8_mc",
-      
+
 
       "0:e_trg_binned_23_data",
-      "0:e_trg_binned_23_mc",    
+      "0:e_trg_binned_23_mc",
       "0:e_trg_binned_12_data",
       "0:e_trg_binned_12_mc",
-      
-      
+
+
   ]
   config["RooWorkspaceObjectArguments"] = [
       "0:e_pt,e_eta,e_iso",
@@ -419,18 +421,18 @@ def build_config(nickname, **kwargs):
 
   if isEmbedded:
     config["Quantities"].extend([
-          "muonEffTrgWeight", "muonEffIDWeight_1","muonEffIDWeight_2", 
+          "muonEffTrgWeight", "muonEffIDWeight_1","muonEffIDWeight_2",
           "trigger_23_data_Weight_2","trigger_23_embed_Weight_2","trigger_8_embed_Weight_2" ,"trigger_8_data_Weight_2",
           "trigger_23_data_Weight_1","trigger_23_embed_Weight_1","trigger_12_embed_Weight_1" ,"trigger_12_data_Weight_1",
-          "looseIsoWeight_2","idisoWeight_1","idisoWeight_2"             
+          "looseIsoWeight_2","idisoWeight_1","idisoWeight_2"
            ])
   elif not isData:
     config["Quantities"].extend([
           "trigger_23_data_Weight_2","trigger_23_mc_Weight_2","trigger_8_mc_Weight_2" ,"trigger_8_data_Weight_2",
-          "trigger_23_data_Weight_1","trigger_23_mc_Weight_1","trigger_12_mc_Weight_1" ,"trigger_12_data_Weight_1"           
-           ])    
+          "trigger_23_data_Weight_1","trigger_23_mc_Weight_1","trigger_12_mc_Weight_1" ,"trigger_12_data_Weight_1"
+           ])
     config["Quantities"].extend([
-    "trigger_12_Weight_1","trigger_23_Weight_1","trigger_8_Weight_2","trigger_23_Weight_2"         
+    "trigger_12_Weight_1","trigger_23_Weight_1","trigger_8_Weight_2","trigger_23_Weight_2"
        ])
   config["Quantities"].extend(["dr_tt", "pt_ttjj",
       "em_qcd_osss_binned_Weight",
@@ -456,7 +458,7 @@ def build_config(nickname, **kwargs):
     ])
   if isGluonFusion:
     config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2Analysis.Includes.ggHNNLOQuantities").build_list())
-    
+
   config["Processors"] = []
   config["Processors"].append( "producer:ElectronCorrectionsProducer")
   config["Processors"].extend((                               "producer:HttValidLooseElectronsProducer",
@@ -510,6 +512,7 @@ def build_config(nickname, **kwargs):
   config["Consumers"] = ["KappaLambdaNtupleConsumer",
                          "cutflow_histogram"]
 
+  # Subanalyses settings
   if btag_eff:
      config["Processors"] = copy.deepcp(config["ProcessorsBtagEff"])
 
@@ -520,9 +523,12 @@ def build_config(nickname, **kwargs):
      config["Consumers"].append("BTagEffConsumer")
 
   # pipelines - systematic shifts
-  return ACU.apply_uncertainty_shift_configs('em', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.syst_shifts_nom").build_config(nickname)) + \
-  ACU.apply_uncertainty_shift_configs('em', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.eleES_shifts").build_config(nickname)) + \
-  ACU.apply_uncertainty_shift_configs('em', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.regionalJECunc_shifts").build_config(nickname)) + \
-  ACU.apply_uncertainty_shift_configs('em', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.METunc_shifts").build_config(nickname)) + \
-  ACU.apply_uncertainty_shift_configs('em', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.METrecoil_shifts").build_config(nickname)) + \
-  ACU.apply_uncertainty_shift_configs('em', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.btagging_shifts").build_config(nickname))
+  # needed pipelines: syst_shifts_nom eleES_shifts regionalJECunc_shifts METunc_shifts METrecoil_shifts btagging_shifts
+  if pipelines is None:
+      raise Exception("pipelines is None in %s" % (__file__))
+
+  return_conf = jsonTools.JsonDict()
+  for pipeline in pipelines:
+      log.info('Add pipeline: %s' %(pipeline))
+      return_conf += ACU.apply_uncertainty_shift_configs('em', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018." + pipeline).build_config(nickname, **kwargs))
+  return return_conf

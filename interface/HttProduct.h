@@ -260,7 +260,7 @@ public:
 	TVector3 m_recoIP2; // IPvec wrt thePV
 	double m_cosPsiPlus  = DefaultValues::UndefinedDouble;
 	double m_cosPsiMinus = DefaultValues::UndefinedDouble;
-	
+
 	std::vector<double> m_errorIP1vec {DefaultValues::UndefinedDouble, DefaultValues::UndefinedDouble, DefaultValues::UndefinedDouble};
 	std::vector<double> m_errorIP2vec {DefaultValues::UndefinedDouble, DefaultValues::UndefinedDouble, DefaultValues::UndefinedDouble};
 
@@ -394,10 +394,10 @@ public:
         double m_ggA_t_weight = 1.0;
         double m_ggA_b_weight = 1.0;
         double m_ggA_i_weight = 1.0;
-        
+
         //filled by ImpactParameterCorrectionsProducer
 	double m_DCAcalib[2][2][2]; //[d0/dZ][abs/rel][0/1]
-	
+
 	//filled by MetFilterFlagProducer
 	bool m_MetFilter = true;
 	bool m_Flag_goodVertices = true;
@@ -413,7 +413,7 @@ public:
         //filled by SMggHNNLOProducer
         double m_ggh_NNLO_weight = 1.0;
         std::vector<double> m_THU_ggH;
-        
+
         //filled by GroupedJetUncertaintyShiftProducer
         KLV m_MET_shift;
 };

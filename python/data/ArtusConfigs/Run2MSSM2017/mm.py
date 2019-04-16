@@ -17,6 +17,8 @@ import HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Includes.ArtusConfigUtil
 
 def build_config(nickname, **kwargs):
     btag_eff = True if "sub_analysis" in kwargs and kwargs["sub_analysis"] == "btag-eff" else False
+    etau_fake_es = True if "sub_analysis" in kwargs and kwargs["sub_analysis"] == "etau-fake-es" else False
+    pipelines = kwargs["pipelines"] if "pipelines" in kwargs else None
     minimal_setup = True if "minimal_setup" in kwargs and kwargs["minimal_setup"] else False
 
     config = jsonTools.JsonDict()
@@ -360,6 +362,7 @@ def build_config(nickname, **kwargs):
         # "PrintEventsConsumer",
     ]
 
+    # Subanalyses settings
     if btag_eff:
         config["Processors"] = copy.deepcp(config["ProcessorsBtagEff"])
 
@@ -370,7 +373,11 @@ def build_config(nickname, **kwargs):
         config["Consumers"].append("BTagEffConsumer")
 
     # pipelines - systematic shifts
-    return ACU.apply_uncertainty_shift_configs(
-        'mm',
-        config,
-        importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM.syst_shifts_nom").build_config(nickname))
+    if pipelines is None:
+        raise Exception("pipelines is None in %s" % (__file__))
+
+    return_conf = jsonTools.JsonDict()
+    for pipeline in pipelines:
+        log.info('Add pipeline: %s' %(pipeline))
+        return_conf += ACU.apply_uncertainty_shift_configs('mm', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018." + pipeline).build_config(nickname, **kwargs))
+    return return_conf

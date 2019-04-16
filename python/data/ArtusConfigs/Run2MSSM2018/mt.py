@@ -366,6 +366,7 @@ def build_config(nickname, **kwargs):
   config["Consumers"] = ["KappaLambdaNtupleConsumer",
                          "cutflow_histogram"]
 
+  # Subanalyses settings
   if btag_eff:
      config["Processors"] = copy.deepcp(config["ProcessorsBtagEff"])
 
@@ -375,25 +376,17 @@ def build_config(nickname, **kwargs):
 
      config["Consumers"].append("BTagEffConsumer")
 
-  # pipelines - systematic shifts
-  if tau_es and pipelines is not None:
-    config["Quantities"].extend(["leadingTauEnergyAssymetry"])
+  if tau_es:
     # needed pipelines : nominal tauES_subanalysis tauMuFakeESperDM_shifts METunc_shifts METrecoil_shifts JECunc_shifts regionalJECunc_shifts btagging_shifts
-    return_conf = jsonTools.JsonDict()
-    for pipeline in pipelines:
-      print 'add pipe:', pipeline
-      return_conf += ACU.apply_uncertainty_shift_configs('mt', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018." + pipeline).build_config(nickname, **kwargs))
-    return return_conf
+    config["Quantities"].extend(["leadingTauEnergyAssymetry"])
 
   # pipelines - systematic shifts
-  return ACU.apply_uncertainty_shift_configs('mt', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.nominal").build_config(nickname))# + \
-  '''
-         ACU.apply_uncertainty_shift_configs('mt', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.tauESperDM_shifts").build_config(nickname)) + \
-         ACU.apply_uncertainty_shift_configs('mt', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.tauMuFakeESperDM_shifts").build_config(nickname)) + \
-         ACU.apply_uncertainty_shift_configs('mt', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.JECunc_shifts").build_config(nickname)) + \
-         ACU.apply_uncertainty_shift_configs('mt', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.regionalJECunc_shifts").build_config(nickname)) + \
-         ACU.apply_uncertainty_shift_configs('mt', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.METunc_shifts").build_config(nickname)) + \
-         ACU.apply_uncertainty_shift_configs('mt', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.METrecoil_shifts").build_config(nickname)) + \
-         ACU.apply_uncertainty_shift_configs('mt', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.btagging_shifts").build_config(nickname))
-'''
+  # needed pipelines: nominal tauESperDM_shifts tauMuFakeESperDM_shifts JECunc_shifts regionalJECunc_shifts METunc_shifts METrecoil_shifts btagging_shifts
+  if pipelines is None:
+      raise Exception("pipelines is None in %s" % (__file__))
 
+  return_conf = jsonTools.JsonDict()
+  for pipeline in pipelines:
+      log.info('Add pipeline: %s' %(pipeline))
+      return_conf += ACU.apply_uncertainty_shift_configs('mt', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018." + pipeline).build_config(nickname, **kwargs))
+  return return_conf
