@@ -60,7 +60,7 @@ class HiggsToTauTauAnalysisWrapper():
 		inputFileList = self._args.input_files
 		for entry in range(len(inputFileList)):
 			inputFileList[entry] = inputFileList[entry].replace('"', '').replace("'", '').replace(',', '')
-
+		log.debug('self._args.hashed_rootfiles_info_path: ' + self._args.hashed_rootfiles_info_path)
 		self._args.hashed_rootfiles_info_path = os.path.expandvars(self._args.hashed_rootfiles_info_path)
 		if self._args.hashed_rootfiles_info:
 			log.info("Hashes file : " + self._args.hashed_rootfiles_info_path +

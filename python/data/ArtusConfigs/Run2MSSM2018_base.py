@@ -79,15 +79,17 @@ def build_config(nickname, **kwargs):
   config["UpdateMetWithCorrectedLeptons"] = True
   config["UpdateMetWithCorrectedLeptonsFromSignalOnly"] = True
 
-  config["MetFilterToFlag"] = [
+  # MET filters (JetMMET)
+  config["MetFilterToFlag"] = [  # suggested for MC and Data
+        "Flag_goodVertices",
+        "Flag_globalSuperTightHalo2016Filter",
         "Flag_HBHENoiseFilter",
         "Flag_HBHENoiseIsoFilter",
         "Flag_EcalDeadCellTriggerPrimitiveFilter",
-        "Flag_goodVertices",
         "Flag_BadPFMuonFilter",
-        "Flag_ecalBadCalibFilter",
-        "Flag_globalSuperTightHalo2016Filter",
-        "Flag_BadChargedCandidateFilter",
+        # "Flag_BadChargedCandidateFilter",   # not recommended, under review
+        # "Flag_ecalBadCalibFilter",  # outdated
+        # "ecalBadCalibReducedMINIAODFilter"  # Add in next skim [16Apr19]:
   ]
   if isData:
     config["MetFilterToFlag"].extend((
