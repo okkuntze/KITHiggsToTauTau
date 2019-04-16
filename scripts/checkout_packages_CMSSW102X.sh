@@ -16,7 +16,7 @@ export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch
 source $VO_CMS_SW_DIR/cmsset_default.sh
 
 # set up CMSSW release area
-scramv1 project CMSSW_10_2_13; pushd CMSSW_10_2_13/src
+scramv1 project CMSSW_10_2_13_patch1; pushd CMSSW_10_2_13_patch1/src
 eval `scramv1 runtime -sh`
 
 # JEC
@@ -59,7 +59,7 @@ git clone git@github.com:CMS-HTT/QCDModelingEMu.git HTT-utilities/QCDModelingEMu
 sed '/CombineHarvester/d' ${CMSSW_BASE}/src/HiggsAnalysis/KITHiggsToTauTau/BuildFile.xml -i
 
 # TauTriggerSFs2017 tool
-git clone git@github.com:truggles/TauTriggerSFs2017.git  TauAnalysisTools/TauTriggerSFs -b final_2017_MCv2  # for 2017 triggers
+git clone git@github.com:cms-tau-pog/TauTriggerSFs.git  TauAnalysisTools/TauTriggerSFs -b final_2017_MCv2  # for 2017 triggers
 
 # Grid-Control
 git clone git@github.com:janekbechtel/grid-control.git
