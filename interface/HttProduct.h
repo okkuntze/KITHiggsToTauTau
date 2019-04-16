@@ -400,7 +400,16 @@ public:
 	
 	//filled by MetFilterFlagProducer
 	bool m_MetFilter = true;
-        
+	bool m_Flag_goodVertices = true;
+	bool m_Flag_globalSuperTightHalo2016Filter = true;
+	bool m_Flag_HBHENoiseFilter = true;
+	bool m_Flag_HBHENoiseIsoFilter = true;
+	bool m_Flag_EcalDeadCellTriggerPrimitiveFilter = true;
+	bool m_Flag_BadPFMuonFilter = true;
+	bool m_Flag_BadChargedCandidateFilter = true;
+	bool m_Flag_eeBadScFilter = true;
+	bool m_ecalBadCalibReducedMINIAODFilter = true;
+
         //filled by SMggHNNLOProducer
         double m_ggh_NNLO_weight = 1.0;
         std::vector<double> m_THU_ggH;
