@@ -335,5 +335,5 @@ def build_config(nickname, **kwargs):
   return_conf = jsonTools.JsonDict()
   for pipeline in pipelines:
       log.info('Add pipeline: %s' %(pipeline))
-      return_conf += ACU.apply_uncertainty_shift_configs('mt', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018." + pipeline).build_config(nickname, **kwargs))
+      return_conf += ACU.apply_uncertainty_shift_configs('tt', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018." + pipeline).build_config(nickname, **kwargs))
   return return_conf
