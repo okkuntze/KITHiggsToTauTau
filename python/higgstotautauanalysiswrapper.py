@@ -282,9 +282,9 @@ class HiggsToTauTauAnalysisWrapper():
 		                                 help="Files per batch job. [Default: %(default)s]")
 		runningOptionsGroup.add_argument("--area-files", default=None,
 		                                 help="Additional area files. [Default: %(default)s]")
-		runningOptionsGroup.add_argument("--wall-time", default="24:00:00",
+		runningOptionsGroup.add_argument("--wall-time", default="02:59:00",
 		                                 help="Wall time of batch jobs. [Default: %(default)s]")
-		runningOptionsGroup.add_argument("--memory", type=int, default=3000,
+		runningOptionsGroup.add_argument("--memory", type=int, default=1990,
 		                                 help="Memory (in MB) for batch jobs. [Default: %(default)s]")
 		runningOptionsGroup.add_argument("--cmdargs", type=str, default="-cG -m 3",
 		                                 help="Command line arguments for go.py. Pass in form of '--cmdargs=\"-cG -m 3\"'. [Default: %(default)s]")
