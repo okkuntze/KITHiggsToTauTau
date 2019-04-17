@@ -448,7 +448,7 @@ def build_config(nickname, **kwargs):
 
   config["OSChargeLeptons"] = True
   config["TopPtReweightingStrategy"] = "Run2"
-  if re.search("HToTauTauM125XXXX", nickname):
+  if re.search("HToTauTauM125", nickname):
     config["Quantities"].extend([
       "htxs_stage0cat",
       "htxs_stage1p1cat",
