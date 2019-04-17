@@ -36,6 +36,7 @@ def build_config(nickname, **kwargs):
   config["JetLowerPtCuts"] = ["20.0"]
   config["JetUpperAbsEtaCuts"] = ["4.7"]
   config["JetLeptonLowerDeltaRCut"] = 0.5
+  config["JetApplyEENoiseVeto"] = False
 
 
   return config

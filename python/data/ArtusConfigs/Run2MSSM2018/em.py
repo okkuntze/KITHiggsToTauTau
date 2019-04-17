@@ -136,13 +136,13 @@ def build_config(nickname, **kwargs):
       "trg_muonelectron_mu8ele23:HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v",
   ]
   if isEmbedded:
-    config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_2017_v1.root"
-    config["EmbeddedWeightWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_2017_v1.root"
+    config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v18_1_em-channel.root"
+    config["EmbeddedWeightWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v18_1_em-channel.root"
     config["EmbeddedWeightWorkspaceWeightNames"]=[
           "0:muonEffTrgWeight",
           "0:muonEffIDWeight",
           "1:muonEffIDWeight",
-
+                    
           "1:isoWeight",
           "1:looseIsoWeight",
           "1:idWeight",
@@ -168,8 +168,7 @@ def build_config(nickname, **kwargs):
     config["EmbeddedWeightWorkspaceObjectNames"]=[
           "0:m_sel_trg_ratio",
           "0:m_sel_idEmb_ratio",
-          "1:m_sel_idEmb_ratio",
-
+          "1:m_sel_idEmb_ratio",        
           "1:m_iso_binned_embed_ratio",
           "1:m_looseiso_binned_embed_ratio",
           "1:m_id_embed_ratio",
@@ -194,7 +193,6 @@ def build_config(nickname, **kwargs):
           "0:gt1_pt,gt1_eta,gt2_pt,gt2_eta",
           "0:gt_pt,gt_eta",
           "1:gt_pt,gt_eta",
-
           "1:m_pt,m_eta,m_iso",
           "1:m_pt,m_eta,m_iso",
           "1:m_pt,m_eta",
@@ -215,10 +213,10 @@ def build_config(nickname, **kwargs):
           "0:e_pt,e_eta,e_iso",
           "0:e_pt,e_eta,e_iso",
           ]
-
-
-  config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_2017_v1.root"
-  config["QCDFactorWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_2017_v1.root"
+  
+  
+  config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v18_1_em-channel.root"
+  config["QCDFactorWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v18_1_em-channel.root"
   config["QCDFactorWorkspaceWeightNames"]=[
       "0:em_qcd_osss_binned_Weight",
       "0:em_qcd_extrap_up_Weight",
@@ -264,75 +262,75 @@ def build_config(nickname, **kwargs):
 
       "0:e_pt,m_pt",
   ]
+  if not isEmbedded:
+    config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v18_1_em-channel.root"
+    config["RooWorkspaceWeightNames"] = [
+        "0:isoWeight",
+        "0:idWeight",
+        "0:trackWeight",
+        "1:isoWeight",
+        "1:idWeight",
+        "0:trigger_12_Weight",
+        "0:trigger_23_Weight",
+        "1:trigger_8_Weight",
+        "1:trigger_23_Weight",        
+        "1:trackWeight",
+        "1:trigger_23_data_Weight",
+        "1:trigger_23_mc_Weight",
+        "1:trigger_8_data_Weight",
+        "1:trigger_8_mc_Weight",
+        "0:trigger_23_data_Weight",
+        "0:trigger_23_mc_Weight",
+        "0:trigger_12_data_Weight",
+        "0:trigger_12_mc_Weight",
+    ]
+    config["RooWorkspaceObjectNames"] = [
+        "0:e_iso_binned_ratio",
+        "0:e_id_ratio",
+        "0:e_trk_ratio",
+        "1:m_looseiso_binned_ratio",
+        "1:m_id_ratio",
+        "0:e_trg_binned_12_ratio",
+        "0:e_trg_binned_23_ratio",
+        "1:m_trg_binned_8_ratio",
+        "1:m_trg_binned_23_ratio",
+        "1:m_trk_ratio",
 
-  config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_2017_v1.root"
-  config["RooWorkspaceWeightNames"] = [
-      "0:isoWeight",
-      "0:idWeight",
-      "0:trackWeight",
-      "1:isoWeight",
-      "1:idWeight",
-      "0:trigger_12_Weight",
-      "0:trigger_23_Weight",
-      "1:trigger_8_Weight",
-      "1:trigger_23_Weight",
-      "1:trackWeight",
-      "1:trigger_23_data_Weight",
-      "1:trigger_23_mc_Weight",
-      "1:trigger_8_data_Weight",
-      "1:trigger_8_mc_Weight",
-      "0:trigger_23_data_Weight",
-      "0:trigger_23_mc_Weight",
-      "0:trigger_12_data_Weight",
-      "0:trigger_12_mc_Weight",
-  ]
-  config["RooWorkspaceObjectNames"] = [
-      "0:e_iso_binned_ratio",
-      "0:e_id_ratio",
-      "0:e_trk_ratio",
-      "1:m_looseiso_binned_ratio",
-      "1:m_id_ratio",
-      "0:e_trg_binned_12_ratio",
-      "0:e_trg_binned_23_ratio",
-      "1:m_trg_binned_8_ratio",
-      "1:m_trg_binned_23_ratio",
-      "1:m_trk_ratio",
+        
+        "1:m_trg_binned_23_data",
+        "1:m_trg_binned_23_mc",         
+        "1:m_trg_binned_8_data",
+        "1:m_trg_binned_8_mc",
+        
 
+        "0:e_trg_binned_23_data",
+        "0:e_trg_binned_23_mc",    
+        "0:e_trg_binned_12_data",
+        "0:e_trg_binned_12_mc",
+        
+        
+    ]
+    config["RooWorkspaceObjectArguments"] = [
+        "0:e_pt,e_eta,e_iso",
+        "0:e_pt,e_eta",
+        "0:e_pt,e_eta",
+        "1:m_pt,m_eta,m_iso",
+        "1:m_pt,m_eta",
+        "0:e_pt,e_eta,e_iso",
+        "0:e_pt,e_eta,e_iso",
+        "1:m_pt,m_eta,m_iso",
+        "1:m_pt,m_eta,m_iso",
+        "1:m_eta",
+        "1:m_pt,m_eta,m_iso",
+        "1:m_pt,m_eta,m_iso",
+        "1:m_pt,m_eta,m_iso",
+        "1:m_pt,m_eta,m_iso",
+        "0:e_pt,e_eta,e_iso",
+        "0:e_pt,e_eta,e_iso",
+        "0:e_pt,e_eta,e_iso",
+        "0:e_pt,e_eta,e_iso",
 
-      "1:m_trg_binned_23_data",
-      "1:m_trg_binned_23_mc",
-      "1:m_trg_binned_8_data",
-      "1:m_trg_binned_8_mc",
-
-
-      "0:e_trg_binned_23_data",
-      "0:e_trg_binned_23_mc",
-      "0:e_trg_binned_12_data",
-      "0:e_trg_binned_12_mc",
-
-
-  ]
-  config["RooWorkspaceObjectArguments"] = [
-      "0:e_pt,e_eta,e_iso",
-      "0:e_pt,e_eta",
-      "0:e_pt,e_eta",
-      "1:m_pt,m_eta,m_iso",
-      "1:m_pt,m_eta",
-      "0:e_pt,e_eta,e_iso",
-      "0:e_pt,e_eta,e_iso",
-      "1:m_pt,m_eta,m_iso",
-      "1:m_pt,m_eta,m_iso",
-      "1:m_eta",
-      "1:m_pt,m_eta,m_iso",
-      "1:m_pt,m_eta,m_iso",
-      "1:m_pt,m_eta,m_iso",
-      "1:m_pt,m_eta,m_iso",
-      "0:e_pt,e_eta,e_iso",
-      "0:e_pt,e_eta,e_iso",
-      "0:e_pt,e_eta,e_iso",
-      "0:e_pt,e_eta,e_iso",
-
-  ]
+    ]
   if re.search("Summer1", nickname):
     config["TriggerEfficiencyData"] = [
       "0:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/triggerWeights/triggerEfficiency_Run2016_Electron_Ele12leg_eff.root",
@@ -450,7 +448,7 @@ def build_config(nickname, **kwargs):
 
   config["OSChargeLeptons"] = True
   config["TopPtReweightingStrategy"] = "Run2"
-  if re.search("HToTauTauM125", nickname):
+  if re.search("HToTauTauM125XXXX", nickname):
     config["Quantities"].extend([
       "htxs_stage0cat",
       "htxs_stage1p1cat",
@@ -499,7 +497,7 @@ def build_config(nickname, **kwargs):
   if isEmbedded:                 config["Processors"].append( "producer:EmbeddedWeightProducer")
   if isGluonFusion:              config["Processors"].append( "producer:SMggHNNLOProducer")
   if not isData and not isEmbedded:                 config["Processors"].append( "producer:RooWorkspaceWeightProducer")
-  if True: config["Processors"].append( "producer:QCDFactorProducer")
+  config["Processors"].append( "producer:QCDFactorProducer")
   config["Processors"].append(                                "filter:MinimalPlotlevelFilter")
   #config["Processors"].extend((                               "producer:EmuQcdWeightProducer",
   config["Processors"].append(
