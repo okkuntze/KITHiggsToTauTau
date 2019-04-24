@@ -288,11 +288,10 @@ def build_config(nickname, **kwargs):
                                                               #"producer:ValidTTPairCandidatesProducer",
                                                               "producer:NewValidTTPairCandidatesProducer",
                                                               "filter:ValidDiTauPairCandidatesFilter",
-                                                              "producer:Run2DecayChannelProducer",
-  #                                                            "producer:TaggedJetCorrectionsProducer",
-                                                              "producer:ValidTaggedJetsProducer"))
-  if not (isData or isEmbedded): config["Processors"].append( "producer:GroupedJetUncertaintyShiftProducer")
-  config["Processors"].append(                                "producer:ValidBTaggedJetsProducer")
+                                                              "producer:Run2DecayChannelProducer"))
+  if not (isData or isEmbedded): config["Processors"].append( "producer:TaggedJetCorrectionsProducer")
+  config["Processors"].extend((                               "producer:ValidTaggedJetsProducer",
+                                                              "producer:ValidBTaggedJetsProducer"))
 
   if btag_eff: config["ProcessorsBtagEff"] = copy.deepcp(config["Processors"])
 

@@ -463,8 +463,8 @@ def build_config(nickname, **kwargs):
                                                               "producer:HttValidLooseMuonsProducer",
                                                               "producer:HltProducer",
                                                               "filter:HltFilter",
-                                                              "producer:MetSelector"))
-  config["Processors"].extend((                               "producer:ValidElectronsProducer",
+                                                              "producer:MetSelector",
+                                                              "producer:ValidElectronsProducer",
                                                               "filter:ValidElectronsFilter",
                                                               "producer:ElectronTriggerMatchingProducer",
                                                               "filter:MinElectronsCountFilter",
@@ -476,11 +476,10 @@ def build_config(nickname, **kwargs):
                                                               #"producer:ValidEMPairCandidatesProducer",
                                                               "producer:NewValidEMPairCandidatesProducer",
                                                               "filter:ValidDiTauPairCandidatesFilter",
-                                                              "producer:Run2DecayChannelProducer",
-                                                              "producer:ValidTaggedJetsProducer"))
-  #                                                            "producer:TaggedJetCorrectionsProducer",
-  if not (isData or isEmbedded): config["Processors"].append( "producer:GroupedJetUncertaintyShiftProducer")
-  config["Processors"].append(                                "producer:ValidBTaggedJetsProducer")
+                                                              "producer:Run2DecayChannelProducer"))
+  if not (isData or isEmbedded): config["Processors"].append( "producer:TaggedJetCorrectionsProducer")
+  config["Processors"].extend((                               "producer:ValidTaggedJetsProducer",
+                                                              "producer:ValidBTaggedJetsProducer"))
 
   if btag_eff: config["ProcessorsBtagEff"] = copy.deepcp(config["Processors"])
 
