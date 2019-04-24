@@ -481,7 +481,4 @@ public:
         // settings for SMggHNNLOProducer
         IMPL_SETTING(std::string, Generator)
         IMPL_SETTING(std::string, ggHNNLOweightsRootfile)
-
-        // settings for GroupedJetEnergyUncertaintyShiftProducer
-        IMPL_SETTING_DEFAULT(bool, UseGroupedJetEnergyCorrectionUncertainty, false)
 };
