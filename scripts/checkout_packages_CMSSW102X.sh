@@ -16,7 +16,7 @@ export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch
 source $VO_CMS_SW_DIR/cmsset_default.sh
 
 # set up CMSSW release area
-scramv1 project CMSSW_10_2_13_patch1; pushd CMSSW_10_2_13_patch1/src
+scramv1 project CMSSW_10_2_14; pushd CMSSW_10_2_14/src
 eval `scramv1 runtime -sh`
 
 # JEC
@@ -24,7 +24,7 @@ git cms-addpkg CondFormats/JetMETObjects
 
 # From Kappa, only the DataFormats are needed
 # Mind that for certain skims, you need exactly the Kappa git tag that has been used for the production
-git clone git@github.com:KIT-CMS/Kappa.git -b dictchanges_10_2
+git clone git@github.com:KIT-CMS/Kappa.git -b dictchanges
 pushd Kappa
 echo docs/ >> .git/info/sparse-checkout
 echo DataFormats/ >> .git/info/sparse-checkout
