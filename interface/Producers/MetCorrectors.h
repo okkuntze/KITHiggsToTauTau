@@ -122,6 +122,7 @@ public:
 		}
 
                 m_decayChannel = HttEnumTypes::ToDecayChannel(boost::algorithm::to_lower_copy(boost::algorithm::trim_copy(settings.GetChannel())));
+                LOG(DEBUG) << "Defining lepton corrections for channel " << settings.GetChannel();
                 if (m_decayChannel == HttEnumTypes::DecayChannel::ET)
                 {
                         checkFirstElectron = true;
@@ -157,8 +158,8 @@ public:
 	virtual void Produce(event_type const& event, product_type & product, 
 	                     setting_type const& settings) const override
 	{
-		LOG(DEBUG) << this->GetProducerId() << " -----START-----";
-		LOG(DEBUG) << "Processing run:lumi:event " << event.m_eventInfo->nRun << ":" << event.m_eventInfo->nLumi << ":" << event.m_eventInfo->nEvent;
+		LOG(DEBUG) << "\n" << this->GetProducerId() << " -----START-----";
+		LOG(DEBUG) << "Processing run:lumi:event " << event.m_eventInfo->nRun << ":" << event.m_eventInfo->nLumi << ":" << event.m_eventInfo->nEvent << "with pipeline " << settings.GetRootFileFolder();
 		assert(m_metMemberUncorrected != nullptr);
 
 		// Retrieve the needed informations from the event content
@@ -178,58 +179,81 @@ public:
 		{
                         KLV* lep1 = product.m_validDiTauPairCandidates[0].first;
                         KLV* lep2 = product.m_validDiTauPairCandidates[0].second;
+                        LOG(DEBUG) << "First pair constituent p4 = " << lep1->p4;
+                        LOG(DEBUG) << "Second pair constituent p4 = " << lep2->p4;
 			// Electrons
+			if (product.m_correctedElectrons.size() > 0) LOG(DEBUG) << "Propagating Electron Corrections to MET";
 			for (std::vector<std::shared_ptr<KElectron> >::iterator electron = product.m_correctedElectrons.begin();
 				 electron != product.m_correctedElectrons.end(); ++electron)
 			{
                                 // Check, whether electron corresponds to a pair consituent in the considered decay channel. If not, skip it
-                                if ((settings.*GetUpdateMetWithCorrectedLeptonsFromSignalOnly)() && ((checkFirstElectron && electron->get()->p4 != lep1->p4) || (checkSecondElectron && electron->get()->p4 != lep2->p4)))
+                                if ((settings.*GetUpdateMetWithCorrectedLeptonsFromSignalOnly)() && ((checkFirstElectron && electron->get()->p4 != lep1->p4) && (checkSecondElectron && electron->get()->p4 != lep2->p4)))
+                                {
+                                        LOG(DEBUG) << "\tElectron with p4 = " << electron->get()->p4 << " neglected, since not part of signal pair";
                                         continue;
+                                }
 				// Only update MET if there actually was a correction applied
 				if (Utility::ApproxEqual(electron->get()->p4, const_cast<KLepton*>(product.m_originalLeptons[electron->get()])->p4))
+                                {
+                                        LOG(DEBUG) << "\tDifference between corrected p4 =  " << electron->get()->p4 << " and original p4 = " << const_cast<KLepton*>(product.m_originalLeptons[electron->get()])->p4 << " too small";
 					continue;
+                                }
 
 				float eX = electron->get()->p4.Px() - const_cast<KLepton*>(product.m_originalLeptons[electron->get()])->p4.Px();
 				float eY = electron->get()->p4.Py() - const_cast<KLepton*>(product.m_originalLeptons[electron->get()])->p4.Py();
-                                LOG(DEBUG) << "Correcting met with (px,py) " << eX << "," << eY << " for electron: " << electron->get()->p4;
+                                LOG(DEBUG) << "\tCorrecting met with (px,py) " << eX << "," << eY << " for electron: " << electron->get()->p4;
 
 				metX -= eX;
 				metY -= eY;
 			}
 
 			// Muons
+			if (product.m_correctedMuons.size() > 0) LOG(DEBUG) << "Propagating Muon Corrections to MET";
 			for (std::vector<std::shared_ptr<KMuon> >::iterator muon = product.m_correctedMuons.begin();
 				 muon != product.m_correctedMuons.end(); ++muon)
 			{
                                 // Check, whether muon corresponds to a pair consituent in the considered decay channel. If not, skip it
-                                if ((settings.*GetUpdateMetWithCorrectedLeptonsFromSignalOnly)() && ((checkFirstMuon && muon->get()->p4 != lep1->p4) || (checkSecondMuon && muon->get()->p4 != lep2->p4)))
+                                if ((settings.*GetUpdateMetWithCorrectedLeptonsFromSignalOnly)() && ((checkFirstMuon && muon->get()->p4 != lep1->p4) && (checkSecondMuon && muon->get()->p4 != lep2->p4)))
+                                {
+                                        LOG(DEBUG) << "\tMuon with p4 = " << muon->get()->p4 << " neglected, since not part of signal pair";
                                         continue;
+                                }
 				// Only update MET if there actually was a correction applied
 				if (Utility::ApproxEqual(muon->get()->p4, const_cast<KLepton*>(product.m_originalLeptons[muon->get()])->p4))
+                                {
+                                        LOG(DEBUG) << "\tDifference between corrected p4 =  " << muon->get()->p4 << " and original p4 = " << const_cast<KLepton*>(product.m_originalLeptons[muon->get()])->p4 << " too small";
 					continue;
+                                }
 
 				float eX = muon->get()->p4.Px() - const_cast<KLepton*>(product.m_originalLeptons[muon->get()])->p4.Px();
 				float eY = muon->get()->p4.Py() - const_cast<KLepton*>(product.m_originalLeptons[muon->get()])->p4.Py();
-                                LOG(DEBUG) << "Correcting met with (px,py) " << eX << "," << eY << " for muon: " << muon->get()->p4;
+                                LOG(DEBUG) << "\tCorrecting met with (px,py) " << eX << "," << eY << " for muon: " << muon->get()->p4;
 
 				metX -= eX;
 				metY -= eY;
 			}
 
 			// Taus
+			if (product.m_correctedTaus.size() > 0) LOG(DEBUG) << "Correcting MET for Tau Corrections";
 			for (std::vector<std::shared_ptr<KTau> >::iterator tau = product.m_correctedTaus.begin();
 				 tau != product.m_correctedTaus.end(); ++tau)
 			{
                                 // Check, whether tau corresponds to a pair consituent in the considered decay channel. If not, skip it
-                                if ((settings.*GetUpdateMetWithCorrectedLeptonsFromSignalOnly)() && ((checkFirstTau && tau->get()->p4 != lep1->p4) || (checkSecondTau && tau->get()->p4 != lep2->p4)))
+                                if ((settings.*GetUpdateMetWithCorrectedLeptonsFromSignalOnly)() && ((checkFirstTau && tau->get()->p4 != lep1->p4) && (checkSecondTau && tau->get()->p4 != lep2->p4)))
+                                {
+                                        LOG(DEBUG) << "\tTau with p4 = " << tau->get()->p4 << " neglected, since not part of signal pair";
                                         continue;
+                                }
 				// Only update MET if there actually was a correction applied
 				if (Utility::ApproxEqual(tau->get()->p4, const_cast<KLepton*>(product.m_originalLeptons[tau->get()])->p4))
+                                {
+                                        LOG(DEBUG) << "\tDifference between corrected p4 =  " << tau->get()->p4 << " and original p4 = " << const_cast<KLepton*>(product.m_originalLeptons[tau->get()])->p4 << " too small";
 					continue;
+                                }
 
 				float eX = tau->get()->p4.Px() - const_cast<KLepton*>(product.m_originalLeptons[tau->get()])->p4.Px();
 				float eY = tau->get()->p4.Py() - const_cast<KLepton*>(product.m_originalLeptons[tau->get()])->p4.Py();
-                                LOG(DEBUG) << "Correcting met with (px,py) " << eX << "," << eY << " for tau: " << tau->get()->p4;
+                                LOG(DEBUG) << "\tCorrecting met with (px,py) " << eX << "," << eY << " for tau: " << tau->get()->p4;
 
 				metX -= eX;
 				metY -= eY;
