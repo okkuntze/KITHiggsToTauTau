@@ -62,7 +62,7 @@ sed '/CombineHarvester/d' ${CMSSW_BASE}/src/HiggsAnalysis/KITHiggsToTauTau/Build
 git clone git@github.com:cms-tau-pog/TauTriggerSFs.git  TauAnalysisTools/TauTriggerSFs -b final_2017_MCv2  # for 2017 triggers
 
 # Grid-Control
-git clone git@github.com:janekbechtel/grid-control.git
+git clone git@github.com:KIT-CMS/grid-control.git
 
 # source ini script, needs to be done in every new shell
 source HiggsAnalysis/KITHiggsToTauTau/scripts/ini_KITHiggsToTauTauAnalysis.sh
