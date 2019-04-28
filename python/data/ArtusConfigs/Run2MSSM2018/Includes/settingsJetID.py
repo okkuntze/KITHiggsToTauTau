@@ -33,7 +33,7 @@ def build_config(nickname, **kwargs):
   config["PuJetIDFullDiscrName"] = "pileupJetIdUpdatedfullDiscriminant"
   config["JetTaggerLowerCuts"] = []
   config["JetTaggerUpperCuts"] = []
-  config["JetLowerPtCuts"] = ["20.0"]
+  config["JetLowerPtCuts"] = ["30.0"]
   config["JetUpperAbsEtaCuts"] = ["4.7"]
   config["JetLeptonLowerDeltaRCut"] = 0.5
   config["JetApplyEENoiseVeto"] = False

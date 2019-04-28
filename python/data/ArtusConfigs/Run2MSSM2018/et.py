@@ -64,6 +64,7 @@ def build_config(nickname, **kwargs):
           "HLT_Ele32_WPTight_Gsf_DoubleL1EG",
           "HLT_Ele35_WPTight_Gsf",
           "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1",
+          "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1",
           "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1",
     ]
 
@@ -83,13 +84,16 @@ def build_config(nickname, **kwargs):
           "HLT_Ele32_WPTight_Gsf_v:33.0",
           "HLT_Ele32_WPTight_Gsf_DoubleL1EG_v:33.0",
           "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_v:25.0",
+          "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1_v:25.0",
           "HLT_Ele35_WPTight_Gsf_v:36.0",
   ]
   config["DiTauPairLepton2LowerPtCuts"] = [
           "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_v:35.0",
+          "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1_v:35.0",
   ]
   config["DiTauPairLepton2UpperEtaCuts"] = [
           "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_v:2.1",
+          "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1_v:2.1",
           "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v:2.1",
   ]
   config["CheckLepton1TriggerMatch"] = [
@@ -131,6 +135,7 @@ def build_config(nickname, **kwargs):
       "trg_singleelectron_32_fallback:HLT_Ele32_WPTight_Gsf_DoubleL1EG_v",
       "trg_singleelectron_35:HLT_Ele35_WPTight_Gsf_v",
       "trg_crossele_ele24tau30:HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_v",
+      "trg_crossele_ele24tau30:HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1_v",
       "trg_doubletau_35_tightiso_tightid:HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg_v",
       "trg_doubletau_40_mediso_tightid:HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_v",
       "trg_doubletau_40_tightiso:HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg_v",
@@ -164,6 +169,7 @@ def build_config(nickname, **kwargs):
           "0:muonEffTrgWeight",
           "0:muonEffIDWeight",
           "1:muonEffIDWeight",
+
           "0:crossTriggerMCEfficiencyWeight",
           "0:crossTriggerDataEfficiencyWeight",
 
@@ -173,9 +179,11 @@ def build_config(nickname, **kwargs):
 
           "0:crossTriggerEmbeddedWeight",
           "1:crossTriggerEmbeddedWeight",
+          "1:muon_crossTriggerEmbeddedWeight",
 
           "0:isoWeight",
           "0:idWeight",
+
           "0:trigger_27_35_Weight",
           "0:trigger_27_32_Weight",
           "0:trigger_32_35_Weight",
@@ -189,6 +197,7 @@ def build_config(nickname, **kwargs):
           "0:m_sel_trg_ratio",
           "0:m_sel_idEmb_ratio",
           "1:m_sel_idEmb_ratio",
+
           "0:e_trg_EleTau_Ele24Leg_desy_mc",
           "0:e_trg_EleTau_Ele24Leg_desy_data",
 
@@ -196,8 +205,9 @@ def build_config(nickname, **kwargs):
           "0:e_trg27_trg35_kit_data",
           "0:e_trg27_trg35_kit_embed",
 
-          "0:e_trg_EleTau_Ele24Leg_kit_ratio_embed",
+          "0:e_trg_EleTau_Ele24Leg_embed_kit_ratio",
           "1:et_emb_LooseChargedIsoPFTau30_kit_ratio",
+          "1:mt_emb_LooseChargedIsoPFTau27_kit_ratio",
 
           "0:e_iso_binned_embed_kit_ratio",
           "0:e_id90_embed_kit_ratio",
@@ -213,7 +223,6 @@ def build_config(nickname, **kwargs):
           ]
     config["EmbeddedWeightWorkspaceObjectArguments"] = [
           "0:gt1_pt,gt1_eta,gt2_pt,gt2_eta",
-
           "0:gt_pt,gt_eta",
           "1:gt_pt,gt_eta",
 
@@ -224,7 +233,8 @@ def build_config(nickname, **kwargs):
           "0:e_pt,e_eta",
           "0:e_pt,e_eta",
 
-          "0:e_pt",
+          "0:e_pt,e_eta",
+          "1:t_pt",
           "1:t_pt",
 
           "0:e_pt,e_eta,e_iso",
@@ -244,7 +254,7 @@ def build_config(nickname, **kwargs):
     config["RooWorkspaceWeightNames"]=[
           "0:crossTriggerMCEfficiencyWeight",
           "0:crossTriggerDataEfficiencyWeight",
-
+          "0:crossTriggerMCWeight",
           "0:isoWeight",
           "0:idWeight",
           "0:trigger_27_35_Weight",
@@ -259,6 +269,7 @@ def build_config(nickname, **kwargs):
     config["RooWorkspaceObjectNames"]=[
           "0:e_trg_EleTau_Ele24Leg_desy_mc",
           "0:e_trg_EleTau_Ele24Leg_desy_data",
+          "0:e_trg_EleTau_Ele24Leg_kit_ratio",
 
           "0:e_iso_binned_kit_ratio",
           "0:e_id90_kit_ratio",
@@ -273,6 +284,7 @@ def build_config(nickname, **kwargs):
           "0:e_trg35_kit_ratio"
           ]
     config["RooWorkspaceObjectArguments"] = [
+          "0:e_pt,e_eta",
           "0:e_pt,e_eta",
           "0:e_pt,e_eta",
 
@@ -306,9 +318,11 @@ def build_config(nickname, **kwargs):
             "HLT_Ele32_WPTight_Gsf_DoubleL1EG_v:hltEGL1SingleEGOrFilter",
             "HLT_Ele35_WPTight_Gsf_v:hltEle35noerWPTightGsfTrackIsoFilter",
             "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_v:hltEle24erWPTightGsfTrackIsoFilterForTau",
+            "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1_v:hltEle24erWPTightGsfTrackIsoFilterForTau",
       ]
     config["TauTriggerFilterNames"] = [
             "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_v:hltL1sBigORLooseIsoEGXXerIsoTauYYerdRMin0p3",
+            "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1_v:hltL1sBigORLooseIsoEGXXerIsoTauYYerdRMin0p3",
             "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v:hltPFTau180TrackPt50LooseAbsOrRelMediumHighPtRelaxedIsoIso",
             "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v:hltSelectedPFTau180MediumChargedIsolationL1HLTMatched"
       ]
@@ -320,11 +334,16 @@ def build_config(nickname, **kwargs):
             "HLT_Ele32_WPTight_Gsf_DoubleL1EG_v:hltEGL1SingleEGOrFilter",
             "HLT_Ele35_WPTight_Gsf_v:hltEle35noerWPTightGsfTrackIsoFilter",
             "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_v:hltEle24erWPTightGsfTrackIsoFilterForTau",
-            "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_v:hltOverlapFilterIsoEle24WPTightGsfLooseIsoPFTau30"
+            "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_v:hltOverlapFilterIsoEle24WPTightGsfLooseIsoPFTau30",
+            "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1_v:hltEle24erWPTightGsfTrackIsoFilterForTau",
+            "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1_v:hltHpsOverlapFilterIsoEle24WPTightGsfLooseIsoPFTau30"
+
       ]
     config["TauTriggerFilterNames"] = [
             "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_v:hltSelectedPFTau30LooseChargedIsolationL1HLTMatched",
             "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_v:hltOverlapFilterIsoEle24WPTightGsfLooseIsoPFTau30",
+            "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1_v:hltHpsSelectedPFTau30LooseChargedIsolationL1HLTMatched",
+            "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1_v:hltHpsOverlapFilterIsoEle24WPTightGsfLooseIsoPFTau30",
             "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v:hltPFTau180TrackPt50LooseAbsOrRelMediumHighPtRelaxedIsoIso",
             "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v:hltSelectedPFTau180MediumChargedIsolationL1HLTMatched"
       ]
@@ -357,12 +376,13 @@ def build_config(nickname, **kwargs):
       "trigger_27_Weight_1",
       "trigger_32_Weight_1",
       "trigger_32fb_Weight_1",
+      "crossTriggerMCWeight_1", 
       "trigger_35_Weight_1"
   ])
   if isEmbedded:
     config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.Includes.embeddedDecayModeWeightQuantities").build_list())
     config["Quantities"].extend([
-          "muonEffTrgWeight", "muonEffIDWeight_1","muonEffIDWeight_2", "crossTriggerEmbeddedWeight_1", "crossTriggerEmbeddedWeight_2"
+          "muonEffTrgWeight", "muonEffIDWeight_1","muonEffIDWeight_2", "crossTriggerEmbeddedWeight_1", "crossTriggerEmbeddedWeight_2", "muon_crossTriggerEmbeddedWeight_2"
     ])
   if re.search("HToTauTauM125", nickname):
     config["Quantities"].extend([
