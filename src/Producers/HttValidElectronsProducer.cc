@@ -268,13 +268,14 @@ bool HttValidElectronsProducer::AdditionalCriteria(KElectron* electron,
                 else if ( etaBins.size() > 0 && eaValues.size() > 0 && etaBins.size() == eaValues.size() +1)
                 {
                     LOG(DEBUG) << "\t\tFalling in case of rho corrected Isolation";
+                    // Effective areas function definition: https://github.com/cms-sw/cmssw/blob/CMSSW_10_2_X/RecoEgamma/EgammaTools/src/EffectiveAreas.cc#L50-L63
                     // event.m_pileupDensity->rho
                     float abseta = std::abs(electron->superclusterPosition.Eta());
                     float eA = 0.0;
                     isolationPtSum = 0.0;
                     for (unsigned int i = 0; i < eaValues.size(); ++i)
                     {
-                        if (abseta > etaBins[i] && abseta < etaBins[i+1])
+                        if (abseta >= etaBins[i] && abseta < etaBins[i+1])
                         {
                             eA = eaValues[i];
                             isolationPtSum = electron->pfIsoRho(event.m_pileupDensity->rho, eA);
