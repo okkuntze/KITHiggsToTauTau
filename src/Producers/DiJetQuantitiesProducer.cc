@@ -89,8 +89,13 @@ void DiJetQuantitiesProducer::Produce(event_type const& event, product_type& pro
 
 	if (product.m_validJets.size() >= 2)
 	{
-		product.m_diJetSystem = (product.m_validJets[0]->p4 + product.m_validJets[1]->p4);
-		product.m_diJetSystemAvailable = true;
+		
+		float jetOfflineLowerPtCut = settings.GetJetOfflineLowerPtCut();
+		if ((product.m_validJets[0]->p4.Pt() >= jetOfflineLowerPtCut) && (product.m_validJets[1]->p4.Pt() >= jetOfflineLowerPtCut)) 
+		{
+			product.m_diJetSystem = (product.m_validJets[0]->p4 + product.m_validJets[1]->p4);
+			product.m_diJetSystemAvailable = true;
+		}
 	}
 	else
 	{
