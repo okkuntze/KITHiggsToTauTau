@@ -33,7 +33,8 @@ def build_config(nickname, **kwargs):
   config["PuJetIDFullDiscrName"] = "pileupJetIdUpdatedfullDiscriminant"
   config["JetTaggerLowerCuts"] = []
   config["JetTaggerUpperCuts"] = []
-  config["JetLowerPtCuts"] = ["20.0"]
+  config["JetLowerPtCuts"] = ["20.0"] # Used for all jets, including b jets
+  config["JetOfflineLowerPtCut"] = 30.0 # Used for non b jet quantities 
   config["JetUpperAbsEtaCuts"] = ["4.7"]
   config["JetLeptonLowerDeltaRCut"] = 0.5
 
