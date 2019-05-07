@@ -314,6 +314,18 @@ void HttLambdaNtupleConsumer::Init(setting_type const& settings)
         {
                 return product.m_diJetSystemAvailable ? (product.m_diLeptonPlusMetSystem + product.m_diJetSystem).Pt() : DefaultValues::UndefinedFloat;
         });
+	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("prefiringweight", [](KappaEvent const& event, KappaProduct const& product)
+        {
+                return event.m_genEventInfo->_prefiringweight;
+        });
+	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("prefiringweightup", [](KappaEvent const& event, KappaProduct const& product)
+        {
+                return event.m_genEventInfo->_prefiringweightup;
+        });
+	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("prefiringweightdown", [](KappaEvent const& event, KappaProduct const& product)
+        {
+                return event.m_genEventInfo->_prefiringweightdown;
+        });
 
 	// need to be called at last
 	KappaLambdaNtupleConsumer::Init(settings);
