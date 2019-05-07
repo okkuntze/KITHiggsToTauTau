@@ -32,7 +32,6 @@ def build_config(nickname, **kwargs):
   isWjets = re.search("W.?JetsToLNu", nickname)
   isSignal = re.search("HToTauTau",nickname)
   isGluonFusion = re.search("GluGluHToTauTauM125", nickname)
-  year = datasetsHelper.base_dict[nickname]["year"]
 
   ## fill config:
   # includes
@@ -168,12 +167,12 @@ def build_config(nickname, **kwargs):
   config["InvalidateNonMatchingTaus"] = False
   config["InvalidateNonMatchingJets"] = False
   config["DirectIso"] = True
+  config["OSChargeLeptons"] = True
   config["AddGenMatchedParticles"] = True
   config["AddGenMatchedTaus"] = True
   config["AddGenMatchedTauJets"] = True
   config["BranchGenMatchedMuons"] = True
   config["BranchGenMatchedTaus"] = True
-  config["OSChargeLeptons"] = True
 
   ### Efficiencies & weights configuration
   config["TauTrigger2017Input"] = "$CMSSW_BASE/src/TauAnalysisTools/TauTriggerSFs/data/tauTriggerEfficiencies2017.root"
@@ -203,7 +202,6 @@ def build_config(nickname, **kwargs):
 
           "0:crossTriggerMCEfficiencyWeight",
           "0:crossTriggerDataEfficiencyWeight",
-
           "0:crossTriggerEmbeddedWeight",
           "1:crossTriggerEmbeddedWeight",
 
@@ -249,7 +247,7 @@ def build_config(nickname, **kwargs):
           ]
   else:
     config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_2017_v3.root"
-    config["RooWorkspaceWeightNames"] = [
+    config["RooWorkspaceWeightNames"]=[
         "0:crossTriggerMCEfficiencyWeight",
         "0:crossTriggerDataEfficiencyWeight",
         #"0:singleTriggerMCEfficiencyWeight",
@@ -346,9 +344,7 @@ def build_config(nickname, **kwargs):
   if not (isData or isEmbedded): config["Processors"].append( "producer:TaggedJetCorrectionsProducer")
   config["Processors"].extend((                               "producer:ValidTaggedJetsProducer",
                                                               "producer:ValidBTaggedJetsProducer"))
-
   if btag_eff: config["ProcessorsBtagEff"] = copy.deepcp(config["Processors"])
-
   if not (isData or isEmbedded): config["Processors"].append( "producer:MetCorrector")
   config["Processors"].extend((                               "producer:TauTauRestFrameSelector",
                                                               "producer:DiLeptonQuantitiesProducer",
@@ -366,7 +362,6 @@ def build_config(nickname, **kwargs):
   config["Processors"].append(                                "producer:EventWeightProducer")
   if isGluonFusion:              config["Processors"].append( "producer:SMggHNNLOProducer")
   config["Processors"].append(                                "producer:SvfitProducer")
-
   config["Consumers"] = ["KappaLambdaNtupleConsumer",
                          "cutflow_histogram"]
 
@@ -385,7 +380,7 @@ def build_config(nickname, **kwargs):
     config["Quantities"].extend(["leadingTauEnergyAssymetry"])
 
   # pipelines - systematic shifts
-  # needed pipelines: nominal tauESperDM_shifts tauMuFakeESperDM_shifts JECunc_shifts regionalJECunc_shifts METunc_shifts METrecoil_shifts btagging_shifts
+  # needed pipelines: nominal tauESperDM_shifts tauMuFakeESperDM_shifts regionalJECunc_shifts METunc_shifts METrecoil_shifts btagging_shifts
   if pipelines is None:
       raise Exception("pipelines is None in %s" % (__file__))
 

@@ -15,20 +15,24 @@ import os
 
 import HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Includes.ArtusConfigUtility as ACU
 
-def build_config(nickname):
+def build_config(nickname, **kwargs):
+  btag_eff = True if "sub_analysis" in kwargs and kwargs["sub_analysis"] == "btag-eff" else False
+  etau_fake_es = True if "sub_analysis" in kwargs and kwargs["sub_analysis"] == "etau-fake-es" else False
+  pipelines = kwargs["pipelines"] if "pipelines" in kwargs else None
+  minimal_setup = True if "minimal_setup" in kwargs and kwargs["minimal_setup"] else False
+
   config = jsonTools.JsonDict()
   datasetsHelper = datasetsHelperTwopz.datasetsHelperTwopz(os.path.expandvars("$CMSSW_BASE/src/Kappa/Skimming/data/datasets.json"))
-  
-  
+
   # define frequently used conditions
   isEmbedded = datasetsHelper.isEmbedded(nickname)
   isData = datasetsHelper.isData(nickname) and (not isEmbedded)
   isTTbar = re.search("TT(To|_|Jets)", nickname)
-  isDY = re.search("(DY.?JetsToLL|EWKZ2Jets)", nickname)
+  isDY = re.search("DY.?JetsToLLM(10to50|50)", nickname)
   isWjets = re.search("W.?JetsToLNu", nickname)
+  isSignal = re.search("HToTauTau",nickname)
   isGluonFusion = re.search("GluGluHToTauTauM125", nickname)
-  
-  
+
   ## fill config:
   # includes
   includes = [
@@ -39,28 +43,31 @@ def build_config(nickname):
     "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.settingsMuonID",
     "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.settingsTauID",
     "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.settingsJEC",
+    "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.settingsSvfit",
     "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.settingsJetID",
     "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.settingsBTaggedJetID",
-    "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.settingsMinimalPlotlevelFilter_et",
-    "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.settingsSvfit",
     "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.settingsTauES",
-    "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Includes.settingsMVATestMethods"
+    "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.settingsMinimalPlotlevelFilter_et"
   ]
   for include_file in includes:
     analysis_config_module = importlib.import_module(include_file)
-    config += analysis_config_module.build_config(nickname)
-  
+    config += analysis_config_module.build_config(nickname, sub_analysis=kwargs["sub_analysis"])
+
   # explicit configuration
   config["Channel"] = "ET"
   config["MinNElectrons"] = 1
   config["MinNTaus"] = 1
   # HltPaths_comment: The first path must be the single lepton trigger. A corresponding Pt cut is implemented in the Run2DecayChannelProducer.
-  if re.search("Run2016|Summer16", nickname): config["HltPaths"] = [
+  if re.search("Run2016|Summer16|Embedding2016", nickname): config["HltPaths"] = [
           "HLT_Ele25_eta2p1_WPTight_Gsf"]
-  elif isEmbedded: config["HltPaths"] = [
-          ""]
-  config["HLTBranchNames"] = ["trg_singleelectron:HLT_Ele25_eta2p1_WPTight_Gsf_v"]
-  config["NoHltFiltering"] = True if isEmbedded else False
+  config["CheckLepton1TriggerMatch"] = [
+      "trg_singleelectron",
+  ]
+  config["CheckLepton2TriggerMatch"] = [
+  ]
+  config["HLTBranchNames"] = [
+      "trg_singleelectron:HLT_Ele25_eta2p1_WPTight_Gsf_v",
+  ]
   config["TauID"] = "TauIDRecommendation13TeV"
   config["TauUseOldDMs"] = True
   config["ElectronLowerPtCuts"] = ["26.0"]
@@ -144,54 +151,59 @@ def build_config(nickname):
   if re.search("HToTauTauM125", nickname):
     config["Quantities"].extend([
       "htxs_stage0cat",
-      "htxs_stage1cat"
+      "htxs_stage1p1cat",
+      "htxs_stage1p1finecat"
     ])
   if isGluonFusion:
     config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.ggHNNLOQuantities").build_list())
 
-  
   config["OSChargeLeptons"] = True
-  
-  config["Processors"] = [                                    "producer:HltProducer",
-                                                              "producer:MetSelector"]
-  if not isData:                 config["Processors"].append( "producer:ElectronCorrectionsProducer")
+  config["TopPtReweightingStrategy"] = "Run1"
+
+  config["Processors"] =                                     [] if (isData) else ["producer:ElectronCorrectionsProducer"]
+  config["Processors"].extend((                               "producer:HttValidLooseElectronsProducer",
+                                                              "producer:HttValidLooseMuonsProducer",
+                                                              "producer:HltProducer",
+                                                              "producer:MetSelector"))
   config["Processors"].extend((                               "producer:ValidElectronsProducer",
                                                               "filter:ValidElectronsFilter",
                                                               "producer:ElectronTriggerMatchingProducer",
                                                               "filter:MinElectronsCountFilter",
+                                                              "producer:HttValidVetoElectronsProducer",
                                                               "producer:ValidMuonsProducer"))
-  if not isData:                 config["Processors"].append( "producer:TauCorrectionsProducer")
+  if not (isData): config["Processors"].append( "producer:TauCorrectionsProducer")
+  if not isData:                 config["Processors"].append( "producer:HttValidGenTausProducer")
   config["Processors"].extend((                               "producer:ValidTausProducer",
                                                               "filter:ValidTausFilter",
                                                               "producer:TauTriggerMatchingProducer",
                                                               "filter:MinTausCountFilter",
                                                               "producer:NewValidETPairCandidatesProducer",
                                                               "filter:ValidDiTauPairCandidatesFilter",
-                                                              "producer:HttValidVetoElectronsProducer",
-                                                              "producer:HttValidLooseElectronsProducer",
-                                                              "producer:HttValidLooseMuonsProducer",
                                                               "producer:Run2DecayChannelProducer",
-                                                              "producer:DiVetoElectronVetoProducer",
-                                                              "producer:TaggedJetCorrectionsProducer",
-                                                              "producer:ValidTaggedJetsProducer",
-                                                              "producer:ValidBTaggedJetsProducer",
-                                                              "producer:GroupedJetUncertaintyShiftProducer"))
-  if not isData and not isEmbedded:                 config["Processors"].append( "producer:MetCorrector") #"producer:MvaMetCorrector"
+                                                              "producer:DiVetoElectronVetoProducer"))
+  if not (isData or isEmbedded): config["Processors"].append( "producer:TaggedJetCorrectionsProducer")
+  config["Processors"].extend((                               "producer:ValidTaggedJetsProducer",
+                                                              "producer:ValidBTaggedJetsProducer"))
+
+  if btag_eff: config["ProcessorsBtagEff"] = copy.deepcp(config["Processors"])
+
+  if not (isData or isEmbedded): config["Processors"].append( "producer:MetCorrector")
   config["Processors"].extend((                               "producer:TauTauRestFrameSelector",
                                                               "producer:DiLeptonQuantitiesProducer",
                                                               "producer:DiJetQuantitiesProducer"))
-  if not isData:                 config["Processors"].extend(("producer:SimpleEleTauFakeRateWeightProducer",
-							      "producer:SimpleMuTauFakeRateWeightProducer"))
+  if not isEmbedded:             config["Processors"].extend(("producer:SimpleEleTauFakeRateWeightProducer",
+                                                              "producer:SimpleMuTauFakeRateWeightProducer"))
   if isTTbar:                    config["Processors"].append( "producer:TopPtReweightingProducer")
   if isDY:                       config["Processors"].append( "producer:ZPtReweightProducer")
-  config["Processors"].extend((                               "filter:MinimalPlotlevelFilter",
-                                                              "producer:SvfitProducer",
-                                                              "producer:ImpactParameterCorrectionsProducer")) #"producer:MVATestMethodsProducer"
-  if not isData:                 config["Processors"].append( "producer:RooWorkspaceWeightProducer")
+  config["Processors"].append(                                "filter:MinimalPlotlevelFilter")
+  if not isData and not isEmbedded:                 config["Processors"].append( "producer:RooWorkspaceWeightProducer")
+  if isEmbedded:                 config["Processors"].append( "producer:EmbeddedWeightProducer")
+  if isEmbedded:                 config["Processors"].append( "producer:TauDecayModeWeightProducer")
+  if not isData:                 config["Processors"].append( "producer:TauTrigger2017EfficiencyProducer")
   config["Processors"].append(                                "producer:EventWeightProducer")
   if isGluonFusion:              config["Processors"].append( "producer:SMggHNNLOProducer")
-  
-  
+  config["Processors"].append(                                "producer:SvfitProducer")
+
   config["AddGenMatchedParticles"] = True
   config["AddGenMatchedTaus"] = True
   config["AddGenMatchedTauJets"] = True
@@ -199,14 +211,27 @@ def build_config(nickname):
   config["BranchGenMatchedTaus"] = True
   config["Consumers"] = ["KappaLambdaNtupleConsumer",
                          "cutflow_histogram"]
-  
+
+  # Subanalyses settings
+  if btag_eff:
+     config["Processors"] = copy.deepcp(config["ProcessorsBtagEff"])
+
+     btag_eff_unwanted = ["KappaLambdaNtupleConsumer", "CutFlowTreeConsumer", "KappaElectronsConsumer", "KappaTausConsumer", "KappaTaggedJetsConsumer", "RunTimeConsumer", "PrintEventsConsumer"]
+     for unwanted in btag_eff_unwanted:
+      if unwanted in config["Consumers"]: config["Consumers"].remove(unwanted)
+
+     config["Consumers"].append("BTagEffConsumer")
+
+  if etau_fake_es:
+    # needed : nominal, tauESperDM_shifts, et_eleFakeTauES_subanalysis, maybe METunc_shifts METrecoil_shifts JECunc_shifts
+    pass
+
   # pipelines - systematic shifts
-  return ACU.apply_uncertainty_shift_configs('et', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.nominal").build_config(nickname)) + \
-         ACU.apply_uncertainty_shift_configs('et', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.eleES_shifts").build_config(nickname)) + \
-         ACU.apply_uncertainty_shift_configs('et', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.JECunc_shifts").build_config(nickname)) + \
-         ACU.apply_uncertainty_shift_configs('et', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.METunc_shifts").build_config(nickname)) + \
-         ACU.apply_uncertainty_shift_configs('et', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.METrecoil_shifts").build_config(nickname)) + \
-         ACU.apply_uncertainty_shift_configs('et', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.tauESperDM_shifts").build_config(nickname)) + \
-         ACU.apply_uncertainty_shift_configs('et', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.tauEleFakeESperDM_shifts").build_config(nickname)) + \
-         ACU.apply_uncertainty_shift_configs('et', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.tauJetFakeESIncl_shifts").build_config(nickname)) + \
-         ACU.apply_uncertainty_shift_configs('et', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.btagging_shifts").build_config(nickname))
+  if pipelines is None:
+      raise Exception("pipelines is None in %s" % (__file__))
+
+  return_conf = jsonTools.JsonDict()
+  for pipeline in pipelines:
+      log.info('Add pipeline: %s' %(pipeline))
+      return_conf += ACU.apply_uncertainty_shift_configs('et', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis." + pipeline).build_config(nickname, **kwargs))
+  return return_conf

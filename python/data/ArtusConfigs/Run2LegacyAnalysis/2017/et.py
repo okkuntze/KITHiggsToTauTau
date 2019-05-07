@@ -57,27 +57,16 @@ def build_config(nickname, **kwargs):
   config["Channel"] = "ET"
   config["MinNElectrons"] = 1
   config["MinNTaus"] = 1
-  # HltPaths_comment: The first path must be the single lepton trigger. A corresponding Pt cut is implemented in the Run2DecayChannelProducer..
-  if re.search("(Run201|Embedding201|Summer1|Fall1)", nickname): config["HltPaths"] = [
+
+  ### HLT & Trigger Object configuration
+  config["HltPaths"] = [
           "HLT_Ele27_WPTight_Gsf",
           "HLT_Ele32_WPTight_Gsf",
           "HLT_Ele32_WPTight_Gsf_DoubleL1EG",
           "HLT_Ele35_WPTight_Gsf",
           "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1",
           "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1",
-    ]
-
-  config["TauID"] = "TauIDRecommendation13TeV"
-  config["TauUseOldDMs"] = True
-  config["ElectronScaleAndSmearUsed"] = False
-  config["ElectronLowerPtCuts"] = ["25.0"]
-  config["ElectronUpperAbsEtaCuts"] = ["2.1"]
-  config["TauLowerPtCuts"] = ["23.0"]
-  config["TauUpperAbsEtaCuts"] = ["2.3"]
-  config["DiTauPairMinDeltaRCut"] = 0.5
-  config["DeltaRTriggerMatchingTaus"] = 0.5
-  config["DeltaRTriggerMatchingElectrons"] = 0.5
-  config["DiTauPairIsTauIsoMVA"] = True
+  ]
   config["DiTauPairLepton1LowerPtCuts"] = [
           "HLT_Ele27_WPTight_Gsf_v:28.0",
           "HLT_Ele32_WPTight_Gsf_v:33.0",
@@ -140,6 +129,63 @@ def build_config(nickname, **kwargs):
       "trg_muonelectron_mu23ele12:HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v",
       "trg_muonelectron_mu8ele23:HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v",
   ]
+  if isEmbedded:
+    config["ElectronTriggerFilterNames"] = [
+            "HLT_Ele27_WPTight_Gsf_v:hltEle27WPTightGsfTrackIsoFilter",
+            "HLT_Ele32_WPTight_Gsf_v:hltEle32WPTightGsfTrackIsoFilter",
+            "HLT_Ele32_WPTight_Gsf_DoubleL1EG_v:hltEle32L1DoubleEGWPTightGsfTrackIsoFilter",
+            "HLT_Ele32_WPTight_Gsf_DoubleL1EG_v:hltEGL1SingleEGOrFilter",
+            "HLT_Ele35_WPTight_Gsf_v:hltEle35noerWPTightGsfTrackIsoFilter",
+            "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_v:hltEle24erWPTightGsfTrackIsoFilterForTau",
+      ]
+    config["TauTriggerFilterNames"] = [
+            "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_v:hltL1sBigORLooseIsoEGXXerIsoTauYYerdRMin0p3",
+            "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v:hltPFTau180TrackPt50LooseAbsOrRelMediumHighPtRelaxedIsoIso",
+            "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v:hltSelectedPFTau180MediumChargedIsolationL1HLTMatched"
+      ]
+  else:
+    config["ElectronTriggerFilterNames"] = [
+            "HLT_Ele27_WPTight_Gsf_v:hltEle27WPTightGsfTrackIsoFilter",
+            "HLT_Ele32_WPTight_Gsf_v:hltEle32WPTightGsfTrackIsoFilter",
+            "HLT_Ele32_WPTight_Gsf_DoubleL1EG_v:hltEle32L1DoubleEGWPTightGsfTrackIsoFilter",
+            "HLT_Ele32_WPTight_Gsf_DoubleL1EG_v:hltEGL1SingleEGOrFilter",
+            "HLT_Ele35_WPTight_Gsf_v:hltEle35noerWPTightGsfTrackIsoFilter",
+            "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_v:hltEle24erWPTightGsfTrackIsoFilterForTau",
+            "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_v:hltOverlapFilterIsoEle24WPTightGsfLooseIsoPFTau30"
+      ]
+    config["TauTriggerFilterNames"] = [
+            "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_v:hltSelectedPFTau30LooseChargedIsolationL1HLTMatched",
+            "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_v:hltOverlapFilterIsoEle24WPTightGsfLooseIsoPFTau30",
+            "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v:hltPFTau180TrackPt50LooseAbsOrRelMediumHighPtRelaxedIsoIso",
+            "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v:hltSelectedPFTau180MediumChargedIsolationL1HLTMatched"
+      ]
+
+  ### Signal pair selection configuration
+  config["TauID"] = "TauIDRecommendation13TeV"
+  config["TauUseOldDMs"] = True
+  config["ElectronScaleAndSmearUsed"] = False
+  config["ElectronLowerPtCuts"] = ["25.0"]
+  config["ElectronUpperAbsEtaCuts"] = ["2.1"]
+  config["TauLowerPtCuts"] = ["23.0"]
+  config["TauUpperAbsEtaCuts"] = ["2.3"]
+  config["DiTauPairMinDeltaRCut"] = 0.5
+  config["DeltaRTriggerMatchingTaus"] = 0.5
+  config["DeltaRTriggerMatchingElectrons"] = 0.5
+  config["DiTauPairIsTauIsoMVA"] = True
+  config["TauTauRestFrameReco"] = "collinear_approximation"
+  config["InvalidateNonMatchingElectrons"] = False
+  config["InvalidateNonMatchingMuons"] = False
+  config["InvalidateNonMatchingTaus"] = False
+  config["InvalidateNonMatchingJets"] = False
+  config["DirectIso"] = True
+  config["OSChargeLeptons"] = True
+  config["AddGenMatchedParticles"] = True
+  config["AddGenMatchedTaus"] = True
+  config["AddGenMatchedTauJets"] = True
+  config["BranchGenMatchedElectrons"] = True
+  config["BranchGenMatchedTaus"] = True
+
+  ### Efficiencies & weights configuration
   config["TauTrigger2017Input"] = "$CMSSW_BASE/src/TauAnalysisTools/TauTriggerSFs/data/tauTriggerEfficiencies2017.root"
   config["TauTrigger"] = "etau"
   config["TauTrigger2017WorkingPoints"] = [
@@ -299,53 +345,10 @@ def build_config(nickname, **kwargs):
         "0:e_pt,e_eta",
         "0:e_pt,e_eta",
     ]
-
-  config["FakeFaktorFiles"] = [
-      "inclusive:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/fakeFactorWeights/tight/et/inclusive/fakeFactors_20170628_tight.root",
-      "nobtag_tight:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/fakeFactorWeights/tight/et/nobtag_tight/fakeFactors_20170628_tight.root",
-      "nobtag_loosemt:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/fakeFactorWeights/tight/et/nobtag_loosemt/fakeFactors_20170628_tight.root",
-      "btag_tight:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/fakeFactorWeights/tight/et/btag_tight/fakeFactors_20170628_tight.root",
-      "btag_loosemt:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/fakeFactorWeights/tight/et/btag_loosemt/fakeFactors_20170628_tight.root"
-  ]
   config["EventWeight"] = "eventWeight"
-  config["TauTauRestFrameReco"] = "collinear_approximation"
-  if isEmbedded:
-    config["ElectronTriggerFilterNames"] = [
-            "HLT_Ele27_WPTight_Gsf_v:hltEle27WPTightGsfTrackIsoFilter",
-            "HLT_Ele32_WPTight_Gsf_v:hltEle32WPTightGsfTrackIsoFilter",
-            "HLT_Ele32_WPTight_Gsf_DoubleL1EG_v:hltEle32L1DoubleEGWPTightGsfTrackIsoFilter",
-            "HLT_Ele32_WPTight_Gsf_DoubleL1EG_v:hltEGL1SingleEGOrFilter",
-            "HLT_Ele35_WPTight_Gsf_v:hltEle35noerWPTightGsfTrackIsoFilter",
-            "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_v:hltEle24erWPTightGsfTrackIsoFilterForTau",
-      ]
-    config["TauTriggerFilterNames"] = [
-            "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_v:hltL1sBigORLooseIsoEGXXerIsoTauYYerdRMin0p3",
-            "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v:hltPFTau180TrackPt50LooseAbsOrRelMediumHighPtRelaxedIsoIso",
-            "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v:hltSelectedPFTau180MediumChargedIsolationL1HLTMatched"
-      ]
-  else:
-    config["ElectronTriggerFilterNames"] = [
-            "HLT_Ele27_WPTight_Gsf_v:hltEle27WPTightGsfTrackIsoFilter",
-            "HLT_Ele32_WPTight_Gsf_v:hltEle32WPTightGsfTrackIsoFilter",
-            "HLT_Ele32_WPTight_Gsf_DoubleL1EG_v:hltEle32L1DoubleEGWPTightGsfTrackIsoFilter",
-            "HLT_Ele32_WPTight_Gsf_DoubleL1EG_v:hltEGL1SingleEGOrFilter",
-            "HLT_Ele35_WPTight_Gsf_v:hltEle35noerWPTightGsfTrackIsoFilter",
-            "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_v:hltEle24erWPTightGsfTrackIsoFilterForTau",
-            "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_v:hltOverlapFilterIsoEle24WPTightGsfLooseIsoPFTau30"
-      ]
-    config["TauTriggerFilterNames"] = [
-            "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_v:hltSelectedPFTau30LooseChargedIsolationL1HLTMatched",
-            "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_v:hltOverlapFilterIsoEle24WPTightGsfLooseIsoPFTau30",
-            "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v:hltPFTau180TrackPt50LooseAbsOrRelMediumHighPtRelaxedIsoIso",
-            "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v:hltSelectedPFTau180MediumChargedIsolationL1HLTMatched"
-      ]
+  config["TopPtReweightingStrategy"] = "Run1"
 
-  config["InvalidateNonMatchingElectrons"] = False
-  config["InvalidateNonMatchingMuons"] = False
-  config["InvalidateNonMatchingTaus"] = False
-  config["InvalidateNonMatchingJets"] = False
-  config["DirectIso"] = True
-
+  ### Ntuple output quantities configuration
   config["Quantities"] =      importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.syncQuantities").build_list(minimal_setup=minimal_setup, isMC = (not isData) and (not isEmbedded))
   config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.zptQuantities").build_list())
   config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.lheWeights").build_list())
@@ -383,9 +386,7 @@ def build_config(nickname, **kwargs):
   if isGluonFusion:
     config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.ggHNNLOQuantities").build_list())
 
-  config["OSChargeLeptons"] = True
-  config["TopPtReweightingStrategy"] = "Run1"
-
+  ### Processors & consumers configuration
   config["Processors"] =                                     [] if (isData) else ["producer:ElectronCorrectionsProducer"]
   config["Processors"].extend((                               "producer:HttValidLooseElectronsProducer",
                                                               "producer:HttValidLooseMuonsProducer",
@@ -410,9 +411,7 @@ def build_config(nickname, **kwargs):
   if not (isData or isEmbedded): config["Processors"].append( "producer:TaggedJetCorrectionsProducer")
   config["Processors"].extend((                               "producer:ValidTaggedJetsProducer",
                                                               "producer:ValidBTaggedJetsProducer"))
-
   if btag_eff: config["ProcessorsBtagEff"] = copy.deepcp(config["Processors"])
-
   if not (isData or isEmbedded): config["Processors"].append( "producer:MetCorrector")
   config["Processors"].extend((                               "producer:TauTauRestFrameSelector",
                                                               "producer:DiLeptonQuantitiesProducer",
@@ -429,12 +428,6 @@ def build_config(nickname, **kwargs):
   config["Processors"].append(                                "producer:EventWeightProducer")
   if isGluonFusion:              config["Processors"].append( "producer:SMggHNNLOProducer")
   config["Processors"].append(                                "producer:SvfitProducer")
-
-  config["AddGenMatchedParticles"] = True
-  config["AddGenMatchedTaus"] = True
-  config["AddGenMatchedTauJets"] = True
-  config["BranchGenMatchedElectrons"] = True
-  config["BranchGenMatchedTaus"] = True
   config["Consumers"] = ["KappaLambdaNtupleConsumer",
                          "cutflow_histogram"]
 
@@ -453,6 +446,7 @@ def build_config(nickname, **kwargs):
     pass
 
   # pipelines - systematic shifts
+  # needed pipelines: nominal tauESperDM_shifts tauEleFakeESperDM_shifts regionalJECunc_shifts METunc_shifts METrecoil_shifts btagging_shifts
   if pipelines is None:
       raise Exception("pipelines is None in %s" % (__file__))
 

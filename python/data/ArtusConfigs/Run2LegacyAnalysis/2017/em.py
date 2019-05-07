@@ -45,7 +45,7 @@ def build_config(nickname, **kwargs):
     "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.settingsSvfit",
     "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.settingsJetID",
     "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.settingsBTaggedJetID",
-    "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.settingsMinimalPlotlevelFilter_em",
+    "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.settingsMinimalPlotlevelFilter_em"
   ]
   for include_file in includes:
     analysis_config_module = importlib.import_module(include_file)
@@ -58,22 +58,12 @@ def build_config(nickname, **kwargs):
   config["MaxNLooseElectrons"] = 1
   config["MaxNLooseMuons"] = 1
 
-  # HltPaths_comment: The first path must be one with the higher pt cut on the electron. The second and last path must be one with the higher pt cut on the muon. Corresponding Pt cuts are implemented in the Run2DecayChannelProducer..
-  if re.search("(Run201|Embedding201|Summer1|Fall1)", nickname): config["HltPaths"] = [
+  ### HLT & Trigger Object configuration
+  config["HltPaths"] = [
           "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ",
           "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ",
           "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ",
-    ]
-
-  config["ElectronScaleAndSmearUsed"] = True# if not isEmbedded else False
-  config["ElectronLowerPtCuts"] = ["13.0"]
-  config["ElectronUpperAbsEtaCuts"] = ["2.5"]
-  config["MuonLowerPtCuts"] = ["9.0"]
-  config["MuonUpperAbsEtaCuts"] = ["2.4"]
-  config["DiTauPairMinDeltaRCut"] = 0.3
-  config["DeltaRTriggerMatchingMuons"] = 0.3
-  config["DeltaRTriggerMatchingElectrons"] = 0.3
-  config["DiTauPairIsTauIsoMVA"] = True
+  ]
   config["DiTauPairLepton1LowerPtCuts"] = [
           "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v:24.0",
           "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v:13.0"]
@@ -128,6 +118,45 @@ def build_config(nickname, **kwargs):
       "trg_muonelectron_mu23ele12:HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v",
       "trg_muonelectron_mu8ele23:HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v",
   ]
+  config["ElectronTriggerFilterNames"] = [
+        "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v:hltMu8TrkIsoVVLEle23CaloIdLTrackIdLIsoVLElectronlegTrackIsoFilter",
+        "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v:hltMu8TrkIsoVVLEle23CaloIdLTrackIdLIsoVLDZFilter",
+        "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v:hltMu12TrkIsoVVLEle23CaloIdLTrackIdLIsoVLElectronlegTrackIsoFilter",
+        "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v:hltMu12TrkIsoVVLEle23CaloIdLTrackIdLIsoVLDZFilter",
+        "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v:hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLElectronlegTrackIsoFilter",
+        "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v:hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLDZFilter"
+      ]
+  config["MuonTriggerFilterNames"] = [
+        "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v:hltMuon8Ele23RelTrkIsoFiltered0p4MuonLeg,hltMu8TrkIsoVVLEle23CaloIdLTrackIdLIsoVLMuonlegL3IsoFiltered8",
+        "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v:hltMu8TrkIsoVVLEle23CaloIdLTrackIdLIsoVLDZFilter",
+        "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v:hltMu12TrkIsoVVLEle23CaloIdLTrackIdLIsoVLMuonlegL3IsoFiltered12",
+        "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v:hltMu12TrkIsoVVLEle23CaloIdLTrackIdLIsoVLDZFilter",
+        "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v:hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLMuonlegL3IsoFiltered23",
+        "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v:hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLDZFilter"
+      ]
+
+  ### Signal pair selection configuration
+  config["ElectronScaleAndSmearUsed"] = True# if not isEmbedded else False
+  config["ElectronLowerPtCuts"] = ["13.0"]
+  config["ElectronUpperAbsEtaCuts"] = ["2.5"]
+  config["MuonLowerPtCuts"] = ["9.0"]
+  config["MuonUpperAbsEtaCuts"] = ["2.4"]
+  config["DiTauPairMinDeltaRCut"] = 0.3
+  config["DeltaRTriggerMatchingMuons"] = 0.3
+  config["DeltaRTriggerMatchingElectrons"] = 0.3
+  config["DiTauPairIsTauIsoMVA"] = True
+  config["TauTauRestFrameReco"] = "collinear_approximation"
+  config["InvalidateNonMatchingElectrons"] = False
+  config["InvalidateNonMatchingMuons"] = False
+  config["InvalidateNonMatchingTaus"] = False
+  config["InvalidateNonMatchingJets"] = False
+  config["DirectIso"] = True
+  config["OSChargeLeptons"] = True
+  config["AddGenMatchedParticles"] = True
+  config["BranchGenMatchedElectrons"] = True
+  config["BranchGenMatchedMuons"] = True
+
+  ### Efficiencies & weights configuration
   if isEmbedded:
     config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_2017_v1.root"
     config["EmbeddedWeightWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_2017_v1.root"
@@ -135,7 +164,6 @@ def build_config(nickname, **kwargs):
           "0:muonEffTrgWeight",
           "0:muonEffIDWeight",
           "1:muonEffIDWeight",
-
           "1:isoWeight",
           "1:looseIsoWeight",
           "1:idWeight",
@@ -162,7 +190,6 @@ def build_config(nickname, **kwargs):
           "0:m_sel_trg_ratio",
           "0:m_sel_idEmb_ratio",
           "1:m_sel_idEmb_ratio",
-
           "1:m_iso_binned_embed_ratio",
           "1:m_looseiso_binned_embed_ratio",
           "1:m_id_embed_ratio",
@@ -187,7 +214,6 @@ def build_config(nickname, **kwargs):
           "0:gt1_pt,gt1_eta,gt2_pt,gt2_eta",
           "0:gt_pt,gt_eta",
           "1:gt_pt,gt_eta",
-
           "1:m_pt,m_eta,m_iso",
           "1:m_pt,m_eta,m_iso",
           "1:m_pt,m_eta",
@@ -208,8 +234,6 @@ def build_config(nickname, **kwargs):
           "0:e_pt,e_eta,e_iso",
           "0:e_pt,e_eta,e_iso",
           ]
-
-
   config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_2017_v1.root"
   config["QCDFactorWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_2017_v1.root"
   config["QCDFactorWorkspaceWeightNames"]=[
@@ -257,134 +281,75 @@ def build_config(nickname, **kwargs):
 
       "0:e_pt,m_pt",
   ]
+  if not isEmbedded:
+    config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_2017_v1.root"
+    config["RooWorkspaceWeightNames"] = [
+        "0:isoWeight",
+        "0:idWeight",
+        "0:trackWeight",
+        "1:isoWeight",
+        "1:idWeight",
+        "0:trigger_12_Weight",
+        "0:trigger_23_Weight",
+        "1:trigger_8_Weight",
+        "1:trigger_23_Weight",
+        "1:trackWeight",
+        "1:trigger_23_data_Weight",
+        "1:trigger_23_mc_Weight",
+        "1:trigger_8_data_Weight",
+        "1:trigger_8_mc_Weight",
+        "0:trigger_23_data_Weight",
+        "0:trigger_23_mc_Weight",
+        "0:trigger_12_data_Weight",
+        "0:trigger_12_mc_Weight",
+    ]
+    config["RooWorkspaceObjectNames"] = [
+        "0:e_iso_binned_ratio",
+        "0:e_id_ratio",
+        "0:e_trk_ratio",
+        "1:m_looseiso_binned_ratio",
+        "1:m_id_ratio",
+        "0:e_trg_binned_12_ratio",
+        "0:e_trg_binned_23_ratio",
+        "1:m_trg_binned_8_ratio",
+        "1:m_trg_binned_23_ratio",
+        "1:m_trk_ratio",
 
-  config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_2017_v1.root"
-  config["RooWorkspaceWeightNames"] = [
-      "0:isoWeight",
-      "0:idWeight",
-      "0:trackWeight",
-      "1:isoWeight",
-      "1:idWeight",
-      "0:trigger_12_Weight",
-      "0:trigger_23_Weight",
-      "1:trigger_8_Weight",
-      "1:trigger_23_Weight",
-      "1:trackWeight",
-      "1:trigger_23_data_Weight",
-      "1:trigger_23_mc_Weight",
-      "1:trigger_8_data_Weight",
-      "1:trigger_8_mc_Weight",
-      "0:trigger_23_data_Weight",
-      "0:trigger_23_mc_Weight",
-      "0:trigger_12_data_Weight",
-      "0:trigger_12_mc_Weight",
-  ]
-  config["RooWorkspaceObjectNames"] = [
-      "0:e_iso_binned_ratio",
-      "0:e_id_ratio",
-      "0:e_trk_ratio",
-      "1:m_looseiso_binned_ratio",
-      "1:m_id_ratio",
-      "0:e_trg_binned_12_ratio",
-      "0:e_trg_binned_23_ratio",
-      "1:m_trg_binned_8_ratio",
-      "1:m_trg_binned_23_ratio",
-      "1:m_trk_ratio",
+        "1:m_trg_binned_23_data",
+        "1:m_trg_binned_23_mc",
+        "1:m_trg_binned_8_data",
+        "1:m_trg_binned_8_mc",
 
-
-      "1:m_trg_binned_23_data",
-      "1:m_trg_binned_23_mc",
-      "1:m_trg_binned_8_data",
-      "1:m_trg_binned_8_mc",
-
-
-      "0:e_trg_binned_23_data",
-      "0:e_trg_binned_23_mc",
-      "0:e_trg_binned_12_data",
-      "0:e_trg_binned_12_mc",
-
-
-  ]
-  config["RooWorkspaceObjectArguments"] = [
-      "0:e_pt,e_eta,e_iso",
-      "0:e_pt,e_eta",
-      "0:e_pt,e_eta",
-      "1:m_pt,m_eta,m_iso",
-      "1:m_pt,m_eta",
-      "0:e_pt,e_eta,e_iso",
-      "0:e_pt,e_eta,e_iso",
-      "1:m_pt,m_eta,m_iso",
-      "1:m_pt,m_eta,m_iso",
-      "1:m_eta",
-      "1:m_pt,m_eta,m_iso",
-      "1:m_pt,m_eta,m_iso",
-      "1:m_pt,m_eta,m_iso",
-      "1:m_pt,m_eta,m_iso",
-      "0:e_pt,e_eta,e_iso",
-      "0:e_pt,e_eta,e_iso",
-      "0:e_pt,e_eta,e_iso",
-      "0:e_pt,e_eta,e_iso",
+        "0:e_trg_binned_23_data",
+        "0:e_trg_binned_23_mc",
+        "0:e_trg_binned_12_data",
+        "0:e_trg_binned_12_mc",
+    ]
+    config["RooWorkspaceObjectArguments"] = [
+        "0:e_pt,e_eta,e_iso",
+        "0:e_pt,e_eta",
+        "0:e_pt,e_eta",
+        "1:m_pt,m_eta,m_iso",
+        "1:m_pt,m_eta",
+        "0:e_pt,e_eta,e_iso",
+        "0:e_pt,e_eta,e_iso",
+        "1:m_pt,m_eta,m_iso",
+        "1:m_pt,m_eta,m_iso",
+        "1:m_eta",
+        "1:m_pt,m_eta,m_iso",
+        "1:m_pt,m_eta,m_iso",
+        "1:m_pt,m_eta,m_iso",
+        "1:m_pt,m_eta,m_iso",
+        "0:e_pt,e_eta,e_iso",
+        "0:e_pt,e_eta,e_iso",
+        "0:e_pt,e_eta,e_iso",
+        "0:e_pt,e_eta,e_iso",
 
   ]
-  if re.search("Summer1", nickname):
-    config["TriggerEfficiencyData"] = [
-      "0:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/triggerWeights/triggerEfficiency_Run2016_Electron_Ele12leg_eff.root",
-      "0:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/triggerWeights/triggerEfficiency_Run2016_Electron_Ele23leg_eff.root",
-      "1:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/triggerWeights/triggerEfficiency_Run2016_Muon_Mu8leg_2016BtoH_eff.root",
-      "1:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/triggerWeights/triggerEfficiency_Run2016_Muon_Mu23leg_2016BtoH_eff.root"]
-    config["TriggerEfficiencyMc"] = [
-      "0:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/triggerWeights/triggerEfficiency_MC_Electron_Ele12leg_eff.root",
-      "0:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/triggerWeights/triggerEfficiency_MC_Electron_Ele23leg_eff.root",
-      "1:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/triggerWeights/triggerEfficiency_MC_Muon_Mu8leg_2016BtoH_eff.root",
-      "1:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/triggerWeights/triggerEfficiency_MC_Muon_Mu23leg_2016BtoH_eff.root"]
-    config["IdentificationEfficiencyData"] = [
-      "0:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/identificationWeights/identificationEfficiency_Run2016_Electron_IdIso_IsoLt0p15_eff.root",
-      "1:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/identificationWeights/identificationEfficiency_Run2016_Muon_IdIso_IsoLt0p2_2016BtoH_eff.root"]
-    config["IdentificationEfficiencyMc"] = [
-      "0:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/identificationWeights/identificationEfficiency_MC_Electron_IdIso_IsoLt0p15_eff.root",
-      "1:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/identificationWeights/identificationEfficiency_MC_Muon_IdIso_IsoLt0p2_2016BtoH_eff.root"]
-  elif re.search("Run201", nickname):
-    config["TriggerEfficiencyData"] = [
-      "0:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/triggerWeights/triggerEfficiency_dummy.root",
-      "0:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/triggerWeights/triggerEfficiency_dummy.root",
-      "1:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/triggerWeights/triggerEfficiency_dummy.root",
-      "1:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/triggerWeights/triggerEfficiency_dummy.root"]
-    config["TriggerEfficiencyMc"] = [
-      "0:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/triggerWeights/triggerEfficiency_dummy.root",
-      "0:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/triggerWeights/triggerEfficiency_dummy.root",
-      "1:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/triggerWeights/triggerEfficiency_dummy.root",
-      "1:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/triggerWeights/triggerEfficiency_dummy.root"]
-
-  config["TriggerEfficiencyMode"] = "correlate_triggers"
-  config["IdentificationEfficiencyMode"] = "multiply_weights"
   config["EventWeight"] = "eventWeight"
+  config["TopPtReweightingStrategy"] = "Run1"
 
-
-  config["TauTauRestFrameReco"] = "collinear_approximation"
-
-  config["ElectronTriggerFilterNames"] = [
-        "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v:hltMu8TrkIsoVVLEle23CaloIdLTrackIdLIsoVLElectronlegTrackIsoFilter",
-        "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v:hltMu8TrkIsoVVLEle23CaloIdLTrackIdLIsoVLDZFilter",
-        "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v:hltMu12TrkIsoVVLEle23CaloIdLTrackIdLIsoVLElectronlegTrackIsoFilter",
-        "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v:hltMu12TrkIsoVVLEle23CaloIdLTrackIdLIsoVLDZFilter",
-        "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v:hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLElectronlegTrackIsoFilter",
-        "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v:hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLDZFilter"
-      ]
-  config["MuonTriggerFilterNames"] = [
-        "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v:hltMuon8Ele23RelTrkIsoFiltered0p4MuonLeg,hltMu8TrkIsoVVLEle23CaloIdLTrackIdLIsoVLMuonlegL3IsoFiltered8",
-        "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v:hltMu8TrkIsoVVLEle23CaloIdLTrackIdLIsoVLDZFilter",
-        "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v:hltMu12TrkIsoVVLEle23CaloIdLTrackIdLIsoVLMuonlegL3IsoFiltered12",
-        "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v:hltMu12TrkIsoVVLEle23CaloIdLTrackIdLIsoVLDZFilter",
-        "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v:hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLMuonlegL3IsoFiltered23",
-        "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v:hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLDZFilter"
-      ]
-
-  config["InvalidateNonMatchingElectrons"] = False
-  config["InvalidateNonMatchingMuons"] = False
-  config["InvalidateNonMatchingTaus"] = False
-  config["InvalidateNonMatchingJets"] = False
-  config["DirectIso"] = True
-
+  ### Ntuple output quantities configuration
   config["Quantities"] =      importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.syncQuantities").build_list(minimal_setup=minimal_setup, isMC = (not isData) and (not isEmbedded))
   config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.lheWeights").build_list())
   config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.zptQuantities").build_list())
@@ -411,7 +376,6 @@ def build_config(nickname, **kwargs):
       "dPhiLep2Met",
       "dzeta"
   ])
-
   if isEmbedded:
     config["Quantities"].extend([
           "muonEffTrgWeight", "muonEffIDWeight_1","muonEffIDWeight_2",
@@ -440,9 +404,6 @@ def build_config(nickname, **kwargs):
       "em_qcd_osss_1jet_shapeup_Weight",
       "em_qcd_osss_1jet_shapedown_Weight",
       "em_qcd_extrap_uncert_Weight"])
-
-  config["OSChargeLeptons"] = True
-  config["TopPtReweightingStrategy"] = "Run2"
   if re.search("HToTauTauM125", nickname):
     config["Quantities"].extend([
       "htxs_stage0cat",
@@ -452,6 +413,7 @@ def build_config(nickname, **kwargs):
   if isGluonFusion:
     config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.ggHNNLOQuantities").build_list())
 
+  ### Processors & consumers configuration
   config["Processors"] = []
   config["Processors"].append( "producer:ElectronCorrectionsProducer")
   config["Processors"].extend((                               "producer:HttValidLooseElectronsProducer",
@@ -474,9 +436,7 @@ def build_config(nickname, **kwargs):
   if not (isData or isEmbedded): config["Processors"].append( "producer:TaggedJetCorrectionsProducer")
   config["Processors"].extend((                               "producer:ValidTaggedJetsProducer",
                                                               "producer:ValidBTaggedJetsProducer"))
-
   if btag_eff: config["ProcessorsBtagEff"] = copy.deepcp(config["Processors"])
-
   if not isData:                 config["Processors"].append( "producer:HttValidGenTausProducer")
   if not (isData or isEmbedded):           config["Processors"].append( "producer:MetCorrector")
   config["Processors"].extend((                               "producer:TauTauRestFrameSelector",
@@ -490,12 +450,8 @@ def build_config(nickname, **kwargs):
   config["Processors"].append( "producer:QCDFactorProducer")
   config["Processors"].append(                                "filter:MinimalPlotlevelFilter")
   config["Processors"].append(
-                                                              "producer:EventWeightProducer")#)
+                                                              "producer:EventWeightProducer")
   config["Processors"].append(                                "producer:SvfitProducer")
-
-  config["AddGenMatchedParticles"] = True
-  config["BranchGenMatchedElectrons"] = True
-  config["BranchGenMatchedMuons"] = True
   config["Consumers"] = ["KappaLambdaNtupleConsumer",
                          "cutflow_histogram"]
 
