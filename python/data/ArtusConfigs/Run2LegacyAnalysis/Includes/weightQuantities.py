@@ -38,6 +38,13 @@ def build_list(**kwargs):
         "isoWeight_2",
     ]
 
+    if kwargs["isMC"]:
+        quantities.extend([
+            "prefiringweight",
+            "prefiringweightup",
+            "prefiringweightdown"
+        ])
+
     if not minimal_setup:
         quantities.extend([
             "crossTriggerDataEfficiencyWeight_1",
