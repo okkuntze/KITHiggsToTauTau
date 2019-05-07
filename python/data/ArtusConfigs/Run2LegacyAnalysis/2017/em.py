@@ -49,7 +49,7 @@ def build_config(nickname, **kwargs):
   ]
   for include_file in includes:
     analysis_config_module = importlib.import_module(include_file)
-    config += analysis_config_module.build_config(nickname)
+    config += analysis_config_module.build_config(nickname, **kwargs)
 
   # explicit configuration
   config["Channel"] = "EM"
@@ -125,7 +125,7 @@ def build_config(nickname, **kwargs):
         "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v:hltMu12TrkIsoVVLEle23CaloIdLTrackIdLIsoVLDZFilter",
         "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v:hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLElectronlegTrackIsoFilter",
         "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v:hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLDZFilter"
-      ]
+  ]
   config["MuonTriggerFilterNames"] = [
         "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v:hltMuon8Ele23RelTrkIsoFiltered0p4MuonLeg,hltMu8TrkIsoVVLEle23CaloIdLTrackIdLIsoVLMuonlegL3IsoFiltered8",
         "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v:hltMu8TrkIsoVVLEle23CaloIdLTrackIdLIsoVLDZFilter",
@@ -133,7 +133,7 @@ def build_config(nickname, **kwargs):
         "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v:hltMu12TrkIsoVVLEle23CaloIdLTrackIdLIsoVLDZFilter",
         "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v:hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLMuonlegL3IsoFiltered23",
         "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v:hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLDZFilter"
-      ]
+  ]
 
   ### Signal pair selection configuration
   config["ElectronScaleAndSmearUsed"] = True# if not isEmbedded else False
@@ -184,8 +184,7 @@ def build_config(nickname, **kwargs):
           "0:trigger_23_embed_Weight",
           "0:trigger_12_data_Weight",
           "0:trigger_12_embed_Weight",
-
-          ]
+    ]
     config["EmbeddedWeightWorkspaceObjectNames"]=[
           "0:m_sel_trg_ratio",
           "0:m_sel_idEmb_ratio",
@@ -209,7 +208,7 @@ def build_config(nickname, **kwargs):
           "0:e_trg_binned_23_embed",
           "0:e_trg_binned_12_data",
           "0:e_trg_binned_12_embed",
-          ]
+    ]
     config["EmbeddedWeightWorkspaceObjectArguments"] = [
           "0:gt1_pt,gt1_eta,gt2_pt,gt2_eta",
           "0:gt_pt,gt_eta",
@@ -224,7 +223,6 @@ def build_config(nickname, **kwargs):
           "1:m_pt,m_eta,m_iso",
           "1:m_pt,m_eta,m_iso",
           "1:m_pt,m_eta,m_iso",
-
           "0:e_pt,e_eta,e_iso",
           "0:e_pt,e_eta",
           "0:e_pt,e_eta,e_iso",
@@ -233,7 +231,7 @@ def build_config(nickname, **kwargs):
           "0:e_pt,e_eta,e_iso",
           "0:e_pt,e_eta,e_iso",
           "0:e_pt,e_eta,e_iso",
-          ]
+    ]
   config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_2017_v1.root"
   config["QCDFactorWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_2017_v1.root"
   config["QCDFactorWorkspaceWeightNames"]=[
@@ -248,7 +246,6 @@ def build_config(nickname, **kwargs):
       "0:em_qcd_osss_1jet_ratedown_Weight",
       "0:em_qcd_osss_1jet_shapeup_Weight",
       "0:em_qcd_osss_1jet_shapedown_Weight",
-
       "0:em_qcd_extrap_uncert_Weight",
   ]
   config["QCDFactorWorkspaceObjectNames"] = [
@@ -263,7 +260,6 @@ def build_config(nickname, **kwargs):
       "0:em_qcd_osss_1jet_ratedown",
       "0:em_qcd_osss_1jet_shapeup",
       "0:em_qcd_osss_1jet_shapedown",
-
       "0:em_qcd_extrap_uncert",
   ]
   config["QCDFactorWorkspaceObjectArguments"] = [
@@ -278,7 +274,6 @@ def build_config(nickname, **kwargs):
       "0:e_pt,m_pt,dR,njets,iso",
       "0:e_pt,m_pt,dR,njets,iso",
       "0:e_pt,m_pt,dR,njets,iso",
-
       "0:e_pt,m_pt",
   ]
   if not isEmbedded:
@@ -350,7 +345,7 @@ def build_config(nickname, **kwargs):
   config["TopPtReweightingStrategy"] = "Run1"
 
   ### Ntuple output quantities configuration
-  config["Quantities"] =      importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.syncQuantities").build_list(minimal_setup=minimal_setup, isMC = (not isData) and (not isEmbedded))
+  config["Quantities"] =      importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.syncQuantities").build_list(minimal_setup=minimal_setup, isMC = (not isData) and (not isEmbedded), nickname = nickname)
   config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.lheWeights").build_list())
   config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.zptQuantities").build_list())
   config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Includes.weightQuantities").build_list())
@@ -369,7 +364,7 @@ def build_config(nickname, **kwargs):
       "mTdileptonMET",
       "mt_tt",
       "mTemu",
-      "mt_sv",
+  #    "mt_sv",
       "mt_max",
       "mtmax",
       "dPhiLep1Met",
@@ -390,7 +385,7 @@ def build_config(nickname, **kwargs):
            ])
     config["Quantities"].extend([
     "trigger_12_Weight_1","trigger_23_Weight_1","trigger_8_Weight_2","trigger_23_Weight_2"
-       ])
+    ])
   config["Quantities"].extend(["dr_tt", "pt_ttjj",
       "em_qcd_osss_binned_Weight",
       "em_qcd_extrap_up_Weight",
@@ -419,7 +414,6 @@ def build_config(nickname, **kwargs):
   config["Processors"].extend((                               "producer:HttValidLooseElectronsProducer",
                                                               "producer:HttValidLooseMuonsProducer",
                                                               "producer:HltProducer",
-                                                              "filter:HltFilter",
                                                               "producer:MetSelector",
                                                               "producer:ValidElectronsProducer",
                                                               "filter:ValidElectronsFilter",

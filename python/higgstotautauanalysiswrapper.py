@@ -42,6 +42,8 @@ class HiggsToTauTauAnalysisWrapper():
 				self._args.hashed_rootfiles_info_path = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/cache/Samples/Fall17v2"
 			elif '2018' in self._args.analysis:
 				self._args.hashed_rootfiles_info_path = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/cache/Samples/Autumn18"
+			elif 'Run2Legacy' in self._args.analysis:
+				self._args.hashed_rootfiles_info_path = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/cache/Samples/Run2Legacy"
 			else:
 				log.warning("--hashed-rootfiles-info-path wasn't defined and no default value is known")
 

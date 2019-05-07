@@ -8,12 +8,16 @@ log = logging.getLogger(__name__)
 import re
 import json
 import Artus.Utility.jsonTools as jsonTools
+import Kappa.Skimming.datasetsHelperTwopz as datasetsHelperTwopz
 import importlib
-#import Kappa.Skimming.datasetsHelperTwopz as datasetsHelperTwopz
+import os
 
 
 def build_list(**kwargs):
     minimal_setup = True if "minimal_setup" in kwargs and kwargs["minimal_setup"] else False
+    datasetsHelper = datasetsHelperTwopz.datasetsHelperTwopz(os.path.expandvars("$CMSSW_BASE/src/Kappa/Skimming/data/datasets.json"))
+    nickname = kwargs["nickname"]
+    year = datasetsHelper.base_dict[nickname]["year"]
 
     # quantities that are needed to run the analysis
     quantities = [
@@ -55,7 +59,7 @@ def build_list(**kwargs):
 
     quantities.extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.weightQuantities").build_list(minimal_setup=minimal_setup, isMC=kwargs["isMC"]))
     quantities.extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.idQuantities").build_list(minimal_setup=minimal_setup))
-    quantities.extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.trgQuantities").build_list(minimal_setup=minimal_setup))
+    quantities.extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.trgQuantities").build_list(minimal_setup=minimal_setup, year=year))
 
     if not minimal_setup:
         quantities.extend([
