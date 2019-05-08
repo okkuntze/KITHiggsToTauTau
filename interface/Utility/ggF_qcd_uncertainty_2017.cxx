@@ -63,13 +63,13 @@ NumV blptw(int Njets30) {
 }
 
 double vbf_2j(int STXS) {
-  if (STXS==101 || STXS == 102) return 0.200; // 20.0%
+  if (STXS==110 || STXS==111 || STXS==112 || STXS==113) return 0.200; // 20.0%; flags updated to stage1.1
   return 0.0; // Events with no VBF topology have no VBF uncertainty
 }
 
 double vbf_3j(int STXS) {
-  if (STXS==101) return -0.320; // GG2H_VBFTOPO_JET3VETO, tot unc 38%
-  if (STXS==102) return  0.235; // GG2H_VBFTOPO_JET3, tot unc 30.4%
+  if (STXS==110 || STXS==112) return -0.320; // GG2H_VBFTOPO_JET3VETO, tot unc 38%; flags updated to stage1.1 -> GG2H_MJJ_350_700_PTHJJ_0_25 + GG2H_MJJ_GT700_PTHJJ_0_25
+  if (STXS==111 || STXS==113) return  0.235; // GG2H_VBFTOPO_JET3, tot unc 30.4%; flags updated to stage1.1 -> GG2H_MJJ_350_700_PTHJJ_GT25 + GG2H_MJJ_GT700_PTHJJ_GT25
   return 0.0; // Events with no VBF topology have no VBF uncertainty
 }
 
