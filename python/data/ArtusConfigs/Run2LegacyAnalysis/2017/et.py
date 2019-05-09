@@ -413,7 +413,7 @@ def build_config(nickname, **kwargs):
   config["Processors"].extend((                               "producer:ValidTaggedJetsProducer",
                                                               "producer:ValidBTaggedJetsProducer"))
   if btag_eff: config["ProcessorsBtagEff"] = copy.deepcp(config["Processors"])
-  if not (isData or isEmbedded): config["Processors"].append( "producer:MetCorrector")
+  if not isEmbedded:             config["Processors"].append( "producer:MetCorrector")
   config["Processors"].extend((                               "producer:TauTauRestFrameSelector",
                                                               "producer:DiLeptonQuantitiesProducer",
                                                               "producer:DiJetQuantitiesProducer"))
