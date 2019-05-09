@@ -8,8 +8,8 @@ log = logging.getLogger(__name__)
 import re
 import json
 import Artus.Utility.jsonTools as jsonTools
-#import Kappa.Skimming.datasetsHelperTwopz as datasetsHelperTwopz
-#import os
+import Kappa.Skimming.datasetsHelperTwopz as datasetsHelperTwopz
+import os
 
 def build_config(nickname, **kwargs):
   config = jsonTools.JsonDict()
@@ -17,8 +17,8 @@ def build_config(nickname, **kwargs):
 
 
   # define frequently used conditions
-  #isEmbedded = datasetsHelper.isEmbedded(nickname)
-  #isData = datasetsHelper.isData(nickname) and (not isEmbedded)
+  isEmbedded = datasetsHelper.isEmbedded(nickname)
+  isData = datasetsHelper.isData(nickname) and (not isEmbedded)
   #isTTbar = re.search("TT(To|_|Jets)", nickname)
   #isDY = re.search("DY.?JetsToLL", nickname)
   #isWjets = re.search("W.?JetsToLNu", nickname)
@@ -34,7 +34,7 @@ def build_config(nickname, **kwargs):
     config += analysis_config_module.build_config(nickname)
 
   # explicit configuration
-  if re.search("Fall17|Embedding2017", nickname):
+  if isEmbedded:
     config["eleEsUp"] = {
       "ElectronEnergyCorrectionShiftEB" : 1.01,
       "ElectronEnergyCorrectionShiftEE" : 1.025,
@@ -45,6 +45,18 @@ def build_config(nickname, **kwargs):
       "ElectronEnergyCorrectionShiftEE" : 0.975,
       "SvfitCacheFileFolder" : "eleEsDown"
     }
-
+  if (not isData) and (not isEmbedded):
+    config["eleScaleUp"] = {
+      "ElectronScaleAndSmearTag" : "energyScaleUp"
+    }
+    config["eleScaleDown"] = {
+      "ElectronScaleAndSmearTag" : "energyScaleDown"
+    }
+    config["eleSmearUp"] = {
+      "ElectronScaleAndSmearTag" : "energySigmaUp"
+    }
+    config["eleSmearDown"] = {
+      "ElectronScaleAndSmearTag" : "energySigmaDown"
+    }
 
   return config

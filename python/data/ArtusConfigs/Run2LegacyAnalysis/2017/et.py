@@ -164,6 +164,7 @@ def build_config(nickname, **kwargs):
   config["TauID"] = "TauIDRecommendation13TeV"
   config["TauUseOldDMs"] = True
   config["ElectronScaleAndSmearUsed"] = False
+  config["ElectronScaleAndSmearTag"] = "ecalTrkEnergyPostCorr"
   config["ElectronLowerPtCuts"] = ["25.0"]
   config["ElectronUpperAbsEtaCuts"] = ["2.1"]
   config["TauLowerPtCuts"] = ["23.0"]

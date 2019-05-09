@@ -37,9 +37,10 @@ void HttElectronCorrectionsProducer::AdditionalCorrections(KElectron* electron, 
 	// Apply scale & smear corrections for electrons
 	if (static_cast<HttSettings const&>(settings).GetElectronScaleAndSmearUsed())
 	{
-			float corrected_energy = electron->getId("electronCorrection:ecalTrkEnergyPostCorr", event.m_electronMetadata);
+			float corrected_energy = electron->getId("electronCorrection:"+static_cast<HttSettings const&>(settings).GetElectronScaleAndSmearTag(), event.m_electronMetadata);
 			float correction_factor = corrected_energy/electron->p4.E();
 			electron->p4 = electron->p4 * correction_factor;
+                        
 			LOG(DEBUG) << "Applying scale & smear. Corrected energy: " << corrected_energy << " correction factor: " << correction_factor;
 	}
 	// Apply constant electron ES corrections
