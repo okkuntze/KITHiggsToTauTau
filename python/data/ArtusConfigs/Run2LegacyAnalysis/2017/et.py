@@ -388,17 +388,17 @@ def build_config(nickname, **kwargs):
     config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.ggHNNLOQuantities").build_list())
 
   ### Processors & consumers configuration
-  config["Processors"] =                                     [] if (isData) else ["producer:ElectronCorrectionsProducer"]
-  config["Processors"].extend((                               "producer:HttValidLooseElectronsProducer",
+  config["Processors"] =                                     ["producer:ElectronCorrectionsProducer",
+                                                              "producer:HttValidLooseElectronsProducer",
                                                               "producer:HttValidLooseMuonsProducer",
                                                               "producer:HltProducer",
-                                                              "producer:MetSelector"))
-  config["Processors"].extend((                               "producer:ValidElectronsProducer",
+                                                              "producer:MetSelector",
+                                                              "producer:ValidElectronsProducer",
                                                               "filter:ValidElectronsFilter",
                                                               "producer:ElectronTriggerMatchingProducer",
                                                               "filter:MinElectronsCountFilter",
                                                               "producer:HttValidVetoElectronsProducer",
-                                                              "producer:ValidMuonsProducer"))
+                                                              "producer:ValidMuonsProducer"]
   if not (isData): config["Processors"].append( "producer:TauCorrectionsProducer")
   if not isData:                 config["Processors"].append( "producer:HttValidGenTausProducer")
   config["Processors"].extend((                               "producer:ValidTausProducer",
