@@ -179,7 +179,7 @@ def build_config(nickname, **kwargs):
   config["Processors"].extend((                               "producer:HttValidLooseElectronsProducer",
                                                               "producer:HttValidLooseMuonsProducer",
                                                               "producer:HltProducer",
-                                                              "producer:MetSelector"))
+                                                              "producer:MetCollector"))
   if not (isData): config["Processors"].append( "producer:TauCorrectionsProducer")
   if not isData:                 config["Processors"].append( "producer:HttValidGenTausProducer")
   config["Processors"].extend((                               "producer:ValidTausProducer",
@@ -196,6 +196,7 @@ def build_config(nickname, **kwargs):
                                                               "producer:ValidBTaggedJetsProducer"))
   if btag_eff: config["ProcessorsBtagEff"] = copy.deepcp(config["Processors"])
   config["Processors"].extend((                               "producer:MetCorrector",
+                                                              "producer:PuppiMetCorrector",
                                                               "producer:SimpleEleTauFakeRateWeightProducer",
                                                               "producer:SimpleMuTauFakeRateWeightProducer"))
   if isTTbar:                    config["Processors"].append( "producer:TopPtReweightingProducer")

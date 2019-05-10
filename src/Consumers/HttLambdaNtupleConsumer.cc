@@ -116,6 +116,12 @@ void HttLambdaNtupleConsumer::Init(setting_type const& settings)
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("pfmetcov01", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["pfMetCov01"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("pfmetcov10", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["pfMetCov10"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("pfmetcov11", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["pfMetCov11"]);
+	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("puppimet", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["puppiMetPt"]);
+	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("puppimetphi", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["puppiMetPhi"]);
+	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("puppimetcov00", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["puppiMetCov00"]);
+	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("puppimetcov01", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["puppiMetCov01"]);
+	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("puppimetcov10", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["puppiMetCov10"]);
+	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("puppimetcov11", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["puppiMetCov11"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("mvamet", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["mvaMetPt"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("mvametphi", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["mvaMetPhi"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("mvacov00", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["mvaMetCov00"]);

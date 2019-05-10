@@ -11,6 +11,7 @@
 #include "HiggsAnalysis/KITHiggsToTauTau/interface/Producers/HttValidTausProducer.h"
 #include "HiggsAnalysis/KITHiggsToTauTau/interface/Producers/HttValidJetsProducer.h"
 #include "HiggsAnalysis/KITHiggsToTauTau/interface/Producers/MetSelectors.h"
+#include "HiggsAnalysis/KITHiggsToTauTau/interface/Producers/MetCollector.h"
 #include "HiggsAnalysis/KITHiggsToTauTau/interface/Producers/MetCorrectors.h"
 #include "HiggsAnalysis/KITHiggsToTauTau/interface/Producers/TTHTauPairProducer.h"
 #include "HiggsAnalysis/KITHiggsToTauTau/interface/Producers/DecayChannelProducer.h"
@@ -127,8 +128,12 @@ ProducerBaseUntemplated * HttFactory::createProducer(std::string const& id)
 		return new MvaMetEMSelector();
 	else if(id == MvaMetSelector().GetProducerId())
 		return new MvaMetSelector();
+	else if(id == MetCollector().GetProducerId())
+		return new MetCollector();
 	else if(id == MetCorrector().GetProducerId())
 		return new MetCorrector();
+	else if(id == PuppiMetCorrector().GetProducerId())
+		return new PuppiMetCorrector();
 	else if(id == MvaMetCorrector().GetProducerId())
 		return new MvaMetCorrector();
 	else if(id == TTHTauPairProducer().GetProducerId())

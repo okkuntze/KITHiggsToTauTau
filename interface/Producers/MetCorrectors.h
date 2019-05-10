@@ -358,8 +358,7 @@ public:
 				product.m_met = product.*m_metMemberCorrected;
 			}
 		}
-		
-		if (!apply_RC && settings.GetMetUncertaintyShift()) // If no other corrections are applied, use MET shifted by uncertainty if required by configuration TODO: if lepton corrections are applied, this is not accounted for ---> new Producer?
+		else if (!apply_RC && settings.GetMetUncertaintyShift()) // If no other corrections are applied, use MET shifted by uncertainty if required by configuration. Note that in case of correction this shift is already imported above.
 		{
 			(product.*m_metMemberCorrected).p4.SetPxPyPzE(
 				(product.*m_metMemberUncorrected)->p4_shiftedByUncertainties[m_metUncertaintyType].Px(),
@@ -373,7 +372,11 @@ public:
 		}
 		if (!apply_RC && settings.GetUseGroupedJetEnergyCorrectionUncertainty())
                 {
-                        product.m_met.p4 += product.m_MET_shift.p4;
+			(product.*m_metMemberCorrected).p4 += product.m_MET_shift.p4;
+			if (m_correctGlobalMet)
+			{
+				product.m_met = product.*m_metMemberCorrected;
+			}
                 }
             	LOG(DEBUG) << "Original MET (px,py): " << (product.*m_metMemberUncorrected)->p4.Px() << "," << (product.*m_metMemberUncorrected)->p4.Py() << " corrected MET (px,py): " << (product.*m_metMemberCorrected).p4.Px() << "," << (product.*m_metMemberCorrected).p4.Py();
 		
@@ -454,6 +457,17 @@ class MvaMetCorrector: public MetCorrectorBase<KMET>
 {
 public:
 	MvaMetCorrector();
+	virtual void Init(setting_type const& settings) override;
+	virtual std::string GetProducerId() const override;
+};
+
+/**
+   \brief Corrector for PuppiMET
+*/
+class PuppiMetCorrector: public MetCorrectorBase<KMET>
+{
+public:
+	PuppiMetCorrector();
 	virtual void Init(setting_type const& settings) override;
 	virtual std::string GetProducerId() const override;
 };

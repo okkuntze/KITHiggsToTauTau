@@ -107,3 +107,46 @@ std::string MvaMetCorrector::GetProducerId() const
 {
 	return "MvaMetCorrector";
 }
+
+PuppiMetCorrector::PuppiMetCorrector() :
+	MetCorrectorBase(&HttTypes::product_type::m_puppimetUncorr,
+			 &HttTypes::product_type::m_puppimet,
+			 &HttTypes::product_type::m_puppimetCorrections,
+			 &HttTypes::setting_type::GetMetRecoilCorrectorFile,
+			 &HttTypes::setting_type::GetMetShiftCorrectorFile,
+			 &HttTypes::setting_type::GetUpdateMetWithCorrectedLeptons,
+			 &HttTypes::setting_type::GetUpdateMetWithCorrectedLeptonsFromSignalOnly
+	)
+{
+}
+
+void PuppiMetCorrector::Init(setting_type const& settings)
+{
+	MetCorrectorBase<KMET>::Init(settings);
+	
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("uncorrmet_puppi", [](event_type const& event, product_type const& product) {
+		return product.m_puppimetUncorr->p4.Pt();
+	});
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("genpX_puppi", [](event_type const& event, product_type const& product) {
+		return product.m_puppimetCorrections[0];
+	});
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("genpY_puppi", [](event_type const& event, product_type const& product) {
+		return product.m_puppimetCorrections[1];
+	});
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("vispX_puppi", [](event_type const& event, product_type const& product) {
+		return product.m_puppimetCorrections[2];
+	});
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("vispY_puppi", [](event_type const& event, product_type const& product) {
+		return product.m_puppimetCorrections[3];
+	});
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("puppiMetCorr", [](event_type const& event, product_type const& product) {
+		return product.m_puppimet.p4.Pt();
+	});
+
+	m_correctGlobalMet = false;
+}
+
+std::string PuppiMetCorrector::GetProducerId() const
+{
+	return "PuppiMetCorrector";
+}

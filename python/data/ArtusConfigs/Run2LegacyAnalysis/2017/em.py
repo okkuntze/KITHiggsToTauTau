@@ -415,7 +415,7 @@ def build_config(nickname, **kwargs):
   config["Processors"].extend((                               "producer:HttValidLooseElectronsProducer",
                                                               "producer:HttValidLooseMuonsProducer",
                                                               "producer:HltProducer",
-                                                              "producer:MetSelector",
+                                                              "producer:MetCollector",
                                                               "producer:ValidElectronsProducer",
                                                               "filter:ValidElectronsFilter",
                                                               "producer:ElectronTriggerMatchingProducer",
@@ -434,6 +434,7 @@ def build_config(nickname, **kwargs):
   if btag_eff: config["ProcessorsBtagEff"] = copy.deepcp(config["Processors"])
   if not isData:                 config["Processors"].append( "producer:HttValidGenTausProducer")
   config["Processors"].extend((                               "producer:MetCorrector",
+                                                              "producer:PuppiMetCorrector",
                                                               "producer:TauTauRestFrameSelector",
                                                               "producer:DiLeptonQuantitiesProducer",
                                                               "producer:DiJetQuantitiesProducer"))

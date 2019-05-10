@@ -176,15 +176,17 @@ public:
 	std::map<HttEnumTypes::JetEnergyUncertaintyShiftName, std::vector<KJet*>> m_correctedBTaggedJetsBySplitUncertainty;
 
 	KMET* m_metUncorr = 0;
-	KMET* m_puppiMetUncorr = 0;
+	KMET* m_puppimetUncorr = 0;
 	KMET* m_pfmetUncorr = 0;
 	KMET* m_mvametUncorr = 0;
 
 	// filled by the MetCorrectors
 	std::vector<float> m_mvametCorrections;
 	std::vector<float> m_pfmetCorrections;
+	std::vector<float> m_puppimetCorrections;        
 	KMET m_met;
 	KMET m_pfmet;
+	KMET m_puppimet;
 	KMET m_mvamet;
 
 	// filled by the TauTauRestFrameProducer

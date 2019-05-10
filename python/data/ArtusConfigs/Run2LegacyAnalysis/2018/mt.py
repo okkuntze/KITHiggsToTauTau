@@ -339,7 +339,7 @@ def build_config(nickname, **kwargs):
   config["Processors"].extend((                               "producer:HttValidLooseElectronsProducer",
                                                               "producer:HttValidLooseMuonsProducer",
                                                               "producer:HltProducer",
-                                                              "producer:MetSelector",
+                                                              "producer:MetCollector",
                                                               "producer:ValidMuonsProducer",
                                                               "filter:ValidMuonsFilter",
                                                               "producer:MuonTriggerMatchingProducer",
@@ -361,6 +361,7 @@ def build_config(nickname, **kwargs):
                                                               "producer:ValidBTaggedJetsProducer"))
   if btag_eff: config["ProcessorsBtagEff"] = copy.deepcp(config["Processors"])
   config["Processors"].extend((                               "producer:MetCorrector",
+                                                              "producer:PuppiMetCorrector",
                                                               "producer:TauTauRestFrameSelector",
                                                               "producer:DiLeptonQuantitiesProducer",
                                                               "producer:DiJetQuantitiesProducer"))
