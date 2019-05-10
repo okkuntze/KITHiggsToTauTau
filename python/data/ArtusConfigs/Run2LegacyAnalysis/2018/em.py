@@ -439,8 +439,8 @@ def build_config(nickname, **kwargs):
                                                               "producer:ValidBTaggedJetsProducer"))
   if btag_eff: config["ProcessorsBtagEff"] = copy.deepcp(config["Processors"])
   if not isData:                 config["Processors"].append( "producer:HttValidGenTausProducer")
-  if not (isData or isEmbedded):           config["Processors"].append( "producer:MetCorrector")
-  config["Processors"].extend((                               "producer:TauTauRestFrameSelector",
+  config["Processors"].extend((                               "producer:MetCorrector",
+                                                              "producer:TauTauRestFrameSelector",
                                                               "producer:DiLeptonQuantitiesProducer",
                                                               "producer:DiJetQuantitiesProducer"))
   if isTTbar:                    config["Processors"].append( "producer:TopPtReweightingProducer")

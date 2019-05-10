@@ -296,8 +296,8 @@ def build_config(nickname, **kwargs):
   config["Processors"].extend((                               "producer:ValidTaggedJetsProducer",
                                                               "producer:ValidBTaggedJetsProducer"))
   if btag_eff: config["ProcessorsBtagEff"] = copy.deepcp(config["Processors"])
-  if not (isData or isEmbedded):  config["Processors"].append("producer:MetCorrector")
-  config["Processors"].extend((                               "producer:SimpleEleTauFakeRateWeightProducer",
+  config["Processors"].extend((                               "producer:MetCorrector",
+                                                              "producer:SimpleEleTauFakeRateWeightProducer",
                                                               "producer:SimpleMuTauFakeRateWeightProducer"))
   if isTTbar:                    config["Processors"].append( "producer:TopPtReweightingProducer")
   if isDY or isEmbedded:        config["Processors"].append( "producer:ZPtReweightProducer")
