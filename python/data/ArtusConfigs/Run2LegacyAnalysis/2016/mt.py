@@ -118,6 +118,10 @@ def build_config(nickname, **kwargs):
           "HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1_v:hltOverlapFilterSingleIsoMu19LooseIsoPFTau20"
   ]
   
+  ### Electron scale and smear corrections
+  config["ElectronScaleAndSmearUsed"] = True if not isEmbedded else False
+  config["ElectronScaleAndSmearTag"] = "ecalTrkEnergyPostCorr"
+
   ### Signal pair selection configuration
   config["TauID"] = "TauIDRecommendation13TeV"
   config["TauUseOldDMs"] = True

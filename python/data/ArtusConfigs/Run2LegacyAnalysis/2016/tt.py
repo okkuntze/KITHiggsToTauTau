@@ -104,6 +104,10 @@ def build_config(nickname, **kwargs):
       "HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_v:hltDoublePFTau35TrackPt1MediumCombinedIsolationDz02Reg"
   ]
 
+  ### Electron scale and smear corrections
+  config["ElectronScaleAndSmearUsed"] = True if not isEmbedded else False
+  config["ElectronScaleAndSmearTag"] = "ecalTrkEnergyPostCorr"
+
   ### Signal pair selection configuration
   config["TauID"] = "TauIDRecommendation13TeV"
   config["TauUseOldDMs"] = True
