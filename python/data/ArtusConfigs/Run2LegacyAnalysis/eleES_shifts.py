@@ -13,7 +13,7 @@ import os
 
 def build_config(nickname, **kwargs):
   config = jsonTools.JsonDict()
-  #datasetsHelper = datasetsHelperTwopz.datasetsHelperTwopz(os.path.expandvars("$CMSSW_BASE/src/Kappa/Skimming/data/datasets.json"))
+  datasetsHelper = datasetsHelperTwopz.datasetsHelperTwopz(os.path.expandvars("$CMSSW_BASE/src/Kappa/Skimming/data/datasets.json"))
 
 
   # define frequently used conditions
@@ -22,8 +22,6 @@ def build_config(nickname, **kwargs):
   #isTTbar = re.search("TT(To|_|Jets)", nickname)
   #isDY = re.search("DY.?JetsToLL", nickname)
   #isWjets = re.search("W.?JetsToLNu", nickname)
-  # TODO implement officially recommended Scale & Smear shifts
-
 
   ## fill config:
   # includes
