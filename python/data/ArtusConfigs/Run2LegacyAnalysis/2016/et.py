@@ -238,12 +238,16 @@ def build_config(nickname, **kwargs):
     pass
 
   # pipelines - systematic shifts
-  # needed pipelines: nominal tauESperDM_shifts tauEleFakeESperDM_shifts regionalJECunc_shifts METunc_shifts METrecoil_shifts btagging_shifts
+  needed_pipelines = ['nominal', 'tauESperDM_shifts', 'tauEleFakeESperDM_shifts', 'regionalJECunc_shifts', 'METunc_shifts', 'METrecoil_shifts', 'btagging_shifts']
   if pipelines is None:
       raise Exception("pipelines is None in %s" % (__file__))
+  elif 'auto' in pipelines:
+      pipelines = needed_pipelines
 
   return_conf = jsonTools.JsonDict()
   for pipeline in pipelines:
+      if pipeline not in needed_pipelines:
+          log.warning("Warning: pipeline NOT in the list of needed pipelines. Still adding it.")
       log.info('Add pipeline: %s' %(pipeline))
       return_conf += ACU.apply_uncertainty_shift_configs('et', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis." + pipeline).build_config(nickname, **kwargs))
   return return_conf
