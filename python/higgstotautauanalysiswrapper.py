@@ -393,11 +393,11 @@ class HiggsToTauTauAnalysisWrapper():
 						if self._args.n_events:
 							if self._args.hashed_rootfiles_info and entry in d:
 								fileevents = d[entry]
-								log.debug("hashed_data_path for " + entry + " : " + str(fileevents))
+								log.info("hashed_data_path for " + entry + " : " + str(fileevents))
 							else:
 								f = ROOT.TFile.Open(entry)
 								fileevents = f.Get("Events").GetEntries()
-								log.debug("Checking events that are not found in the cashes for " + str(entry) + " : " + str(fileevents))
+								log.info("Checking events that are not found in the cashes for " + str(entry) + " : " + str(fileevents))
 								f.Close()
 
 								if self._args.hashed_rootfiles_info and self._args.hashed_rootfiles_info_force:
