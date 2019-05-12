@@ -238,7 +238,7 @@ def build_config(nickname, **kwargs):
     pass
 
   # pipelines - systematic shifts
-  needed_pipelines = ['nominal', 'tauESperDM_shifts', 'tauEleFakeESperDM_shifts', 'regionalJECunc_shifts', 'METunc_shifts', 'METrecoil_shifts', 'btagging_shifts']
+  needed_pipelines = ['nominal', 'tauESperDM_shifts', 'tauEleFakeESperDM_shifts', 'regionalJECunc_shifts', 'METunc_shifts', 'METrecoil_shifts', 'btagging_shifts', 'eleES_shifts']
   if pipelines is None:
       raise Exception("pipelines is None in %s" % (__file__))
   elif 'auto' in pipelines:
