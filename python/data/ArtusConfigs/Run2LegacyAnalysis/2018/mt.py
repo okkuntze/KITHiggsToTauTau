@@ -396,7 +396,7 @@ def build_config(nickname, **kwargs):
     config["Quantities"].extend(["leadingTauEnergyAssymetry"])
 
   # pipelines - systematic shifts
-  needed_pipelines = ['nominal', 'tauESperDM_shifts', 'tauMuFakeESperDM_shifts', 'regionalJECunc_shifts', 'METunc_shifts', 'METrecoil_shifts', 'btagging_shifts', 'muonES_shifts']
+  needed_pipelines = ['nominal', 'tauESperDM_shifts', 'tauMuFakeESperDM_shifts', 'regionalJECunc_shifts', 'METunc_shifts', 'METrecoil_shifts', 'btagging_shifts']
   if pipelines is None:
       raise Exception("pipelines is None in %s" % (__file__))
   elif 'auto' in pipelines:
