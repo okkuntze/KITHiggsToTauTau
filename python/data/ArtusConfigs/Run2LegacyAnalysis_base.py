@@ -135,8 +135,10 @@ def build_config(nickname, **kwargs):
 
   if year == 2016:   config["MetRecoilCorrectorFile"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/recoilMet/TypeI-PFMet_Run2016BtoH.root"
   elif year == 2017: config["MetRecoilCorrectorFile"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/recoilMet/Type1_PFMET_2017.root"
-  elif year == 2018: config["MetRecoilCorrectorFile"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/recoilMet/Type1_PFMET_2017.root" #TODO replace with 2018 measurements
-  config["MetShiftCorrectorFile"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/recoilMet/PFMEtSys_2016.root" # for now, the same for all years #TODO replace with per-year measurements
+  elif year == 2018: config["MetRecoilCorrectorFile"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/recoilMet/TypeI-PFMet_Run2018.root"
+  if year == 2016:   config["MetShiftCorrectorFile"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/recoilMet/PFMEtSys_2016.root"
+  elif year == 2017: config["MetShiftCorrectorFile"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/recoilMet/MEtSys_2017.root"
+  elif year == 2018: config["MetShiftCorrectorFile"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/recoilMet/MEtSys_2017.root"
   config["MetCorrectionMethod"] = "none" if (isData  or isEmbedded) else "meanResolution"
   config["UpdateMetWithCorrectedLeptons"] = True
   config["UpdateMetWithCorrectedLeptonsFromSignalOnly"] = True
