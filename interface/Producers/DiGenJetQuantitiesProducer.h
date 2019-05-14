@@ -12,7 +12,9 @@ public:
 	typedef typename HttTypes::setting_type setting_type;
 
 	virtual std::string GetProducerId() const override;
-	
+	typedef std::function<double(RMDLV const&)> digenjet_extractor_lambda;
+	static double GetDiGenJetQuantity(product_type const& product,
+	                               digenjet_extractor_lambda digenjetQuantity);
 	virtual void Init(setting_type const& settings) override;
 
 	virtual void Produce(event_type const& event, product_type& product,
