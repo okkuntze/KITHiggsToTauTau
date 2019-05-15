@@ -15,7 +15,6 @@ import os
 
 def build_config(nickname, **kwargs):
 
-  #TODO: 1) update Jet ID's as recommended for year 2018
   config = jsonTools.JsonDict()
   datasetsHelper = datasetsHelperTwopz.datasetsHelperTwopz(os.path.expandvars("$CMSSW_BASE/src/Kappa/Skimming/data/datasets.json"))
   year = datasetsHelper.base_dict[nickname]["year"]
@@ -42,7 +41,7 @@ def build_config(nickname, **kwargs):
   config["JetLeptonLowerDeltaRCut"] = 0.5 
   if year in [2016,2018]: config["JetApplyEENoiseVeto"] = False
   elif year == 2017:
-    config["JetApplyEENoiseVeto"] = False #TODO: enable as soon as uncorrected P4 is available in skim
+    config["JetApplyEENoiseVeto"] = True
     config["JetApplyPUIDForEENoise"] = True
     config["JetPUIDForEENoiseName"] = "pileupJetIdUpdatedfullId"
     config["JetPUIDForEENoiseWP"] = "loose"
