@@ -39,11 +39,13 @@ def build_config(nickname, **kwargs):
   config["JetOfflineLowerPtCut"] = 30.0 # Used for non b jet quantities 
   config["JetUpperAbsEtaCuts"] = ["4.7"]
   config["JetLeptonLowerDeltaRCut"] = 0.5 
-  if year in [2016,2018]: config["JetApplyEENoiseVeto"] = False
+  config["JetPUIDForEENoiseName"] = "pileupJetIdUpdatedfullId"
+  config["JetPUIDForEENoiseWP"] = "loose"
+  if year in [2016,2018]:
+    config["JetApplyEENoiseVeto"] = False
+    config["JetApplyPUIDForEENoise"] = False
   elif year == 2017:
     config["JetApplyEENoiseVeto"] = True
     config["JetApplyPUIDForEENoise"] = True
-    config["JetPUIDForEENoiseName"] = "pileupJetIdUpdatedfullId"
-    config["JetPUIDForEENoiseWP"] = "loose"
 
   return config
