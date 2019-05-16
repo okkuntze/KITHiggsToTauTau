@@ -302,7 +302,7 @@ class HiggsToTauTauAnalysisWrapper():
 		                                 help="Use the hashed root-files info. "
 		                                 "Hashes have to be DELETED FIRST in case an update is needed and the path of the inputs is unchanged "
 		                                 "[Default: %(default)s]")
-		runningOptionsGroup.add_argument("--hashed-rootfiles-info-path", type=str,
+		runningOptionsGroup.add_argument("--hashed-rootfiles-info-path", type=str, default="",
 		                                 help="Path to root files info hashes. Also supporting srm:// pathes. [Default: %(default)s]")
 		runningOptionsGroup.add_argument("--hashed-rootfiles-info-force", action='store_true', default=False,
 		                                 help="Force to update the file that is set by hashed-rootfiles-info-path [Default: %(default)s]")

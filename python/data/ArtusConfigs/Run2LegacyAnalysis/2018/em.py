@@ -136,7 +136,7 @@ def build_config(nickname, **kwargs):
       ]
 
   ### Signal pair selection configuration
-  config["ElectronScaleAndSmearUsed"] = True if not isEmbedded else False
+  config["ElectronScaleAndSmearUsed"] = False
   config["ElectronScaleAndSmearTag"] = "ecalTrkEnergyPostCorr"
   config["ElectronLowerPtCuts"] = ["13.0"]
   config["ElectronUpperAbsEtaCuts"] = ["2.5"]

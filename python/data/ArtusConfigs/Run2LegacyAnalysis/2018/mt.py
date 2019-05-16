@@ -163,7 +163,7 @@ def build_config(nickname, **kwargs):
       ]
 
   ### Electron scale and smear corrections
-  config["ElectronScaleAndSmearUsed"] = True if not isEmbedded else False
+  config["ElectronScaleAndSmearUsed"] = False
   config["ElectronScaleAndSmearTag"] = "ecalTrkEnergyPostCorr"
 
   ### Signal pair selection configuration

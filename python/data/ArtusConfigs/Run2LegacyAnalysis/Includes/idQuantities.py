@@ -32,11 +32,6 @@ def build_list(**kwargs):
 
     if not minimal_setup:
         quantities.extend([
-            "ElectronMVAEstimatorRun2Fall17IsoV1Values_1",
-            "ElectronMVAEstimatorRun2Fall17IsoV1Values_2",
-            "ElectronMVAEstimatorRun2Fall17NoIsoV1Values_1",
-            "ElectronMVAEstimatorRun2Fall17NoIsoV1Values_2",
-
             "ElectronMVAEstimatorRun2Fall17IsoV2Values_1",
             "ElectronMVAEstimatorRun2Fall17IsoV2Values_2",
             "ElectronMVAEstimatorRun2Fall17NoIsoV2Values_1",
