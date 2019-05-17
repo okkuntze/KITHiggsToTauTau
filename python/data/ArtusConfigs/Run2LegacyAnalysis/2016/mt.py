@@ -143,25 +143,63 @@ def build_config(nickname, **kwargs):
   config["AddGenMatchedTauJets"] = True
   config["BranchGenMatchedMuons"] = True
   config["BranchGenMatchedTaus"] = True
+  if isEmbedded:
+    config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v16_12_embedded.root"
+    config["EmbeddedWeightWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v16_12_embedded.root"
+    config["EmbeddedWeightWorkspaceWeightNames"]=[
+          "0:muonEffTrgWeight",
+          "0:muonEffIDWeight",
+          "1:muonEffIDWeight",
+          
+          "1:MuTau_TauLeg_EmbeddedEfficiencyWeight",
+          "1:MuTau_TauLeg_DataEfficiencyWeight",
+          
+          "0:isoWeight",
+          "0:idWeight",
+          "0:triggerWeight"
+          ]
+    config["EmbeddedWeightWorkspaceObjectNames"]=[
+          "0:m_sel_trg_ratio",
+          "0:m_sel_idEmb_ratio",
+          "1:m_sel_idEmb_ratio",
+          
+          "1:t_TightIso_mt_emb",
+		      "1:t_genuine_TightIso_mt_data,t_fake_TightIso_mt_data",
+          
+          "0:m_iso_ratio",
+          "0:m_id_ratio",
+          "0:m_trg_ratio"
+          ]
+    config["EmbeddedWeightWorkspaceObjectArguments"] = [
+          "0:gt1_pt,gt1_eta,gt2_pt,gt2_eta",
+          "0:gt_pt,gt_eta",
+          "1:gt_pt,gt_eta",
+          
+          "1:t_pt,t_eta",
+          "1:t_pt,t_eta",
 
+          "0:m_pt,m_eta",
+          "0:m_pt,m_eta",
+          "0:m_pt,m_eta"]
+  else:
   ### Efficiencies & weights configuration
-  config["SaveRooWorkspaceTriggerWeightAsOptionalOnly"] = "true"
-  config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_sm_moriond_v2.root"
-  config["RooWorkspaceWeightNames"] = [
-    "0:triggerWeight_singleMu",
-    "0:idIsoWeight",
-    "0:trackWeight"
-  ]
-  config["RooWorkspaceObjectNames"] = [
-    "0:m_trgMu22OR_eta2p1_desy_ratio",
-    "0:m_idiso0p15_desy_ratio",
-    "0:m_trk_ratio"
-  ]
-  config["RooWorkspaceObjectArguments"] = [
-    "0:m_pt,m_eta",
-    "0:m_pt,m_eta",
-    "0:m_eta"
-  ]
+    config["SaveRooWorkspaceTriggerWeightAsOptionalOnly"] = "true"
+    config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_sm_moriond_v2.root"
+    config["RooWorkspaceWeightNames"] = [
+      "0:triggerWeight_singleMu",
+      "0:idIsoWeight",
+      "0:trackWeight"
+    ]
+    config["RooWorkspaceObjectNames"] = [
+      "0:m_trgMu22OR_eta2p1_desy_ratio",
+      "0:m_idiso0p15_desy_ratio",
+      "0:m_trk_ratio"
+    ]
+    config["RooWorkspaceObjectArguments"] = [
+      "0:m_pt,m_eta",
+      "0:m_pt,m_eta",
+      "0:m_eta"
+    ]
   config["SaveMuTauTriggerWeightAsOptionalOnly"] = "true"
   config["MuTauTriggerWeightWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_sm_moriond_v2.root"
   config["MuTauTriggerWeightWorkspaceWeightNames"] = [
@@ -200,6 +238,8 @@ def build_config(nickname, **kwargs):
       "triggerWeight_singleMu_1",
       "triggerWeight_muTauCross_1",
       "triggerWeight_muTauCross_2",
+      "MuTau_TauLeg_EmbeddedEfficiencyWeight_2",
+      "MuTau_TauLeg_DataEfficiencyWeight_2",
       "lep1ErrD0",
       "lep1ErrDz",
       "lep2ErrD0",
@@ -228,6 +268,16 @@ def build_config(nickname, **kwargs):
     ])
   if isGluonFusion:
     config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.ggHNNLOQuantities").build_list())
+
+  if isEmbedded:
+    config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.embeddedDecayModeWeightQuantities").build_list())
+    config["Quantities"].extend([
+      "muonEffTrgWeight",
+      "muonEffIDWeight_1",
+      "muonEffIDWeight_2",
+      # "crosstriggerWeight_1",
+      # "crosstriggerWeight_2"
+      ])  
 
   ### Processors & consumers configuration
   config["Processors"] =   []#                                  ["producer:MuonCorrectionsProducer"] if isEmbedded else []

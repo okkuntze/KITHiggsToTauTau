@@ -99,6 +99,9 @@ def build_config(nickname, **kwargs):
       "HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg:40.0",
       "HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg:40.0"
   ]
+  # if re.search("Run2016(B|C|D|E|F|G)", nickname): config["TauTriggerFilterNames"] = ["HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v:hltDoublePFTau35TrackPt1MediumIsolationDz02Reg"]
+  # elif re.search("Run2016H", nickname): config["TauTriggerFilterNames"] = ["HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_v:hltDoublePFTau35TrackPt1MediumCombinedIsolationDz02Reg"]
+  # else:
   config["TauTriggerFilterNames"] = [
       "HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v:hltDoublePFTau35TrackPt1MediumIsolationDz02Reg",
       "HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_v:hltDoublePFTau35TrackPt1MediumCombinedIsolationDz02Reg"
@@ -127,18 +130,52 @@ def build_config(nickname, **kwargs):
   config["AddGenMatchedTauJets"] = True
   config["BranchGenMatchedTaus"] = True
 
-  ### Efficiencies & weights configuration
-  config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_sm_moriond_v2.root"
-  config["TauTauTriggerWeightWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_sm_moriond_v2.root"
-  config["TauTauTriggerWeightWorkspaceWeightNames"] = [
-      "0:triggerWeight",
-      "1:triggerWeight"]
-  config["TauTauTriggerWeightWorkspaceObjectNames"] = [
-      "0:t_genuine_TightIso_tt_ratio,t_fake_TightIso_tt_ratio",
-      "1:t_genuine_TightIso_tt_ratio,t_fake_TightIso_tt_ratio"]
-  config["TauTauTriggerWeightWorkspaceObjectArguments"] = [
-      "0:t_pt,t_dm",
-      "1:t_pt,t_dm"]
+  if isEmbedded:
+    config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v16_12_embedded.root"
+    config["EmbeddedWeightWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v16_12_embedded.root"
+    config["EmbeddedWeightWorkspaceWeightNames"]=[
+          "0:muonEffTrgWeight",
+          "0:triggerWeight",
+          "1:triggerWeight",
+          "0:TriggerEmbeddedEfficiencyWeight",
+          "1:TriggerEmbeddedEfficiencyWeight",
+          "0:TriggerDataEfficiencyWeight",
+          "1:TriggerDataEfficiencyWeight",
+          #~ "0:doubleTauTrgWeight"                 
+          ]
+    config["EmbeddedWeightWorkspaceObjectNames"]=[
+          "0:m_sel_trg_ratio",
+          "0:t_TightIso_tt_emb_ratio",
+          "1:t_TightIso_tt_emb_ratio",
+          "0:t_TightIso_tt_emb",
+          "1:t_TightIso_tt_emb",
+          "0:t_genuine_TightIso_tt_data,t_fake_TightIso_tt_data",
+          "1:t_genuine_TightIso_tt_data,t_fake_TightIso_tt_data",
+          #~ "0:doubletau_corr"
+          ]
+    config["EmbeddedWeightWorkspaceObjectArguments"] = [
+          "0:gt1_pt,gt1_eta,gt2_pt,gt2_eta",
+          "0:t_pt,t_dm",
+          "1:t_pt,t_dm",
+          "0:t_pt,t_dm",
+          "1:t_pt,t_dm",
+          "0:t_pt,t_dm",
+          "1:t_pt,t_dm",
+          #~ "0:dR"
+          ]
+  else:
+    ### Efficiencies & weights configuration
+    config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_sm_moriond_v2.root"
+    config["TauTauTriggerWeightWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_sm_moriond_v2.root"
+    config["TauTauTriggerWeightWorkspaceWeightNames"] = [
+        "0:triggerWeight",
+        "1:triggerWeight"]
+    config["TauTauTriggerWeightWorkspaceObjectNames"] = [
+        "0:t_genuine_TightIso_tt_ratio,t_fake_TightIso_tt_ratio",
+        "1:t_genuine_TightIso_tt_ratio,t_fake_TightIso_tt_ratio"]
+    config["TauTauTriggerWeightWorkspaceObjectArguments"] = [
+        "0:t_pt,t_dm",
+        "1:t_pt,t_dm"]
   config["EventWeight"] = "eventWeight"
   config["TopPtReweightingStrategy"] = "Run1"
 
@@ -164,6 +201,16 @@ def build_config(nickname, **kwargs):
       "flagMETFilter",
       "pt_ttjj"
   ])
+  if isEmbedded:
+    config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.embeddedDecayModeWeightQuantities").build_list())
+    config["Quantities"].extend([
+          "muonEffTrgWeight",
+          "TriggerEmbeddedEfficiencyWeight_1",
+          "TriggerEmbeddedEfficiencyWeight_2",
+          "TriggerDataEfficiencyWeight_1",
+          "TriggerDataEfficiencyWeight_2",
+          "doubleTauTrgWeight", #"trg_doubletau"
+]) 
   if re.search("HToTauTauM125", nickname):
     config["Quantities"].extend([
       "htxs_stage0cat",

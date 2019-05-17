@@ -123,26 +123,55 @@ def build_config(nickname, **kwargs):
   config["AddGenMatchedTauJets"] = True
   config["BranchGenMatchedElectrons"] = True
   config["BranchGenMatchedTaus"] = True
-
-  ### Efficiencies & weights configuration
-  config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_sm_moriond_v2.root"
-  config["RooWorkspaceWeightNames"] = [
-    "0:triggerWeight",
-    "0:idIsoWeight",
-    "0:trackWeight"
-  ]
-  config["RooWorkspaceObjectNames"] = [
-    "0:e_trgEle25eta2p1WPTight_desy_ratio",
-    "0:e_idiso0p1_desy_ratio",
-    "0:e_trk_ratio"
-  ]
-  config["RooWorkspaceObjectArguments"] = [
-    "0:e_pt,e_eta",
-    "0:e_pt,e_eta",
-    "0:e_pt,e_eta"
-  ]
   config["EventWeight"] = "eventWeight"
   config["TopPtReweightingStrategy"] = "Run1"
+
+  if isEmbedded:
+      config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v16_12_embedded.root"
+      config["EmbeddedWeightWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v16_12_embedded.root"
+      config["EmbeddedWeightWorkspaceWeightNames"]=[
+            "0:muonEffTrgWeight",
+            "0:muonEffIDWeight",
+            "1:muonEffIDWeight",
+            "0:isoWeight",
+            "0:idWeight",
+            "0:triggerWeight"
+            ]
+      config["EmbeddedWeightWorkspaceObjectNames"]=[
+            "0:m_sel_trg_ratio",
+            "0:m_sel_idEmb_ratio",
+            "1:m_sel_idEmb_ratio",
+            "0:e_iso_ratio",
+            "0:e_id_ratio",
+            "0:e_trg_ratio"
+            ]
+      config["EmbeddedWeightWorkspaceObjectArguments"] = [
+            "0:gt1_pt,gt1_eta,gt2_pt,gt2_eta",
+            "0:gt_pt,gt_eta",
+            "1:gt_pt,gt_eta",
+            "0:e_pt,e_eta",
+            "0:e_pt,e_eta",
+            "0:e_pt,e_eta"
+  ]
+  else:
+    ### Efficiencies & weights configuration
+    config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_sm_moriond_v2.root"
+    config["RooWorkspaceWeightNames"] = [
+      "0:triggerWeight",
+      "0:idIsoWeight",
+      "0:trackWeight"
+    ]
+    config["RooWorkspaceObjectNames"] = [
+      "0:e_trgEle25eta2p1WPTight_desy_ratio",
+      "0:e_idiso0p1_desy_ratio",
+      "0:e_trk_ratio"
+    ]
+    config["RooWorkspaceObjectArguments"] = [
+      "0:e_pt,e_eta",
+      "0:e_pt,e_eta",
+      "0:e_pt,e_eta"
+    ]
+  
   
   ### Ntuple output quantities configuration
   config["Quantities"] =      importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.syncQuantities").build_list(isMC = (not isData) and (not isEmbedded), nickname = nickname)
@@ -168,6 +197,13 @@ def build_config(nickname, **kwargs):
       "flagMETFilter",
       "pt_ttjj"
   ])
+  if isEmbedded:
+   config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.embeddedDecayModeWeightQuantities").build_list())
+   config["Quantities"].extend([
+     "muonEffTrgWeight",
+     "muonEffIDWeight_1",
+     "muonEffIDWeight_2"
+     ]) 
   if re.search("HToTauTauM125", nickname):
     config["Quantities"].extend([
       "htxs_stage0cat",
