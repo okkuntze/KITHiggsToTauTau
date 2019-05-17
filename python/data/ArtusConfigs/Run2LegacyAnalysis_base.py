@@ -87,6 +87,8 @@ def build_config(nickname, **kwargs):
         "Flag_BadPFMuonFilter",
         # "Flag_BadChargedCandidateFilter",   # not recommended, under review
   ]
+  if year == 2016 and isEmbedded:
+    config["MetFilterToFlag"].remove("Flag_BadPFMuonFilter") # as the 2016 embedded samples dont have this filter
   if isData:
     config["MetFilterToFlag"].extend((
         "Flag_eeBadScFilter",
