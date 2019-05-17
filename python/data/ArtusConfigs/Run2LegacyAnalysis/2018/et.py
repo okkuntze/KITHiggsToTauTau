@@ -199,7 +199,7 @@ def build_config(nickname, **kwargs):
   config["BranchGenMatchedTaus"] = True
 
   ### Efficiencies & weights configuration
-  config["TauTrigger2017Input"] = "$CMSSW_BASE/src/TauAnalysisTools/TauTriggerSFs/data/tauTriggerEfficiencies2017.root"
+  config["TauTrigger2017Input"] = "$CMSSW_BASE/src/TauAnalysisTools/TauTriggerSFs/data/tauTriggerEfficiencies2018.root"
   config["TauTrigger"] = "etau"
   config["TauTrigger2017WorkingPoints"] = [
        "vloose",
