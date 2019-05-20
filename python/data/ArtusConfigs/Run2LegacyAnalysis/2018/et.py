@@ -224,13 +224,6 @@ def build_config(nickname, **kwargs):
           "0:muonEffIDWeight",
           "1:muonEffIDWeight",
 
-          "0:crossTriggerMCEfficiencyWeight",
-          "0:crossTriggerDataEfficiencyWeight",
-
-          "0:singleTriggerMCEfficiencyWeightKIT",
-          "0:singleTriggerDataEfficiencyWeightKIT",
-          "0:singleTriggerEmbeddedEfficiencyWeightKIT",
-
           "0:crossTriggerEmbeddedWeight",
           "1:crossTriggerEmbeddedWeight",
           "1:muon_crossTriggerEmbeddedWeight",
@@ -251,20 +244,12 @@ def build_config(nickname, **kwargs):
           "0:m_sel_idEmb_ratio",
           "1:m_sel_idEmb_ratio",
 
-          "0:e_trg_EleTau_Ele24Leg_desy_mc",
-          "0:e_trg_EleTau_Ele24Leg_desy_data",
-
-          "0:e_trg27_trg35_kit_mc",
-          "0:e_trg27_trg35_kit_data",
-          "0:e_trg27_trg35_kit_embed",
-
           "0:e_trg_EleTau_Ele24Leg_embed_kit_ratio",
           "1:et_emb_LooseChargedIsoPFTau30_kit_ratio",
           "1:mt_emb_LooseChargedIsoPFTau27_kit_ratio",
 
           "0:e_iso_binned_embed_kit_ratio",
           "0:e_id90_embed_kit_ratio",
-
           "0:e_trg27_trg35_embed_kit_ratio",
           "0:e_trg27_trg32_embed_kit_ratio",
           "0:e_trg32_trg35_embed_kit_ratio",
@@ -280,19 +265,11 @@ def build_config(nickname, **kwargs):
           "1:gt_pt,gt_eta",
 
           "0:e_pt,e_eta",
-          "0:e_pt,e_eta",
-
-          "0:e_pt,e_eta",
-          "0:e_pt,e_eta",
-          "0:e_pt,e_eta",
-
-          "0:e_pt,e_eta",
           "1:t_pt",
           "1:t_pt",
 
           "0:e_pt,e_eta,e_iso",
           "0:e_pt,e_eta",
-
           "0:e_pt,e_eta",
           "0:e_pt,e_eta",
           "0:e_pt,e_eta",
@@ -366,10 +343,6 @@ def build_config(nickname, **kwargs):
       "had_gen_match_pT_2",
       "flagMETFilter",
       "pt_ttjj",
-      "singleTriggerMCEfficiencyWeightKIT_35_1",
-      "singleTriggerDataEfficiencyWeightKIT_35_1",
-      "singleTriggerMCEfficiencyWeightKIT_27or35_1",
-      "singleTriggerDataEfficiencyWeightKIT_27or35_1",
       "trigger_27_35_Weight_1","trigger_27_32_32fb_Weight_1","trigger_27_32_Weight_1",
       "trigger_27_35_Weight_1",
       "trigger_27_32_Weight_1",

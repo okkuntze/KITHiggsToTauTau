@@ -134,7 +134,7 @@ def build_config(nickname, **kwargs):
     config["MuonTriggerFilterNames"] = [
             "HLT_IsoMu24_v:hltL3crIsoL1sSingleMu22L1f0L2f10QL3f24QL3trkIsoFiltered0p07",
             "HLT_IsoMu27_v:hltL3crIsoL1sMu22Or25L1f0L2f10QL3f27QL3trkIsoFiltered0p07",
-            "HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1_v:hltL3crIsoL1sSingleMu22L1f0L2f10QL3f24QL3trkIsoFiltered0p07",
+            "HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1_v:hltL3crIsoBigORMu18erTauXXer2p1L1f0L2f10QL3f20QL3trkIsoFiltered0p07",
             "HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_CrossL1_v:hltL3crIsoL1sSingleMu22L1f0L2f10QL3f24QL3trkIsoFiltered0p07"
       ]
     config["TauTriggerFilterNames"] = [
@@ -147,9 +147,9 @@ def build_config(nickname, **kwargs):
     config["MuonTriggerFilterNames"] = [
             "HLT_IsoMu24_v:hltL3crIsoL1sSingleMu22L1f0L2f10QL3f24QL3trkIsoFiltered0p07",
             "HLT_IsoMu27_v:hltL3crIsoL1sMu22Or25L1f0L2f10QL3f27QL3trkIsoFiltered0p07",
-            "HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1_v:hltL3crIsoL1sSingleMu22L1f0L2f10QL3f24QL3trkIsoFiltered0p07",#hltL3crIsoBigORMu18erTauXXer2p1L1f0L2f10QL3f20QL3trkIsoFiltered0p07",
+            "HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1_v:hltL3crIsoBigORMu18erTauXXer2p1L1f0L2f10QL3f20QL3trkIsoFiltered0p07",
             "HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1_v:hltOverlapFilterIsoMu20LooseChargedIsoPFTau27L1Seeded",
-            "HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_CrossL1_v:hltL3crIsoL1sSingleMu22L1f0L2f10QL3f24QL3trkIsoFiltered0p07",#hltL3crIsoBigORMu18erTauXXer2p1L1f0L2f10QL3f20QL3trkIsoFiltered0p07",
+            "HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_CrossL1_v:hltL3crIsoBigORMu18erTauXXer2p1L1f0L2f10QL3f20QL3trkIsoFiltered0p07",
             "HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_CrossL1_v:hltHpsOverlapFilterIsoMu20LooseChargedIsoPFTau27L1Seeded"
 
       ]
@@ -216,15 +216,14 @@ def build_config(nickname, **kwargs):
           "0:muonEffIDWeight",
           "1:muonEffIDWeight",
 
-          "0:crossTriggerMCEfficiencyWeight",
-          "0:crossTriggerDataEfficiencyWeight",
           "0:crossTriggerEmbeddedWeight",
-          "0:crossTriggerDataEfficiencyWeightKIT",
-          "0:crossTriggerEmbeddingEfficiencyWeightKIT",
+          "0:crossTriggerDataEfficiencyWeight",
+          "0:crossTriggerEmbeddedEfficiencyWeight",
           "1:crossTriggerEmbeddedWeight",
 
           "0:isoWeight",
           "0:idWeight",
+
           "0:trigger_24_Weight",
           "0:trigger_27_Weight",
           "0:trigger_24_27_Weight"
@@ -234,8 +233,6 @@ def build_config(nickname, **kwargs):
           "0:m_sel_idEmb_ratio",
           "1:m_sel_idEmb_ratio",
 
-          "0:m_trg_MuTau_Mu20Leg_desy_mc",
-          "0:m_trg_MuTau_Mu20Leg_desy_data",
           "0:m_trg_MuTau_Mu20Leg_embed_kit_ratio",
           "0:m_trg_MuTau_Mu20Leg_kit_data",
           "0:m_trg_MuTau_Mu20Leg_kit_embed",
@@ -253,8 +250,6 @@ def build_config(nickname, **kwargs):
           "0:gt_pt,gt_eta",
           "1:gt_pt,gt_eta",
 
-          "0:m_pt,m_eta",
-          "0:m_pt,m_eta",
           "0:m_pt,m_eta",
           "0:m_pt,m_eta",
           "0:m_pt,m_eta",
@@ -276,14 +271,16 @@ def build_config(nickname, **kwargs):
 
           "0:isoWeight",
           "0:idWeight",
+
           "0:trigger_24_Weight",
           "0:trigger_27_Weight",
           "0:trigger_24_27_Weight"
           ]
     config["RooWorkspaceObjectNames"]=[
-          "0:m_trg_MuTau_Mu20Leg_desy_mc",
-          "0:m_trg_MuTau_Mu20Leg_desy_data",
+          "0:m_trg_MuTau_Mu20Leg_kit_mc",
+          "0:m_trg_MuTau_Mu20Leg_kit_data",
           "0:m_trg_MuTau_Mu20Leg_kit_ratio",
+
           "0:m_iso_binned_kit_ratio",
           "0:m_id_kit_ratio",
 
@@ -322,7 +319,7 @@ def build_config(nickname, **kwargs):
   if isEmbedded:
     config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.embeddedDecayModeWeightQuantities").build_list())
     config["Quantities"].extend([
-           "muonEffTrgWeight", "muonEffIDWeight_1","muonEffIDWeight_2", "crossTriggerEmbeddedWeight_1", "crossTriggerEmbeddedWeight_2", "crossTriggerDataEfficiencyWeightKIT_1","crossTriggerEmbeddingEfficiencyWeightKIT_1"
+           "muonEffTrgWeight", "muonEffIDWeight_1","muonEffIDWeight_2", "crossTriggerEmbeddedWeight_1", "crossTriggerEmbeddedWeight_2", "crossTriggerDataEfficiencyWeight_1","crossTriggerEmbeddedEfficiencyWeight_1", "crossTriggerMCEfficiencyWeight_1", "crossTriggerMCWeight_1"
           ])
   if re.search("HToTauTauM125", nickname):
     config["Quantities"].extend([
