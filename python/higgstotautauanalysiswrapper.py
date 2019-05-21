@@ -391,7 +391,7 @@ class HiggsToTauTauAnalysisWrapper():
 
 					if not alreadyInGridControl:
 						fileevents = 1
-						if self._args.n_events:
+						if self._args.n_events and self._args.batch:
 							if self._args.hashed_rootfiles_info and entry in d:
 								fileevents = d[entry]
 								log.info("hashed_data_path for " + entry + " : " + str(fileevents))
