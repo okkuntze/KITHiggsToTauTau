@@ -313,13 +313,14 @@ class HiggsToTauTauAnalysisWrapper():
 		analysis_configs_dict = {
 			'SM' : 'HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2Analysis_base',
 			'sm' : 'HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2Analysis_base',
+			'pu' : 'HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2PileUpReweighting2017_base',
 			'MSSM' : 'HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM_base',
 			'mssm' : 'HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM_base',
 			'mssm2017' : 'HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017_base',
 			'MSSM2017' : 'HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017_base',
-                        'mssm2018' : 'HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018_base',
-                        'MSSM2018' : 'HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018_base',
-                        'legacy' : 'HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis_base'                        
+            'mssm2018' : 'HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018_base',
+            'MSSM2018' : 'HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018_base',
+            'legacy' : 'HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis_base'                        
 		}
 		# check whether analysis arg is known. If not it is assumed to be a import path.
 		if self._args.analysis in analysis_configs_dict:
