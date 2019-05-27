@@ -135,7 +135,9 @@ def build_config(nickname):
       "nLooseElectrons",
       "nLooseMuons",
       "nDiTauPairCandidates",
-      "nAllDiTauPairCandidates"
+      "nAllDiTauPairCandidates",
+      "idIsoWeight_1",
+      "idIsoWeight_2"
   ])
   
   config["OSChargeLeptons"] = True

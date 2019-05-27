@@ -291,7 +291,6 @@ def build_config(nickname, **kwargs):
       #"drel0_2",
       #"drelZ_1",
       #"drelZ_2",
-      "idisoweight_1",
       "idWeight_1",
       "isoWeight_1",
       "idWeight_2",

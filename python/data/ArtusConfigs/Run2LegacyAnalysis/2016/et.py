@@ -193,7 +193,7 @@ def build_config(nickname, **kwargs):
       #"drel0_2",
       #"drelZ_1",
       #"drelZ_2",
-      "idisoweight_1",
+      "idIsoWeight_1",
       "flagMETFilter",
       "pt_ttjj"
   ])
