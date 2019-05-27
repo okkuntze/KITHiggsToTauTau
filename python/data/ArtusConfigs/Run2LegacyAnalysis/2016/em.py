@@ -302,7 +302,6 @@ def build_config(nickname, **kwargs):
       "pZetaMiss",
       "mt_tt",
       "flagMETFilter",
-      "pt_ttjj",
       "mt_tot"
   ])
   config["Quantities"].extend([
@@ -341,7 +340,7 @@ def build_config(nickname, **kwargs):
     config["Quantities"].extend([
     "trigger_12_Weight_1","trigger_23_Weight_1","trigger_8_Weight_2","trigger_23_Weight_2"
     ])
-  config["Quantities"].extend(["pt_ttjj",
+  config["Quantities"].extend([
       "em_qcd_osss_binned_Weight",
       "em_qcd_extrap_up_Weight",
       "em_qcd_extrap_down_Weight",

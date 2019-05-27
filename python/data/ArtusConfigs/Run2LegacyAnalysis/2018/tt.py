@@ -257,8 +257,7 @@ def build_config(nickname, **kwargs):
   config["Quantities"].extend([
       "had_gen_match_pT_1",
       "had_gen_match_pT_2",
-      "flagMETFilter",
-      "pt_ttjj"
+      "flagMETFilter"
   ])
   if isEmbedded:
     config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.embeddedDecayModeWeightQuantities").build_list())

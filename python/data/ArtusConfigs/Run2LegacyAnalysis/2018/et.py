@@ -342,7 +342,6 @@ def build_config(nickname, **kwargs):
       "had_gen_match_pT_1",
       "had_gen_match_pT_2",
       "flagMETFilter",
-      "pt_ttjj",
       "trigger_27_35_Weight_1","trigger_27_32_32fb_Weight_1","trigger_27_32_Weight_1",
       "trigger_27_35_Weight_1",
       "trigger_27_32_Weight_1",

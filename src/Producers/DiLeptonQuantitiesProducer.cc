@@ -75,6 +75,18 @@ void DiLeptonQuantitiesProducer::Init(setting_type const& settings)
 	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("diLepMetMass", [](event_type const& event, product_type const& product) {
 		return product.m_diLeptonPlusMetSystem.mass();
 	});
+        LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("diLepPuppiMetPt", [](event_type const& event, product_type const& product) {
+		return product.m_diLeptonPlusPuppiMetSystem.Pt();
+	});
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("diLepPuppiMetEta", [](event_type const& event, product_type const& product) {
+		return product.m_diLeptonPlusPuppiMetSystem.Eta();
+	});
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("diLepPuppiMetPhi", [](event_type const& event, product_type const& product) {
+		return product.m_diLeptonPlusPuppiMetSystem.Phi();
+	});
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("diLepPuppiMetMass", [](event_type const& event, product_type const& product) {
+		return product.m_diLeptonPlusPuppiMetSystem.mass();
+	});
 	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("dPhiLep1Met", [](event_type const& event, product_type const& product) {
 		return ROOT::Math::VectorUtil::DeltaPhi(product.m_flavourOrderedLeptons[0]->p4, product.m_met.p4);
 	});
@@ -105,6 +117,12 @@ void DiLeptonQuantitiesProducer::Init(setting_type const& settings)
 	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("dzeta", [](event_type const& event, product_type const& product) {
 		return product.pZetaMissVis;
 	});
+        LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("pZetaPuppiMiss", [](event_type const& event, product_type const& product) {
+		return product.pZetaPuppiMiss;
+	});
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("pZetaPuppiMissVis", [](event_type const& event, product_type const& product) {
+		return product.pZetaPuppiMissVis;
+	});
 }
 
 void DiLeptonQuantitiesProducer::Produce(event_type const& event, product_type& product,
@@ -115,6 +133,7 @@ void DiLeptonQuantitiesProducer::Produce(event_type const& event, product_type& 
 	
 	product.m_diLeptonSystem = (product.m_flavourOrderedLeptons[0]->p4 + product.m_flavourOrderedLeptons[1]->p4);
 	product.m_diLeptonPlusMetSystem = (product.m_diLeptonSystem + product.m_met.p4);
+        product.m_diLeptonPlusPuppiMetSystem = (product.m_diLeptonSystem + product.m_puppimet.p4);
 	
 	product.m_diLeptonGenSystemFound = true;
 	product.m_diTauGenSystemFound = true;
@@ -180,4 +199,8 @@ void DiLeptonQuantitiesProducer::Produce(event_type const& event, product_type& 
 	                                             product.m_met.p4, 0.0);
 	product.pZetaMissVis = Quantities::PZetaMissVis(product.m_flavourOrderedLeptons[0]->p4, product.m_flavourOrderedLeptons[1]->p4,
 	                                                product.m_met.p4, 0.85);
+        product.pZetaPuppiMiss = Quantities::PZetaMissVis(product.m_flavourOrderedLeptons[0]->p4, product.m_flavourOrderedLeptons[1]->p4,
+	                                             product.m_puppimet.p4, 0.0);
+	product.pZetaPuppiMissVis = Quantities::PZetaMissVis(product.m_flavourOrderedLeptons[0]->p4, product.m_flavourOrderedLeptons[1]->p4,
+	                                                product.m_puppimet.p4, 0.85);
 }

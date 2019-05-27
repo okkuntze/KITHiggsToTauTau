@@ -102,6 +102,7 @@ public:
 	// filled by the DiLeptonQuantitiesProducer
 	RMFLV m_diLeptonSystem;
 	RMFLV m_diLeptonPlusMetSystem;
+	RMFLV m_diLeptonPlusPuppiMetSystem;
 	RMFLV m_diLeptonGenSystem;
 	bool m_diLeptonGenSystemFound = false;
 	RMFLV m_diTauGenSystem;
@@ -147,6 +148,8 @@ public:
 	double pZetaVis = 0.0;
 	double pZetaMiss = 0.0;
 	double pZetaMissVis = 0.0;
+	double pZetaPuppiMiss = 0.0;
+	double pZetaPuppiMissVis = 0.0;
         double deltaR = 0.0;
 
 	// filled by the SvfitProducer

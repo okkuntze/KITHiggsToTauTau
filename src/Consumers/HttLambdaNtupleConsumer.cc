@@ -69,6 +69,10 @@ void HttLambdaNtupleConsumer::Init(setting_type const& settings)
 	{
 		return sqrt(pow(SafeMap::Get(LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities(),std::string("mt_tt"))(event,product),2)+pow(SafeMap::Get(LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities(),std::string("lep1MetMt"))(event,product),2)+pow(SafeMap::Get(LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities(),std::string("lep2MetMt"))(event,product),2));
 	});
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("mt_tot_puppi", [](event_type const& event, product_type const& product)
+	{
+		return sqrt(pow(SafeMap::Get(LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities(),std::string("mt_tt"))(event,product),2)+pow(SafeMap::Get(LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities(),std::string("lep1PuppiMetMt"))(event,product),2)+pow(SafeMap::Get(LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities(),std::string("lep2PuppiMetMt"))(event,product),2));
+	});
 
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("m_vis", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["diLepMass"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("mvis", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["diLepMass"]);
@@ -76,6 +80,9 @@ void HttLambdaNtupleConsumer::Init(setting_type const& settings)
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("H_pt", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["diLepMetPt"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("H_mass", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["diLepMetMass"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("pt_tt", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["diLepMetPt"]);
+	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("H_pt_puppi", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["diLepPuppiMetPt"]);
+	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("H_mass_puppi", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["diLepPuppiMetMass"]);
+	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("pt_tt_puppi", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["diLepPuppiMetPt"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("pt_1", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["lep1Pt"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("e_1", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["lep1E"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("eta_1", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["lep1Eta"]);
@@ -90,6 +97,7 @@ void HttLambdaNtupleConsumer::Init(setting_type const& settings)
 
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("iso_1", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["lep1IsoOverPt"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("mt_1", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["lep1MetMt"]);
+	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("mt_1_puppi", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["lep1PuppiMetMt"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("pt_2", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["lep2Pt"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("e_2", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["lep2E"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("eta_2", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["lep2Eta"]);
@@ -104,6 +112,7 @@ void HttLambdaNtupleConsumer::Init(setting_type const& settings)
 
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("iso_2", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["lep2IsoOverPt"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("mt_2", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["lep2MetMt"]);
+	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("mt_2_puppi", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["lep2PuppiMetMt"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("met", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["metPt"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("metphi", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["metPhi"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("metcov00", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["metCov00"]);
@@ -130,6 +139,8 @@ void HttLambdaNtupleConsumer::Init(setting_type const& settings)
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("mvacov11", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["mvaMetCov11"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("pzetavis", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["pZetaVis"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("pzetamiss", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["pZetaMiss"]);
+	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("pzetavis_puppi", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["pZetaVis"]);
+	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("pzetamiss_puppi", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["pZetaMiss"]);
 	
 	LambdaNtupleConsumer<KappaTypes>::AddRMFLVQuantity("jlv_1", LambdaNtupleConsumer<KappaTypes>::GetRMFLVQuantities()["leadingJetLV"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("jpt_1", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["leadingJetPt"]);
@@ -319,6 +330,10 @@ void HttLambdaNtupleConsumer::Init(setting_type const& settings)
         LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("pt_ttjj", [](event_type const& event, product_type const& product)
         {
                 return product.m_diJetSystemAvailable ? (product.m_diLeptonPlusMetSystem + product.m_diJetSystem).Pt() : DefaultValues::UndefinedFloat;
+        });
+        LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("pt_ttjj_puppi", [](event_type const& event, product_type const& product)
+        {
+                return product.m_diJetSystemAvailable ? (product.m_diLeptonPlusPuppiMetSystem + product.m_diJetSystem).Pt() : DefaultValues::UndefinedFloat;
         });
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("prefiringweight", [](KappaEvent const& event, KappaProduct const& product)
         {

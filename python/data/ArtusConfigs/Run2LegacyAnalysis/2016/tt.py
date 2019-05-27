@@ -198,8 +198,7 @@ def build_config(nickname, **kwargs):
       #"drel0_2",
       #"drelZ_1",
       #"drelZ_2",
-      "flagMETFilter",
-      "pt_ttjj"
+      "flagMETFilter"
   ])
   if isEmbedded:
     config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.embeddedDecayModeWeightQuantities").build_list())

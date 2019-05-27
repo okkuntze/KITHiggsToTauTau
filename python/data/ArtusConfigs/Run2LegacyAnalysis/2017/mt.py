@@ -305,7 +305,6 @@ def build_config(nickname, **kwargs):
       "had_gen_match_pT_1",
       "had_gen_match_pT_2",
       "flagMETFilter",
-      "pt_ttjj",
       "trigger_24_Weight_1", "trigger_27_Weight_1", "trigger_24_27_Weight_1"
   ])
   if isEmbedded:
