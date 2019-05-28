@@ -73,7 +73,7 @@ def build_config(nickname, **kwargs):
   ]
   config["CheckLepton1TriggerMatch"] = [
           "trg_singleelectron",
-          "trg_singlemuon_raw",
+          "trg_singlemuon",
 
           "trg_mutaucross",
           "trg_doubletau",
@@ -88,10 +88,10 @@ def build_config(nickname, **kwargs):
   ]
   config["HLTBranchNames"] = [
           "trg_singleelectron:HLT_Ele25_eta2p1_WPTight_Gsf_v",
-          "trg_singlemuon_raw:HLT_IsoMu22_v",
-          "trg_singlemuon_raw:HLT_IsoTkMu22_v",
-          "trg_singlemuon_raw:HLT_IsoMu22_eta2p1_v",
-          "trg_singlemuon_raw:HLT_IsoTkMu22_eta2p1_v",
+          "trg_singlemuon:HLT_IsoMu22_v",
+          "trg_singlemuon:HLT_IsoTkMu22_v",
+          "trg_singlemuon:HLT_IsoMu22_eta2p1_v",
+          "trg_singlemuon:HLT_IsoTkMu22_eta2p1_v",
           "trg_mutaucross:HLT_IsoMu19_eta2p1_LooseIsoPFTau20_v",
           "trg_mutaucross:HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1_v",
           "trg_doubletau:HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v",

@@ -15,7 +15,7 @@ def build_list(**kwargs):
     if year == 2016:
         quantities = [
             "trg_singleelectron",
-            "trg_singlemuon_raw",
+            "trg_singlemuon",
             
             "trg_mutaucross",
             "trg_doubletau",
