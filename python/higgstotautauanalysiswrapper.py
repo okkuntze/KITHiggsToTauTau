@@ -686,8 +686,8 @@ class HiggsToTauTauAnalysisWrapper():
 		if self._args.sub_analysis != "":
 			epilogArguments += (" --sub-analysis %s " % self._args.sub_analysis)
 		epilogArguments += (" --analysis-channels %s " % " ".join(self._args.analysis_channels))
-		if self._args.no_svfit:
-			epilogArguments += (" --no-svfit ")
+		if self._args.svfit:
+			epilogArguments += (" --svfit ")
 		if self._args.pipelines is not None:
 			epilogArguments += (" --pipelines %s " % " ".join(self._args.pipelines))
 
