@@ -68,8 +68,8 @@ def build_config(nickname, **kwargs):
           "HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1"
   ]
   config["DiTauPairLepton1LowerPtCuts"] = [
-          "HLT_IsoMu24_v:25.0",
-          "HLT_IsoTkMu24_v:25.0"
+          "HLT_IsoMu22_v:23.0",
+          "HLT_IsoTkMu22_v:23.0"
   ]
   config["CheckLepton1TriggerMatch"] = [
           "trg_singleelectron",
@@ -233,7 +233,6 @@ def build_config(nickname, **kwargs):
       "nLooseMuons",
       "nDiTauPairCandidates",
       "nAllDiTauPairCandidates",
-      "trg_singlemuon",
       "trg_mutaucross",
       "triggerWeight_singleMu_1",
       "triggerWeight_muTauCross_1",
@@ -249,15 +248,16 @@ def build_config(nickname, **kwargs):
       #"drel0_1",
       #"drel0_2",
       #"drelZ_1",
-      #"drelZ_2",
       "idIsoWeight_1",
-      "flagMETFilter"
+      "flagMETFilter",
+      "pt_ttjj",
       #"prefire_weight",
       #"prefire_weight_up",
       #"prefire_weight_down",
       #"prefire_weight_2017",
       #"prefire_weight_2017_up",
       #"prefire_weight_2017_down"
+      "trg_singlemuon"
   ])
   if re.search("HToTauTauM125", nickname):
     config["Quantities"].extend([

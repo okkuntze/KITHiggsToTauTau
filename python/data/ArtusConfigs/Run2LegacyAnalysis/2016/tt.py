@@ -99,13 +99,12 @@ def build_config(nickname, **kwargs):
       "HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg:40.0",
       "HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg:40.0"
   ]
-  # if re.search("Run2016(B|C|D|E|F|G)", nickname): config["TauTriggerFilterNames"] = ["HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v:hltDoublePFTau35TrackPt1MediumIsolationDz02Reg"]
-  # elif re.search("Run2016H", nickname): config["TauTriggerFilterNames"] = ["HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_v:hltDoublePFTau35TrackPt1MediumCombinedIsolationDz02Reg"]
-  # else:
-  config["TauTriggerFilterNames"] = [
+  if re.search("Run2016(B|C|D|E|F|G)", nickname): config["TauTriggerFilterNames"] = ["HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v:hltDoublePFTau35TrackPt1MediumIsolationDz02Reg"]
+  elif re.search("Run2016H", nickname): config["TauTriggerFilterNames"] = ["HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_v:hltDoublePFTau35TrackPt1MediumCombinedIsolationDz02Reg"]
+  else: config["TauTriggerFilterNames"] = [
       "HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v:hltDoublePFTau35TrackPt1MediumIsolationDz02Reg",
       "HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_v:hltDoublePFTau35TrackPt1MediumCombinedIsolationDz02Reg"
-  ]
+    ]
 
   ### Electron scale and smear corrections
   config["ElectronScaleAndSmearUsed"] = True if not isEmbedded else False
@@ -135,6 +134,9 @@ def build_config(nickname, **kwargs):
     config["EmbeddedWeightWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v16_12_embedded.root"
     config["EmbeddedWeightWorkspaceWeightNames"]=[
           "0:muonEffTrgWeight",
+          "0:muonEffIDWeight",
+          "1:muonEffIDWeight",
+
           "0:triggerWeight",
           "1:triggerWeight",
           "0:TriggerEmbeddedEfficiencyWeight",
@@ -145,6 +147,9 @@ def build_config(nickname, **kwargs):
           ]
     config["EmbeddedWeightWorkspaceObjectNames"]=[
           "0:m_sel_trg_ratio",
+          "0:m_sel_idEmb_ratio",
+          "1:m_sel_idEmb_ratio",
+
           "0:t_TightIso_tt_emb_ratio",
           "1:t_TightIso_tt_emb_ratio",
           "0:t_TightIso_tt_emb",
@@ -155,6 +160,9 @@ def build_config(nickname, **kwargs):
           ]
     config["EmbeddedWeightWorkspaceObjectArguments"] = [
           "0:gt1_pt,gt1_eta,gt2_pt,gt2_eta",
+          "0:gt_pt,gt_eta",
+          "1:gt_pt,gt_eta",
+          
           "0:t_pt,t_dm",
           "1:t_pt,t_dm",
           "0:t_pt,t_dm",
