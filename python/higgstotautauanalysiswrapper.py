@@ -205,7 +205,7 @@ class HiggsToTauTauAnalysisWrapper():
 		self._parser.add_argument("--tau-es-method", '--tes-m', dest='tau_es_method', default='classical', choices=['classical', 'gamma'], type=str, help="TES method to be applied. [Default: %(default)s]")
 
 		self._parser.add_argument("-c", "--analysis-channels", default=['all'], nargs='+', type=str, choices=['all', 'mt', 'tt', 'et', 'ee', 'em', 'mm'], help="List of channels processed from the analysis. [Default: %(default)s]")
-		self._parser.add_argument("--no-svfit", default=False, action="store_true", help="Disable SVfit. Default: %(default)s]")
+		self._parser.add_argument("--svfit", default=False, action="store_true", help="Enable SVfit. Default: %(default)s]")
 		self._parser.add_argument("--pipelines", default=["nominal"], type=str, nargs='*', action='store',
 			choices=[
 				'nominal', 'tauESperDM_shifts', 'regionalJECunc_shifts', 'tauEleFakeESperDM_shifts', 'METunc_shifts', 'METrecoil_shifts', 'eleES_shifts', 'muonES_shifts', 'btagging_shifts',
@@ -339,7 +339,7 @@ class HiggsToTauTauAnalysisWrapper():
 			nickname,
 			sub_analysis=self._args.sub_analysis,
 			analysis_channels=self._args.analysis_channels,
-			no_svfit=self._args.no_svfit,
+			no_svfit= not self._args.svfit,
 			pipelines=self._args.pipelines,
 			etau_fake_es_group=self._args.etau_fake_es_group,
 			tau_es_charged=self._args.tau_es_charged,
