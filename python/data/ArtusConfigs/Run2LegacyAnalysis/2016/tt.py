@@ -57,9 +57,19 @@ def build_config(nickname, **kwargs):
   config["MinNTaus"] = 2
 
   ### HLT & Trigger Object configuration
-  config["HltPaths"] = [
-    "HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg",
-    "HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg",
+
+  config["HLTBranchNames"] = [
+    "trg_singleelectron:HLT_Ele25_eta2p1_WPTight_Gsf_v",
+    "trg_singlemuon:HLT_IsoMu22_v",
+    "trg_singlemuon:HLT_IsoTkMu22_v",
+    "trg_singlemuon:HLT_IsoMu22_eta2p1_v",
+    "trg_singlemuon:HLT_IsoTkMu22_eta2p1_v",
+    "trg_mutaucross:HLT_IsoMu19_eta2p1_LooseIsoPFTau20_v",
+    "trg_mutaucross:HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1_v",
+    "trg_muonelectron_mu23ele12:HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v",
+    "trg_muonelectron_mu23ele12:HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v",
+    "trg_muonelectron_mu8ele23:HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v",
+    "trg_muonelectron_mu8ele23:HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_v",
   ]
   config["CheckLepton1TriggerMatch"] = [
     "trg_singleelectron",
@@ -76,35 +86,36 @@ def build_config(nickname, **kwargs):
     "trg_muonelectron_mu23ele12",
     "trg_muonelectron_mu8ele23",
   ]
-  config["HLTBranchNames"] = [
-    "trg_singleelectron:HLT_Ele25_eta2p1_WPTight_Gsf_v",
-    "trg_singlemuon:HLT_IsoMu22_v",
-    "trg_singlemuon:HLT_IsoTkMu22_v",
-    "trg_singlemuon:HLT_IsoMu22_eta2p1_v",
-    "trg_singlemuon:HLT_IsoTkMu22_eta2p1_v",
-    "trg_mutaucross:HLT_IsoMu19_eta2p1_LooseIsoPFTau20_v",
-    "trg_mutaucross:HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1_v"
+  # split by run for data as the doubletau trigger path changes 
+  if re.search("Run2016(B|C|D|E|F|G)", nickname): 
+    config["TauTriggerFilterNames"] = ["HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v:hltDoublePFTau35TrackPt1MediumIsolationDz02Reg"]
+    config["HltPaths"] = ["HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg"]
+    config["HLTBranchNames"].append("trg_doubletau:HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v")
+    config["DiTauPairLepton1LowerPtCuts"] = ["HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg:40.0"]
+    config["DiTauPairLepton2LowerPtCuts"] = ["HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg:40.0"]
+  elif re.search("Run2016H", nickname): 
+    config["TauTriggerFilterNames"] = ["HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_v:hltDoublePFTau35TrackPt1MediumCombinedIsolationDz02Reg"]
+    config["HltPaths"] = ["HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg"]
+    config["HLTBranchNames"].append("trg_doubletau:HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_v")
+    config["DiTauPairLepton1LowerPtCuts"] = ["HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg:40.0"]
+    config["DiTauPairLepton2LowerPtCuts"] = ["HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg:40.0"]
+  else: 
+    config["TauTriggerFilterNames"] = [
+    "HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v:hltDoublePFTau35TrackPt1MediumIsolationDz02Reg",
+    "HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_v:hltDoublePFTau35TrackPt1MediumCombinedIsolationDz02Reg"]
+    config["HltPaths"] = [
+    "HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg",
+    "HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg"]
+    config["HLTBranchNames"].extend((
     "trg_doubletau:HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v",
-    "trg_doubletau:HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_v",
-    "trg_muonelectron_mu23ele12:HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v",
-    "trg_muonelectron_mu23ele12:HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v",
-    "trg_muonelectron_mu8ele23:HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v",
-    "trg_muonelectron_mu8ele23:HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_v",
-  ]
-  config["DiTauPairLepton1LowerPtCuts"] = [
-      "HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg:40.0",
-      "HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg:40.0"
-  ]
-  config["DiTauPairLepton2LowerPtCuts"] = [
-      "HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg:40.0",
-      "HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg:40.0"
-  ]
-  if re.search("Run2016(B|C|D|E|F|G)", nickname): config["TauTriggerFilterNames"] = ["HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v:hltDoublePFTau35TrackPt1MediumIsolationDz02Reg"]
-  elif re.search("Run2016H", nickname): config["TauTriggerFilterNames"] = ["HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_v:hltDoublePFTau35TrackPt1MediumCombinedIsolationDz02Reg"]
-  else: config["TauTriggerFilterNames"] = [
-      "HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v:hltDoublePFTau35TrackPt1MediumIsolationDz02Reg",
-      "HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_v:hltDoublePFTau35TrackPt1MediumCombinedIsolationDz02Reg"
-    ]
+    "trg_doubletau:HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_v"))
+    config["DiTauPairLepton1LowerPtCuts"] = [
+    "HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg:40.0",
+    "HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg:40.0"]
+    config["DiTauPairLepton2LowerPtCuts"] = [
+    "HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg:40.0",
+    "HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg:40.0"]
+    
 
   ### Electron scale and smear corrections
   config["ElectronScaleAndSmearUsed"] = True if not isEmbedded else False
@@ -173,8 +184,8 @@ def build_config(nickname, **kwargs):
           ]
   else:
     ### Efficiencies & weights configuration
-    config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_sm_moriond_v2.root"
-    config["TauTauTriggerWeightWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_sm_moriond_v2.root"
+    config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_legacy_v16_1.root"
+    config["TauTauTriggerWeightWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_legacy_v16_1.root"
     config["TauTauTriggerWeightWorkspaceWeightNames"] = [
         "0:triggerWeight",
         "1:triggerWeight"]
@@ -216,6 +227,8 @@ def build_config(nickname, **kwargs):
           "TriggerEmbeddedEfficiencyWeight_2",
           "TriggerDataEfficiencyWeight_1",
           "TriggerDataEfficiencyWeight_2",
+          "muonEffIDWeight_1",
+          "muonEffIDWeight_2",
           "doubleTauTrgWeight", #"trg_doubletau"
 ]) 
   if re.search("HToTauTauM125", nickname):
