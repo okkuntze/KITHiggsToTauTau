@@ -155,21 +155,21 @@ def build_config(nickname, **kwargs):
   ]
   else:
     ### Efficiencies & weights configuration
-    config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_sm_moriond_v2.root"
+    config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_legacy_v16_1.root"
     config["RooWorkspaceWeightNames"] = [
-      "0:triggerWeight",
+      "0:triggerWeight_singleEl",
       "0:idIsoWeight",
-      "0:trackWeight"
+      #"0:trackWeight"
     ]
     config["RooWorkspaceObjectNames"] = [
-      "0:e_trgEle25eta2p1WPTight_desy_ratio",
-      "0:e_idiso0p1_desy_ratio",
-      "0:e_trk_ratio"
+      "0:e_trgEle25_desy_ratio",
+      "0:e_idiso_desy_ratio",
+      #"0:e_trk_ratio"
     ]
     config["RooWorkspaceObjectArguments"] = [
       "0:e_pt,e_eta",
       "0:e_pt,e_eta",
-      "0:e_pt,e_eta"
+      #"0:e_pt,e_eta"
     ]
   
   
@@ -183,6 +183,7 @@ def build_config(nickname, **kwargs):
       "nDiTauPairCandidates",
       "nAllDiTauPairCandidates",
       "trg_singleelectron",
+      "triggerWeight_singleEl_1",
       "lep1ErrD0",
       "lep1ErrDz",
       "lep2ErrD0",

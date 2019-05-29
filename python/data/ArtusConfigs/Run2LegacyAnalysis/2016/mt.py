@@ -182,38 +182,31 @@ def build_config(nickname, **kwargs):
           "0:m_pt,m_eta",
           "0:m_pt,m_eta"]
   else:
-  ### Efficiencies & weights configuration
+  ## Efficiencies & weights configuration
     config["SaveRooWorkspaceTriggerWeightAsOptionalOnly"] = "true"
-    config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_sm_moriond_v2.root"
+    config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_legacy_v16_1.root"
     config["RooWorkspaceWeightNames"] = [
       "0:triggerWeight_singleMu",
       "0:idIsoWeight",
-      "0:trackWeight"
-    ]
+
+      "0:triggerWeight_muTauCross",
+    #  "1:triggerWeight_muTauCross"
+      ]
     config["RooWorkspaceObjectNames"] = [
-      "0:m_trgMu22OR_eta2p1_desy_ratio",
-      "0:m_idiso0p15_desy_ratio",
-      "0:m_trk_ratio"
+      "0:m_trgIsoMu22_desy_ratio",
+      "0:m_idiso_desy_ratio",
+
+      "0:m_trgMu19leg_eta2p1_desy_ratio",
+     # "1:t_genuine_TightIso_mt_ratio,t_fake_TightIso_mt_ratio"
     ]
     config["RooWorkspaceObjectArguments"] = [
       "0:m_pt,m_eta",
       "0:m_pt,m_eta",
-      "0:m_eta"
+
+      "0:m_pt,m_eta",
+      #"1:t_pt,t_eta"
     ]
-  config["SaveMuTauTriggerWeightAsOptionalOnly"] = "true"
-  config["MuTauTriggerWeightWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_sm_moriond_v2.root"
-  config["MuTauTriggerWeightWorkspaceWeightNames"] = [
-    "0:triggerWeight_muTauCross",
-    "1:triggerWeight_muTauCross"
-  ]
-  config["MuTauTriggerWeightWorkspaceObjectNames"] = [
-    "0:m_trgMu19leg_eta2p1_desy_ratio",
-    "1:t_genuine_TightIso_mt_ratio,t_fake_TightIso_mt_ratio"
-  ]
-  config["MuTauTriggerWeightWorkspaceObjectArguments"] = [
-    "0:m_pt,m_eta",
-    "1:t_pt,t_eta"
-  ]
+
   config["TriggerEfficiencyData"] = ["0:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/triggerWeights/triggerEfficiency_Run2016_Muon_Mu22OR_eta2p1_eff.root"]
   config["TriggerEfficiencyMc"] = ["0:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/triggerWeights/triggerEfficiency_MC_Muon_Mu22OR_eta2p1_eff.root"]
   config["IdentificationEfficiencyData"] = ["0:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/identificationWeights/identificationEfficiency_Run2016_Muon_IdIso_IsoLt0p15_2016BtoH_eff.root"]
@@ -233,10 +226,10 @@ def build_config(nickname, **kwargs):
       "nLooseMuons",
       "nDiTauPairCandidates",
       "nAllDiTauPairCandidates",
-      "trg_mutaucross",
       "triggerWeight_singleMu_1",
+      "idIsoWeight_1",
       "triggerWeight_muTauCross_1",
-      "triggerWeight_muTauCross_2",
+     # "triggerWeight_muTauCross_2",
       "MuTau_TauLeg_EmbeddedEfficiencyWeight_2",
       "MuTau_TauLeg_DataEfficiencyWeight_2",
       "lep1ErrD0",
@@ -248,16 +241,12 @@ def build_config(nickname, **kwargs):
       #"drel0_1",
       #"drel0_2",
       #"drelZ_1",
-      "idIsoWeight_1",
-      "flagMETFilter",
-      "pt_ttjj",
+      "trg_singlemuon"
       #"prefire_weight",
-      #"prefire_weight_up",
       #"prefire_weight_down",
       #"prefire_weight_2017",
       #"prefire_weight_2017_up",
       #"prefire_weight_2017_down"
-      "trg_singlemuon"
   ])
   if re.search("HToTauTauM125", nickname):
     config["Quantities"].extend([
@@ -316,7 +305,7 @@ def build_config(nickname, **kwargs):
   if isDY:                       config["Processors"].append( "producer:ZPtReweightProducer")
   config["Processors"].append(                                "filter:MinimalPlotlevelFilter")
   if not isData and not isEmbedded:                 config["Processors"].append( "producer:RooWorkspaceWeightProducer")
-  if not isData and not isEmbedded:                 config["Processors"].append( "producer:MuTauTriggerWeightProducer")
+  #if not isData and not isEmbedded:                 config["Processors"].append( "producer:MuTauTriggerWeightProducer")
   if isEmbedded:                 config["Processors"].append( "producer:EmbeddedWeightProducer")
   if isEmbedded:                 config["Processors"].append( "producer:TauDecayModeWeightProducer")
 
