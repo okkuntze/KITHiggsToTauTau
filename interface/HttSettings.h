@@ -263,6 +263,14 @@ public:
 	IMPL_SETTING_DEFAULT(bool, DiTauPairIsTauIsoMVA, false);
 	IMPL_SETTING_STRINGLIST_DEFAULT(CheckLepton1TriggerMatch, {});
 	IMPL_SETTING_STRINGLIST_DEFAULT(CheckLepton2TriggerMatch, {});
+	IMPL_SETTING_STRINGLIST_DEFAULT(CheckTagTriggerMatch, {});
+	IMPL_SETTING_STRINGLIST_DEFAULT(CheckProbeTriggerMatch, {});
+        IMPL_SETTING_STRINGLIST_DEFAULT(CheckTriggerLowerPtCutsByHltNick,{});
+	IMPL_SETTING_DEFAULT(std::string, TagElectronIDName, "");
+	IMPL_SETTING_DEFAULT(std::string, OldElectronIDName, "");
+	IMPL_SETTING_DEFAULT(std::string, TagElectronSecondIDName, "");
+	IMPL_SETTING_DEFAULT(std::string, TagElectronSecondIDIsoName, "");
+	IMPL_SETTING_DEFAULT(std::string, TagElectronCutIDSanity, "");
 	IMPL_SETTING_DEFAULT(bool, DiTauPairNoHLT, false);
 	IMPL_SETTING_DEFAULT(bool, RequireFirstTriggering, false);
 	IMPL_SETTING_STRINGLIST_DEFAULT(HLTBranchNames, {});
@@ -389,6 +397,24 @@ public:
 	IMPL_SETTING_DEFAULT(float, IsoPtSumMaximum, 50);
 	IMPL_SETTING_DEFAULT(float, IsoPtSumOverPtMaximum, 0.4);
 	IMPL_SETTING_DEFAULT(bool, RandomMuon, false);
+
+	//  Settings for ValidTagAndProbePairs
+	IMPL_SETTING_STRINGLIST_DEFAULT(TagAdditionalCriteria,{});
+	IMPL_SETTING_STRINGLIST_DEFAULT(ProbeAdditionalCriteria,{});
+        
+        // settings for L1TauTriggerMatchingProducers
+        IMPL_SETTING_STRINGLIST_DEFAULT(TauTriggerCheckAdditionalL1TauMatchLowerPtCut,{});
+        IMPL_SETTING_STRINGLIST_DEFAULT(MuonTriggerCheckAdditionalL1TauMatchLowerPtCut,{});
+        IMPL_SETTING_STRINGLIST_DEFAULT(ElectronTriggerCheckAdditionalL1TauMatchLowerPtCut,{});
+        IMPL_SETTING_STRINGLIST_DEFAULT(TauTriggerCheckAdditionalL1TauMatchUpperEtaCut,{});
+        IMPL_SETTING_STRINGLIST_DEFAULT(MuonTriggerCheckAdditionalL1TauMatchUpperEtaCut,{});
+        IMPL_SETTING_STRINGLIST_DEFAULT(ElectronTriggerCheckAdditionalL1TauMatchUpperEtaCut,{});
+        IMPL_SETTING_STRINGLIST_DEFAULT(TauTriggerCheckAdditionalL1TauMatchUseIsolatedL1Tau,{});
+        IMPL_SETTING_STRINGLIST_DEFAULT(MuonTriggerCheckAdditionalL1TauMatchUseIsolatedL1Tau,{});
+        IMPL_SETTING_STRINGLIST_DEFAULT(ElectronTriggerCheckAdditionalL1TauMatchUseIsolatedL1Tau,{});
+        IMPL_SETTING_DEFAULT(bool, InvertedTauL1TauMatching , false);
+        IMPL_SETTING_DEFAULT(bool, InvertedMuonL1TauMatching , false);
+        IMPL_SETTING_DEFAULT(bool, InvertedElectronL1TauMatching , false);
 
 	// setting for mass smearing applied in DiLeptonQuantitiesProducer
 	IMPL_SETTING_DEFAULT(float, MassSmearing, 0.10);

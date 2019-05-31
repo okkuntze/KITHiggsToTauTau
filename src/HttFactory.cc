@@ -30,6 +30,7 @@
 #include "HiggsAnalysis/KITHiggsToTauTau/interface/Producers/DiLeptonVetoProducers.h"
 #include "HiggsAnalysis/KITHiggsToTauTau/interface/Producers/ValidDiTauPairCandidatesProducers.h"
 #include "HiggsAnalysis/KITHiggsToTauTau/interface/Producers/NewValidDiTauPairCandidatesProducers.h"
+#include "HiggsAnalysis/KITHiggsToTauTau/interface/Producers/NewTagAndProbePairCandidatesProducers.h"
 #include "HiggsAnalysis/KITHiggsToTauTau/interface/Producers/GenDiTauPairCandidatesProducers.h"
 #include "HiggsAnalysis/KITHiggsToTauTau/interface/Producers/GenDiTauPairAcceptanceProducer.h"
 #include "HiggsAnalysis/KITHiggsToTauTau/interface/Producers/TriggerTagAndProbeProducers.h"
@@ -61,6 +62,7 @@
 #include "HiggsAnalysis/KITHiggsToTauTau/interface/Producers/MetFilterFlagProducer.h"
 #include "HiggsAnalysis/KITHiggsToTauTau/interface/Producers/TauDecayModeWeightProducer.h"
 #include "HiggsAnalysis/KITHiggsToTauTau/interface/Producers/SMggHNNLOProducer.h"
+#include "HiggsAnalysis/KITHiggsToTauTau/interface/Producers/L1TauTriggerMatchingProducers.h"
 
 // filters
 #include "HiggsAnalysis/KITHiggsToTauTau/interface/Filters/LooseObjectsCountFilters.h"
@@ -85,6 +87,7 @@
 #include "HiggsAnalysis/KITHiggsToTauTau/interface/Consumers/BTagEffConsumer.h"
 #include "HiggsAnalysis/KITHiggsToTauTau/interface/Consumers/AcceptanceEfficiencyConsumer.h"
 #include "HiggsAnalysis/KITHiggsToTauTau/interface/Consumers/TagAndProbePairConsumer.h"
+#include "HiggsAnalysis/KITHiggsToTauTau/interface/Consumers/NewTagAndProbePairConsumer.h"
 
 ProducerBaseUntemplated * HttFactory::createProducer(std::string const& id)
 {
@@ -204,6 +207,12 @@ ProducerBaseUntemplated * HttFactory::createProducer(std::string const& id)
 		return new NewValidEMPairCandidatesProducer();
 	else if(id == NewValidMMPairCandidatesProducer().GetProducerId())
 		return new NewValidMMPairCandidatesProducer();
+	else if(id == NewMMTagAndProbePairCandidatesProducer().GetProducerId())
+		return new NewMMTagAndProbePairCandidatesProducer();
+	else if(id == NewEETagAndProbePairCandidatesProducer().GetProducerId())
+		return new NewEETagAndProbePairCandidatesProducer();
+	else if(id == NewMTTagAndProbePairCandidatesProducer().GetProducerId())
+		return new NewMTTagAndProbePairCandidatesProducer();	
 	else if(id == NewValidEEPairCandidatesProducer().GetProducerId())
 		return new NewValidEEPairCandidatesProducer();
 	else if(id == GenTTPairCandidatesProducer().GetProducerId())
@@ -304,6 +313,16 @@ ProducerBaseUntemplated * HttFactory::createProducer(std::string const& id)
                 return new TauDecayModeWeightProducer();
         else if(id == SMggHNNLOProducer().GetProducerId())
                 return new SMggHNNLOProducer();
+        else if(id == MetFilterFlagProducer().GetProducerId())
+                return new MetFilterFlagProducer();
+        else if(id == TauDecayModeWeightProducer().GetProducerId())
+                return new TauDecayModeWeightProducer();
+        else if(id == TauL1TauTriggerMatchingProducer().GetProducerId())
+                return new TauL1TauTriggerMatchingProducer();
+        else if(id == MuonL1TauTriggerMatchingProducer().GetProducerId())
+                return new MuonL1TauTriggerMatchingProducer();
+        else if(id == ElectronL1TauTriggerMatchingProducer().GetProducerId())
+                return new ElectronL1TauTriggerMatchingProducer();
 	else
 		return KappaFactory::createProducer( id );
 }
@@ -368,6 +387,12 @@ ConsumerBaseUntemplated * HttFactory::createConsumer (std::string const& id)
 		return new EmbeddingConsumer();
 	else if(id == BTagEffConsumer().GetConsumerId())
 		return new BTagEffConsumer();
+	else if(id == NewMMTagAndProbePairConsumer().GetConsumerId())
+		return new NewMMTagAndProbePairConsumer();
+	else if(id == NewEETagAndProbePairConsumer().GetConsumerId())
+		return new NewEETagAndProbePairConsumer();
+	else if(id == NewMTTagAndProbePairConsumer().GetConsumerId())
+		return new NewMTTagAndProbePairConsumer();
 	else if (id == AcceptanceEfficiencyConsumer().GetConsumerId())
 		return new AcceptanceEfficiencyConsumer();
 	else if(id == TagAndProbeMuonPairConsumer<HttTypes>().GetConsumerId())
