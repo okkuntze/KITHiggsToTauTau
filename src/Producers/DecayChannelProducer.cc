@@ -982,6 +982,11 @@ void Run2DecayChannelProducer::Init(setting_type const& settings)
 	{
 		return product.m_flavourOrderedLeptons.at(1)->dz;
 	});
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("DiTauDeltaR", [](event_type const& event, product_type const& product)
+	{
+                DiTauPair diTauPair = product.m_validDiTauPairCandidates.at(0);
+		return diTauPair.GetDeltaR();
+	});
 }
 
 void Run2DecayChannelProducer::Produce(event_type const& event, product_type& product,

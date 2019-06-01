@@ -62,6 +62,7 @@ def build_list(**kwargs):
         "q_2",
         "mTdileptonMET",
         "mTdileptonMET_puppi",
+        "DiTauDeltaR",
     ]
 
     quantities.extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.weightQuantities").build_list(minimal_setup=minimal_setup, isMC=kwargs["isMC"]))
