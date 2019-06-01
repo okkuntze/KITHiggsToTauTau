@@ -139,8 +139,9 @@ void HttLambdaNtupleConsumer::Init(setting_type const& settings)
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("mvacov11", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["mvaMetCov11"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("pzetavis", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["pZetaVis"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("pzetamiss", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["pZetaMiss"]);
-	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("pzetavis_puppi", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["pZetaVis"]);
-	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("pzetamiss_puppi", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["pZetaMiss"]);
+	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("pzetamissvis", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["pZetaMissVis"]);
+	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("pzetamiss_puppi", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["pZetaPuppiMiss"]);
+	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("pzetamissvis_puppi", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["pZetaPuppiMissVis"]);
 	
 	LambdaNtupleConsumer<KappaTypes>::AddRMFLVQuantity("jlv_1", LambdaNtupleConsumer<KappaTypes>::GetRMFLVQuantities()["leadingJetLV"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("jpt_1", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["leadingJetPt"]);

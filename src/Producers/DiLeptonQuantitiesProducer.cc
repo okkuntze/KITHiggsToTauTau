@@ -105,6 +105,9 @@ void DiLeptonQuantitiesProducer::Init(setting_type const& settings)
 	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("mTdileptonMET", [](event_type const& event, product_type const& product) {
 		return Quantities::CalculateMt(product.m_diLeptonSystem, product.m_met.p4);
 	});
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("mTdileptonMET_puppi", [](event_type const& event, product_type const& product) {
+		return Quantities::CalculateMt(product.m_diLeptonSystem, product.m_puppimet.p4);
+	});
 	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("pZetaVis", [](event_type const& event, product_type const& product) {
 		return product.pZetaVis;
 	});
