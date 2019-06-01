@@ -48,6 +48,7 @@ def build_list(**kwargs):
         "njets",
         "npartons",
         "pZetaMissVis",
+        "pZetaPuppiMissVis",
         "phi_1",
         "phi_2",
         "pt_1",
@@ -59,6 +60,8 @@ def build_list(**kwargs):
         "ptvis",
         "q_1",
         "q_2",
+        "mTdileptonMET",
+        "mTdileptonMET_puppi",
     ]
 
     quantities.extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.weightQuantities").build_list(minimal_setup=minimal_setup, isMC=kwargs["isMC"]))
@@ -223,7 +226,6 @@ def build_list(**kwargs):
             "pzetamiss",
             "pzetamiss_puppi",
             "pzetavis",
-            "pzetavis_puppi",
             "rho",
             "run",
             "visjeteta",
