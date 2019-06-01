@@ -93,10 +93,10 @@ def build_config(nickname, **kwargs):
     config["MetFilterToFlag"].extend((
         "Flag_eeBadScFilter",
     ))
-  #if year in [2017, 2018]: #TODO to be activated after the new skim
-  #  config["MetFilterToFlag"].extend((
-  #      "ecalBadCalibReducedMINIAODFilter",
-  #  ))
+  if year in [2017, 2018]:
+    config["MetFilterToFlag"].extend((
+        "ecalBadCalibReducedMINIAODFilter",
+    ))
 
   config["OutputPath"] = "output.root"
 
