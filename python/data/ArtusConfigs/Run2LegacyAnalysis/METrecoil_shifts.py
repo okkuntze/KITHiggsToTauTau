@@ -21,8 +21,9 @@ def build_config(nickname, **kwargs):
   #isData = datasetsHelper.isData(nickname) and (not isEmbedded)
   #isTTbar = re.search("TT(To|_|Jets)", nickname)
   isDY = re.search("DY.?JetsToLL", nickname)
-  isWjets = re.search("W.?JetsToLNu", nickname)
+  isWjets = re.search("(W.?Jets|WG)ToLNu", nickname)
   isSignal = re.search("HToTauTau",nickname)
+  isHWW = re.search("HToWW",nickname)
   isEWK = re.search("EWK",nickname)
 
 
@@ -35,7 +36,7 @@ def build_config(nickname, **kwargs):
     config += analysis_config_module.build_config(nickname)
 
   # explicit configuration
-  if isDY or isWjets or isSignal or isEWK:
+  if isDY or isWjets or isSignal or isHWW or isEWK:
     config["metRecoilResponseUp"] = {
       "MetSysType" : 1,
       "MetSysShift" : 1,

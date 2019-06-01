@@ -29,8 +29,9 @@ def build_config(nickname, **kwargs):
   isData = datasetsHelper.isData(nickname) and (not isEmbedded)
   isTTbar = re.search("TT(To|_|Jets)", nickname)
   isDY = re.search("DY.?JetsToLLM(10to50|50)", nickname)
-  isWjets = re.search("W.?JetsToLNu", nickname)
+  isWjets = re.search("(W.?Jets|WG)ToLNu", nickname)
   isSignal = re.search("HToTauTau",nickname)
+  isHWW = re.search("HToWW",nickname)
   isGluonFusion = re.search("GluGluHToTauTauM125", nickname)
   
   ## fill config:
