@@ -52,71 +52,87 @@ def build_config(nickname, **kwargs):
   # explicit configuration
   config["Channel"] = "MM"
   config["MinNMuons"] = 2
-  # HltPaths_comment: The first path must be the single lepton trigger. A corresponding Pt cut is implemented in the Run2DecayChannelProducer..
-  if re.search("(Run201|Embedding201|Summer1|Fall1)", nickname): config["HltPaths"] = [
-           "HLT_IsoMu24_v",
-           "HLT_IsoMu27_v",
+  
+  config["HltPaths"] = [
+          "HLT_IsoMu22",
+          "HLT_IsoTkMu22",
+          "HLT_IsoMu22_eta2p1",
+          "HLT_IsoTkMu22_eta2p1",
+          "HLT_IsoMu19_eta2p1_LooseIsoPFTau20",
+          "HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1"
   ]
 
   # Muon Requirements
   config["MuonIsoTypeUserMode"] = "fromcmsswr04"
-  config["MuonIsoType"] = "none"
+  config["MuonIsoType"] = "user"
   config["MuonIsoSignalConeSize"] = 0.4
-  config["MuonID"] = "none"
+  config["MuonID"] = "medium"
   config["MuonIso"] = "none"
+  config["DirectIso"] = True
   config["MuonDeltaBetaCorrectionFactor"] = 0.5
-  config["MuonTrackDxyCut"] = 0.0
-  config["MuonTrackDzCut"] = 0.0
+  config["MuonTrackDxyCut"] = 0.05
+  config["MuonTrackDzCut"] = 0.1
   config["MuonLowerPtCuts"] = ["10.0"]
-  config["MuonUpperAbsEtaCuts"] = ["2.4"]
-  config["DiTauPairMinDeltaRCut"] = 0.5
+  config["MuonUpperAbsEtaCuts"] = ["2.1"]
+  config["MuonIsoPtSumOverPtUpperThresholdEB"] = 0.15
+  config["MuonIsoPtSumOverPtUpperThresholdEE"] = 0.15
+  config["DiTauPairMinDeltaRCut"] = 1.
 
-  config["Year"] = 2017
+  config["Year"] = 2016
     
   config["MuonTriggerFilterNames"] = [
-          "HLT_IsoMu24_v:hltL3crIsoL1sSingleMu22L1f0L2f10QL3f24QL3trkIsoFiltered0p07",
-          "HLT_IsoMu27_v:hltL3crIsoL1sMu22Or25L1f0L2f10QL3f27QL3trkIsoFiltered0p07",
-    ]
+          "HLT_IsoMu22_v:hltL3crIsoL1sMu20L1f0L2f10QL3f22QL3trkIsoFiltered0p09",
+          "HLT_IsoTkMu22_v:hltL3fL1sMu20L1f0Tkf22QL3trkIsoFiltered0p09",
+          "HLT_IsoMu22_eta2p1_v:hltL3crIsoL1sSingleMu20erL1f0L2f10QL3f22QL3trkIsoFiltered0p09",
+          "HLT_IsoTkMu22_eta2p1_v:hltL3fL1sMu20erL1f0Tkf22QL3trkIsoFiltered0p09",
+          "HLT_IsoMu19_eta2p1_LooseIsoPFTau20_v:hltL3crIsoL1sMu18erTauJet20erL1f0L2f10QL3f19QL3trkIsoFiltered0p09",
+          "HLT_IsoMu19_eta2p1_LooseIsoPFTau20_v:hltOverlapFilterIsoMu19LooseIsoPFTau20",
+          "HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1_v:hltL3crIsoL1sSingleMu18erIorSingleMu20erL1f0L2f10QL3f19QL3trkIsoFiltered0p09",
+          "HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1_v:hltOverlapFilterSingleIsoMu19LooseIsoPFTau20"
+  ]
 
   config["HLTBranchNames"] = [
-      "trg_t_IsoMu27:HLT_IsoMu27_v",
-      "trg_p_IsoMu27:HLT_IsoMu27_v",
-      "trg_t_IsoMu24:HLT_IsoMu24_v",
-      "trg_p_IsoMu24:HLT_IsoMu24_v"
+      "trg_t_IsoMu22:HLT_IsoMu22_v",
+      "trg_t_IsoMu22:HLT_IsoTkMu22_v",
+      "trg_t_IsoMu22:HLT_IsoMu22_eta2p1_v",
+      "trg_t_IsoMu22:HLT_IsoTkMu22_eta2p1_v",
+      "trg_p_IsoMu19Tau20:HLT_IsoMu19_eta2p1_LooseIsoPFTau20_v",
+      "trg_p_IsoMu19Tau20:HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1_v"
   ]
 
   config["CheckTagTriggerMatch"] = [
-      "trg_t_IsoMu27",
-      "trg_t_IsoMu24"
+      "trg_t_IsoMu22"
   ]
   config["CheckProbeTriggerMatch"] = [
-      "trg_p_IsoMu27",
-      "trg_p_IsoMu24"
+      "trg_p_IsoMu19Tau20"
   ]
-
   
   config["TagAdditionalCriteria"] = [
     "pt:23.0",
-    "id:Medium",
-    "dxy:0.045",
-    "dz:0.2",
-    "iso_sum:0.15"]
+    "iso_sum:0.15",
+    "dxy:0.05",
+    "dz:0.1",
+  ]
 
   config["ProbeAdditionalCriteria"] = [
-    "id:isTrackerMuon"]
+    "pt:10"]
 
-  config["InvalidateNonMatchingElectrons"] = False
-  config["InvalidateNonMatchingMuons"] = True
-  config["InvalidateNonMatchingTaus"] = False
-  config["InvalidateNonMatchingJets"] = False
-  config["DirectIso"] = True
   config["EventWeight"] = "eventWeight"
 
-  config["Quantities"] = importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.TagAndProbe.Includes.TagAndProbeQuantities").build_list()
+  config["InvertedMuonL1TauMatching"] = True
+  config["MuonTriggerCheckAdditionalL1TauMatchLowerPtCut"] = [
+          "trg_p_IsoMu19Tau20:19."
+  ]
+  config["MuonTriggerCheckAdditionalL1TauMatchUpperEtaCut"] = [
+          "trg_p_IsoMu19Tau20:2.1"
+  ]
+
+  config["Quantities"] = importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.TagAndProbe.Includes.TagAndProbeQuantitiesMMCross").build_list(2016)
 
   config["Processors"] =   ["producer:ValidMuonsProducer",
                             "filter:ValidMuonsFilter",
                             "producer:MuonTriggerMatchingProducer",
+                            "producer:MuonL1TauTriggerMatchingProducer",
                             "filter:MinMuonsCountFilter",
                             "producer:NewMMTagAndProbePairCandidatesProducer",
                             "filter:ValidDiTauPairCandidatesFilter"]
@@ -126,4 +142,4 @@ def build_config(nickname, **kwargs):
                          "cutflow_histogram"]
 
   # pipelines - systematic shifts
-  return ACU.apply_uncertainty_shift_configs('mm_new', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.syst_shifts_nom").build_config(nickname))
+  return {"mm_crossmuon": config}

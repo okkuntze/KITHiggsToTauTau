@@ -10,19 +10,24 @@ import json
 import Artus.Utility.jsonTools as jsonTools
 import Kappa.Skimming.datasetsHelperTwopz as datasetsHelperTwopz
 
-def build_list():
-  quantities_list = [
+def build_list(year):
+  if year==2016:
+      trigger_flags = ["trg_t_Ele25eta2p1WPTight", "trg_p_Ele25eta2p1WPTight"]
+  else:
+      trigger_flags = [
+          "trg_t_Ele27",
+          "trg_p_Ele27",
+          "trg_t_Ele32",
+          "trg_p_Ele32",
+          "trg_t_Ele35",
+          "trg_p_Ele35",
+          "trg_t_Ele32_fb",
+          "trg_p_Ele32_fb"
+          ]    
+  quantities_list = trigger_flags + [
     "run",
     "lumi",
     "evt",
-    "trg_t_Ele27",
-    "trg_p_Ele27",
-    "trg_t_Ele32",
-    "trg_p_Ele32",
-    "trg_t_Ele35",
-    "trg_p_Ele35",
-	"trg_t_Ele32_fb",
-	"trg_p_Ele32_fb",
     "pt_t", "pt_p",
     "eta_t", "eta_p",
     "phi_t", "phi_p",

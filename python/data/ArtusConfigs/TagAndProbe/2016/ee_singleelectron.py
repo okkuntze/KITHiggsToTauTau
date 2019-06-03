@@ -43,12 +43,10 @@ def build_config(nickname, **kwargs):
   config["Channel"] = "EE"
   config["MinNLooseElectrons"] = 2
   config["MinNElectrons"] = 2
-  config["Year"] = 2017
+  config["Year"] = 2016
   # HltPaths_comment: The first path must be the single lepton trigger. A corresponding Pt cut is implemented in the Run2DecayChannelProducer..
-  if re.search("(Run201|Embedding201|Summer1|Fall1)", nickname): config["HltPaths"] = [
-      "HLT_Ele27_WPTight_Gsf",
-      "HLT_Ele32_WPTight_Gsf",
-      "HLT_Ele35_WPTight_Gsf"
+  config["HltPaths"] = [
+      "HLT_Ele25_eta2p1_WPTight_Gsf"
   ]
   # Electron Requirements
 
@@ -57,34 +55,19 @@ def build_config(nickname, **kwargs):
   config["DiTauPairMinDeltaRCut"] = 0.5
     
   config["ElectronTriggerFilterNames"] = [
-  "HLT_Ele27_WPTight_Gsf_v:hltEle27WPTightGsfTrackIsoFilter",
-  "HLT_Ele32_WPTight_Gsf_DoubleL1EG_v:hltEle32L1DoubleEGWPTightGsfTrackIsoFilter",
-  "HLT_Ele32_WPTight_Gsf_v:hltEle32WPTightGsfTrackIsoFilter",
-  "HLT_Ele35_WPTight_Gsf_v:hltEle35noerWPTightGsfTrackIsoFilter",
+    "HLT_Ele25_eta2p1_WPTight_Gsf_v:hltEle25erWPTightGsfTrackIsoFilter"
     ]
 
   config["HLTBranchNames"] = [
-      "trg_t_Ele27:HLT_Ele27_WPTight_Gsf_v",
-      "trg_p_Ele27:HLT_Ele27_WPTight_Gsf_v",
-      "trg_t_Ele32:HLT_Ele32_WPTight_Gsf_v",
-      "trg_p_Ele32:HLT_Ele32_WPTight_Gsf_v",
-      "trg_t_Ele32_fb:HLT_Ele32_WPTight_Gsf_DoubleL1EG_v",
-      "trg_p_Ele32_fb:HLT_Ele32_WPTight_Gsf_DoubleL1EG_v",
-      "trg_t_Ele35:HLT_Ele35_WPTight_Gsf_v",
-      "trg_p_Ele35:HLT_Ele35_WPTight_Gsf_v",
+      "trg_t_Ele25eta2p1WPTight:HLT_Ele25_eta2p1_WPTight_Gsf_v",
+      "trg_p_Ele25eta2p1WPTight:HLT_Ele25_eta2p1_WPTight_Gsf_v",
   ]
 
   config["CheckTagTriggerMatch"] = [
-      "trg_t_Ele27",
-      "trg_t_Ele32",
-      "trg_t_Ele35",
-      "trg_t_Ele32_fb",
+      "trg_t_Ele25eta2p1WPTight"
   ]
   config["CheckProbeTriggerMatch"] = [
-      "trg_p_Ele27",
-      "trg_p_Ele32",
-      "trg_p_Ele35",
-      "trg_p_Ele32_fb",
+      "trg_p_Ele25eta2p1WPTight"
   ]
 
   
@@ -113,7 +96,7 @@ def build_config(nickname, **kwargs):
   config["DirectIso"] = True
   config["EventWeight"] = "eventWeight"
 
-  config["Quantities"] = importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.TagAndProbe.Includes.TagAndProbeQuantitiesEE").build_list()
+  config["Quantities"] = importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.TagAndProbe.Includes.TagAndProbeQuantitiesEE").build_list(2016)
 
   config["Processors"] =   [#"producer:HltProducer",
                             "producer:ValidElectronsProducer",
