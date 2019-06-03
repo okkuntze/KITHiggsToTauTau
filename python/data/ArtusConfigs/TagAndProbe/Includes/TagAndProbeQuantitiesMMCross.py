@@ -19,7 +19,7 @@ def build_list(year):
     "trg_p_mu20tau27",
     "trg_p_mu24tau20"
           ]   
-  quantities_list = [
+  quantities_list = trigger_flags + [
     "run",
     "lumi",
     "evt",
