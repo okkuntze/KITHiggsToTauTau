@@ -47,6 +47,10 @@ def build_config(nickname):
   
   config["Met"] = "met"
   config["PuppiMet"] = "metPuppi"
+  config["TrackMet"] = "trackMet"
+  config["PuMet"] = "puMet"
+  config["NoPuMet"] = "noPuMet"
+  config["PuCorMet"] = "puCorMet"
   #config["MvaMets"] = "MVAMET"
   #config["PFChargedHadronsPileUp"] = "pfPileUpChargedHadrons"
   #config["PFChargedHadronsNoPileUp"] = "pfNoPileUpChargedHadrons"
