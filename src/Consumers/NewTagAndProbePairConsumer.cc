@@ -73,7 +73,7 @@ void NewEETagAndProbePairConsumer::AdditionalQuantities(int i, std::string quant
 		BoolQuantities["id_80_p"] = electron->getId(settings.GetTagElectronSecondIDName(), event.m_electronMetadata);
 	}
 
-    else if (quantity == "id_cutbased_sanity_t")
+	else if (quantity == "id_cutbased_sanity_t")
 	{
 		KElectron *electron = static_cast<KElectron *>(product.m_validDiTauPairCandidates.at(i).first);
 		BoolQuantities["id_cutbased_sanity_t"] = electron->getId(settings.GetTagElectronCutIDSanity(), event.m_electronMetadata);
@@ -82,6 +82,11 @@ void NewEETagAndProbePairConsumer::AdditionalQuantities(int i, std::string quant
 	{
 		KElectron *electron = static_cast<KElectron *>(product.m_validDiTauPairCandidates.at(i).second);
 		BoolQuantities["id_cutbased_sanity_p"] = electron->getId(settings.GetTagElectronCutIDSanity(), event.m_electronMetadata);
+	}
+	else if (quantity == "sc_eta_p")
+	{
+		KElectron *electron = static_cast<KElectron *>(product.m_validDiTauPairCandidates.at(i).second);
+		FloatQuantities["sc_eta_p"] = electron->superclusterPosition.Eta();
 	}
     // else if (quantity == "id_old_t")
     // {
