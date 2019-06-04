@@ -29,7 +29,7 @@ def build_list(year):
     "lumi",
     "evt",
     "pt_t", "pt_p",
-    "eta_t", "eta_p",
+    "eta_t", "eta_p", "sc_eta_p",
     "phi_t", "phi_p",
     "iso_t", "iso_p",
     "m_ll",
