@@ -115,6 +115,7 @@ void HttLambdaNtupleConsumer::Init(setting_type const& settings)
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("mt_2_puppi", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["lep2PuppiMetMt"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("met", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["metPt"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("metphi", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["metPhi"]);
+	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("metsumet", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["metSumEt"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("metcov00", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["metCov00"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("metcov01", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["metCov01"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("metcov10", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["metCov10"]);
@@ -127,6 +128,7 @@ void HttLambdaNtupleConsumer::Init(setting_type const& settings)
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("pfmetcov11", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["pfMetCov11"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("puppimet", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["puppiMetPt"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("puppimetphi", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["puppiMetPhi"]);
+	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("puppimetsumet", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["puppiMetSumEt"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("puppimetcov00", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["puppiMetCov00"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("puppimetcov01", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["puppiMetCov01"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("puppimetcov10", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["puppiMetCov10"]);
