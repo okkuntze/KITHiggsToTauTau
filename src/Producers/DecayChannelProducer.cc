@@ -294,6 +294,10 @@ void DecayChannelProducer::Init(setting_type const& settings)
 	{
 		return product.m_flavourOrderedLeptons.at(0)->track.errDxy;
 	});
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("lep1ChargedPt", [](event_type const& event, product_type const& product)
+	{
+		return (product.m_flavourOrderedLeptons.at(0)->flavour() == KLeptonFlavour::TAU ? static_cast<KTau*>(product.m_flavourOrderedLeptons.at(0))->sumChargedHadronCandidates().Pt()  : product.m_flavourOrderedLeptons.at(0)->p4.Pt());
+	});
 	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("lep1Pt", [](event_type const& event, product_type const& product)
 	{
 		return product.m_flavourOrderedLeptons.at(0)->p4.Pt();
@@ -309,6 +313,10 @@ void DecayChannelProducer::Init(setting_type const& settings)
 	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("lep1Phi", [](event_type const& event, product_type const& product)
 	{
 		return product.m_flavourOrderedLeptons.at(0)->p4.Phi();
+	});
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("lep1ChargedPhi", [](event_type const& event, product_type const& product)
+	{
+		return (product.m_flavourOrderedLeptons.at(0)->flavour() == KLeptonFlavour::TAU ? static_cast<KTau*>(product.m_flavourOrderedLeptons.at(0))->sumChargedHadronCandidates().Phi()  : product.m_flavourOrderedLeptons.at(0)->p4.Phi());
 	});
 	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("lep1Mass", [](event_type const& event, product_type const& product)
 	{
@@ -470,6 +478,10 @@ void DecayChannelProducer::Init(setting_type const& settings)
 	{
 		return product.m_flavourOrderedLeptons.at(1)->p4.Pt();
 	});
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("lep2ChargedPt", [](event_type const& event, product_type const& product)
+	{
+		return (product.m_flavourOrderedLeptons.at(1)->flavour() == KLeptonFlavour::TAU ? static_cast<KTau*>(product.m_flavourOrderedLeptons.at(1))->sumChargedHadronCandidates().Pt()  : product.m_flavourOrderedLeptons.at(1)->p4.Pt());
+	});
 	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("lep2E", [](event_type const& event, product_type const& product)
 	{
 		return product.m_flavourOrderedLeptons.at(1)->p4.E();
@@ -481,6 +493,10 @@ void DecayChannelProducer::Init(setting_type const& settings)
 	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("lep2Phi", [](event_type const& event, product_type const& product)
 	{
 		return product.m_flavourOrderedLeptons.at(1)->p4.Phi();
+	});
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("lep2ChargedPhi", [](event_type const& event, product_type const& product)
+	{
+		return (product.m_flavourOrderedLeptons.at(1)->flavour() == KLeptonFlavour::TAU ? static_cast<KTau*>(product.m_flavourOrderedLeptons.at(1))->sumChargedHadronCandidates().Phi()  : product.m_flavourOrderedLeptons.at(1)->p4.Phi());
 	});
 	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("lep2Mass", [](event_type const& event, product_type const& product)
 	{

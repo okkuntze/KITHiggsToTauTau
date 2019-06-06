@@ -84,9 +84,11 @@ void HttLambdaNtupleConsumer::Init(setting_type const& settings)
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("H_mass_puppi", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["diLepPuppiMetMass"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("pt_tt_puppi", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["diLepPuppiMetPt"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("pt_1", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["lep1Pt"]);
+	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("ptcharged_1", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["lep1ChargedPt"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("e_1", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["lep1E"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("eta_1", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["lep1Eta"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("phi_1", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["lep1Phi"]);
+	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("phicharged_1", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["lep1ChargedPhi"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("m_1", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["lep1Mass"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("q_1", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["lep1Charge"]);
 
@@ -99,9 +101,11 @@ void HttLambdaNtupleConsumer::Init(setting_type const& settings)
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("mt_1", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["lep1MetMt"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("mt_1_puppi", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["lep1PuppiMetMt"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("pt_2", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["lep2Pt"]);
+	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("ptcharged_2", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["lep2ChargedPt"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("e_2", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["lep2E"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("eta_2", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["lep2Eta"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("phi_2", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["lep2Phi"]);
+	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("phicharged_2", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["lep2ChargedPhi"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("m_2", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["lep2Mass"]);
 	LambdaNtupleConsumer<KappaTypes>::AddFloatQuantity("q_2", LambdaNtupleConsumer<KappaTypes>::GetFloatQuantities()["lep2Charge"]);
 
