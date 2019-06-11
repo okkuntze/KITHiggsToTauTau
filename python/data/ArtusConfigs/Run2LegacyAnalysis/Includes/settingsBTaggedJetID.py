@@ -126,7 +126,7 @@ def build_config(nickname, **kwargs):
 
     if year == 2016:            config["BTaggedJetAbsEtaCut"] = 2.4  # 2016 value
     elif year in [2017, 2018]:  config["BTaggedJetAbsEtaCut"] = 2.5  # 2017,2018 value
-    config["ApplyBTagSF"] = True
+    config["ApplyBTagSF"] = not isEmbedded
     config["JetTaggerUpperCuts"] = []
     config["BTagSFMethod"] = "PromotionDemotion"
     config["BTagShift"] = 0
