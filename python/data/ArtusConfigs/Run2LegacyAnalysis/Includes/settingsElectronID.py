@@ -52,13 +52,14 @@ def build_config(nickname, **kwargs):
   config["ElectronIsoSignalConeSize"] = 0.3
   config["ElectronDeltaBetaCorrectionFactor"] = 0.5
   # reference eA values & bins from https://github.com/cms-sw/cmssw/blob/master/RecoEgamma/ElectronIdentification/data/Fall17/effAreaElectrons_cone03_pfNeuHadronsAndPhotons_94X.txt
-  if year in [2017, 2018]:
+  if year in [2016, 2017, 2018]:
     config["ElectronEtaBinnedEAValues"] = [0.1440, 0.1562, 0.1032, 0.0859, 0.1116, 0.1321, 0.1654]
     config["ElectronEtaBinsForEA"] = [0.0, 1.0, 1.479, 2.0, 2.2, 2.3, 2.4, 2.5]
   # reference eA values & bins from https://github.com/cms-sw/cmssw/blob/master/RecoEgamma/ElectronIdentification/data/Summer16/effAreaElectrons_cone03_pfNeuHadronsAndPhotons_80X.txt
-  elif year == 2016:
-    config["ElectronEtaBinnedEAValues"] = [0.1703, 0.1715, 0.1213, 0.1230, 0.1635, 0.1937, 0.2393]
-    config["ElectronEtaBinsForEA"] = [0.0, 1.0, 1.479, 2.0, 2.2, 2.3, 2.4, 5.0]
+  # values for Summer16 Electron ID, not recommended for legacy
+  # elif year == 2016:
+  #   config["ElectronEtaBinnedEAValues"] = [0.1703, 0.1715, 0.1213, 0.1230, 0.1635, 0.1937, 0.2393]
+  #   config["ElectronEtaBinsForEA"] = [0.0, 1.0, 1.479, 2.0, 2.2, 2.3, 2.4, 5.0]
 
   config["ElectronTrackDxyCut"] = 0.045
   config["ElectronTrackDzCut"] = 0.2
