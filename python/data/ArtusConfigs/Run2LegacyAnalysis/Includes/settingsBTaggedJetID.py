@@ -14,7 +14,7 @@ def build_config(nickname, **kwargs):
     config = jsonTools.JsonDict()
     datasetsHelper = datasetsHelperTwopz.datasetsHelperTwopz(os.path.expandvars("$CMSSW_BASE/src/Kappa/Skimming/data/datasets.json"))
     year = datasetsHelper.base_dict[nickname]["year"]
-
+    isEmbedded = datasetsHelper.isEmbedded(nickname)
     # explicit configuration
     config["BTaggedJetID_documentation"] = [
         "https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation"
