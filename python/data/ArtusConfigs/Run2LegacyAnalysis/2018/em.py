@@ -438,7 +438,7 @@ def build_config(nickname, **kwargs):
   if not (isData or isEmbedded): config["Processors"].append( "producer:TaggedJetCorrectionsProducer")
   config["Processors"].extend((                               "producer:ValidTaggedJetsProducer",
                                                               "producer:ValidBTaggedJetsProducer"))
-  if btag_eff: config["ProcessorsBtagEff"] = copy.deepcp(config["Processors"])
+  if btag_eff: config["ProcessorsBtagEff"] = copy.deepcopy(config["Processors"])
   if not isData:                 config["Processors"].append( "producer:HttValidGenTausProducer")
   config["Processors"].extend((                               "producer:MetCorrector",
                                                               "producer:PuppiMetCorrector",
@@ -460,7 +460,7 @@ def build_config(nickname, **kwargs):
 
   # Subanalyses settings
   if btag_eff:
-     config["Processors"] = copy.deepcp(config["ProcessorsBtagEff"])
+     config["Processors"] = copy.deepcopy(config["ProcessorsBtagEff"])
 
      btag_eff_unwanted = ["KappaLambdaNtupleConsumer", "CutFlowTreeConsumer", "KappaElectronsConsumer", "KappaTausConsumer", "KappaTaggedJetsConsumer", "RunTimeConsumer", "PrintEventsConsumer"]
      for unwanted in btag_eff_unwanted:

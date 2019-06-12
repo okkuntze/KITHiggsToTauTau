@@ -310,7 +310,7 @@ def build_config(nickname, **kwargs):
         "producer:ValidBTaggedJetsProducer",
     ))
 
-    if btag_eff: config["ProcessorsBtagEff"] = copy.deepcp(config["Processors"])
+    if btag_eff: config["ProcessorsBtagEff"] = copy.deepcopy(config["Processors"])
 
     if isDY or isWjets or isSignal:
         config["Processors"].append(
@@ -364,7 +364,7 @@ def build_config(nickname, **kwargs):
 
     # Subanalyses settings
     if btag_eff:
-        config["Processors"] = copy.deepcp(config["ProcessorsBtagEff"])
+        config["Processors"] = copy.deepcopy(config["ProcessorsBtagEff"])
 
         btag_eff_unwanted = ["KappaLambdaNtupleConsumer", "CutFlowTreeConsumer", "KappaElectronsConsumer", "KappaTausConsumer", "KappaTaggedJetsConsumer", "RunTimeConsumer", "PrintEventsConsumer"]
         for unwanted in btag_eff_unwanted:
