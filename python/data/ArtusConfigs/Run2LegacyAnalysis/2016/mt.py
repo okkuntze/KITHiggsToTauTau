@@ -145,68 +145,89 @@ def build_config(nickname, **kwargs):
   config["BranchGenMatchedMuons"] = True
   config["BranchGenMatchedTaus"] = True
   if isEmbedded:
-    config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v16_12_embedded.root"
-    config["EmbeddedWeightWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v16_12_embedded.root"
+    config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_legacy_v16_1.root"
+    config["EmbeddedWeightWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_legacy_v16_1.root"
     config["EmbeddedWeightWorkspaceWeightNames"]=[
           "0:muonEffTrgWeight",
           "0:muonEffIDWeight",
           "1:muonEffIDWeight",
           
-          "1:MuTau_TauLeg_EmbeddedEfficiencyWeight",
-          "1:MuTau_TauLeg_DataEfficiencyWeight",
+          #"1:MuTau_TauLeg_EmbeddedEfficiencyWeight",
+          #"1:MuTau_TauLeg_DataEfficiencyWeight",
           
           "0:isoWeight",
           "0:idWeight",
-          "0:triggerWeight"
+          "0:singleTriggerMCEfficiencyWeightKIT",
+          "0:singleTriggerDataEfficiencyWeightKIT",
+          
+          "0:crossTriggerMCEfficiencyWeight",
+          "0:crossTriggerDataEfficiencyWeight"
           ]
     config["EmbeddedWeightWorkspaceObjectNames"]=[
           "0:m_sel_trg_ratio",
           "0:m_sel_idEmb_ratio",
           "1:m_sel_idEmb_ratio",
           
-          "1:t_TightIso_mt_emb",
-		      "1:t_genuine_TightIso_mt_data,t_fake_TightIso_mt_data",
+          #"1:t_TightIso_mt_emb",
+          #"1:t_genuine_TightIso_mt_data,t_fake_TightIso_mt_data",
           
-          "0:m_iso_ratio",
-          "0:m_id_ratio",
-          "0:m_trg_ratio"
+          "0:m_iso_ratio_emb",
+          "0:m_id_ratio_emb",
+          "0:m_trg_emb",
+          "0:m_trg_data",
+          
+          "0:m_trgMu19leg_eta2p1_desy_mc", #temporary because not yet measured for embedded
+          "0:m_trgMu19leg_eta2p1_desy_data"
           ]
     config["EmbeddedWeightWorkspaceObjectArguments"] = [
           "0:gt1_pt,gt1_eta,gt2_pt,gt2_eta",
           "0:gt_pt,gt_eta",
           "1:gt_pt,gt_eta",
           
-          "1:t_pt,t_eta",
-          "1:t_pt,t_eta",
+          #"1:t_pt,t_eta",
+          #"1:t_pt,t_eta",
 
           "0:m_pt,m_eta",
+          "0:m_pt,m_eta",
+          "0:m_pt,m_eta",
+          "0:m_pt,m_eta",
+          
           "0:m_pt,m_eta",
           "0:m_pt,m_eta"]
   else:
   ## Efficiencies & weights configuration
     config["SaveRooWorkspaceTriggerWeightAsOptionalOnly"] = "true"
     config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_legacy_v16_1.root"
-    config["RooWorkspaceWeightNames"] = [
-      "0:triggerWeight_singleMu",
-      "0:idIsoWeight",
+    config["RooWorkspaceWeightNames"]=[
+        "0:crossTriggerMCEfficiencyWeight",
+        "0:crossTriggerDataEfficiencyWeight",
+        "0:singleTriggerMCEfficiencyWeightKIT",
+        "0:singleTriggerDataEfficiencyWeightKIT",
 
-      "0:triggerWeight_muTauCross",
-    #  "1:triggerWeight_muTauCross"
-      ]
+        "0:isoWeight",
+        "0:idWeight",
+#        "0:trackWeight", # new recommendation for full run2 data/MC is to remove it (will result in SF = 1.0).
+    ]
     config["RooWorkspaceObjectNames"] = [
-      "0:m_trgIsoMu22_desy_ratio",
-      "0:m_idiso_desy_ratio",
+        "0:m_trgMu19leg_eta2p1_desy_mc",
+        "0:m_trgMu19leg_eta2p1_desy_data",
+        "0:m_trg_mc",
+        "0:m_trg_data",
 
-      "0:m_trgMu19leg_eta2p1_desy_ratio",
-     # "1:t_genuine_TightIso_mt_ratio,t_fake_TightIso_mt_ratio"
+        "0:m_iso_ratio",
+        "0:m_id_ratio",
+#        "0:m_trk_ratio",
     ]
     config["RooWorkspaceObjectArguments"] = [
-      "0:m_pt,m_eta",
-      "0:m_pt,m_eta",
+        "0:m_pt,m_eta",
+        "0:m_pt,m_eta",
+        "0:m_pt,m_eta",
+        "0:m_pt,m_eta",
 
-      "0:m_pt,m_eta",
-      #"1:t_pt,t_eta"
-    ]
+        "0:m_pt,m_eta",
+        "0:m_pt,m_eta",
+#        "0:m_eta",
+]
 
   config["TriggerEfficiencyData"] = ["0:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/triggerWeights/triggerEfficiency_Run2016_Muon_Mu22OR_eta2p1_eff.root"]
   config["TriggerEfficiencyMc"] = ["0:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/triggerWeights/triggerEfficiency_MC_Muon_Mu22OR_eta2p1_eff.root"]

@@ -128,28 +128,37 @@ def build_config(nickname, **kwargs):
   config["TopPtReweightingStrategy"] = "Run1"
 
   if isEmbedded:
-      config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v16_12_embedded.root"
-      config["EmbeddedWeightWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v16_12_embedded.root"
+      config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_legacy_v16_1.root"
+      config["EmbeddedWeightWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_legacy_v16_1.root"
       config["EmbeddedWeightWorkspaceWeightNames"]=[
             "0:muonEffTrgWeight",
             "0:muonEffIDWeight",
             "1:muonEffIDWeight",
+            
+            "0:eleRecoWeight",
             "0:isoWeight",
             "0:idWeight",
-            "0:triggerWeight"
+            "0:singleTriggerMCEfficiencyWeightKIT",
+            "0:singleTriggerDataEfficiencyWeightKIT"
             ]
       config["EmbeddedWeightWorkspaceObjectNames"]=[
             "0:m_sel_trg_ratio",
             "0:m_sel_idEmb_ratio",
             "1:m_sel_idEmb_ratio",
-            "0:e_iso_ratio",
-            "0:e_id_ratio",
-            "0:e_trg_ratio"
+            
+            "0:e_trk_ratio",
+            "0:e_iso_ratio_emb",
+            "0:e_id_ratio_emb",
+            "0:e_trg_emb",
+            "0:e_trg_data"
             ]
       config["EmbeddedWeightWorkspaceObjectArguments"] = [
             "0:gt1_pt,gt1_eta,gt2_pt,gt2_eta",
             "0:gt_pt,gt_eta",
             "1:gt_pt,gt_eta",
+            
+            "0:e_pt,e_eta",
+            "0:e_pt,e_eta",
             "0:e_pt,e_eta",
             "0:e_pt,e_eta",
             "0:e_pt,e_eta"
@@ -158,19 +167,25 @@ def build_config(nickname, **kwargs):
     ### Efficiencies & weights configuration
     config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_legacy_v16_1.root"
     config["RooWorkspaceWeightNames"] = [
-      "0:triggerWeight_singleEl",
-      "0:idIsoWeight",
-      #"0:trackWeight"
+      "0:eleRecoWeight",
+      "0:isoWeight",
+      "0:idWeight",
+      "0:singleTriggerMCEfficiencyWeightKIT",
+      "0:singleTriggerDataEfficiencyWeightKIT"
     ]
     config["RooWorkspaceObjectNames"] = [
-      "0:e_trgEle25_desy_ratio",
-      "0:e_idiso_desy_ratio",
-      #"0:e_trk_ratio"
+      "0:e_trk_ratio",
+      "0:e_iso_ratio",
+      "0:e_id_ratio",
+      "0:e_trg_mc",
+      "0:e_trg_data"
     ]
     config["RooWorkspaceObjectArguments"] = [
       "0:e_pt,e_eta",
       "0:e_pt,e_eta",
-      #"0:e_pt,e_eta"
+      "0:e_pt,e_eta",
+      "0:e_pt,e_eta",
+      "0:e_pt,e_eta"
     ]
   
   

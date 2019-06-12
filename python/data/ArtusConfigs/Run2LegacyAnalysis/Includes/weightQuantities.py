@@ -30,12 +30,15 @@ def build_list(**kwargs):
         "singleTriggerMCEfficiencyWeightKIT_2",
         "singleTriggerDataEfficiencyWeightKIT_2",
 
-        "trackWeight_1",
+        "eleRecoWeight_1",
         "idWeight_1",
         "isoWeight_1",
-        "trackWeight_2",
         "idWeight_2",
         "isoWeight_2",
+        
+        "muonEffTrgWeight",
+        "muonEffIDWeight_1",
+        "muonEffIDWeight_2",
     ]
 
     if kwargs["isMC"]:
