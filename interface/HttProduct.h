@@ -151,6 +151,10 @@ public:
 	double pZetaPuppiMiss = 0.0;
 	double pZetaPuppiMissVis = 0.0;
         double deltaR = 0.0;
+	double metPerpToZ = 0.0;
+	double metParToZ = 0.0;
+	double puppimetPerpToZ = 0.0;
+	double puppimetParToZ = 0.0;
 
 	// filled by the SvfitProducer
 	mutable SvfitEventKey m_svfitEventKey;

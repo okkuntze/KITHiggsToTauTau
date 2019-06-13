@@ -65,3 +65,26 @@ double Quantities::MetChiSquare(TVector2 const& v, ROOT::Math::SMatrix<double, 2
 	tmp2 *= tmpM;
 	return( tmp2 * tmp);
 }
+
+double Quantities::MetPerpToZ(RMFLV const& lepton1, RMFLV const& lepton2, RMFLV const& met)
+{
+	RMFLV diLepton = lepton1 + lepton2;
+        auto diLepton2D = ROOT::Math::Polar2DVectorF(diLepton.Pt(), diLepton.Phi());
+        auto diLepton2D_Dir = diLepton2D.Unit();
+        auto met2D = ROOT::Math::Polar2DVectorF(met.Pt(), met.Phi());
+
+        float metpar =  met2D.Dot(diLepton2D_Dir);
+        float metperp = (met2D - metpar*diLepton2D_Dir).R();
+        return metperp;
+}
+
+double Quantities::MetParToZ(RMFLV const& lepton1, RMFLV const& lepton2, RMFLV const& met)
+{
+	RMFLV diLepton = lepton1 + lepton2;
+        auto diLepton2D = ROOT::Math::Polar2DVectorF(diLepton.Pt(), diLepton.Phi());
+        auto diLepton2D_Dir = diLepton2D.Unit();
+        auto met2D = ROOT::Math::Polar2DVectorF(met.Pt(), met.Phi());
+
+        float metpar =  met2D.Dot(diLepton2D_Dir);
+        return metpar;
+}

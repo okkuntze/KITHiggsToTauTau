@@ -5,6 +5,7 @@
 #include "TVector2.h"
 #include "TVector.h"
 #include "TMatrixTSym.h"
+#include "Math/Vector2D.h"
 
 /**
    \brief Place to collect functions calculating generic physical quantities
@@ -25,6 +26,8 @@ public:
 	static double PZetaVis(RMFLV const& lepton1, RMFLV const& lepton2);
 	static double PZetaMissVis(RMFLV const& lepton1, RMFLV const& lepton2,
 	                           RMFLV const& met, float alpha=0.85);
+	static double MetPerpToZ(RMFLV const& lepton1, RMFLV const& lepton2, RMFLV const& met);
+	static double MetParToZ(RMFLV const& lepton1, RMFLV const& lepton2, RMFLV const& met);
 
 	static double MetChiSquare(TVector2 const& v, ROOT::Math::SMatrix<double, 2> matrix);
 private:

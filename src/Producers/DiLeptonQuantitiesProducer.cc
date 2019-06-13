@@ -126,6 +126,18 @@ void DiLeptonQuantitiesProducer::Init(setting_type const& settings)
 	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("pZetaPuppiMissVis", [](event_type const& event, product_type const& product) {
 		return product.pZetaPuppiMissVis;
 	});
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("metPerpToZ", [](event_type const& event, product_type const& product) {
+		return product.metPerpToZ;
+	});
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("metParToZ", [](event_type const& event, product_type const& product) {
+		return product.metParToZ;
+	});
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("puppimetPerpToZ", [](event_type const& event, product_type const& product) {
+		return product.puppimetPerpToZ;
+	});
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("puppimetParToZ", [](event_type const& event, product_type const& product) {
+		return product.puppimetParToZ;
+	});
 }
 
 void DiLeptonQuantitiesProducer::Produce(event_type const& event, product_type& product,
@@ -206,4 +218,12 @@ void DiLeptonQuantitiesProducer::Produce(event_type const& event, product_type& 
 	                                             product.m_puppimet.p4, 0.0);
 	product.pZetaPuppiMissVis = Quantities::PZetaMissVis(product.m_flavourOrderedLeptons[0]->p4, product.m_flavourOrderedLeptons[1]->p4,
 	                                                product.m_puppimet.p4, 0.85);
+	product.metPerpToZ = Quantities::MetPerpToZ(product.m_flavourOrderedLeptons[0]->p4, product.m_flavourOrderedLeptons[1]->p4,
+	                                                product.m_met.p4);
+	product.metParToZ = Quantities::MetParToZ(product.m_flavourOrderedLeptons[0]->p4, product.m_flavourOrderedLeptons[1]->p4,
+	                                                product.m_met.p4);
+	product.puppimetPerpToZ = Quantities::MetPerpToZ(product.m_flavourOrderedLeptons[0]->p4, product.m_flavourOrderedLeptons[1]->p4,
+	                                                product.m_puppimet.p4);
+	product.puppimetParToZ = Quantities::MetParToZ(product.m_flavourOrderedLeptons[0]->p4, product.m_flavourOrderedLeptons[1]->p4,
+	                                                product.m_puppimet.p4);
 }
