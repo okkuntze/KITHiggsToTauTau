@@ -76,7 +76,7 @@ double Quantities::MetPerpToZ(RMFLV const& lepton1, RMFLV const& lepton2, RMFLV 
 
         float metpar =  met2D.Dot(diLepton2D_Dir);
         auto metperp_vec = (met2D - metpar*diLepton2D_Dir);
-        float metperp = metperp_vec.R() * (signbit(metperp_vec.Phi()) ? -1.0 : 1.0);
+        float metperp = metperp_vec.R() * ((metperp_vec.Phi() <= diLepton2D.Phi() ) ? -1.0 : 1.0);
         return metperp;
 }
 
