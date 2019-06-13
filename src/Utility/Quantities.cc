@@ -2,6 +2,7 @@
 #include "HiggsAnalysis/KITHiggsToTauTau/interface/Utility/Quantities.h"
 
 #include <TMath.h>
+#include <math.h>
 
 // transverse mass in the H2Taus definition
 // https://github.com/CERN-PH-CMG/cmg-cmssw/blob/CMGTools-from-CMSSW_7_2_3/CMGTools/H2TauTau/python/proto/physicsobjects/DiObject.py#L119
@@ -74,7 +75,8 @@ double Quantities::MetPerpToZ(RMFLV const& lepton1, RMFLV const& lepton2, RMFLV 
         auto met2D = ROOT::Math::Polar2DVectorF(met.Pt(), met.Phi());
 
         float metpar =  met2D.Dot(diLepton2D_Dir);
-        float metperp = (met2D - metpar*diLepton2D_Dir).R();
+        auto metperp_vec = (met2D - metpar*diLepton2D_Dir);
+        float metperp = metperp_vec.R() * (signbit(metperp_vec.Phi()) ? -1.0 : 1.0);
         return metperp;
 }
 

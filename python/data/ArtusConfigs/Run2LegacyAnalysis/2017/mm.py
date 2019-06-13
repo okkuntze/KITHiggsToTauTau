@@ -175,6 +175,7 @@ def build_config(nickname, **kwargs):
       "flagMETFilter",
       "trigger_24_Weight_1", "trigger_27_Weight_1", "trigger_24_27_Weight_1",
       "metPerpToZ", "metParToZ",
+      "puppimetPerpToZ", "puppimetParToZ",
   ])
 
   ### Processors & consumers configuration
