@@ -398,10 +398,16 @@ class HiggsToTauTauAnalysisWrapper():
 								fileevents = d[entry]
 								log.info("hashed_data_path for " + entry + " : " + str(fileevents))
 							else:
-								f = ROOT.TFile.Open(entry)
-								fileevents = f.Get("Events").GetEntries()
-								log.info("Checking events that are not found in the cashes for " + str(entry) + " : " + str(fileevents))
-								f.Close()
+								try:
+									f = ROOT.TFile.Open(entry)
+									fileevents = f.Get("Events").GetEntries()
+									f.Close()
+									log.info("Checking events that are not found in the cashes for " + str(entry) + " : " + str(fileevents))
+								except:
+									if self._args.hashed_rootfiles_info:
+										d.close()
+									log.error("File could not be read: " + str(entry))
+									raise
 
 								if self._args.hashed_rootfiles_info and self._args.hashed_rootfiles_info_force:
 									d[entry] = fileevents

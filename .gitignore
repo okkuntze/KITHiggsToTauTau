@@ -1,6 +1,7 @@
 *~
 *.pyc
 work.*
+*.__afs*
 *__init__.py
 *.formatted
 auxiliaries
