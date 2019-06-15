@@ -15,7 +15,7 @@ import os
 
 import HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Includes.ArtusConfigUtility as ACU
 
-def build_config(nickname):
+def build_config(nickname, **kwargs):
   config = jsonTools.JsonDict()
   datasetsHelper = datasetsHelperTwopz.datasetsHelperTwopz(os.path.expandvars("$CMSSW_BASE/src/Kappa/Skimming/data/datasets.json"))
   
@@ -24,6 +24,7 @@ def build_config(nickname):
     "numberGeneratedEventsWeight",
     "crossSectionPerEventWeight",
     "generatorWeight",
+    "puweight",
     "npartons",
     "topPtReweightWeightRun1",
     "topPtReweightWeightRun2",

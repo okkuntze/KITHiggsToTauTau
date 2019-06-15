@@ -206,7 +206,6 @@ def build_config(nickname, **kwargs):
   if isDY:                       config["Processors"].append( "producer:ZPtReweightProducer")
   if not isData and not isEmbedded:                 config["Processors"].append( "producer:RooWorkspaceWeightProducer")
   config["Processors"].append(                                "producer:EventWeightProducer")
-  config["Processors"].append(                                "producer:SvfitProducer")
   config["Consumers"] = ["KappaLambdaNtupleConsumer",
                          "cutflow_histogram"]
 
