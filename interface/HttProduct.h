@@ -155,6 +155,10 @@ public:
 	double metParToZ = 0.0;
 	double puppimetPerpToZ = 0.0;
 	double puppimetParToZ = 0.0;
+	double recoilPerpToZ = 0.0;
+	double recoilParToZ = 0.0;
+	double puppirecoilPerpToZ = 0.0;
+	double puppirecoilParToZ = 0.0;
 
 	// filled by the SvfitProducer
 	mutable SvfitEventKey m_svfitEventKey;

@@ -176,6 +176,8 @@ def build_config(nickname, **kwargs):
       "trigger_24_Weight_1", "trigger_27_Weight_1", "trigger_24_27_Weight_1",
       "metPerpToZ", "metParToZ",
       "puppimetPerpToZ", "puppimetParToZ",
+      "recoilPerpToZ", "recoilParToZ",
+      "puppirecoilPerpToZ", "puppirecoilParToZ",
   ])
 
   ### Processors & consumers configuration
