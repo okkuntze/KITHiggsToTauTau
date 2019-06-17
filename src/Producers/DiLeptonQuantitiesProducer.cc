@@ -138,6 +138,18 @@ void DiLeptonQuantitiesProducer::Init(setting_type const& settings)
 	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("puppimetParToZ", [](event_type const& event, product_type const& product) {
 		return product.puppimetParToZ;
 	});
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("recoilPerpToZ", [](event_type const& event, product_type const& product) {
+		return product.recoilPerpToZ;
+	});
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("recoilParToZ", [](event_type const& event, product_type const& product) {
+		return product.recoilParToZ;
+	});
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("puppirecoilPerpToZ", [](event_type const& event, product_type const& product) {
+		return product.puppirecoilPerpToZ;
+	});
+	LambdaNtupleConsumer<HttTypes>::AddFloatQuantity("puppirecoilParToZ", [](event_type const& event, product_type const& product) {
+		return product.puppirecoilParToZ;
+	});
 }
 
 void DiLeptonQuantitiesProducer::Produce(event_type const& event, product_type& product,
@@ -226,4 +238,12 @@ void DiLeptonQuantitiesProducer::Produce(event_type const& event, product_type& 
 	                                                product.m_puppimet.p4);
 	product.puppimetParToZ = Quantities::MetParToZ(product.m_flavourOrderedLeptons[0]->p4, product.m_flavourOrderedLeptons[1]->p4,
 	                                                product.m_puppimet.p4);
+	product.recoilPerpToZ = Quantities::MetPerpToZ(product.m_flavourOrderedLeptons[0]->p4, product.m_flavourOrderedLeptons[1]->p4,
+	                                                - product.m_met.p4 - product.m_flavourOrderedLeptons[0]->p4 - product.m_flavourOrderedLeptons[1]->p4);
+	product.recoilParToZ = Quantities::MetParToZ(product.m_flavourOrderedLeptons[0]->p4, product.m_flavourOrderedLeptons[1]->p4,
+	                                                - product.m_met.p4 - product.m_flavourOrderedLeptons[0]->p4 - product.m_flavourOrderedLeptons[1]->p4);
+	product.puppirecoilPerpToZ = Quantities::MetPerpToZ(product.m_flavourOrderedLeptons[0]->p4, product.m_flavourOrderedLeptons[1]->p4,
+	                                                - product.m_puppimet.p4 - product.m_flavourOrderedLeptons[0]->p4 - product.m_flavourOrderedLeptons[1]->p4);
+	product.puppirecoilParToZ = Quantities::MetParToZ(product.m_flavourOrderedLeptons[0]->p4, product.m_flavourOrderedLeptons[1]->p4,
+	                                                - product.m_puppimet.p4 - product.m_flavourOrderedLeptons[0]->p4 - product.m_flavourOrderedLeptons[1]->p4);
 }
