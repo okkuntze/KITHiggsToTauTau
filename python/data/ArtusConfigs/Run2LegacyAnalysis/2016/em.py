@@ -149,7 +149,7 @@ def build_config(nickname, **kwargs):
           "0:muonEffTrgWeight",
           "0:muonEffIDWeight",
           "1:muonEffIDWeight",
-          "1:isoWeight",
+          "1:isoWeight", # TODO check if this isolation is the right one
           "1:idWeight",
 
           #"1:trigger_23_data_Weight",
@@ -157,7 +157,7 @@ def build_config(nickname, **kwargs):
           #"1:trigger_8_data_Weight",
           #"1:trigger_8_embed_Weight",
 
-          "0:isoWeight",
+          "0:isoWeight", # TODO check if this isolation is the right one
           "0:idWeight",
           "0:trackWeight",
 
@@ -171,7 +171,7 @@ def build_config(nickname, **kwargs):
           "0:m_sel_idEmb_ratio",
           "1:m_sel_idEmb_ratio",
           
-          "1:m_looseiso_ratio",
+          "1:m_iso_ratio",
           "1:m_id_ratio",
           
           #"1:m_trg23_binned_ic_data",
@@ -179,7 +179,7 @@ def build_config(nickname, **kwargs):
           #"1:m_trg8_binned_ic_data",
           #"1:m_trg8_binned_ic_embed",
           
-          "0:e_looseiso_ratio",
+          "0:e_iso_ratio",
           "0:e_id_ratio",
           "0:e_trk_ratio",
 
@@ -194,7 +194,7 @@ def build_config(nickname, **kwargs):
           "1:gt_pt,gt_eta",
           
           "1:m_pt,m_eta",
-          "1:m_pt,m_eta"
+          "1:m_pt,m_eta",
 
           #"1:m_pt,m_eta,m_iso",
           #"1:m_pt,m_eta,m_iso",
@@ -209,103 +209,105 @@ def build_config(nickname, **kwargs):
           #"0:e_pt,e_eta,e_iso",
     ]
   else:
-      config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_legacy_v16_1.root"
-      config["RooWorkspaceWeightNames"] = [
-          "1:isoWeight",
-          "1:idWeight",
+    config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_legacy_v16_1.root"
+    config["RooWorkspaceWeightNames"] = [
+        "1:isoWeight", # TODO check if this isolation is the right one
+        "1:idWeight",
 
-          #"1:trigger_23_data_Weight",
-          #"1:trigger_23_mc_Weight",
-          #"1:trigger_8_data_Weight",
-          #"1:trigger_8_mc_Weight",
+        #"1:trigger_23_data_Weight",
+        #"1:trigger_23_mc_Weight",
+        #"1:trigger_8_data_Weight",
+        #"1:trigger_8_mc_Weight",
 
-          "0:isoWeight",
-          "0:idWeight",
-          "0:trackWeight",
+        "0:isoWeight", # TODO check if this isolation is the right one
+        "0:idIsoWeight",
+        "0:trackWeight",
 
-          #"0:trigger_23_data_Weight",
-          #"0:trigger_23_mc_Weight",
-          #"0:trigger_12_data_Weight",
-          #"0:trigger_12_mc_Weight",
-      ]
-      config["RooWorkspaceObjectNames"] = [
-          "1:m_looseiso_ratio",
-          "1:m_id_ratio",
-          
-          #"1:m_trg23_binned_ic_data",
-          #"1:m_trg23_binned_ic_mc",         
-          #"1:m_trg8_binned_ic_data",
-          #"1:m_trg8_binned_ic_mc",
-          
-          "0:e_looseiso_ratio",
-          "0:e_id_ratio",
-          "0:e_trk_ratio",
+        #"0:trigger_23_data_Weight",
+        #"0:trigger_23_mc_Weight",
+        #"0:trigger_12_data_Weight",
+        #"0:trigger_12_mc_Weight",
+    ]
+    config["RooWorkspaceObjectNames"] = [
+        "1:m_iso_ratio",
+        "1:m_id_ratio",
+        
+        #"1:m_trg23_binned_ic_data",
+        #"1:m_trg23_binned_ic_mc",         
+        #"1:m_trg8_binned_ic_data",
+        #"1:m_trg8_binned_ic_mc",
+        
+        "0:e_iso_ratio",
+        "0:e_id_ratio",
+        "0:e_trk_ratio",
 
-          #"0:e_trg23_binned_ic_data",
-          #"0:e_trg23_binned_ic_mc",    
-          #"0:e_trg12_binned_ic_data",
-          #"0:e_trg12_binned_ic_mc",
-          
-      ]
-      config["RooWorkspaceObjectArguments"] = [
-          "1:m_pt,m_eta",
-          "1:m_pt,m_eta"
+        #"0:e_trg23_binned_ic_data",
+        #"0:e_trg23_binned_ic_mc",    
+        #"0:e_trg12_binned_ic_data",
+        #"0:e_trg12_binned_ic_mc",
+        
+    ]
+    config["RooWorkspaceObjectArguments"] = [
+        "1:m_pt,m_eta",
+        "1:m_pt,m_eta",
 
-          #"1:m_pt,m_eta,m_iso",
-          #"1:m_pt,m_eta,m_iso",
-          #"1:m_pt,m_eta,m_iso",
-          #"1:m_pt,m_eta,m_iso",
-          "0:e_pt,e_eta",
-          "0:e_pt,e_eta",
-          "0:e_pt,e_eta",
-          #"0:e_pt,e_eta,e_iso",
-          #"0:e_pt,e_eta,e_iso",
-          #"0:e_pt,e_eta,e_iso",
-          #"0:e_pt,e_eta,e_iso",
-      ]
-  config["QCDFactorWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v16_12_embedded.root"
-  config["QCDFactorWorkspaceWeightNames"]=[
-      "0:em_qcd_osss_binned_Weight",
-      "0:em_qcd_extrap_up_Weight",
-      "0:em_qcd_extrap_down_Weight",
-      "0:em_qcd_osss_0jet_rateup_Weight",
-      "0:em_qcd_osss_0jet_ratedown_Weight",
-      "0:em_qcd_osss_0jet_shapeup_Weight",
-      "0:em_qcd_osss_0jet_shapedown_Weight",
-      "0:em_qcd_osss_1jet_rateup_Weight",
-      "0:em_qcd_osss_1jet_ratedown_Weight",
-      "0:em_qcd_osss_1jet_shapeup_Weight",
-      "0:em_qcd_osss_1jet_shapedown_Weight",
-      "0:em_qcd_extrap_uncert_Weight",
-  ]
-  config["QCDFactorWorkspaceObjectNames"] = [
-      "0:em_qcd_osss_binned",
-      "0:em_qcd_extrap_up",
-      "0:em_qcd_extrap_down",
-      "0:em_qcd_0jet_rateup",
-      "0:em_qcd_0jet_ratedown",
-      "0:em_qcd_0jet_shapeup",
-      "0:em_qcd_0jet_shapedown",
-      "0:em_qcd_1jet_rateup",
-      "0:em_qcd_1jet_ratedown",
-      "0:em_qcd_1jet_shapeup",
-      "0:em_qcd_1jet_shapedown",
-      "0:em_qcd_extrap_uncert",
-  ]
-  config["QCDFactorWorkspaceObjectArguments"] = [
-      "0:e_pt,m_pt,dR,njets",
-      "0:e_pt,m_pt,dR",
-      "0:e_pt,m_pt,dR",
-      "0:e_pt,m_pt,dR",
-      "0:e_pt,m_pt,dR",
-      "0:e_pt,m_pt,dR",
-      "0:e_pt,m_pt,dR",
-      "0:e_pt,m_pt,dR",
-      "0:e_pt,m_pt,dR",
-      "0:e_pt,m_pt,dR",
-      "0:e_pt,m_pt,dR",
-      "0:e_pt,m_pt",
-  ]
+        #"1:m_pt,m_eta,m_iso",
+        #"1:m_pt,m_eta,m_iso",
+        #"1:m_pt,m_eta,m_iso",
+        #"1:m_pt,m_eta,m_iso",
+
+        "0:e_pt,e_eta",
+        "0:e_pt,e_eta",
+        "0:e_pt,e_eta",
+
+        #"0:e_pt,e_eta,e_iso",
+        #"0:e_pt,e_eta,e_iso",
+        #"0:e_pt,e_eta,e_iso",
+        #"0:e_pt,e_eta,e_iso",
+    ]
+  # config["QCDFactorWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v16_12_embedded.root"
+  # config["QCDFactorWorkspaceWeightNames"]=[
+  #     "0:em_qcd_osss_binned_Weight",
+  #     "0:em_qcd_extrap_up_Weight",
+  #     "0:em_qcd_extrap_down_Weight",
+  #     "0:em_qcd_osss_0jet_rateup_Weight",
+  #     "0:em_qcd_osss_0jet_ratedown_Weight",
+  #     "0:em_qcd_osss_0jet_shapeup_Weight",
+  #     "0:em_qcd_osss_0jet_shapedown_Weight",
+  #     "0:em_qcd_osss_1jet_rateup_Weight",
+  #     "0:em_qcd_osss_1jet_ratedown_Weight",
+  #     "0:em_qcd_osss_1jet_shapeup_Weight",
+  #     "0:em_qcd_osss_1jet_shapedown_Weight",
+  #     "0:em_qcd_extrap_uncert_Weight",
+  # ]
+  # config["QCDFactorWorkspaceObjectNames"] = [
+  #     "0:em_qcd_osss_binned",
+  #     "0:em_qcd_extrap_up",
+  #     "0:em_qcd_extrap_down",
+  #     "0:em_qcd_0jet_rateup",
+  #     "0:em_qcd_0jet_ratedown",
+  #     "0:em_qcd_0jet_shapeup",
+  #     "0:em_qcd_0jet_shapedown",
+  #     "0:em_qcd_1jet_rateup",
+  #     "0:em_qcd_1jet_ratedown",
+  #     "0:em_qcd_1jet_shapeup",
+  #     "0:em_qcd_1jet_shapedown",
+  #     "0:em_qcd_extrap_uncert",
+  # ]
+  # config["QCDFactorWorkspaceObjectArguments"] = [
+  #     "0:e_pt,m_pt,dR,njets",
+  #     "0:e_pt,m_pt,dR",
+  #     "0:e_pt,m_pt,dR",
+  #     "0:e_pt,m_pt,dR",
+  #     "0:e_pt,m_pt,dR",
+  #     "0:e_pt,m_pt,dR",
+  #     "0:e_pt,m_pt,dR",
+  #     "0:e_pt,m_pt,dR",
+  #     "0:e_pt,m_pt,dR",
+  #     "0:e_pt,m_pt,dR",
+  #     "0:e_pt,m_pt,dR",
+  #     "0:e_pt,m_pt",
+  # ]
   config["EventWeight"] = "eventWeight"
   config["TopPtReweightingStrategy"] = "Run1"
 
@@ -435,7 +437,7 @@ def build_config(nickname, **kwargs):
   if isGluonFusion:              config["Processors"].append( "producer:SMggHNNLOProducer")
   if not isData and not isEmbedded:                 config["Processors"].append( "producer:RooWorkspaceWeightProducer")
   config["Processors"].append( "producer:QCDFactorProducer")
-  config["Processors"].append(                                "filter:MinimalPlotlevelFilter")
+  #config["Processors"].append(                                "filter:MinimalPlotlevelFilter")
   config["Processors"].append(
                                                               "producer:EventWeightProducer")
   config["Processors"].append(                                "producer:SvfitProducer")
