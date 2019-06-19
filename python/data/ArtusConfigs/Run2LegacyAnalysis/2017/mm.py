@@ -17,7 +17,6 @@ import HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Includes.ArtusConfigUtil
 
 def build_config(nickname, **kwargs):
   btag_eff = True if "sub_analysis" in kwargs and kwargs["sub_analysis"] == "btag-eff" else False
-  etau_fake_es = True if "sub_analysis" in kwargs and kwargs["sub_analysis"] == "etau-fake-es" else False
   pipelines = kwargs["pipelines"] if "pipelines" in kwargs else None
   minimal_setup = True if "minimal_setup" in kwargs and kwargs["minimal_setup"] else False
 
@@ -29,9 +28,7 @@ def build_config(nickname, **kwargs):
   isData = datasetsHelper.isData(nickname) and (not isEmbedded)
   isTTbar = re.search("TT(To|_|Jets)", nickname)
   isDY = re.search("DY.?JetsToLLM(10to50|50)", nickname)
-  isWjets = re.search("W.?JetsToLNu", nickname)
-  isSignal = re.search("HToTauTau",nickname)
-  isGluonFusion = re.search("GluGluHToTauTauM125", nickname)
+  isWjets = re.search("(W.?Jets|WG)ToLNu", nickname)
 
   ## fill config:
   # includes
@@ -51,7 +48,7 @@ def build_config(nickname, **kwargs):
   ]
   for include_file in includes:
     analysis_config_module = importlib.import_module(include_file)
-    config += analysis_config_module.build_config(nickname)
+    config += analysis_config_module.build_config(nickname, **kwargs)
 
   # explicit configuration
   config["Channel"] = "MM"
@@ -173,7 +170,6 @@ def build_config(nickname, **kwargs):
       "had_gen_match_pT_1",
       "had_gen_match_pT_2",
       "flagMETFilter",
-      "trigger_24_Weight_1", "trigger_27_Weight_1", "trigger_24_27_Weight_1",
       "metPerpToZ", "metParToZ",
       "puppimetPerpToZ", "puppimetParToZ",
       "recoilPerpToZ", "recoilParToZ",
