@@ -223,7 +223,7 @@ def build_config(nickname, **kwargs):
         #"1:trigger_8_mc_Weight",
 
         "0:isoWeight", # TODO check if this isolation is the right one
-        "0:idIsoWeight",
+        "0:idWeight",
         "0:eleRecoWeight",
 
         #"0:trigger_23_data_Weight",
