@@ -149,6 +149,7 @@ def build_config(nickname, **kwargs):
           "0:muonEffTrgWeight",
           "0:muonEffIDWeight",
           "1:muonEffIDWeight",
+
           "1:isoWeight", # TODO check if this isolation is the right one
           "1:idWeight",
 
@@ -159,7 +160,7 @@ def build_config(nickname, **kwargs):
 
           "0:isoWeight", # TODO check if this isolation is the right one
           "0:idWeight",
-          "0:trackWeight",
+          "0:eleRecoWeight",
 
           #"0:trigger_23_data_Weight",
           #"0:trigger_23_embed_Weight",
@@ -200,9 +201,11 @@ def build_config(nickname, **kwargs):
           #"1:m_pt,m_eta,m_iso",
           #"1:m_pt,m_eta,m_iso",
           #"1:m_pt,m_eta,m_iso",
+
           "0:e_pt,e_eta",
           "0:e_pt,e_eta",
           "0:e_pt,e_eta",
+
           #"0:e_pt,e_eta,e_iso",
           #"0:e_pt,e_eta,e_iso",
           #"0:e_pt,e_eta,e_iso",
@@ -221,7 +224,7 @@ def build_config(nickname, **kwargs):
 
         "0:isoWeight", # TODO check if this isolation is the right one
         "0:idIsoWeight",
-        "0:trackWeight",
+        "0:eleRecoWeight",
 
         #"0:trigger_23_data_Weight",
         #"0:trigger_23_mc_Weight",
@@ -366,6 +369,7 @@ def build_config(nickname, **kwargs):
       "dzeta"
   ])
   if isEmbedded:
+    config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2LegacyAnalysis.Includes.embeddedDecayModeWeightQuantities").build_list())
     config["Quantities"].extend([
           "muonEffTrgWeight", "muonEffIDWeight_1","muonEffIDWeight_2",
           "trigger_23_data_Weight_2","trigger_23_embed_Weight_2","trigger_8_embed_Weight_2" ,"trigger_8_data_Weight_2",
@@ -437,7 +441,7 @@ def build_config(nickname, **kwargs):
   if isGluonFusion:              config["Processors"].append( "producer:SMggHNNLOProducer")
   if not isData and not isEmbedded:                 config["Processors"].append( "producer:RooWorkspaceWeightProducer")
   config["Processors"].append( "producer:QCDFactorProducer")
-  #config["Processors"].append(                                "filter:MinimalPlotlevelFilter")
+  config["Processors"].append(                                "filter:MinimalPlotlevelFilter")
   config["Processors"].append(
                                                               "producer:EventWeightProducer")
   config["Processors"].append(                                "producer:SvfitProducer")
