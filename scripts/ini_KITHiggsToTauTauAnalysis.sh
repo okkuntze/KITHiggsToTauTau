@@ -20,9 +20,9 @@ export PATH=${CMSSW_BASE}/src/grid-control/:${CMSSW_BASE}/src/grid-control/scrip
 # overwrite artus settings
 if [[ `hostname` == *naf* ]]; then
 	export ARTUS_WORK_BASE="/nfs/dust/cms/user/${USER}/htautau/artus/"
-elif [[ `hostname` == *ekpbms* ]] && [ ${USER} == "wayand" ]; then
+elif [[ `hostname` == *ekpbms* ]] && [ ${USER} == "wunsch" ]; then
     echo "Hallo stefan auf der bms"
-    export ARTUS_WORK_BASE="/portal/ekpbms2/home/wayand/htautau/artus"
+    export ARTUS_WORK_BASE="/portal/ekpbms2/home/wunsch/htautau/artus"
 elif [[ `hostname` == *ekp* ]]; then
 	STORAGELIST=(b c 8 9) #list of allowed storages ordered by priority (descending)
 	for STORAGE in ${STORAGELIST[*]}
