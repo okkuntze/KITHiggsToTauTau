@@ -33,7 +33,7 @@ def build_config(nickname, **kwargs):
   # includes
   includes = [
     "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.TagAndProbe.Includes.ee_settingsElectronID",
-    "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM.Includes.settingsJetID"
+    #"HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.TagAndProbe.Includes.settingsJetID"
   ]
   for include_file in includes:
     analysis_config_module = importlib.import_module(include_file)

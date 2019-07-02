@@ -48,10 +48,10 @@ def build_config(nickname, **kwargs):
   config["ElectronLowerPtCuts"] = ["10.0"]
   config["ElectronUpperAbsEtaCuts"] = ["2.1"]
   config["DiTauPairMinDeltaRCut"] = 0.5
-  config["TagElectronIDName"] = "egmGsfElectronIDs:mvaEleID-Fall17-iso-V1-wp80"
-  #config["TagElectronSecondIDName"] = "egmGsfElectronIDs:mvaEleID-Fall17-noIso-V1-wp90"
+  config["TagElectronIDName"] = "egmGsfElectronIDs:mvaEleID-Fall17-noIso-V2-wp90"
+  #config["OldElectronIDName"] = "electronMVAValueMapProducer:ElectronMVAEstimatorRun2Spring15NonTri  #config["TagElectronSecondIDName"] = "egmGsfElectronIDs:mvaEleID-Fall17-noIso-V1-wp90"
   config["ElectronID"] = "user"
-  config["ElectronIDName"] = "egmGsfElectronIDs:mvaEleID-Fall17-iso-V1-wp80"
+  config["ElectronIDName"] = "egmGsfElectronIDs:mvaEleID-Fall17-noIso-V2-wp90"
   config["ElectronTrackDxyCut"] = 0.05
   config["ElectronTrackDzCut"] = 0.1
   config["ElectronIsoPtSumOverPtUpperThresholdEE"] = 0.1

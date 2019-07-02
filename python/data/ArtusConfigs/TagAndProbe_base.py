@@ -175,8 +175,8 @@ def build_config(nickname, **kwargs):
   #config["Pipelines"] += importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.TagAndProbe.%i.inclusiveZee"%year).build_config(nickname)
   config["Pipelines"] += importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.TagAndProbe.%i.mm_singlemuon"%year).build_config(nickname)
   config["Pipelines"] += importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.TagAndProbe.%i.mm_crossmuon"%year).build_config(nickname)
-  #config["Pipelines"] += importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.TagAndProbe.%i.mutau_test"%year).build_config(nickname)
+  #config["Pipelines"] += importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.TagAndProbe.%i.mt"%year).build_config(nickname)
   config["Pipelines"] += importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.TagAndProbe.%i.ee_singleelectron"%year).build_config(nickname)
-  #config["Pipelines"] += importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.TagAndProbe.%i.ee_crosselectron"%year).build_config(nickname)
+  config["Pipelines"] += importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.TagAndProbe.%i.ee_crosselectron"%year).build_config(nickname)
 
   return config

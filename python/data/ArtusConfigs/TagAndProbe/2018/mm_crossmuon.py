@@ -113,7 +113,7 @@ def build_config(nickname, **kwargs):
           "trg_p_mu20tau27:2.1"
   ]
 
-  config["Quantities"] = importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.TagAndProbe.Includes.TagAndProbeQuantitiesMMCross").build_list()
+  config["Quantities"] = importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.TagAndProbe.Includes.TagAndProbeQuantitiesMMCross").build_list(2018)
 
   config["Processors"] =   ["producer:ValidMuonsProducer",
                             "filter:ValidMuonsFilter",
