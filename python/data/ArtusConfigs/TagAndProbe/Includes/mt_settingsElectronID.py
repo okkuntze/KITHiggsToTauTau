@@ -28,8 +28,8 @@ def build_config(nickname, **kwargs):
 
   # explicit configuration
   config["ElectronID_documentation"] = "https://twiki.cern.ch/twiki/bin/viewauth/CMS/HiggsToTauTauWorking2015#Electrons"
-  config["ElectronReco"] = "mvanontrig"
-  config["ElectronID"] = "none"
+  config["ElectronReco"] = "none"
+  config["ElectronID"] = "user"
   config["ElectronIDType"] = "cutbased2015andlater" # still MVA, using boolean functionality of IsCutBased()
 
   # signal electron ID
@@ -47,15 +47,16 @@ def build_config(nickname, **kwargs):
     "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V2-tight",
   ]
 
-  config["ElectronIsoType"] = "user"
+  config["ElectronIsoType"] = "none"
   config["ElectronIso"] = "none"
   config["ElectronIsoSignalConeSize"] = 0.3
   config["ElectronDeltaBetaCorrectionFactor"] = 0.5
   # reference eA values & bins from https://github.com/cms-sw/cmssw/blob/master/RecoEgamma/ElectronIdentification/data/Fall17/effAreaElectrons_cone03_pfNeuHadronsAndPhotons_94X.txt
-  config["ElectronEtaBinnedEAValues"] = [0.1440, 0.1562, 0.1032, 0.0859, 0.1116, 0.1321, 0.1654] #for v2 of the id
-  # config["ElectronEtaBinnedEAValues"] = [0.1566,0.1626,0.1073,0.0854,0.1051,0.1204,0.1524] for v1 of id
-  config["ElectronEtaBinsForEA"] = [0.0, 1.0, 1.479, 2.0, 2.2, 2.3, 2.4, 5.0]
-  config["ElectronTrackDxyCut"] = 0.0
-  config["ElectronTrackDzCut"] = 0.0
-  
+  config["ElectronEtaBinnedEAValues"] = []
+  config["ElectronEtaBinsForEA"] = []
+  config["ElectronTrackDxyCut"] = -1.0
+  config["ElectronTrackDzCut"] = -1.0
+  config["ElectronLowerPtCuts"] = ["10.0"]
+  config["ElectronUpperAbsEtaCuts"] = ["2.5"]
+
   return config

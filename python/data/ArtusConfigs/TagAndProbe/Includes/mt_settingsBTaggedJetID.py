@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os
 import logging
 log = logging.getLogger(__name__)
 
 import Artus.Utility.jsonTools as jsonTools
 import Kappa.Skimming.datasetsHelperTwopz as datasetsHelperTwopz
-import os
-
 
 def build_config(nickname, **kwargs):
 
@@ -124,9 +123,8 @@ def build_config(nickname, **kwargs):
     config["BTaggedJetCombinedSecondaryVertexName"] = btag["BTaggedJetCombinedSecondaryVertexName"]
     config["BTaggerWorkingPoints"] = btag["BTaggerWorkingPoints"]
 
-    if year == 2016:            config["BTaggedJetAbsEtaCut"] = 2.4  # 2016 value
-    elif year in [2017, 2018]:  config["BTaggedJetAbsEtaCut"] = 2.5  # 2017,2018 value
-    config["ApplyBTagSF"] = not isEmbedded
+    config["BTaggedJetAbsEtaCut"] = 2.4  # 2016 value
+    config["ApplyBTagSF"] = False
     config["JetTaggerUpperCuts"] = []
     config["BTagSFMethod"] = "PromotionDemotion"
     config["BTagShift"] = 0
