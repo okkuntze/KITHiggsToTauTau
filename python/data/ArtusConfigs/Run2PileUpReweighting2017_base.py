@@ -61,21 +61,12 @@ def build_config(nickname, **kwargs):
   
   config["BosonStatuses"] = [62]
   config["TopPtReweightingStrategy"] = "Run1"
-  if isData or isEmbedded:                config["PileupWeightFile"] = "not needed"
-  elif year == 2016: config["PileupWeightFile"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/pileup/Data_Pileup_2016_271036-284044_13TeVMoriond17_23Sep2016ReReco_69p2mbMinBiasXS.root"
-  elif year == 2017: config["PileupWeightFile"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/pileup/Data_Pileup_2017_294927-306462_13TeVFall17_31Mar2018ReReco_69p2mbMinBiasXS/%s.root"%nickname
-  elif year == 2018: config["PileupWeightFile"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/pileup/Data_Pileup_2018_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18.root"
-  else:
-    print "PileupWeightFile not defined"
-    exit(1)
-  
   config["OutputPath"] = "output.root"
   
   config["Processors"] = []
   config["Processors"].append(                                    "producer:NicknameProducer")
   config["Processors"].extend((                                   "producer:CrossSectionWeightProducer",
                                                                   "producer:GeneratorWeightProducer",
-                                                                  "producer:PUWeightProducer",
                                                                   "producer:NumberGeneratedEventsWeightProducer"))
   if isWjets or isDY:                config["Processors"].append( "producer:GenBosonFromGenParticlesProducer")
   if isDY or isEmbedded:             config["Processors"].append( "producer:GenDiLeptonDecayModeProducer")

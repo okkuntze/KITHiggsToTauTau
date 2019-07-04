@@ -24,7 +24,6 @@ def build_config(nickname, **kwargs):
     "numberGeneratedEventsWeight",
     "crossSectionPerEventWeight",
     "generatorWeight",
-    "puweight",
     "npartons",
     "topPtReweightWeightRun1",
     "topPtReweightWeightRun2",
