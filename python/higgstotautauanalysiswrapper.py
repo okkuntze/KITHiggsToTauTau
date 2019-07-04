@@ -380,7 +380,7 @@ class HiggsToTauTauAnalysisWrapper():
 		# if (not (isinstance(self._config["InputFiles"], list)) and not isinstance(self._config["InputFiles"], basestring)):
 		self._config["InputFiles"] = []
 		for entry in filelist:
-
+			store_entry = entry[entry.find('/store'):]
 			if set(entry).issubset({'\t', ' ', '\n'}) or entry[0]=='#':
 				continue
 
@@ -394,9 +394,9 @@ class HiggsToTauTauAnalysisWrapper():
 					if not alreadyInGridControl:
 						fileevents = 1
 						if self._args.n_events and self._args.batch:
-							if self._args.hashed_rootfiles_info and entry in d:
-								fileevents = d[entry]
-								log.info("hashed_data_path for " + entry + " : " + str(fileevents))
+							if self._args.hashed_rootfiles_info and store_entry in d:
+								fileevents = d[store_entry]
+								log.debug("hashed_data_path for " + entry + " : " + str(fileevents))
 							else:
 								try:
 									f = ROOT.TFile.Open(entry)
@@ -410,7 +410,7 @@ class HiggsToTauTauAnalysisWrapper():
 									raise
 
 								if self._args.hashed_rootfiles_info and self._args.hashed_rootfiles_info_force:
-									d[entry] = fileevents
+									d[store_entry] = fileevents
 
 						self._gridControlInputFiles.setdefault(self.extractNickname(entry), []).append(entry + " = " + str(fileevents))
 
