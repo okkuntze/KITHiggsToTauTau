@@ -301,7 +301,7 @@ public:
 	IMPL_SETTING(int, TauSpinnerSettingsIpol);
 	IMPL_SETTING(int, TauSpinnerSettingsNonSM2);
 	IMPL_SETTING(int, TauSpinnerSettingsNonSMN);
-
+	IMPL_SETTING_STRINGLIST(TauSpinnerValidPdgIdsAndStatusCodes);
 	IMPL_SETTING_FLOATLIST_DEFAULT(TauSpinnerMixingAnglesOverPiHalf, {});
 	IMPL_SETTING_DEFAULT(float, TauSpinnerMixingAnglesOverPiHalfSample, -1.0);
 
@@ -455,6 +455,7 @@ public:
 	IMPL_SETTING(std::string, MadGraphParamCardSample);
 	IMPL_SETTING_STRINGLIST_DEFAULT(MadGraphProcessDirectories, {});
 
+	
 	// settting for TopPtReweightingProducer
 	IMPL_SETTING(std::string, TopPtReweightingStrategy)
 

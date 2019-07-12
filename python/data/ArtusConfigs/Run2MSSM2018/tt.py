@@ -16,324 +16,371 @@ import os
 import HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Includes.ArtusConfigUtility as ACU
 
 def build_config(nickname, **kwargs):
-  btag_eff = True if "sub_analysis" in kwargs and kwargs["sub_analysis"] == "btag-eff" else False
-  etau_fake_es = True if "sub_analysis" in kwargs and kwargs["sub_analysis"] == "etau-fake-es" else False
-  pipelines = kwargs["pipelines"] if "pipelines" in kwargs else None
-  minimal_setup = True if "minimal_setup" in kwargs and kwargs["minimal_setup"] else False
-
   config = jsonTools.JsonDict()
-  datasetsHelper = datasetsHelperTwopz.datasetsHelperTwopz(os.path.expandvars("$CMSSW_BASE/src/Kappa/Skimming/data/datasets.json"))
-
-  # define frequently used conditions
-  isEmbedded = datasetsHelper.isEmbedded(nickname)
-  isData = datasetsHelper.isData(nickname) and (not isEmbedded)
-  isTTbar = re.search("TT(To|_|Jets)", nickname)
-  isDY = re.search("DY.?JetsToLLM(10to50|50)", nickname)
-  isWjets = re.search("W.?JetsToLNu", nickname)
-  isSignal = re.search("HToTauTau",nickname)
-  isGluonFusion = re.search("GluGluHToTauTauM125", nickname)
-
-  ## fill config:
-  # includes
-  includes = [
-    "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.Includes.settingsLooseElectronID",
-    "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.Includes.settingsLooseMuonID",
-    "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.Includes.settingsElectronID",
-    "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.Includes.settingsMuonID",
-    "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.Includes.settingsTauID",
-    "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.Includes.settingsJEC",
-    "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.Includes.settingsSvfit",
-    "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.Includes.settingsJetID",
-    "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.Includes.settingsBTaggedJetID",
-    "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.Includes.settingsTauES",
-    "HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.Includes.settingsMinimalPlotlevelFilter_tt"
-  ]
-  for include_file in includes:
-    analysis_config_module = importlib.import_module(include_file)
-    config += analysis_config_module.build_config(nickname)
-
-  # explicit configuration
+  config["EventWeight"]="eventWeight"
   config["Channel"] = "TT"
-  config["MinNTaus"] = 2
-  if re.search("(Run201|Embedding201|Summer1|Fall1|Autumn1)", nickname): config["HltPaths"] = [
-          "HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg",
-          "HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg",
-          "HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg",
-          "HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg",
-          "HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg",
-          "HLT_DoubleTightChargedIsoPFTauHPS35_Trk1_TightID_eta2p1_Reg",
-          "HLT_DoubleMediumChargedIsoPFTauHPS40_Trk1_TightID_eta2p1_Reg",
-          "HLT_DoubleTightChargedIsoPFTauHPS40_Trk1_eta2p1_Reg",
-    ]
-
-  config["TauID"] = "TauIDRecommendation13TeV"
-  config["TauUseOldDMs"] = True
-  config["TauLowerPtCuts"] = ["40.0"]
-  config["TauUpperAbsEtaCuts"] = ["2.1"]
-  config["DiTauPairMinDeltaRCut"] = 0.5
-  config["DeltaRTriggerMatchingTaus"] = 0.5
-  config["DiTauPairIsTauIsoMVA"] = True
-  config["DiTauPairLepton1LowerPtCuts"] = [
-          "HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg_v:40.0",
-          "HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg_v:40.0",
-          "HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_v:45.0",
-          "HLT_DoubleTightChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_v:45.0",
-          "HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg_v:40.0",
-          "HLT_DoubleTightChargedIsoPFTauHPS35_Trk1_TightID_eta2p1_Reg_v:40.0",
-          "HLT_DoubleMediumChargedIsoPFTauHPS40_Trk1_TightID_eta2p1_Reg_v:45.0",
-          "HLT_DoubleTightChargedIsoPFTauHPS40_Trk1_TightID_eta2p1_Reg_v:45.0",
-  ]
-  config["DiTauPairLepton2LowerPtCuts"] = [
-          "HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg_v:40.0",
-          "HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg_v:40.0",
-          "HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_v:45.0",
-          "HLT_DoubleTightChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_v:45.0",
-          "HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg_v:40.0",
-          "HLT_DoubleTightChargedIsoPFTauHPS35_Trk1_TightID_eta2p1_Reg_v:40.0",
-          "HLT_DoubleMediumChargedIsoPFTauHPS40_Trk1_TightID_eta2p1_Reg_v:45.0",
-          "HLT_DoubleTightChargedIsoPFTauHPS40_Trk1_TightID_eta2p1_Reg_v:45.0",
-  ]
-  config["CheckL1MatchForDiTauPairLepton1"] = True
-  config["CheckL1MatchForDiTauPairLepton2"] = True
-  config["CheckLepton1TriggerMatch"] = [
-      "trg_singlemuon_24",
-      "trg_singlemuon_27",
-      "trg_singletau_leading",
-      "trg_singleelectron_27",
-      "trg_singleelectron_32",
-      "trg_singleelectron_32_fallback",
-      "trg_singleelectron_35",
-
-      "trg_crossmuon_mu20tau27",
-      "trg_crossele_ele24tau30",
-      "trg_doubletau_35_tightiso_tightid",
-      "trg_doubletau_40_mediso_tightid",
-      "trg_doubletau_40_tightiso",
-      "trg_muonelectron_mu12ele23",
-      "trg_muonelectron_mu23ele12",
-      "trg_muonelectron_mu8ele23",
-  ]
-  config["CheckLepton2TriggerMatch"] = [
-      "trg_singletau_trailing",
-
-      "trg_crossmuon_mu20tau27",
-      "trg_crossele_ele24tau30",
-      "trg_doubletau_35_tightiso_tightid",
-      "trg_doubletau_40_mediso_tightid",
-      "trg_doubletau_40_tightiso",
-      "trg_muonelectron_mu12ele23",
-      "trg_muonelectron_mu23ele12",
-      "trg_muonelectron_mu8ele23",
-  ]
-  config["HLTBranchNames"] = [
-      "trg_singlemuon_24:HLT_IsoMu24_v",
-      "trg_singlemuon_27:HLT_IsoMu27_v",
-      "trg_crossmuon_mu20tau27:HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1_v",
-      "trg_singleelectron_27:HLT_Ele27_WPTight_Gsf_v",
-      "trg_singleelectron_32:HLT_Ele32_WPTight_Gsf_v",
-      "trg_singleelectron_32_fallback:HLT_Ele32_WPTight_Gsf_DoubleL1EG_v",
-      "trg_singleelectron_35:HLT_Ele35_WPTight_Gsf_v",
-      "trg_crossele_ele24tau30:HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_v",
-      "trg_doubletau_35_tightiso_tightid:HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg_v",
-      "trg_doubletau_35_tightiso_tightid:HLT_DoubleTightChargedIsoPFTauHPS35_Trk1_TightID_eta2p1_Reg_v",
-      "trg_doubletau_40_mediso_tightid:HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_v",
-      "trg_doubletau_40_mediso_tightid:HLT_DoubleMediumChargedIsoPFTauHPS40_Trk1_TightID_eta2p1_Reg_v",
-      "trg_doubletau_40_tightiso:HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg_v",
-      "trg_doubletau_40_tightiso:HLT_DoubleTightChargedIsoPFTauHPS40_Trk1_eta2p1_Reg_v",
-      "trg_singletau_leading:HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v",
-      "trg_singletau_trailing:HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v",
-      "trg_muonelectron_mu12ele23:HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v",
-      "trg_muonelectron_mu23ele12:HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v",
-      "trg_muonelectron_mu8ele23:HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v",
-  ]
-  config["TauTrigger2017Input"] = "$CMSSW_BASE/src/TauAnalysisTools/TauTriggerSFs/data/tauTriggerEfficiencies2017.root"
-  config["TauTrigger"] = "ditau"
-  config["TauTrigger2017WorkingPoints"] = [
-       "vloose",
-       "loose",
-       "medium",
-       "tight",
-       "vtight",
-       "vvtight",
-  ]
-  config["TauTrigger2017IDTypes"] = [
-       "MVAv2",
-  ]
-  config["TauTrigger2017EfficiencyWeightNames"] = [
-      "0:crossTriggerMCEfficiencyWeight",
-      "0:crossTriggerDataEfficiencyWeight",
-      "1:crossTriggerMCEfficiencyWeight",
-      "1:crossTriggerDataEfficiencyWeight",
-  ]
-  config["EventWeight"] = "eventWeight"
-  if isEmbedded:
-    config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v18_1.root"
-    config["EmbeddedWeightWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v18_1.root"
-    config["EmbeddedWeightWorkspaceWeightNames"]=[
-            "0:muonEffTrgWeight",
-
-            "0:muonEffIDWeight",
-            "1:muonEffIDWeight",
-            "0:triggerWeight",
-            "1:triggerWeight",
-            ]
-    config["EmbeddedWeightWorkspaceObjectNames"]=[
-            "0:m_sel_trg_ratio",
-            "0:m_sel_idEmb_ratio",
-            "1:m_sel_idEmb_ratio",
-            "0:tt_emb_PFTau35OR40_tight_kit_ratio",
-            "1:tt_emb_PFTau35OR40_tight_kit_ratio",
-            ]
-    config["EmbeddedWeightWorkspaceObjectArguments"] = [
-            "0:gt1_pt,gt1_eta,gt2_pt,gt2_eta",
-            "0:gt_pt,gt_eta",
-            "1:gt_pt,gt_eta",
-            "0:t_pt",
-            "1:t_pt",
-            ]
+  
+  
+  config["Quantities"] = []
+  
+  config["TauSpinnerSettingsPDF"] = "NNPDF31_nnlo_as_0118"
+  config["TauSpinnerSettingsCmsEnergy"] = 13000.0
+  config["TauSpinnerSettingsIpp"] = True
+  config["TauSpinnerSettingsIpol"] = "2"
+  config["TauSpinnerSettingsNonSM2"] = "0"
+  config["TauSpinnerSettingsNonSMN"] = "0"
+  config["TauSpinnerValidPdgIdsAndStatusCodes"] = [
+			# "15:23", # Tau
+			"15:2", # Tau
+			# "22:1", # Gamma,
+			"111:2", # PiZero,
+			"211:1", # PiPlus,
+			"321:1", # KPlus,
+			"130:1", # KLong,
+			"310:1", # KShort,
+			"11:1", # Electron,
+			"12:1", # NuE,
+			"13:1", # Muon,
+			"14:1", # NuMu,
+			"16:1", # NuTau
+		]
+  if re.search("(HToTauTau|H2JetsToTauTau|Higgs)", nickname):
+			config["TauSpinnerMixingAnglesOverPiHalf"] = [
+				0.00,
+				0.05,
+				0.10,
+				0.15,
+				0.20,
+				0.25,
+				0.30,
+				0.35,
+				0.40,
+				0.45,
+				0.50,
+				0.55,
+				0.60,
+				0.65,
+				0.70,
+				0.75,
+				0.80,
+				0.85,
+				0.90,
+				0.95,
+				1.00
+			]
   else:
-    config["RooWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v16_5.root"
-    config["TauTauTriggerWeightWorkspace"] = "$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/scaleFactorWeights/htt_scalefactors_v16_5.root"
-    config["TauTauTriggerWeightWorkspaceWeightNames"] = [
-        "0:triggerWeight",
-        "1:triggerWeight"
-    ]
-    config["TauTauTriggerWeightWorkspaceObjectNames"] = [
-        "0:t_genuine_MediumIso_tt_ratio,t_fake_MediumIso_tt_ratio",
-        "1:t_genuine_MediumIso_tt_ratio,t_fake_MediumIso_tt_ratio"
-    ]
-    config["TauTauTriggerWeightWorkspaceObjectArguments"] = [
-        "0:t_pt,t_dm",
-        "1:t_pt,t_dm"
-    ]
-  config["FakeFaktorFiles"] = [
-      "inclusive:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/fakeFactorWeights/medium/tt/inclusive/fakeFactors_20170628_medium.root",
-      "nobtag:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/fakeFactorWeights/medium/tt/nobtag/fakeFactors_20170628_medium.root",
-      "btag:$CMSSW_BASE/src/HiggsAnalysis/KITHiggsToTauTau/data/root/fakeFactorWeights/medium/tt/btag/fakeFactors_20170628_medium.root"
-  ]
+			config["TauSpinnerMixingAnglesOverPiHalf"] = []
 
-  config["TauTauRestFrameReco"] = "collinear_approximation"
-  if isEmbedded:
-    config["TauTriggerFilterNames"] = [
-            "HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg_v:hltDoubleL2IsoTau26eta2p2",
-            "HLT_DoubleTightChargedIsoPFTauHPS35_Trk1_TightID_eta2p1_Reg_v:hltDoubleL2IsoTau26eta2p2",
-            "HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_v:hltDoubleL2IsoTau26eta2p2",
-            "HLT_DoubleMediumChargedIsoPFTauHPS40_Trk1_TightID_eta2p1_Reg_v:hltDoubleL2IsoTau26eta2p2",
-            "HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg_v:hltDoubleL2IsoTau26eta2p2",
-            "HLT_DoubleTightChargedIsoPFTauHPS40_Trk1_eta2p1_Reg_v:hltDoubleL2IsoTau26eta2p2"
-      ]
+  if re.search("SM_(WH_ZH_TTH_|VBF|GluGlu|GluGluTo)HToTauTau", nickname):
+			config["TauSpinnerMixingAnglesOverPiHalfSample"] = 0.0
+  elif re.search("^(W(minus|plus)|Z|VBF|GluGlu|GluGluTo)HToTauTau", nickname):
+			config["TauSpinnerMixingAnglesOverPiHalfSample"] = 0.0
+  elif re.search("SUSY(BB|GluGlu|GluGluTo)HToTauTau", nickname):
+			config["TauSpinnerMixingAnglesOverPiHalfSample"] = 1.0
   else:
-    config["TauTriggerFilterNames"] = [
-            "HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg_v:hltDoublePFTau35TrackPt1TightChargedIsolationAndTightOOSCPhotonsDz02Reg",
-            "HLT_DoubleTightChargedIsoPFTauHPS35_Trk1_TightID_eta2p1_Reg_v:hltHpsDoublePFTau35TrackPt1TightChargedIsolationAndTightOOSCPhotonsDz02Reg",
-            "HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_v:hltDoublePFTau40TrackPt1MediumChargedIsolationAndTightOOSCPhotonsDz02Reg",
-            "HLT_DoubleMediumChargedIsoPFTauHPS40_Trk1_TightID_eta2p1_Reg_v:hltHpsDoublePFTau40TrackPt1MediumChargedIsolationAndTightOOSCPhotonsDz02Reg",
-            "HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg_v:hltDoublePFTau40TrackPt1TightChargedIsolationDz02Reg",
-            "HLT_DoubleTightChargedIsoPFTauHPS40_Trk1_eta2p1_Reg_v:hltHpsDoublePFTau40TrackPt1TightChargedIsolationDz02Reg"
-  ]
-  config["TauTriggerCheckL1Match"] = [
-          "HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg_v",
-          "HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_v",
-          "HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg_v"
-    ]
+			config["TauSpinnerMixingAnglesOverPiHalfSample"] = -1.0
 
-  config["InvalidateNonMatchingElectrons"] = False
-  config["InvalidateNonMatchingMuons"] = False
-  config["InvalidateNonMatchingTaus"] = False
-  config["InvalidateNonMatchingJets"] = False
-  config["DirectIso"] = True
-
-  config["Quantities"] = importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.Includes.syncQuantities").build_list(minimal_setup=minimal_setup)
-  config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Includes.weightQuantities").build_list())
-  config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.Includes.lheWeights").build_list())
-  config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.Includes.zptQuantities").build_list())
-  #config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.Includes.fakeFactorWeightQuantities_tt").build_list())
   config["Quantities"].extend([
-      "had_gen_match_pT_1",
-      "had_gen_match_pT_2",
-      "flagMETFilter",
-      "pt_ttjj"
-  ])
-  if isEmbedded:
-    config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018.Includes.embeddedDecayModeWeightQuantities").build_list())
-    config["Quantities"].extend([
-          "muonEffTrgWeight", "muonEffIDWeight_1","muonEffIDWeight_2", "crossTriggerEmbeddedWeight_1", "crossTriggerEmbeddedWeight_2"
-          ])
-  if re.search("HToTauTauM125", nickname):
-    config["Quantities"].extend([
-      "htxs_stage0cat",
-      "htxs_stage1p1cat",
-      "htxs_stage1p1finecat",
-    ])
-  if isGluonFusion:
-    config["Quantities"].extend(importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2Analysis.Includes.ggHNNLOQuantities").build_list())
-
-  config["OSChargeLeptons"] = True
-  config["TopPtReweightingStrategy"] = "Run1"
-
-  config["Processors"] = []
-  #if not (isEmbedded):           config["Processors"].append( "producer:ElectronCorrectionsProducer")
-  config["Processors"].extend((                               "producer:HttValidLooseElectronsProducer",
-                                                              "producer:HttValidLooseMuonsProducer",
-                                                              "producer:HltProducer",
-                                                              "producer:MetSelector"))
-  if not (isData): config["Processors"].append( "producer:TauCorrectionsProducer")
-  if not isData:                 config["Processors"].append( "producer:HttValidGenTausProducer")
-  config["Processors"].extend((                               "producer:ValidTausProducer",
-                                                              "filter:ValidTausFilter",
-                                                              "producer:TauTriggerMatchingProducer",
-                                                              "filter:MinTausCountFilter",
-                                                              "producer:ValidElectronsProducer",
-                                                              "producer:ValidMuonsProducer",
-                                                              #"producer:ValidTTPairCandidatesProducer",
-                                                              "producer:NewValidTTPairCandidatesProducer",
-                                                              "filter:ValidDiTauPairCandidatesFilter",
-                                                              "producer:Run2DecayChannelProducer"))
-  if not (isData or isEmbedded): config["Processors"].append( "producer:TaggedJetCorrectionsProducer")
-  config["Processors"].extend((                               "producer:ValidTaggedJetsProducer",
-                                                              "producer:ValidBTaggedJetsProducer"))
-
-  if btag_eff: config["ProcessorsBtagEff"] = copy.deepcopy(config["Processors"])
-
-  if not (isData or isEmbedded):  config["Processors"].append("producer:MetCorrector")
-  config["Processors"].extend((                               "producer:SimpleEleTauFakeRateWeightProducer",
-                                                              "producer:SimpleMuTauFakeRateWeightProducer"))
-  #                                                            "producer:TauTauTriggerWeightProducer"))
-  if isTTbar:                    config["Processors"].append( "producer:TopPtReweightingProducer")
-  if isDY or isEmbedded:        config["Processors"].append( "producer:ZPtReweightProducer")
-  config["Processors"].extend((                               "producer:TauTauRestFrameSelector",
-                                                              "producer:DiLeptonQuantitiesProducer",
-                                                              "producer:DiJetQuantitiesProducer",
-                                                              "#filter:MinimalPlotlevelFilter"))
-  if isEmbedded:                 config["Processors"].append( "producer:EmbeddedWeightProducer")
-  if isEmbedded:                 config["Processors"].append( "producer:TauDecayModeWeightProducer")
-  if not isData:                 config["Processors"].append( "producer:TauTrigger2017EfficiencyProducer")
-  config["Processors"].append(                                "producer:EventWeightProducer")
-  if isGluonFusion:              config["Processors"].append( "producer:SMggHNNLOProducer")
-  config["Processors"].append(                                "producer:SvfitProducer")
-
-  config["AddGenMatchedTaus"] = True
-  config["AddGenMatchedTauJets"] = True
-  config["BranchGenMatchedTaus"] = True
+		"EventTauPnPi0s",
+		"EventTauNnPi0s",
+		"EventTauPnProngs",
+		"EventTauNnProngs",
+		"EventTauPE",
+		"EventTauNE",
+		"EventTauPvisE",
+		"EventTauNvisE",
+		"genbosonmass",
+		"CosThetaN",
+		"CosThetaP",
+		"Omega",
+		"genBoson1Daughter1GranddaughterPtCMZ",
+		"genBoson1Daughter1GranddaughterPzCMZ",
+		"genBoson1Daughter1GranddaughterEtaCMZ",
+		"genBoson1Daughter1GranddaughterPhiCMZ",
+		"genBoson1Daughter2GranddaughterPtCMZ",
+		"genBoson1Daughter2GranddaughterPzCMZ",
+		"genBoson1Daughter2GranddaughterEtaCMZ",
+		"genBoson1Daughter2GranddaughterPhiCMZ",
+		"genBoson1Daughter3GranddaughterPtCMZ",
+		"genBoson1Daughter3GranddaughterPzCMZ",
+		"genBoson1Daughter3GranddaughterEtaCMZ",
+		"genBoson1Daughter3GranddaughterPhiCMZ",
+		"genBoson1Daughter4GranddaughterPtCMZ",
+		"genBoson1Daughter4GranddaughterPzCMZ",
+		"genBoson1Daughter4GranddaughterEtaCMZ",
+		"genBoson1Daughter4GranddaughterPhiCMZ",
+		"genBoson2Daughter1GranddaughterPtCMZ",
+		"genBoson2Daughter1GranddaughterPzCMZ",
+		"genBoson2Daughter1GranddaughterEtaCMZ",
+		"genBoson2Daughter1GranddaughterPhiCMZ",
+		"genBoson2Daughter2GranddaughterPtCMZ",
+		"genBoson2Daughter2GranddaughterPzCMZ",
+		"genBoson2Daughter2GranddaughterEtaCMZ",
+		"genBoson2Daughter2GranddaughterPhiCMZ",
+		"genBoson2Daughter3GranddaughterPtCMZ",
+		"genBoson2Daughter3GranddaughterPzCMZ",
+		"genBoson2Daughter3GranddaughterEtaCMZ",
+		"genBoson2Daughter3GranddaughterPhiCMZ",
+		"genBoson2Daughter4GranddaughterPtCMZ",
+		"genBoson2Daughter4GranddaughterPzCMZ",
+		"genBoson2Daughter4GranddaughterEtaCMZ",
+		"genBoson2Daughter4GranddaughterPhiCMZ",              
+		"genBoson1DaughterPt",
+		"genBoson1DaughterPz",
+		"genBoson1DaughterEta",
+		"genBoson1DaughterPhi",
+		"genBoson1DaughterMass",
+		"genBoson1DaughterCharge",
+		"genBoson1DaughterEnergy",
+		"genBoson1DaughterPdgId",
+		"genBoson1DaughterStatus",
+		"genBoson2DaughterPt",
+		"genBoson2DaughterPz",
+		"genBoson2DaughterEta",
+		"genBoson2DaughterPhi",
+		"genBoson2DaughterMass",
+		"genBoson2DaughterEnergy",
+		"genBoson2DaughterPdgId",
+		"genBoson2DaughterStatus",
+		"genBoson1DaughterGranddaughterSize",
+		"genBoson1Daughter1GranddaughterPt",
+		"genBoson1Daughter1GranddaughterPz",
+		"genBoson1Daughter1GranddaughterEta",
+		"genBoson1Daughter1GranddaughterPhi",
+		"genBoson1Daughter1GranddaughterMass",
+		"genBoson1Daughter1GranddaughterEnergy",
+		"genBoson1Daughter1GranddaughterPdgId",
+		"genBoson1Daughter1GranddaughterStatus",
+		"genBoson1Daughter2GranddaughterPt",
+		"genBoson1Daughter2GranddaughterPz",
+		"genBoson1Daughter2GranddaughterEta",
+		"genBoson1Daughter2GranddaughterPhi",
+		"genBoson1Daughter2GranddaughterMass",
+		"genBoson1Daughter2GranddaughterEnergy",
+		"genBoson1Daughter2GranddaughterPdgId",
+		"genBoson1Daughter2GranddaughterStatus",
+		"genBoson1Daughter3GranddaughterPt",
+		"genBoson1Daughter3GranddaughterPz",
+		"genBoson1Daughter3GranddaughterEta",
+		"genBoson1Daughter3GranddaughterPhi",
+		"genBoson1Daughter3GranddaughterMass",
+		"genBoson1Daughter3GranddaughterEnergy",
+		"genBoson1Daughter3GranddaughterPdgId",
+		"genBoson1Daughter3GranddaughterStatus",
+		"genBoson1Daughter4GranddaughterPt",
+		"genBoson1Daughter4GranddaughterPz",
+		"genBoson1Daughter4GranddaughterEta",
+		"genBoson1Daughter4GranddaughterPhi",
+		"genBoson1Daughter4GranddaughterMass",
+		"genBoson1Daughter4GranddaughterEnergy",
+		"genBoson1Daughter4GranddaughterPdgId",
+		"genBoson1Daughter4GranddaughterStatus",
+		"genBoson2DaughterGranddaughterSize",
+		"genBoson2Daughter1GranddaughterPt",
+		"genBoson2Daughter1GranddaughterPz",
+		"genBoson2Daughter1GranddaughterEta",
+		"genBoson2Daughter1GranddaughterPhi",
+		"genBoson2Daughter1GranddaughterMass",
+		"genBoson2Daughter1GranddaughterEnergy",
+		"genBoson2Daughter1GranddaughterPdgId",
+		"genBoson2Daughter1GranddaughterStatus",
+		"genBoson2Daughter2GranddaughterPt",
+		"genBoson2Daughter2GranddaughterPz",
+		"genBoson2Daughter2GranddaughterEta",
+		"genBoson2Daughter2GranddaughterPhi",
+		"genBoson2Daughter2GranddaughterMass",
+		"genBoson2Daughter2GranddaughterEnergy",
+		"genBoson2Daughter2GranddaughterPdgId",
+		"genBoson2Daughter2GranddaughterStatus",
+		"genBoson2Daughter3GranddaughterPt",
+		"genBoson2Daughter3GranddaughterPz",
+		"genBoson2Daughter3GranddaughterEta",
+		"genBoson2Daughter3GranddaughterPhi",
+		"genBoson2Daughter3GranddaughterMass",
+		"genBoson2Daughter3GranddaughterEnergy",
+		"genBoson2Daughter3GranddaughterPdgId",
+		"genBoson2Daughter3GranddaughterStatus",
+		"genBoson2Daughter4GranddaughterPt",
+		"genBoson2Daughter4GranddaughterPz",
+		"genBoson2Daughter4GranddaughterEta",
+		"genBoson2Daughter4GranddaughterPhi",
+		"genBoson2Daughter4GranddaughterMass",
+		"genBoson2Daughter4GranddaughterEnergy",
+		"genBoson2Daughter4GranddaughterPdgId",
+		"genBoson2Daughter4GranddaughterStatus",
+		"genBoson1Daughter2GranddaughterGrandGranddaughterSize",
+		"genBoson1Daughter2Granddaughter1GrandGranddaughterPdgId",
+		"genBoson1Daughter2Granddaughter1GrandGranddaughterStatus",
+		"genBoson1Daughter2Granddaughter2GrandGranddaughterPdgId",
+		"genBoson1Daughter2Granddaughter2GrandGranddaughterStatus",
+		"genBoson1Daughter2Granddaughter3GrandGranddaughterPdgId",
+		"genBoson1Daughter2Granddaughter3GrandGranddaughterStatus",
+		"genBoson1Daughter2Granddaughter4GrandGranddaughterPdgId",
+		"genBoson1Daughter2Granddaughter4GrandGranddaughterStatus",
+		"genBoson1Daughter2Granddaughter5GrandGranddaughterPdgId",
+		"genBoson1Daughter2Granddaughter5GrandGranddaughterStatus",
+		"genBoson1Daughter2Granddaughter6GrandGranddaughterPdgId",
+		"genBoson1Daughter2Granddaughter6GrandGranddaughterStatus",
+		"genBoson2Daughter2GranddaughterGrandGranddaughterSize",
+		"genBoson1DaughterEnergyCMZ",
+		"genBoson2DaughterEnergyCMZ",
+		"genBoson1Daughter1GranddaughterEnergyCMT",
+		"genBoson1Daughter2GranddaughterEnergyCMT",
+		"genBoson1Daughter3GranddaughterEnergyCMT",
+		"genBoson1Daughter4GranddaughterEnergyCMT",
+		"genBoson2Daughter1GranddaughterEnergyCMT",
+		"genBoson2Daughter2GranddaughterEnergyCMT",
+		"genBoson2Daughter3GranddaughterEnergyCMT",
+		"genBoson2Daughter4GranddaughterEnergyCMT",
+		"genBoson1Daughter1GranddaughterEnergyCMZ",
+		"genBoson1Daughter2GranddaughterEnergyCMZ",
+		"genBoson1Daughter3GranddaughterEnergyCMZ",
+		"genBoson1Daughter4GranddaughterEnergyCMZ",
+		"genBoson2Daughter1GranddaughterEnergyCMZ",
+		"genBoson2Daughter2GranddaughterEnergyCMZ",
+		"genBoson2Daughter3GranddaughterEnergyCMZ",
+		"genBoson2Daughter4GranddaughterEnergyCMZ",
+		"genBoson1Daughter1GranddaughterCosCMT",
+		"genBoson1Daughter2GranddaughterCosCMT",
+		"genBoson1Daughter3GranddaughterCosCMT",
+		"genBoson1Daughter4GranddaughterCosCMT",
+		"genBoson2Daughter1GranddaughterCosCMT",
+		"genBoson2Daughter2GranddaughterCosCMT",
+	 	"genBoson2Daughter3GranddaughterCosCMT",
+    	"genBoson2Daughter4GranddaughterCosCMT",
+		"generatorWeight",
+		"genPVx",
+		"genPVy",
+		"genPVz",
+		"genPhiStarCP",
+		"genPhiStarCP_rho",
+		"gen_posyTauL",
+		"gen_negyTauL",
+		"gen_yTau",
+		"genPhiCP",
+		"genPhiCPLab",
+		"genPhiCP_rho",
+		"genPhiStar",
+		"genOStarCP",
+		"genPhiStar_rho",
+		"genPhi",
+		"genOCP",
+		"genPhi_rho",
+		"TauMProngEnergy",
+		"TauPProngEnergy",
+		"Tau1OneProngsSize",
+		"Tau2OneProngsSize",
+		"Tau1DecayMode",
+		"Tau2DecayMode",
+		"genIP1x",
+		"genIP1y",
+		"genIP1z",
+		"genIP2x",
+		"genIP2y",
+		"genIP2z",
+		"genCosPsiPlus",
+		"genCosPsiMinus",
+		"OneProngChargedPart1PdgId",
+		"OneProngChargedPart1Pt",
+		"OneProngChargedPart1Pz",
+		"OneProngChargedPart1Eta",
+		"OneProngChargedPart1Phi",
+		"OneProngChargedPart1Mass",
+		"OneProngChargedPart1Energy",
+		"OneProngChargedPart2PdgId",
+		"OneProngChargedPart2Pt",
+		"OneProngChargedPart2Pz",
+		"OneProngChargedPart2Eta",
+		"OneProngChargedPart2Phi",
+		"OneProngChargedPart2Mass",
+		"OneProngChargedPart2Energy",
+		"genZPlus",
+		"genZMinus",
+		"genZs",
+		"genPVx",
+		"genPVy",
+		"genPVz",
+		"genPhiStarCP",
+		"genPhiStarCP_rho",
+		"gen_posyTauL",
+		"gen_negyTauL",
+		"gen_yTau",
+		"genPhiCP",
+		"genPhiCPLab",
+		"genPhiCP_rho",
+		"genPhiStar",
+		"genOStarCP",
+		"genPhiStar_rho",
+		"genPhi",
+		"genOCP",
+		"genPhi_rho",
+		"TauMProngEnergy",
+		"TauPProngEnergy",
+		"Tau1OneProngsSize",
+		"Tau2OneProngsSize",
+		"Tau1DecayMode",
+		"Tau2DecayMode",
+		"genIP1x",
+		"genIP1y",
+		"genIP1z",
+		"genIP2x",
+		"genIP2y",
+		"genIP2z",
+		"genCosPsiPlus",
+		"genCosPsiMinus",
+		"OneProngChargedPart1PdgId",
+		"OneProngChargedPart1Pt",
+		"OneProngChargedPart1Pz",
+		"OneProngChargedPart1Eta",
+		"OneProngChargedPart1Phi",
+		"OneProngChargedPart1Mass",
+		"OneProngChargedPart1Energy",
+		"OneProngChargedPart2PdgId",
+		"OneProngChargedPart2Pt",
+		"OneProngChargedPart2Pz",
+		"OneProngChargedPart2Eta",
+		"OneProngChargedPart2Phi",
+		"OneProngChargedPart2Mass",
+		"OneProngChargedPart2Energy",
+		"genZPlus",
+		"genZMinus",
+		"genZs",
+		"tauSpinnerPolarisation",
+		"tauSpinnerWeightSample",
+		"tauSpinnerWeightInvSample",
+		"tauSpinnerWeight",
+		"genBoson1DaughternPi0",
+		"genBoson2DaughternPi0",
+		"genBoson1DaughternProngs",
+		"genBoson2DaughternProngs"
+	])
   config["Consumers"] = ["KappaLambdaNtupleConsumer",
                          "cutflow_histogram"]
-
-  # Subanalyses settings
-  if btag_eff:
-     config["Processors"] = copy.deepcopy(config["ProcessorsBtagEff"])
-
-     btag_eff_unwanted = ["KappaLambdaNtupleConsumer", "CutFlowTreeConsumer", "KappaElectronsConsumer", "KappaTausConsumer", "KappaTaggedJetsConsumer", "RunTimeConsumer", "PrintEventsConsumer"]
-     for unwanted in btag_eff_unwanted:
-      if unwanted in config["Consumers"]: config["Consumers"].remove(unwanted)
-
-     config["Consumers"].append("BTagEffConsumer")
-
+  config["Processors"]=["producer:GenBosonFromGenParticlesProducer",
+                "producer:GenBosonDiLeptonDecayModeProducer",
+                "producer:ValidGenTausProducer",
+                "producer:GenDiLeptonDecayModeProducer",
+                "producer:GenParticleProducer",
+                # "producer:RecoElectronGenParticleMatchingProducer",
+                # "producer:RecoElectronGenTauMatchingProducer",
+                # "producer:RecoMuonGenParticleMatchingProducer",
+                # "producer:RecoMuonGenTauMatchingProducer",
+                # "producer:RecoTauGenParticleMatchingProducer",
+                # "producer:RecoTauGenTauMatchingProducer",
+				"producer:TauSpinnerProducer",
+                "producer:MatchedLeptonsProducer",
+                "producer:GenTauDecayProducer",
+				"producer:MyQuantitiesProducer",
+                "producer:GenTauCPProducer"
+	#   "producer:GenParticleProducer",
+												# "producer:GenTauDecayProducer",
+												# "producer:GenBosonFromGenParticlesProducer",
+												# "producer:GenBosonDiLeptonDecayModeProducer",
+												#"producer:GenBosonProductionProducer",
+												# "producer:GenTauCPProducer"
+												#"producer:GenMatchedTauCPProducer"
+												]
+  
   # pipelines - systematic shifts
-  if pipelines is None:
-      raise Exception("pipelines is None in %s" % (__file__))
-
-  return_conf = jsonTools.JsonDict()
-  for pipeline in pipelines:
-      log.info('Add pipeline: %s' %(pipeline))
-      return_conf += ACU.apply_uncertainty_shift_configs('tt', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2018." + pipeline).build_config(nickname, **kwargs))
-  return return_conf
+  return ACU.apply_uncertainty_shift_configs('tt', config, importlib.import_module("HiggsAnalysis.KITHiggsToTauTau.data.ArtusConfigs.Run2MSSM2017.nominal").build_config(nickname)) 
+        
